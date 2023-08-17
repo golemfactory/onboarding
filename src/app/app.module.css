@@ -1,0 +1,7 @@
+.main {
+  @apply px-4 min-h-screen sm:px-0 space-y-16 w-full bg-gray-900;
+}
+
+.header {
+  @apply pt-16 z-10 relative max-w-screen-lg xl:max-w-screen-xl mx-auto;
+}
