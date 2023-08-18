@@ -1,7 +1,11 @@
 {
   "cSpell.words": [
+    "commitlint",
     "cond",
     "linebreak",
-    "plusplus"
+    "plusplus",
+    "tailwindcss",
+    "vite",
+    "xstate"
   ]
 }
