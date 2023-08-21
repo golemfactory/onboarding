@@ -2,33 +2,31 @@
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { MouseEventHandler } from 'react'
-import { useMetaMask } from 'hooks/useMetamask'
 
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const ChooseNetworkPresentational = ({
+const NoProviderPresentational = ({
   onConfirm,
 }: {
   onConfirm: MouseEventHandler
 }) => {
-  const { wallet } = useMetaMask()
-
-  console.log('wallet', wallet)
   return (
     <div className="text-center">
       <motion.h1
         className="text-4xl font-bold mb-4 text-gray-800"
         variants={variants}
+        exit="hidden"
       >
-        Metamask plugin found
+        Metamask plugin not found
       </motion.h1>
       <motion.p
         className="max-w-md text-gray-600 my-4 text-lg"
         variants={variants}
+        exit="hidden"
       >
-        Now choose network
+        Please install Metamask to continue.
       </motion.p>
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
@@ -36,6 +34,7 @@ const ChooseNetworkPresentational = ({
         onClick={(e) => {
           onConfirm(e)
         }}
+        exit="hidden"
       >
         Go
       </motion.button>
@@ -43,14 +42,10 @@ const ChooseNetworkPresentational = ({
   )
 }
 
-export const ChooseNetwork = ({
-  onConfirm,
-}: {
-  onConfirm: MouseEventHandler
-}) => {
+export const NoProvider = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
   return (
     <OnboardingStep>
-      <ChooseNetworkPresentational onConfirm={onConfirm} />
+      <NoProviderPresentational onConfirm={onConfirm} />
     </OnboardingStep>
   )
 }

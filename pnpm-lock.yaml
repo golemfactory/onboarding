@@ -8,6 +8,9 @@ dependencies:
   '@heroicons/react':
     specifier: 2.0.13
     version: 2.0.13(react@18.2.0)
+  '@metamask/detect-provider':
+    specifier: ^2.0.0
+    version: 2.0.0
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
@@ -2481,6 +2484,11 @@ packages:
       '@types/react': 18.0.26
       react: 18.2.0
     dev: true
+
+  /@metamask/detect-provider@2.0.0:
+    resolution: {integrity: sha512-sFpN+TX13E9fdBDh9lvQeZdJn4qYoRb/6QF2oZZK/Pn559IhCFacPMU1rMuqyXoFQF3JSJfii2l98B87QDPeCQ==}
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   /@ndelangen/get-tarball@3.0.9:
     resolution: {integrity: sha512-9JKTEik4vq+yGosHYhZ1tiH/3WpUS0Nh0kej4Agndhox8pAdWhEx5knFVRcb/ya9knCRCs1rPxNrSXTDdfVqpA==}

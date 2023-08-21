@@ -4,14 +4,11 @@
 
 import { useContext } from 'react'
 import { useActor } from '@xstate/react'
-import { OnboardingContext } from 'app/app'
 import { mapStateToComponent } from 'state/mapStateToComponent'
 import { Commands } from 'state/commands'
-
+import { OnboardingContext } from 'components/providers'
 export const OnboardingContainer = () => {
   const { service } = useContext(OnboardingContext)
-
-  //@ts-ignore
 
   const [state, send] = useActor(service)
 

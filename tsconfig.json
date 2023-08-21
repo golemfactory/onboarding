@@ -21,8 +21,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
+      "utils/*": [
+        "src/utils/*"
+      ],
       "state/*": [
-        "src/state/*"
+        "src/state/*",
       ],
       "app/*": [
         "src/app/*"

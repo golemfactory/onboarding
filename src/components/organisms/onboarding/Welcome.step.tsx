@@ -1,7 +1,7 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
-import { FC, MouseEventHandler } from 'react'
+import { MouseEventHandler } from 'react'
 
 const variants = {
   show: { opacity: 1 },

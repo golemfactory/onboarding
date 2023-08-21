@@ -29,7 +29,9 @@ const ConnectWalletPresentational = ({
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
         variants={variants}
-        onClick={onConfirm}
+        onClick={(e) => {
+          onConfirm(e)
+        }}
       >
         Connect wallet
       </motion.button>
@@ -37,10 +39,14 @@ const ConnectWalletPresentational = ({
   )
 }
 
-export const ConnectWallet: FC = () => {
+export const ConnectWallet = ({
+  onConfirm,
+}: {
+  onConfirm: MouseEventHandler
+}) => {
   return (
     <OnboardingStep>
-      <ConnectWalletPresentational onConfirm={() => {}} />
+      <ConnectWalletPresentational onConfirm={onConfirm} />
     </OnboardingStep>
   )
 }
