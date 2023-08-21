@@ -11,6 +11,9 @@ dependencies:
   '@metamask/detect-provider':
     specifier: ^2.0.0
     version: 2.0.0
+  '@ramp-network/ramp-instant-sdk':
+    specifier: ^4.0.4
+    version: 4.0.4
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
@@ -3086,6 +3089,13 @@ packages:
       '@babel/runtime': 7.22.10
     dev: true
 
+  /@ramp-network/ramp-instant-sdk@4.0.4:
+    resolution: {integrity: sha512-Kkn+xwc4EbD2YqXOOQChZCqRT8/DM8sh9Qnz1nI2+/ACdo3INc42FMubgw5aZlyBzuF32XL/xdZyWBGPF4vECg==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      body-scroll-lock: 3.1.5
+    dev: false
+
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
@@ -5666,6 +5676,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /body-scroll-lock@3.1.5:
+    resolution: {integrity: sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==}
+    dev: false
 
   /bplist-parser@0.2.0:
     resolution: {integrity: sha512-z0M+byMThzQmD9NILRniCUXYsYpjwnlO8N5uCFaCqIOpqRsJCrQL9NK3JsD67CN5a08nF5oIL2bD6loTdHOuKw==}

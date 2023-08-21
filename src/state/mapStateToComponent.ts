@@ -4,6 +4,7 @@ import {
   ConnectWallet,
   NoProvider,
   ChooseNetwork,
+  OnRamp,
 } from 'components/organisms/onboarding'
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
@@ -16,6 +17,8 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return NoProvider
     case Steps.CONNECT_WALLET_SUCCESS:
       return ChooseNetwork
+    case Steps.ON_RAMP:
+      return OnRamp
     default:
       return Welcome
   }

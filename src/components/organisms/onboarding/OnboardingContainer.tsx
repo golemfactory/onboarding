@@ -13,6 +13,6 @@ export const OnboardingContainer = () => {
   const [state, send] = useActor(service)
 
   const StepToRender = mapStateToComponent(state.value)
-
+  console.log(state.value, 'eeee')
   return <StepToRender onConfirm={() => send(Commands.NEXT)} />
 }

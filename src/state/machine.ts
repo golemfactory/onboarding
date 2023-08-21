@@ -8,8 +8,10 @@ export const onboardingMachine = createMachine<
   { type: Commands.NEXT } | { type: Commands.PREVIOUS }
 >({
   id: 'onboarding',
-  initial: Steps.WELCOME,
+  initial: Steps.ON_RAMP,
   states: {
+    [Steps.ON_RAMP]: {},
+
     [Steps.WELCOME]: {
       on: {
         [Commands.NEXT]: Steps.CONNECT_WALLET,
