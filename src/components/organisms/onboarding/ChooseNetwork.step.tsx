@@ -1,8 +1,9 @@
-// components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
-import { MouseEventHandler } from 'react'
+import { MouseEventHandler, ChangeEventHandler, ChangeEvent } from 'react'
 import { useMetaMask } from 'hooks/useMetamask'
+import { networks } from 'ethereum/networks'
+import { changeNetwork } from 'utils/changeNetwork'
 
 const variants = {
   show: { opacity: 1 },
@@ -10,12 +11,13 @@ const variants = {
 }
 const ChooseNetworkPresentational = ({
   onConfirm,
+  onNetworkSelection,
 }: {
   onConfirm: MouseEventHandler
+  onNetworkSelection: ChangeEventHandler<HTMLSelectElement>
 }) => {
   const { wallet } = useMetaMask()
 
-  console.log('wallet', wallet)
   return (
     <div className="text-center">
       <motion.h1
@@ -30,12 +32,20 @@ const ChooseNetworkPresentational = ({
       >
         Now choose network
       </motion.p>
+
+      <motion.select onChange={onNetworkSelection}>
+        {Object.keys(networks).map((network) => {
+          return (
+            <option key={network} value={network}>
+              {network}
+            </option>
+          )
+        })}
+      </motion.select>
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
         variants={variants}
-        onClick={(e) => {
-          onConfirm(e)
-        }}
+        onClick={onConfirm}
       >
         Go
       </motion.button>
@@ -48,9 +58,21 @@ export const ChooseNetwork = ({
 }: {
   onConfirm: MouseEventHandler
 }) => {
+  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
+    const network = e.target.value
+
+    if (!(network === 'MUMBAI' || network === 'POLYGON')) {
+      throw new Error('Network not found')
+    }
+    changeNetwork(network)
+  }
+
   return (
     <OnboardingStep>
-      <ChooseNetworkPresentational onConfirm={onConfirm} />
+      <ChooseNetworkPresentational
+        onConfirm={onConfirm}
+        onNetworkSelection={onNetworkSelection}
+      />
     </OnboardingStep>
   )
 }

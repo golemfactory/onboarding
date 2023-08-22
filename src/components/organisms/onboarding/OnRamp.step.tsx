@@ -14,12 +14,15 @@ const OnRampPresentational = ({
   onConfirm: MouseEventHandler
 }) => {
   useEffect(() => {
-    new RampInstantSDK({
+    const widget = new RampInstantSDK({
       hostAppName: 'Your App',
       hostLogoUrl: 'https://assets.ramp.network/misc/test-logo.png',
       hostApiKey: '9the9ervmr72ezz6fwaxus72y3h2w5p47j9u8m9o',
       url: 'https://app.demo.ramp.network',
-    }).show()
+    })
+    widget.show()
+    // @ts-ignore
+    window.widget = widget
   }, [])
   return (
     <div className="text-center">

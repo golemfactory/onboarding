@@ -36,6 +36,12 @@
       "hooks/*": [
         "src/hooks/*"
       ],
+      "ethereum/*": [
+        "src/ethereum/*"
+      ],
+      "types/*": [
+        "src/types/*"
+      ],
     }
   },
   "include": [

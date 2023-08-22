@@ -1,3 +1,3 @@
-export const MetaMaskContext = createContext<MetaMaskContextData>(
-  {} as MetaMaskContextData
-)
+// export const MetaMaskContext = createContext<MetaMaskContextData>(
+//   {} as MetaMaskContextData
+// )

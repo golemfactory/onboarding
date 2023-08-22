@@ -14,6 +14,8 @@ export default defineConfig((configEnv) => {
         hooks: resolve(__dirname, 'src', 'hooks'),
         state: resolve(__dirname, 'src', 'state'),
         utils: resolve(__dirname, 'src', 'utils'),
+        ethereum: resolve(__dirname, 'src', 'ethereum'),
+        types: resolve(__dirname, 'src', 'types'),
       },
     },
     css: {

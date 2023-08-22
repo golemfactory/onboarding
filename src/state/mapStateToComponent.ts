@@ -15,7 +15,7 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return ConnectWallet
     case Steps.SHOW_METAMASK_LINK:
       return NoProvider
-    case Steps.CONNECT_WALLET_SUCCESS:
+    case Steps.CHOOSE_NETWORK:
       return ChooseNetwork
     case Steps.ON_RAMP:
       return OnRamp
