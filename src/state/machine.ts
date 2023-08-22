@@ -8,7 +8,7 @@ export const onboardingMachine = createMachine<
   { type: Commands.NEXT } | { type: Commands.PREVIOUS }
 >({
   id: 'onboarding',
-  initial: Steps.CHOOSE_NETWORK,
+  initial: Steps.ON_RAMP,
   states: {
     [Steps.CHOOSE_NETWORK]: {},
     [Steps.ON_RAMP]: {},
