@@ -8,7 +8,7 @@ export const onboardingMachine = createMachine<
   { type: Commands.NEXT } | { type: Commands.PREVIOUS }
 >({
   id: 'onboarding',
-  initial: Steps.SHOW_METAMASK_LINK,
+  initial: Steps.WELCOME,
   states: {
     [Steps.CHOOSE_NETWORK]: {},
     [Steps.ON_RAMP]: {},
