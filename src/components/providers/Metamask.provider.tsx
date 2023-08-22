@@ -37,6 +37,10 @@ export const MetaMaskContext = createContext<MetaMaskContextData>(
 export const MetaMaskContextProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  if (!ethereum) {
+    console.log('no ethereum')
+    return <div>{children} </div>
+  }
   const [hasProvider, setHasProvider] = useState<boolean | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -45,7 +49,6 @@ export const MetaMaskContextProvider: FC<{ children: React.ReactNode }> = ({
   const [wallet, setWallet] = useState(disconnectedState)
 
   const _updateWallet = useCallback(async (providedAccounts?: unknown[]) => {
-    console.log('updateWallet')
     const accounts =
       providedAccounts || (await ethereum.request({ method: 'eth_accounts' }))
 
@@ -135,7 +138,11 @@ export const MetaMaskContextProvider: FC<{ children: React.ReactNode }> = ({
         isConnecting,
         connectMetaMask,
         clearError,
-        request: ethereum.request,
+        request: ethereum
+          ? ethereum.request
+          : async () => {
+              return Promise.reject('No provider')
+            },
       }}
     >
       {children}
