@@ -1,0 +1,3 @@
+[submodule "metamask-onboarding"]
+	path = metamask-onboarding
+	url = git@github.com:MetaMask/metamask-onboarding.git

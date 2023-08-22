@@ -17,9 +17,9 @@
     "dev": "pnpm run '/^dev:.*/'"
   },
   "dependencies": {
+    "@metamask/onboarding": "workspace:*",
     "@heroicons/react": "2.0.13",
     "@metamask/detect-provider": "^2.0.0",
-    "@metamask/onboarding": "^1.0.1",
     "@ramp-network/ramp-instant-sdk": "^4.0.4",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
