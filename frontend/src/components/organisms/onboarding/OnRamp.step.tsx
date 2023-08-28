@@ -19,6 +19,7 @@ const OnRampPresentational = ({
       hostLogoUrl: 'https://assets.ramp.network/misc/test-logo.png',
       hostApiKey: '9the9ervmr72ezz6fwaxus72y3h2w5p47j9u8m9o',
       url: 'https://app.demo.ramp.network',
+      swapAsset: 'MATIC_TEST',
     })
     widget.show()
     // @ts-ignore
@@ -48,6 +49,7 @@ const OnRampPresentational = ({
       <a
         href="https://app.ramp.network?hostApiKey=9the9ervmr72ezz6fwaxus72y3h2w5p47j9u8m9o&hostAppName=golem&hostLogoUrl=https://example.com/logo.png"
         target="_blank"
+        rel="noreferrer"
       >
         Go to Ramp
       </a>

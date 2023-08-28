@@ -1,11 +1,18 @@
 //TODO : improve types to avoid ts-ignore
 
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import detectEthereumProvider from '@metamask/detect-provider'
-import { createContext, FC } from 'react'
+import { createContext, FC, ReactNode } from 'react'
 import { formatBalance } from 'utils/formatBalance'
 
-const ethereum = window.ethereum
+const ethereum = window.ethereum || {
+  on: () => {
+    console.log('ethereum.on')
+  },
+  removeListener: () => {
+    console.log('ethereum.removeListener')
+  },
+}
 
 interface WalletState {
   accounts: unknown[]
@@ -34,13 +41,9 @@ export const MetaMaskContext = createContext<MetaMaskContextData>(
   {} as MetaMaskContextData
 )
 
-export const MetaMaskContextProvider: FC<{ children: React.ReactNode }> = ({
+export const MetaMaskContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  if (!ethereum) {
-    console.log('no ethereum')
-    return <div>{children} </div>
-  }
   const [hasProvider, setHasProvider] = useState<boolean | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -55,7 +58,6 @@ export const MetaMaskContextProvider: FC<{ children: React.ReactNode }> = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     if (accounts.length === 0) {
-      console.log('accounts.length === 0')
       setWallet(disconnectedState)
       return
     }
@@ -91,7 +93,6 @@ export const MetaMaskContextProvider: FC<{ children: React.ReactNode }> = ({
   )
 
   useEffect(() => {
-    console.log('useEffect')
     const getProvider = async () => {
       const provider = await detectEthereumProvider({ silent: true })
       setHasProvider(Boolean(provider))

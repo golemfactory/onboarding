@@ -48,17 +48,18 @@ export const NoProvider = () => {
   //keep reference to onboarding
   useEffect(() => {
     if (!onboarding.current) {
-      onboarding.current = new MetaMaskOnboarding()
+      console.log('creating onboarding')
+      onboarding.current = new MetaMaskOnboarding({
+        forwarderMode: 'INJECT',
+      })
     }
   }, [])
 
   //track accounts and if one is added stop onboarding
   useEffect(() => {
-    console.log('accounts', accounts)
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (accounts.length > 0) {
         if (onboarding.current) {
-          console.log('stop onboarding')
           onboarding.current.stopOnboarding()
         }
       }
@@ -67,16 +68,14 @@ export const NoProvider = () => {
 
   useEffect(() => {
     function handleNewAccounts(newAccounts: string[]) {
-      console.log('setting accounts', newAccounts)
       setAccounts(newAccounts)
     }
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       window.ethereum
         .request({ method: 'eth_requestAccounts' })
-        .then((accounts) => {
-          console.log('accountsss', accounts)
-          if (Array.isArray(accounts)) {
-            handleNewAccounts(accounts)
+        .then((eth_accounts) => {
+          if (Array.isArray(eth_accounts)) {
+            handleNewAccounts(eth_accounts)
           }
         })
       window.ethereum.on('accountsChanged', handleNewAccounts)

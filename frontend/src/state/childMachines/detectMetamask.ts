@@ -1,10 +1,5 @@
 import detectEthereumProvider from '@metamask/detect-provider'
 import { MetaMaskEthereumProvider } from 'src/types/ethereum'
-export const detectMetamask = async (context: any, event: any) => {
-  const provider =
-    (await detectEthereumProvider()) as MetaMaskEthereumProvider | null
-  return verifyMetamask(provider)
-}
 
 export const providerState = {
   NO_PROVIDER: 'no-provider',
@@ -20,4 +15,10 @@ export const verifyMetamask = (provider: MetaMaskEthereumProvider | null) => {
     return providerState.NOT_METAMASK
   }
   return providerState.METAMASK
+}
+
+export const detectMetamask = async () => {
+  const provider =
+    (await detectEthereumProvider()) as MetaMaskEthereumProvider | null
+  return verifyMetamask(provider)
 }

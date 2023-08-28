@@ -4,14 +4,19 @@ import { Steps } from './steps'
 import { Commands } from './commands'
 
 export const onboardingMachine = createMachine<
-  {},
+  object,
   { type: Commands.NEXT } | { type: Commands.PREVIOUS }
 >({
   id: 'onboarding',
-  initial: Steps.WELCOME,
+  initial: Steps.ON_RAMP,
   states: {
     [Steps.CHOOSE_NETWORK]: {},
-    [Steps.ON_RAMP]: {},
+    [Steps.ON_RAMP]: {
+      on: {
+        [Commands.NEXT]: Steps.WELCOME,
+        [Commands.PREVIOUS]: Steps.CHOOSE_NETWORK,
+      },
+    },
     [Steps.WELCOME]: {
       on: {
         [Commands.NEXT]: Steps.CONNECT_WALLET,
@@ -23,7 +28,7 @@ export const onboardingMachine = createMachine<
         [Commands.NEXT]: Steps.DETECT_METAMASK,
       },
     },
-
+    // [Steps.CHECK_ACCOUNT]: {},
     [Steps.DETECT_METAMASK]: {
       invoke: {
         id: 'detect-metamask',

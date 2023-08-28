@@ -4,7 +4,9 @@ import {
   MetaMaskContextProvider,
 } from 'components/providers'
 
-const App = (): JSX.Element => {
+import { FC } from 'react'
+
+const App: FC = () => {
   //For now we render only onboarding container
   //however in the future we will add more routes
   //that potentially will be depend on the onboarding state
