@@ -1,30 +1,21 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
-
+name: github pages stage deploy
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ['staging']
-
-  # Allows you to run this workflow manually from the Actions tab
+    # Only staging branch is deployed on github pages
+    branches: ["staging"]
+  #enable manual run
   workflow_dispatch:
-
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
-
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
-
-
 defaults:
-  run : 
-    working-directory: 'frontend'
-    
+  run:
+    working-directory: "frontend"
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -35,15 +26,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Sey up pnpm
+      # as pnpm is in use locally we need to rely on the same package manager on CI as lock files
+      # are manager specific
+      - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      - name: Set up Node
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'pnpm'
+          cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
       - name: Build
@@ -53,8 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload dist repository
-          path: './dist'
+          path: "./frontend/dist"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
