@@ -8,7 +8,7 @@ export const onboardingMachine = createMachine<
   { type: Commands.NEXT } | { type: Commands.PREVIOUS }
 >({
   id: 'onboarding',
-  initial: Steps.ON_RAMP,
+  initial: Steps.WELCOME,
   states: {
     [Steps.CHOOSE_NETWORK]: {},
     [Steps.ON_RAMP]: {
@@ -19,8 +19,8 @@ export const onboardingMachine = createMachine<
     },
     [Steps.WELCOME]: {
       on: {
-        [Commands.NEXT]: Steps.CONNECT_WALLET,
-        [Commands.PREVIOUS]: Steps.CONNECT_WALLET_SUCCESS,
+        // [Commands.NEXT]: Steps.CONNECT_WALLET,
+        // [Commands.PREVIOUS]: Steps.CONNECT_WALLET_SUCCESS,
       },
     },
     [Steps.CONNECT_WALLET]: {

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { MouseEventHandler, useEffect, useRef, useState } from 'react'
-import MetaMaskOnboarding from '@metamask/onboarding'
+// import MetaMaskOnboarding from '@metamask/onboarding'
 
 const variants = {
   show: { opacity: 1 },
@@ -43,52 +43,52 @@ const NoProviderPresentational = ({
 
 export const NoProvider = () => {
   const [accounts, setAccounts] = useState<string[]>([])
-  const onboarding = useRef<MetaMaskOnboarding>()
+  // const onboarding = useRef<MetaMaskOnboarding>()
 
-  //keep reference to onboarding
-  useEffect(() => {
-    if (!onboarding.current) {
-      console.log('creating onboarding')
-      onboarding.current = new MetaMaskOnboarding({
-        forwarderMode: 'INJECT',
-      })
-    }
-  }, [])
+  // //keep reference to onboarding
+  // useEffect(() => {
+  //   if (!onboarding.current) {
+  //     console.log('creating onboarding')
+  //     onboarding.current = new MetaMaskOnboarding({
+  //       forwarderMode: 'INJECT',
+  //     })
+  //   }
+  // }, [])
 
-  //track accounts and if one is added stop onboarding
-  useEffect(() => {
-    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-      if (accounts.length > 0) {
-        if (onboarding.current) {
-          onboarding.current.stopOnboarding()
-        }
-      }
-    }
-  }, [accounts])
+  // //track accounts and if one is added stop onboarding
+  // useEffect(() => {
+  //   if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+  //     if (accounts.length > 0) {
+  //       if (onboarding.current) {
+  //         onboarding.current.stopOnboarding()
+  //       }
+  //     }
+  //   }
+  // }, [accounts])
 
-  useEffect(() => {
-    function handleNewAccounts(newAccounts: string[]) {
-      setAccounts(newAccounts)
-    }
-    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-      window.ethereum
-        .request({ method: 'eth_requestAccounts' })
-        .then((eth_accounts) => {
-          if (Array.isArray(eth_accounts)) {
-            handleNewAccounts(eth_accounts)
-          }
-        })
-      window.ethereum.on('accountsChanged', handleNewAccounts)
-      return () => {
-        window.ethereum.removeListener('accountsChanged', handleNewAccounts)
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   function handleNewAccounts(newAccounts: string[]) {
+  //     setAccounts(newAccounts)
+  //   }
+  //   if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+  //     window.ethereum
+  //       .request({ method: 'eth_requestAccounts' })
+  //       .then((eth_accounts) => {
+  //         if (Array.isArray(eth_accounts)) {
+  //           handleNewAccounts(eth_accounts)
+  //         }
+  //       })
+  //     window.ethereum.on('accountsChanged', handleNewAccounts)
+  //     return () => {
+  //       window.ethereum.removeListener('accountsChanged', handleNewAccounts)
+  //     }
+  //   }
+  // }, [])
 
   const onClickOnboarding = () => {
-    if (onboarding.current) {
-      onboarding.current.startOnboarding()
-    }
+    // if (onboarding.current) {
+    //   onboarding.current.startOnboarding()
+    // }
   }
 
   return (

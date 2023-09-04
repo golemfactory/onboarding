@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ['github-pages']
+    branches: ['staging']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,7 +23,7 @@ concurrency:
 
 defaults:
   run : 
-    working-directory: '/frontend'
+    working-directory: 'frontend'
     
 jobs:
   # Single deploy job since we're just deploying
