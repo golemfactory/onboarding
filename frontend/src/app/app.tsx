@@ -2,24 +2,29 @@ import { OnboardingContainer } from 'components/organisms/onboarding/OnboardingC
 import {
   OnboardingProvider,
   MetaMaskContextProvider,
+  SetupProvider,
 } from 'components/providers'
 
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+const router = createBrowserRouter([
+  {
+    path: '/onboarding',
+    element: (
+      <SetupProvider>
+        <MetaMaskContextProvider>
+          <OnboardingProvider>
+            <OnboardingContainer />
+          </OnboardingProvider>
+        </MetaMaskContextProvider>
+      </SetupProvider>
+    ),
+  },
+])
 import { FC } from 'react'
 
 const App: FC = () => {
-  //For now we render only onboarding container
-  //however in the future we will add more routes
-  //that potentially will be depend on the onboarding state
-  //that why provider is here
-  //TODO : add router
-
-  return (
-    <MetaMaskContextProvider>
-      <OnboardingProvider>
-        <OnboardingContainer />
-      </OnboardingProvider>
-    </MetaMaskContextProvider>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

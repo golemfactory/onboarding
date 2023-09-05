@@ -6,6 +6,7 @@
     "plusplus",
     "tailwindcss",
     "vite",
-    "xstate"
+    "xstate",
+    "yagna"
   ]
 }
