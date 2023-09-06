@@ -24,16 +24,16 @@ const ChooseNetworkPresentational = ({
         className="text-4xl font-bold mb-4 text-gray-800"
         variants={variants}
       >
-        Metamask plugin found
+        Metamask is connected
       </motion.h1>
       <motion.p
         className="max-w-md text-gray-600 my-4 text-lg"
         variants={variants}
       >
-        Now choose network
+        Thats great, now choose network
       </motion.p>
 
-      <motion.select onChange={onNetworkSelection}>
+      <motion.select onChange={onNetworkSelection} variants={variants}>
         {Object.keys(networks).map((network) => {
           return (
             <option key={network} value={network}>

@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { FC, MouseEventHandler } from 'react'
+import { useSDK } from '@metamask/sdk-react'
 
 const variants = {
   show: { opacity: 1 },
@@ -24,7 +25,7 @@ const ConnectWalletPresentational = ({
         className="max-w-md text-gray-600 my-4 text-lg"
         variants={variants}
       >
-        First you need to connect your wallet to be able to use GLM tokens.
+        We detected you have Metamask installed but it is not connected
       </motion.p>
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
@@ -44,9 +45,10 @@ export const ConnectWallet = ({
 }: {
   onConfirm: MouseEventHandler
 }) => {
+  const { sdk } = useSDK()
   return (
     <OnboardingStep>
-      <ConnectWalletPresentational onConfirm={onConfirm} />
+      <ConnectWalletPresentational onConfirm={() => sdk?.connect()} />
     </OnboardingStep>
   )
 }

@@ -1,5 +1,5 @@
 import { createMachine } from 'xstate'
-import { detectMetamask, providerState } from './childMachines/detectMetamask'
+import { ensureMetamaskConnection, providerState } from './childMachines'
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
@@ -15,6 +15,11 @@ export const createStateMachineWithContext = (
     id: 'onboarding',
     initial: Steps.WELCOME,
     states: {
+      [Steps.WALLET_INTRO]: {
+        on: {
+          [Commands.NEXT]: Steps.DETECT_METAMASK,
+        },
+      },
       [Steps.CHOOSE_NETWORK]: {},
       [Steps.ON_RAMP]: {
         on: {
@@ -23,12 +28,8 @@ export const createStateMachineWithContext = (
         },
       },
       [Steps.WELCOME]: {
-        entry: () => {
-          console.log('Welcome', context)
-        },
         on: {
-          [Commands.NEXT]: Steps.CONNECT_WALLET,
-          // [Commands.PREVIOUS]: Steps.CONNECT_WALLET_SUCCESS,
+          [Commands.NEXT]: Steps.WALLET_INTRO,
         },
       },
       [Steps.CONNECT_WALLET]: {
@@ -40,7 +41,8 @@ export const createStateMachineWithContext = (
       [Steps.DETECT_METAMASK]: {
         invoke: {
           id: 'detect-metamask',
-          src: detectMetamask,
+          //@ts-ignore
+          src: ensureMetamaskConnection,
           onDone: [
             {
               target: Steps.CONNECT_WALLET_SUCCESS,
@@ -49,7 +51,14 @@ export const createStateMachineWithContext = (
             {
               target: Steps.SHOW_METAMASK_LINK,
               cond: (context, event) =>
-                event.data === providerState.NO_PROVIDER,
+                //TODO: handle another wallets
+                event.data === providerState.NO_PROVIDER ||
+                event.data === providerState.NOT_METAMASK,
+            },
+            {
+              target: Steps.CONNECT_WALLET,
+              cond: (context, event) =>
+                event.data === providerState.NOT_CONNECTED,
             },
           ],
         },
