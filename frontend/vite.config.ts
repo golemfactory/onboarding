@@ -6,7 +6,7 @@ export default defineConfig((configEnv) => {
   const isDevelopment = configEnv.mode === 'development'
 
   return {
-    base: '/onboarding',
+    base: '/',
     plugins: [react()],
     resolve: {
       alias: {
@@ -17,6 +17,7 @@ export default defineConfig((configEnv) => {
         utils: resolve(__dirname, 'src', 'utils'),
         ethereum: resolve(__dirname, 'src', 'ethereum'),
         types: resolve(__dirname, 'src', 'types'),
+        assets: resolve(__dirname, 'src', 'assets'),
       },
     },
     css: {

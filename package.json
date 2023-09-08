@@ -8,7 +8,6 @@
     "prepare": "husky install",
     "dev:frontend": "cd frontend && pnpm run dev:start",
     "dev:storybook": "cd frontend && pnpm run dev:storybook",
-    "dev:metamask": "cd metamask-onboarding && pnpm run dev",
     "dev": "pnpm run '/^dev:.*/'"
   },
   "keywords": [],

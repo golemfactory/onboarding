@@ -42,6 +42,9 @@
       "types/*": [
         "src/types/*"
       ],
+      "assets/*": [
+        "src/assets/*"
+      ],
     }
   },
   "include": [
