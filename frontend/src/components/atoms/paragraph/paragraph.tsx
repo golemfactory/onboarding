@@ -3,11 +3,13 @@ import { forwardRef, ComponentProps } from 'react'
 import styles from './paragraph.module.css'
 
 const Paragraph = forwardRef<HTMLParagraphElement, ComponentProps<'p'>>(
-  ({ children, className = styles.paragraph, ...rest }, ref) => {
+  ({ children, className, ...rest }, ref) => {
+    const combinedClassName = ` ${className || ''} ${styles.paragraph}`.trim()
+
     return (
-      <p ref={ref} className={className} {...rest}>
+      <div ref={ref} className={combinedClassName} {...rest}>
         {children}
-      </p>
+      </div>
     )
   }
 )

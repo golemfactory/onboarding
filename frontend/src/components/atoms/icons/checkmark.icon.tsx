@@ -1,6 +1,6 @@
-export const CheckmarkIcon = function () {
+export const CheckmarkIcon = ({ className }: { className: string }) => {
   return (
-    <div className="text-green-500">
+    <div className={className}>
       <svg
         className="w-6 h-6"
         fill="none"
