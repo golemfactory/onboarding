@@ -32,3 +32,13 @@ export interface INetwork {
     decimals: number
   }
 }
+
+export type EthereumAddress = string & { __brand: 'EthereumAddress' }
+
+export function assertEthereumAddress(x: string): asserts x is EthereumAddress {
+  const regex = /^(0x)?[0-9a-fA-F]{40}$/
+
+  if (!regex.test(x)) {
+    throw new Error('Invalid ethereum account')
+  }
+}

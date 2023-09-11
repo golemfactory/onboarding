@@ -36,13 +36,12 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({
   const yagnaWalletAddress = queryParams.get('yagnaWalletAddress') ?? ''
   const { sdk } = useSDK()
 
-  const initialService = useInterpret(
+  const service = useInterpret(
     createStateMachineWithContext({
       yagnaWalletAddress,
       sdk,
     })
   )
-  const [service, setService] = useState(initialService)
 
   return (
     //@ts-ignore

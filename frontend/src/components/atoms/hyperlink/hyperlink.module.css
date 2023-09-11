@@ -1,0 +1,3 @@
+.hyperlink {
+  @apply text-blue-500 transition-colors
+}

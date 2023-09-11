@@ -1,14 +1,15 @@
-import { POLYGON } from './polygon'
+// import { POLYGON } from './polygon'
 import { MUMBAI } from './mumbai'
 import { INetwork } from 'src/types/ethereum'
+import { POLYGON } from './polygon'
 
-type NetworkName = 'POLYGON' | 'MUMBAI'
-
-type Networks = {
-  [key in NetworkName]: INetwork
+export enum Network {
+  POLYGON = 'POLYGON',
+  MUMBAI = 'MUMBAI',
 }
+type Networks = Record<Network, INetwork>
 
 export const networks: Networks = {
-  POLYGON,
-  MUMBAI,
+  [Network.POLYGON]: POLYGON,
+  [Network.MUMBAI]: MUMBAI,
 }

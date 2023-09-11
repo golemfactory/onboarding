@@ -5,6 +5,10 @@ import {
   SetupProvider,
 } from 'components/providers'
 
+import { FC } from 'react'
+import { ManualTestGateway } from 'components/organisms/manualTestGateway/ManualTestGateway'
+import { TestingSetupProvider } from 'components/providers/TestingSetup.provider'
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { MetaMaskProvider } from '@metamask/sdk-react'
@@ -22,7 +26,7 @@ const metaMaskSDKOptions = {
 
 const router = createBrowserRouter([
   {
-    path: '/onboarding',
+    path: '/',
     element: (
       <SetupProvider>
         <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
@@ -40,16 +44,14 @@ const router = createBrowserRouter([
     element: (
       <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
         <AwaitForMetamaskSDK>
-          <ManualTestGateway />
+          <TestingSetupProvider>
+            <ManualTestGateway />
+          </TestingSetupProvider>
         </AwaitForMetamaskSDK>
       </MetaMaskProvider>
     ),
   },
 ])
-import { FC } from 'react'
-import MetaMaskSDK from '@metamask/sdk'
-import { m } from 'framer-motion'
-import { ManualTestGateway } from 'components/organisms/manualTestGateway/ManualTestGateway'
 
 const App: FC = () => {
   return <RouterProvider router={router} />

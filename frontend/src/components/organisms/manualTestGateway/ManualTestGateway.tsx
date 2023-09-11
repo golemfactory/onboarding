@@ -1,10 +1,11 @@
-import { Paragraph, Button } from 'components/atoms'
+import { Paragraph, Button, HyperLink, Select } from 'components/atoms'
 import { FC, useState } from 'react'
 import { useSDK } from '@metamask/sdk-react'
 import { CheckmarkIcon, XIcon } from 'components/atoms/icons'
 import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
 import storageTankJSON from 'assets/storage.tank.json'
 import * as ethers from 'ethers'
+import { testingPath, testingSetup } from './testingPaths'
 
 // @ts-ignore
 window.ethers = ethers
@@ -17,7 +18,6 @@ const createNewAccount = async () => {
 
 export const ManualTestGateway: FC = () => {
   const { sdk, connected: isMetamaskConnected } = useSDK()
-  const [downloaded, setDownloaded] = useState(false)
   const [createdAccount, setCreatedAccount] = useState(false)
   const isMetamaskInstalled = sdk?.getProvider() === window.ethereum
 
@@ -29,10 +29,10 @@ export const ManualTestGateway: FC = () => {
     <div>
       <Paragraph>
         {isMetamaskInstalled ? (
-          <div>
+          <>
             <CheckmarkIcon className="mr-4 text-green-400" />
             Metamask is installed
-          </div>
+          </>
         ) : (
           <div>
             <XIcon className="mr-4 text-red-400" /> Metamask is not installed
@@ -60,44 +60,81 @@ export const ManualTestGateway: FC = () => {
         )}
       </Paragraph>
       <Paragraph>
-        {downloaded ? (
-          <>
-            <CheckmarkIcon className="mr-4 text-green-400" />
-            Data downloaded
-          </>
-        ) : (
-          <>
-            <XIcon className="mr-4 text-red-400" />
-            <JSONDownloadButton
-              jsonData={storageTankJSON}
-              onClick={() => {
-                setDownloaded(true)
-              }}
-            />
-          </>
-        )}
+        <>
+          <JSONDownloadButton jsonData={storageTankJSON} />
+          <div className="ml-4">
+            {' '}
+            JSON file and then import it as described{' '}
+            <HyperLink
+              link={
+                'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W0D3TGE72A7ZBV0FMSZX1'
+              }
+              text={'here'}
+            ></HyperLink>
+          </div>
+        </>
       </Paragraph>
-      <Paragraph style={{ display: 'block', padding: '10px' }}>
-        <div className="font-bold"> Created new account </div>
-        {createdAccount && (
-          <>
-            <div>
-              <b>wallet.address:</b> {wallet.address}
-            </div>
-            <div>
-              <b>wallet.privateKey:</b> {wallet.privateKey}
-            </div>
-          </>
-        )}
-        {!createdAccount && (
+      {createdAccount && (
+        <Paragraph style={{ display: 'block' }} className="pt-2">
+          <div className="font-bold"> Created new account </div>
+          <div>
+            <b>wallet.address:</b> {wallet.address}
+          </div>
+          <div>
+            <b>wallet.privateKey:</b> {wallet.privateKey}
+          </div>
+          <div>
+            {' '}
+            Import by private key instrucions you can find{' '}
+            <HyperLink
+              link={
+                'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W07NV7Q94M7P1EBD5BYM4'
+              }
+              text={'here'}
+            ></HyperLink>
+          </div>
+        </Paragraph>
+      )}
+      {!createdAccount && (
+        <Paragraph>
           <Button
             onClick={async () => {
               setWallet(await createNewAccount())
               setCreatedAccount(true)
             }}
-          ></Button>
-        )}
-      </Paragraph>
+          >
+            Create new account
+          </Button>
+        </Paragraph>
+      )}
+
+      {createdAccount && (
+        <Paragraph>
+          <Select
+            className="mr-10"
+            onChange={(e) => {
+              //TODO fix this @tsingore usage
+              //@ts-ignore
+              console.log('changed', e.target.value)
+            }}
+          >
+            <option className="text-opacity-50">choose </option>
+
+            {(
+              Object.keys(testingSetup) as Array<keyof typeof testingSetup>
+            ).map((testingPathKey) => {
+              const testingPath = testingSetup[testingPathKey]
+              return (
+                <option key={testingPathKey} value={testingPathKey}>
+                  {testingPath.label}
+                </option>
+              )
+            })}
+          </Select>
+          Choose testing path. This will automatically set proper account
+          balance on the newly created account
+        </Paragraph>
+      )}
     </div>
   )
 }
