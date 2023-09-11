@@ -9,7 +9,7 @@ import { FC } from 'react'
 import { ManualTestGateway } from 'components/organisms/manualTestGateway/ManualTestGateway'
 import { TestingSetupProvider } from 'components/providers/TestingSetup.provider'
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 
 import { MetaMaskProvider } from '@metamask/sdk-react'
 
@@ -24,9 +24,9 @@ const metaMaskSDKOptions = {
   },
 }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: '/onboarding',
+    path: '/',
     element: (
       <SetupProvider>
         <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/onboarding/testing_gateway',
+    path: '/testing_gateway',
     element: (
       <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
         <AwaitForMetamaskSDK>
