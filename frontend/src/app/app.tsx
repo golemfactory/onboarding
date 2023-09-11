@@ -26,7 +26,7 @@ const metaMaskSDKOptions = {
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/onboarding',
     element: (
       <SetupProvider>
         <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/testing_gateway',
+    path: '/onboarding/testing_gateway',
     element: (
       <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
         <AwaitForMetamaskSDK>
