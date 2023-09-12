@@ -1,3 +1,5 @@
+import { Network } from 'ethereum/networks'
+
 export enum testingPath {
   NO_ACCOUNT = 'no-account',
   NO_GLM = 'no-glm',
@@ -38,4 +40,18 @@ export const testingSetup: Record<testingPath, testingSetupType> = {
     maticBalance: 0,
     label: 'No GLM and no MATIC',
   },
+}
+
+export const getExpectedBalances = ({
+  network = Network.POLYGON,
+  testingPath,
+}: {
+  network?: Network
+  testingPath: testingPath
+}) => {
+  const { glmBalance, maticBalance } = testingSetup[testingPath]
+  return {
+    glm: glmBalance,
+    native: maticBalance,
+  }
 }

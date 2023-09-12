@@ -6,6 +6,8 @@ import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
 import storageTankJSON from 'assets/storage.tank.json'
 import * as ethers from 'ethers'
 import { testingPath, testingSetup } from './testingPaths'
+import { transferInitialBalances } from './transfer'
+import { assertEthereumAddress } from 'types/ethereum'
 
 // @ts-ignore
 window.ethers = ethers
@@ -17,7 +19,8 @@ const createNewAccount = async () => {
 }
 
 export const ManualTestGateway: FC = () => {
-  const { sdk, connected: isMetamaskConnected } = useSDK()
+  const { sdk, connected: isMetamaskConnected, account, provider } = useSDK()
+
   const [createdAccount, setCreatedAccount] = useState(false)
   const isMetamaskInstalled = sdk?.getProvider() === window.ethereum
 
@@ -112,10 +115,15 @@ export const ManualTestGateway: FC = () => {
         <Paragraph>
           <Select
             className="mr-10"
-            onChange={(e) => {
-              //TODO fix this @tsingore usage
-              //@ts-ignore
-              console.log('changed', e.target.value)
+            onChange={async (e) => {
+              assertEthereumAddress(wallet.address)
+              transferInitialBalances({
+                testingPath: e.currentTarget.value as testingPath,
+                address: wallet.address,
+                signer: await new ethers.BrowserProvider(
+                  window.ethereum
+                ).getSigner(account),
+              })
             }}
           >
             <option className="text-opacity-50">choose </option>
