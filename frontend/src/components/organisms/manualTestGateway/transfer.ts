@@ -31,9 +31,7 @@ export const transferInitialBalances = async ({
     address,
   })
 
-  console.log('sjoiuld redirect here')
-
-  return
+  return balances
 }
 
 const sendNativeToken = async ({

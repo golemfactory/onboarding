@@ -8,9 +8,7 @@ import * as ethers from 'ethers'
 import { testingPath, testingSetup } from './testingPaths'
 import { transferInitialBalances } from './transfer'
 import { assertEthereumAddress } from 'types/ethereum'
-
-// @ts-ignore
-window.ethers = ethers
+import { redirect } from 'react-router-dom'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
@@ -117,13 +115,16 @@ export const ManualTestGateway: FC = () => {
             className="mr-10"
             onChange={async (e) => {
               assertEthereumAddress(wallet.address)
-              transferInitialBalances({
+              await transferInitialBalances({
                 testingPath: e.currentTarget.value as testingPath,
                 address: wallet.address,
                 signer: await new ethers.BrowserProvider(
                   window.ethereum
                 ).getSigner(account),
               })
+              window.location.hash = '#/'
+
+              //TODO: display some nice notifications here
             }}
           >
             <option className="text-opacity-50">choose </option>
