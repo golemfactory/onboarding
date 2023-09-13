@@ -18,8 +18,17 @@ const createNewAccount = async () => {
 export const ManualTestGateway: FC = () => {
   const { sdk, connected: isMetamaskConnected, account } = useSDK()
   const [showModal, setShowModal] = useState(false)
-  const [createdAccount, setCreatedAccount] = useState(false)
 
+  const [currentAccount, setCurrentAccount] = useState<EthereumAddress>(
+    '' as EthereumAddress
+  )
+
+  const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>(
+    '' as EthereumAddress
+  )
+
+  const [createdAccount, setCreatedAccount] = useState(false)
+  const [testingPath, setTestingPath] = useState<testingPath | null>(null)
   const isMetamaskInstalled =
     !!window.ethereum && sdk?.getProvider() === window.ethereum
 
@@ -78,7 +87,7 @@ export const ManualTestGateway: FC = () => {
             <b>wallet.privateKey:</b> {wallet.privateKey}
           </div>
           <div>
-            Import by private key instructions you can find
+            Import by private key instructions you can find{' '}
             <HyperLink
               link={
                 'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W07NV7Q94M7P1EBD5BYM4'
@@ -104,7 +113,7 @@ export const ManualTestGateway: FC = () => {
         <>
           <JSONDownloadButton jsonData={storageTankJSON} />
           <div className="ml-4">
-            JSON file and then import it as described
+            JSON file and then import it as described{' '}
             <HyperLink
               link={
                 'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W0D3TGE72A7ZBV0FMSZX1'
@@ -119,26 +128,29 @@ export const ManualTestGateway: FC = () => {
           <Select
             className="mr-10"
             onChange={async (e) => {
-              const path = e.currentTarget.value
+              //TODO: avoid using as here
+              const path = e.currentTarget.value as testingPath
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
                 //@ts-ignore
                 params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
               })
               if (account !== `0x${storageTankJSON.address}`) {
+                setCurrentAccount(account as EthereumAddress)
+                setExpectedAccount(storageTankJSON.address as EthereumAddress)
                 setShowModal(true)
               } else {
+                setTestingPath(path)
+
                 assertEthereumAddress(wallet.address)
 
-                await transferInitialBalances({
-                  testingPath: path as testingPath,
-                  address: wallet.address,
-                  signer: await new ethers.BrowserProvider(
-                    window.ethereum
-                  ).getSigner(account),
-                })
-
-                window.location.hash = '#/'
+                // await transferInitialBalances({
+                //   testingPath: path,
+                //   address: wallet.address,
+                //   signer: await new ethers.BrowserProvider(
+                //     window.ethereum
+                //   ).getSigner(account),
+                // })
               }
 
               //TODO: display some nice notifications here
@@ -161,11 +173,30 @@ export const ManualTestGateway: FC = () => {
           balance on the newly created account
         </Paragraph>
       )}
+      {testingPath && (
+        <Paragraph>
+          <Button
+            onClick={() => {
+              setCurrentAccount(account as EthereumAddress)
+              setExpectedAccount(wallet.address as EthereumAddress)
+              if (account == wallet.address) {
+                window.location.hash = '#/'
+              } else {
+                setShowModal(true)
+              }
+            }}
+          >
+            {' '}
+            Start testing{' '}
+          </Button>
+        </Paragraph>
+      )}
 
       <WrongAccountModal
-        account={account as EthereumAddress}
         showModal={showModal}
         setShowModal={setShowModal}
+        currentAccount={currentAccount}
+        expectedAccount={expectedAccount}
       />
     </div>
   )
