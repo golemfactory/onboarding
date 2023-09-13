@@ -6,21 +6,22 @@ import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
 import storageTankJSON from 'assets/storage.tank.json'
 import * as ethers from 'ethers'
 import { testingPath, testingSetup } from './testingPaths'
-import { transferInitialBalances } from './transfer'
 import { assertEthereumAddress } from 'types/ethereum'
-import { redirect } from 'react-router-dom'
+import { transferInitialBalances } from './transfer'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
-  console.log(randomWallet)
   return randomWallet
 }
 
 export const ManualTestGateway: FC = () => {
-  const { sdk, connected: isMetamaskConnected, account, provider } = useSDK()
+  const { sdk, connected: isMetamaskConnected, account } = useSDK()
+  const [showModal, setShowModal] = useState(false)
 
   const [createdAccount, setCreatedAccount] = useState(false)
-  const isMetamaskInstalled = sdk?.getProvider() === window.ethereum
+
+  const isMetamaskInstalled =
+    !!window.ethereum && sdk?.getProvider() === window.ethereum
 
   const [wallet, setWallet] = useState<ethers.HDNodeWallet>(
     {} as ethers.HDNodeWallet
@@ -37,6 +38,13 @@ export const ManualTestGateway: FC = () => {
         ) : (
           <div>
             <XIcon className="mr-4 text-red-400" /> Metamask is not installed
+            <Button
+              onClick={() => {
+                sdk?.connect()
+              }}
+            >
+              Install metamask
+            </Button>
           </div>
         )}
       </Paragraph>
@@ -52,7 +60,6 @@ export const ManualTestGateway: FC = () => {
             <Button
               onClick={() => {
                 sdk?.connect()
-                console.log('dupa')
               }}
             >
               Connect to metamask
@@ -60,21 +67,7 @@ export const ManualTestGateway: FC = () => {
           </>
         )}
       </Paragraph>
-      <Paragraph>
-        <>
-          <JSONDownloadButton jsonData={storageTankJSON} />
-          <div className="ml-4">
-            {' '}
-            JSON file and then import it as described{' '}
-            <HyperLink
-              link={
-                'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W0D3TGE72A7ZBV0FMSZX1'
-              }
-              text={'here'}
-            ></HyperLink>
-          </div>
-        </>
-      </Paragraph>
+
       {createdAccount && (
         <Paragraph style={{ display: 'block' }} className="pt-2">
           <div className="font-bold"> Created new account </div>
@@ -109,20 +102,48 @@ export const ManualTestGateway: FC = () => {
         </Paragraph>
       )}
 
+      <Paragraph>
+        <>
+          <JSONDownloadButton jsonData={storageTankJSON} />
+          <div className="ml-4">
+            {' '}
+            JSON file and then import it as described{' '}
+            <HyperLink
+              link={
+                'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W0D3TGE72A7ZBV0FMSZX1'
+              }
+              text={'here'}
+            ></HyperLink>
+          </div>
+        </>
+      </Paragraph>
+
       {createdAccount && (
         <Paragraph>
           <Select
             className="mr-10"
             onChange={async (e) => {
-              assertEthereumAddress(wallet.address)
-              await transferInitialBalances({
-                testingPath: e.currentTarget.value as testingPath,
-                address: wallet.address,
-                signer: await new ethers.BrowserProvider(
-                  window.ethereum
-                ).getSigner(account),
+              const path = e.currentTarget.value
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                //@ts-ignore
+                params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
               })
-              window.location.hash = '#/'
+              if (account !== `0x${storageTankJSON.address}`) {
+                setShowModal(true)
+              } else {
+                assertEthereumAddress(wallet.address)
+
+                await transferInitialBalances({
+                  testingPath: path as testingPath,
+                  address: wallet.address,
+                  signer: await new ethers.BrowserProvider(
+                    window.ethereum
+                  ).getSigner(account),
+                })
+
+                window.location.hash = '#/'
+              }
 
               //TODO: display some nice notifications here
             }}
@@ -144,6 +165,58 @@ export const ManualTestGateway: FC = () => {
           balance on the newly created account
         </Paragraph>
       )}
+
+      {showModal ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">Wrong account</h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                    Please make sure you are using proper tank account:
+                    <br></br>
+                    <br></br>
+                    <b> 0x923e80e15ce84e753a5ae954aa49dc50f5f12022 </b>
+                    <br></br>
+                    <br></br>
+                    Now you are using:
+                    <br></br>
+                    <br></br>
+                    <b> {account} </b>
+                    <br></br>
+                    <br></br>
+                  </p>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    OK
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
     </div>
   )
 }

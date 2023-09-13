@@ -8,6 +8,9 @@ export default defineConfig((configEnv) => {
   return {
     base: '/onboarding',
     plugins: [react()],
+    define: {
+      CHAIN_ID: '0x13881',
+    },
     resolve: {
       alias: {
         app: resolve(__dirname, 'src', 'app'),
