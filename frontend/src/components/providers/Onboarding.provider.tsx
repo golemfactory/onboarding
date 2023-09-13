@@ -1,4 +1,4 @@
-import { FC, createContext, useEffect, useState } from 'react'
+import { FC, ReactNode, createContext } from 'react'
 import { useInterpret } from '@xstate/react'
 import { InterpreterFrom } from 'xstate'
 import { createStateMachineWithContext } from 'state/machine'
@@ -15,7 +15,7 @@ export const OnboardingContext = createContext<{
   service: {} as InterpreterFrom<any>,
 })
 
-export const AwaitForMetamaskSDK: FC<{ children: React.ReactNode }> = ({
+export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { ready } = useSDK()

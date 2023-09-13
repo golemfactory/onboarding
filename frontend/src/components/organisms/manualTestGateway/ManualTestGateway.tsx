@@ -6,8 +6,9 @@ import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
 import storageTankJSON from 'assets/storage.tank.json'
 import * as ethers from 'ethers'
 import { testingPath, testingSetup } from './testingPaths'
-import { assertEthereumAddress } from 'types/ethereum'
+import { EthereumAddress, assertEthereumAddress } from 'types/ethereum'
 import { transferInitialBalances } from './transfer'
+import { WrongAccountModal } from './WrongAccountModal'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
@@ -17,7 +18,6 @@ const createNewAccount = async () => {
 export const ManualTestGateway: FC = () => {
   const { sdk, connected: isMetamaskConnected, account } = useSDK()
   const [showModal, setShowModal] = useState(false)
-
   const [createdAccount, setCreatedAccount] = useState(false)
 
   const isMetamaskInstalled =
@@ -27,6 +27,7 @@ export const ManualTestGateway: FC = () => {
     {} as ethers.HDNodeWallet
   )
 
+  //TODO : divide into smaller pieces
   return (
     <div>
       <Paragraph>
@@ -67,7 +68,6 @@ export const ManualTestGateway: FC = () => {
           </>
         )}
       </Paragraph>
-
       {createdAccount && (
         <Paragraph style={{ display: 'block' }} className="pt-2">
           <div className="font-bold"> Created new account </div>
@@ -78,8 +78,7 @@ export const ManualTestGateway: FC = () => {
             <b>wallet.privateKey:</b> {wallet.privateKey}
           </div>
           <div>
-            {' '}
-            Import by private key instrucions you can find{' '}
+            Import by private key instructions you can find
             <HyperLink
               link={
                 'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W07NV7Q94M7P1EBD5BYM4'
@@ -101,13 +100,11 @@ export const ManualTestGateway: FC = () => {
           </Button>
         </Paragraph>
       )}
-
       <Paragraph>
         <>
           <JSONDownloadButton jsonData={storageTankJSON} />
           <div className="ml-4">
-            {' '}
-            JSON file and then import it as described{' '}
+            JSON file and then import it as described
             <HyperLink
               link={
                 'https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#h_01G01W0D3TGE72A7ZBV0FMSZX1'
@@ -117,7 +114,6 @@ export const ManualTestGateway: FC = () => {
           </div>
         </>
       </Paragraph>
-
       {createdAccount && (
         <Paragraph>
           <Select
@@ -166,57 +162,11 @@ export const ManualTestGateway: FC = () => {
         </Paragraph>
       )}
 
-      {showModal ? (
-        <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Wrong account</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
-                </div>
-                {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    Please make sure you are using proper tank account:
-                    <br></br>
-                    <br></br>
-                    <b> 0x923e80e15ce84e753a5ae954aa49dc50f5f12022 </b>
-                    <br></br>
-                    <br></br>
-                    Now you are using:
-                    <br></br>
-                    <br></br>
-                    <b> {account} </b>
-                    <br></br>
-                    <br></br>
-                  </p>
-                </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    OK
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
+      <WrongAccountModal
+        account={account as EthereumAddress}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </div>
   )
 }
