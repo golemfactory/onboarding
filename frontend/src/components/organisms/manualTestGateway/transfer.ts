@@ -1,10 +1,9 @@
-import { Network } from 'ethereum/networks'
-import { getExpectedBalances, testingPath, testingSetup } from './testingPaths'
-import { EthereumAddress } from 'types/ethereum'
+import { getExpectedBalances, testingPath } from './testingPaths'
+import { EthereumAddress, Network } from 'types/ethereum'
 import { JsonRpcSigner, ethers } from 'ethers'
+import { GLM } from 'ethereum/tokens/glm/GLM'
+import { erc20abi } from 'ethereum/contracts'
 
-import erc20Abi from 'ethereum/contracts/erc20token/abi.json'
-import { GOLEM_ADDRESS } from 'ethereum/contracts'
 export const transferInitialBalances = async ({
   testingPath,
   address,
@@ -16,7 +15,7 @@ export const transferInitialBalances = async ({
 }) => {
   const network = Network.MUMBAI
   const balances = getExpectedBalances({ testingPath, network })
-  const golemAddress = GOLEM_ADDRESS[network]
+  const golemAddress = GLM.getAddress(network)
 
   await sendGolemToken({
     balance: ethers.parseEther(balances.glm.toString()),
@@ -70,7 +69,7 @@ const sendGolemToken = async ({
     return
   }
 
-  const tokenContract = new ethers.Contract(golemAddress, erc20Abi, signer)
+  const tokenContract = new ethers.Contract(golemAddress, erc20abi, signer)
 
   await tokenContract.transfer(address, balance)
 }

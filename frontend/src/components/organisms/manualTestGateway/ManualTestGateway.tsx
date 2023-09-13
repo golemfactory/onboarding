@@ -19,22 +19,15 @@ export const ManualTestGateway: FC = () => {
   const { sdk, connected: isMetamaskConnected, account } = useSDK()
   const [showModal, setShowModal] = useState(false)
 
-  const [currentAccount, setCurrentAccount] = useState<EthereumAddress>(
-    '' as EthereumAddress
-  )
+  const [currentAccount, setCurrentAccount] = useState<EthereumAddress>('' as EthereumAddress)
 
-  const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>(
-    '' as EthereumAddress
-  )
+  const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>('' as EthereumAddress)
 
   const [createdAccount, setCreatedAccount] = useState(false)
   const [testingPath, setTestingPath] = useState<testingPath | null>(null)
-  const isMetamaskInstalled =
-    !!window.ethereum && sdk?.getProvider() === window.ethereum
+  const isMetamaskInstalled = !!window.ethereum && sdk?.getProvider() === window.ethereum
 
-  const [wallet, setWallet] = useState<ethers.HDNodeWallet>(
-    {} as ethers.HDNodeWallet
-  )
+  const [wallet, setWallet] = useState<ethers.HDNodeWallet>({} as ethers.HDNodeWallet)
 
   //TODO : divide into smaller pieces
   return (
@@ -158,9 +151,7 @@ export const ManualTestGateway: FC = () => {
           >
             <option className="text-opacity-50">choose </option>
 
-            {(
-              Object.keys(testingSetup) as Array<keyof typeof testingSetup>
-            ).map((testingPathKey) => {
+            {(Object.keys(testingSetup) as Array<keyof typeof testingSetup>).map((testingPathKey) => {
               const testingPath = testingSetup[testingPathKey]
               return (
                 <option key={testingPathKey} value={testingPathKey}>
@@ -169,8 +160,7 @@ export const ManualTestGateway: FC = () => {
               )
             })}
           </Select>
-          Choose testing path. This will automatically set proper account
-          balance on the newly created account
+          Choose testing path. This will automatically set proper account balance on the newly created account
         </Paragraph>
       )}
       {testingPath && (
@@ -179,7 +169,7 @@ export const ManualTestGateway: FC = () => {
             onClick={() => {
               setCurrentAccount(account as EthereumAddress)
               setExpectedAccount(wallet.address as EthereumAddress)
-              if (account == wallet.address) {
+              if (account?.toLocaleLowerCase() == wallet.address.toLowerCase()) {
                 window.location.hash = '#/'
               } else {
                 setShowModal(true)

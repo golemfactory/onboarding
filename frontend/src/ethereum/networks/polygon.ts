@@ -1,13 +1,13 @@
-import { INetwork } from 'src/types/ethereum'
+import { ISupportedNetwork, Network, Token } from 'types/ethereum'
 
-export const POLYGON: INetwork = {
-  chainId: '0x89',
+export const POLYGON: ISupportedNetwork = {
+  chainId: Network.POLYGON,
   chainName: 'Polygon',
   rpcUrls: ['https://polygon-rpc.com/'],
   blockExplorerUrls: ['https://polygonscan.com/'],
   nativeCurrency: {
     name: 'MATIC',
-    symbol: 'MATIC',
+    symbol: Token.MATIC,
     decimals: 18,
   },
 }

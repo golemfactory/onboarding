@@ -1,26 +1,25 @@
 import { createMachine } from 'xstate'
-import { ensureMetamaskConnection, providerState } from './childMachines'
+import { checkAccount, ensureMetamaskConnection, providerState } from './childMachines'
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
 
-export const createStateMachineWithContext = (
-  context: OnboardingContextData
-) => {
-  return createMachine<
-    OnboardingContextData,
-    { type: Commands.NEXT } | { type: Commands.PREVIOUS }
-  >({
+export const createStateMachineWithContext = (context: OnboardingContextData) => {
+  return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.WELCOME,
+    initial: Steps.CHECK_ACCOUNT,
     states: {
       [Steps.WALLET_INTRO]: {
         on: {
           [Commands.NEXT]: Steps.DETECT_METAMASK,
         },
       },
-      [Steps.CHOOSE_NETWORK]: {},
+      [Steps.CHOOSE_NETWORK]: {
+        on: {
+          [Commands.NEXT]: Steps.CHECK_ACCOUNT,
+        },
+      },
       [Steps.ON_RAMP]: {
         on: {
           [Commands.NEXT]: Steps.WELCOME,
@@ -37,11 +36,16 @@ export const createStateMachineWithContext = (
           [Commands.NEXT]: Steps.DETECT_METAMASK,
         },
       },
-      // [Steps.CHECK_ACCOUNT]: {},
+      [Steps.CHECK_ACCOUNT]: {
+        invoke: {
+          id: 'check-account',
+          src: checkAccount,
+          onDone: [],
+        },
+      },
       [Steps.DETECT_METAMASK]: {
         invoke: {
           id: 'detect-metamask',
-          //@ts-ignore
           src: ensureMetamaskConnection,
           onDone: [
             {
@@ -52,13 +56,11 @@ export const createStateMachineWithContext = (
               target: Steps.SHOW_METAMASK_LINK,
               cond: (context, event) =>
                 //TODO: handle another wallets
-                event.data === providerState.NO_PROVIDER ||
-                event.data === providerState.NOT_METAMASK,
+                event.data === providerState.NO_PROVIDER || event.data === providerState.NOT_METAMASK,
             },
             {
               target: Steps.CONNECT_WALLET,
-              cond: (context, event) =>
-                event.data === providerState.NOT_CONNECTED,
+              cond: (context, event) => event.data === providerState.NOT_CONNECTED,
             },
           ],
         },

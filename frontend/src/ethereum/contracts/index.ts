@@ -1,1 +1,1 @@
-export * from './golem'
+export * from './erc20token'

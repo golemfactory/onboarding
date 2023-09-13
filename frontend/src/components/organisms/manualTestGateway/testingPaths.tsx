@@ -1,4 +1,4 @@
-import { Network } from 'ethereum/networks'
+import { Network } from 'types/ethereum'
 
 export enum testingPath {
   // NO_ACCOUNT = 'no-account',
@@ -15,11 +15,6 @@ type testingSetupType = {
 }
 
 export const testingSetup: Record<testingPath, testingSetupType> = {
-  // [testingPath.NO_ACCOUNT]: {
-  //   glmBalance: 0,
-  //   maticBalance: 0,
-  //   label: 'No account',
-  // },
   [testingPath.NO_GLM]: {
     glmBalance: 0,
     maticBalance: 15,
