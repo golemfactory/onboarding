@@ -2,7 +2,7 @@ import { INetwork } from 'src/types/ethereum'
 
 export const POLYGON: INetwork = {
   chainId: '0x89',
-  chainName: 'Matic Mainnet',
+  chainName: 'Polygon',
   rpcUrls: ['https://polygon-rpc.com/'],
   blockExplorerUrls: ['https://polygonscan.com/'],
   nativeCurrency: {

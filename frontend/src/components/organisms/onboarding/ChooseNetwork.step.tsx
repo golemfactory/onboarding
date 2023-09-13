@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { MouseEventHandler, ChangeEventHandler, ChangeEvent } from 'react'
 import { useMetaMask } from 'hooks/useMetamask'
-import { networks } from 'ethereum/networks'
+import { Network, networks } from 'ethereum/networks'
 import { changeNetwork } from 'utils/changeNetwork'
 
 const variants = {
@@ -20,24 +20,18 @@ const ChooseNetworkPresentational = ({
 
   return (
     <div className="text-center">
-      <motion.h1
-        className="text-4xl font-bold mb-4 text-gray-800"
-        variants={variants}
-      >
+      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}>
         Metamask is connected
       </motion.h1>
-      <motion.p
-        className="max-w-md text-gray-600 my-4 text-lg"
-        variants={variants}
-      >
+      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}>
         Thats great, now choose network
       </motion.p>
 
       <motion.select onChange={onNetworkSelection} variants={variants}>
         {Object.keys(networks).map((network) => {
           return (
-            <option key={network} value={network}>
-              {network}
+            <option key={networks[network].chainId} value={network}>
+              {networks[network].chainName}
             </option>
           )
         })}
@@ -53,15 +47,11 @@ const ChooseNetworkPresentational = ({
   )
 }
 
-export const ChooseNetwork = ({
-  onConfirm,
-}: {
-  onConfirm: MouseEventHandler
-}) => {
-  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
+export const ChooseNetwork = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
+  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement> & { target: { value: Network } }) => {
     const network = e.target.value
 
-    if (!(network === 'MUMBAI' || network === 'POLYGON')) {
+    if (!(network === Network.MUMBAI || network === Network.POLYGON)) {
       throw new Error('Network not found')
     }
     changeNetwork(network)
@@ -69,10 +59,7 @@ export const ChooseNetwork = ({
 
   return (
     <OnboardingStep>
-      <ChooseNetworkPresentational
-        onConfirm={onConfirm}
-        onNetworkSelection={onNetworkSelection}
-      />
+      <ChooseNetworkPresentational onConfirm={onConfirm} onNetworkSelection={onNetworkSelection} />
     </OnboardingStep>
   )
 }
