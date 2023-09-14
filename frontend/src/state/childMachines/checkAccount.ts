@@ -4,6 +4,9 @@ import { GLM } from 'ethereum/tokens/glm/GLM'
 import { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 //TODO maybe change those values and move them to config
 const minimalBalanceETH = 0.1
 const minimalBalanceGLM = 100
@@ -28,6 +31,8 @@ export const checkAccount = async (context: OnboardingContextData): Promise<Bala
   if (!address) {
     return
   }
+
+  await delay(2000)
 
   const signer = await new ethers.BrowserProvider(window.ethereum).getSigner(address)
   const tokenContract = new ethers.Contract(golemAddress, erc20Abi, signer)

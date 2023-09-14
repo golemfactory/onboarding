@@ -1,12 +1,6 @@
+import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { Steps } from './steps'
-import {
-  Welcome,
-  ConnectWallet,
-  NoProvider,
-  ChooseNetwork,
-  OnRamp,
-  WalletIntro,
-} from 'components/organisms/onboarding'
+import { Welcome, ConnectWallet, NoProvider, ChooseNetwork, OnRamp, WalletIntro } from 'components/organisms/onboarding'
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
   switch (state) {
@@ -24,7 +18,11 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return OnRamp
     case Steps.WALLET_INTRO:
       return WalletIntro
+    case Steps.DETECT_METAMASK:
+      return LoadingSpinner
+    case Steps.CHECK_ACCOUNT:
+      return LoadingSpinner
     default:
-      return Welcome
+      return LoadingSpinner
   }
 }

@@ -4,14 +4,14 @@ import { JsonRpcSigner, ethers } from 'ethers'
 import { GLM } from 'ethereum/tokens/glm/GLM'
 import { erc20abi } from 'ethereum/contracts'
 
-import { TestingPath } from 'types/path'
+import { BalanceCase } from 'types/path'
 
 export const transferInitialBalances = async ({
   testingPath,
   address,
   signer,
 }: {
-  testingPath: TestingPath
+  testingPath: BalanceCase
   address: EthereumAddress
   signer: JsonRpcSigner
 }) => {

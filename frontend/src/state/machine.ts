@@ -3,7 +3,6 @@ import { checkAccount, ensureMetamaskConnection, providerState } from './childMa
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
-import { BalanceCase } from 'types/path'
 
 export const createStateMachineWithContext = (context: OnboardingContextData) => {
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
@@ -57,6 +56,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
           src: ensureMetamaskConnection,
           onDone: [
             {
+              delay: 3000,
               target: Steps.CHECK_ACCOUNT,
               cond: (context, event) => event.data === providerState.METAMASK,
             },
