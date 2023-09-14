@@ -8,7 +8,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.ON_RAMP,
+    initial: Steps.WELCOME,
     states: {
       [Steps.WALLET_INTRO]: {
         on: {
@@ -56,7 +56,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
           src: ensureMetamaskConnection,
           onDone: [
             {
-              target: Steps.CHECK_ACCOUNT,
+              target: Steps.CHOOSE_NETWORK,
               cond: (context, event) => event.data === providerState.METAMASK,
             },
             {

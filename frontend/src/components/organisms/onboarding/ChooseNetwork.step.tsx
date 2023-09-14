@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
-import { MouseEventHandler, ChangeEventHandler, ChangeEvent } from 'react'
+import { MouseEventHandler, ChangeEventHandler, ChangeEvent, useState } from 'react'
 import { useMetaMask } from 'hooks/useMetamask'
 import { networks } from 'ethereum/networks'
+import { Network } from 'types/ethereum'
+import { useSDK } from '@metamask/sdk-react'
 
 const variants = {
   show: { opacity: 1 },
@@ -15,7 +17,14 @@ const ChooseNetworkPresentational = ({
   onConfirm: MouseEventHandler
   onNetworkSelection: ChangeEventHandler<HTMLSelectElement>
 }) => {
-  const { wallet } = useMetaMask()
+  const { sdk } = useSDK()
+  const [chainId, setChainId] = useState(sdk?.activeProvider?.chainId || undefined)
+
+  //@ts-ignore
+
+  sdk?.activeProvider?.on('chainChanged', (chainId: string) => {
+    setChainId(chainId)
+  })
 
   return (
     <div className="text-center">
@@ -26,8 +35,9 @@ const ChooseNetworkPresentational = ({
         Thats great, now choose network
       </motion.p>
 
-      <motion.select onChange={onNetworkSelection} variants={variants}>
+      <motion.select onChange={onNetworkSelection} variants={variants} value={chainId}>
         {Object.keys(networks).map((network) => {
+          console.log('network', network)
           return (
             <option key={network} value={network}>
               {networks[network].chainName}
@@ -53,7 +63,11 @@ export const ChooseNetwork = ({ onConfirm }: { onConfirm: MouseEventHandler }) =
     if (!(network === Network.MUMBAI || network === Network.POLYGON)) {
       throw new Error('Network not found')
     }
-    // changeNetwork(network)
+
+    window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: networks[network].chainId }],
+    })
   }
 
   return (
