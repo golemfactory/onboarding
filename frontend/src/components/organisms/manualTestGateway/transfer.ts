@@ -1,15 +1,17 @@
-import { getExpectedBalances, testingPath } from './testingPaths'
+import { getExpectedBalances } from './testingPaths'
 import { EthereumAddress, Network } from 'types/ethereum'
 import { JsonRpcSigner, ethers } from 'ethers'
 import { GLM } from 'ethereum/tokens/glm/GLM'
 import { erc20abi } from 'ethereum/contracts'
+
+import { TestingPath } from 'types/path'
 
 export const transferInitialBalances = async ({
   testingPath,
   address,
   signer,
 }: {
-  testingPath: testingPath
+  testingPath: TestingPath
   address: EthereumAddress
   signer: JsonRpcSigner
 }) => {

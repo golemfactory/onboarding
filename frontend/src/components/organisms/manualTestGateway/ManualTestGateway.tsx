@@ -5,10 +5,11 @@ import { CheckmarkIcon, XIcon } from 'components/atoms/icons'
 import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
 import storageTankJSON from 'assets/storage.tank.json'
 import * as ethers from 'ethers'
-import { testingPath, testingSetup } from './testingPaths'
+import { testingSetup } from './testingPaths'
 import { EthereumAddress, assertEthereumAddress } from 'types/ethereum'
 import { transferInitialBalances } from './transfer'
 import { WrongAccountModal } from './WrongAccountModal'
+import { BalanceCase } from 'types/path'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
@@ -24,7 +25,7 @@ export const ManualTestGateway: FC = () => {
   const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>('' as EthereumAddress)
 
   const [createdAccount, setCreatedAccount] = useState(false)
-  const [testingPath, setTestingPath] = useState<testingPath | null>(null)
+  const [testingPath, setTestingPath] = useState<BalanceCase | null>(null)
   const isMetamaskInstalled = !!window.ethereum && sdk?.getProvider() === window.ethereum
 
   const [wallet, setWallet] = useState<ethers.HDNodeWallet>({} as ethers.HDNodeWallet)
@@ -122,7 +123,7 @@ export const ManualTestGateway: FC = () => {
             className="mr-10"
             onChange={async (e) => {
               //TODO: avoid using as here
-              const path = e.currentTarget.value as testingPath
+              const path = e.currentTarget.value as BalanceCase
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
                 //@ts-ignore
@@ -137,13 +138,11 @@ export const ManualTestGateway: FC = () => {
 
                 assertEthereumAddress(wallet.address)
 
-                // await transferInitialBalances({
-                //   testingPath: path,
-                //   address: wallet.address,
-                //   signer: await new ethers.BrowserProvider(
-                //     window.ethereum
-                //   ).getSigner(account),
-                // })
+                await transferInitialBalances({
+                  testingPath: path,
+                  address: wallet.address,
+                  signer: await new ethers.BrowserProvider(window.ethereum).getSigner(account),
+                })
               }
 
               //TODO: display some nice notifications here

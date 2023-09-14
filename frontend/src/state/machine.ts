@@ -3,12 +3,13 @@ import { checkAccount, ensureMetamaskConnection, providerState } from './childMa
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
+import { BalanceCase } from 'types/path'
 
 export const createStateMachineWithContext = (context: OnboardingContextData) => {
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.CHECK_ACCOUNT,
+    initial: Steps.WELCOME,
     states: {
       [Steps.WALLET_INTRO]: {
         on: {
@@ -40,7 +41,14 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
         invoke: {
           id: 'check-account',
           src: checkAccount,
-          onDone: [],
+          onDone: [
+            {
+              target: Steps.ON_RAMP,
+              cond: (context, event) => {
+                return true
+              },
+            },
+          ],
         },
       },
       [Steps.DETECT_METAMASK]: {
@@ -49,7 +57,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
           src: ensureMetamaskConnection,
           onDone: [
             {
-              target: Steps.CONNECT_WALLET_SUCCESS,
+              target: Steps.CHECK_ACCOUNT,
               cond: (context, event) => event.data === providerState.METAMASK,
             },
             {
