@@ -13,6 +13,7 @@ const variants = {
 const OnRampPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
   const { account } = useSDK()
   let widget: RampInstantSDK | null = null
+
   useEffect(() => {
     if (widget) {
       widget.close()
