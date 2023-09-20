@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { useSDK } from '@metamask/sdk-react'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
+import { useMetaMask } from './MetamaskProvider'
 
 //TODO : provide better typing
 
@@ -17,16 +18,12 @@ export const OnboardingContext = createContext<{
 })
 
 export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({ children }) => {
-  const { connected } = useSDK()
-
   const [showLoading, setShowLoading] = useState(true)
   useEffect(() => {
-    if (connected) {
-      setTimeout(() => {
-        setShowLoading(false)
-      }, 2000)
-    }
-  }, [connected])
+    setTimeout(() => {
+      setShowLoading(false)
+    }, 2000)
+  }, [])
 
   if (!showLoading) {
     return <>{children}</>
@@ -41,12 +38,12 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children
   const [queryParams] = useSearchParams()
 
   const yagnaWalletAddress = queryParams.get('yagnaWalletAddress') ?? ''
-  const { sdk } = useSDK()
+  const metaMask = useMetaMask()
 
   const service = useInterpret(
     createStateMachineWithContext({
       yagnaWalletAddress,
-      sdk,
+      metaMask,
     })
   )
 

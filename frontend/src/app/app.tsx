@@ -7,20 +7,9 @@ import { TestingSetupProvider } from 'components/providers/TestingSetup.provider
 
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
-import { MetaMaskProvider } from '@metamask/sdk-react'
+import { MetaMaskProvider } from 'components/providers/MetamaskProvider'
 
 import { ErrorBoundary } from 'components/providers/ErrorBoundary'
-
-const metaMaskSDKOptions = {
-  logging: {
-    developerMode: true,
-  },
-  checkInstallationImmediately: false,
-  dappMetadata: {
-    name: 'Golem onboarding',
-    url: window.location.host,
-  },
-}
 
 const router = createHashRouter([
   {
@@ -28,7 +17,7 @@ const router = createHashRouter([
     errorElement: <ErrorBoundary />,
     element: (
       <SetupProvider>
-        <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
+        <MetaMaskProvider>
           <AwaitForMetamaskSDK>
             <OnboardingProvider>
               <OnboardingContainer />
@@ -41,7 +30,7 @@ const router = createHashRouter([
   {
     path: '/testing_gateway',
     element: (
-      <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
+      <MetaMaskProvider>
         <AwaitForMetamaskSDK>
           <TestingSetupProvider>
             <ManualTestGateway />

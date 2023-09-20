@@ -1,6 +1,21 @@
-import MetaMaskSDK from '@metamask/sdk'
+export interface WalletState {
+  accounts: any[]
+  balance: string
+  chainId: string
+}
+
+export interface MetaMaskContextData {
+  wallet: WalletState
+  hasProvider: boolean | null
+  error: boolean
+  errorMessage: string
+  isConnecting: boolean
+  isConnected: boolean
+  connect: () => void
+  clearError: () => void
+}
 
 export type OnboardingContextData = {
   yagnaWalletAddress: string
-  sdk?: MetaMaskSDK
+  metaMask: MetaMaskContextData
 }

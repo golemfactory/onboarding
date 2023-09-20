@@ -1,6 +1,7 @@
 // components/welcome/intro.tsx
+import { useSDK } from '@metamask/sdk-react'
 import { motion } from 'framer-motion'
-import { MouseEventHandler, useState } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 // import MetaMaskOnboarding from '@metamask/onboarding'
 
 const variants = {
@@ -10,10 +11,10 @@ const variants = {
 const NoProviderPresentational = ({ onClickOnboarding }: { onClickOnboarding: MouseEventHandler }) => {
   return (
     <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants} exit="hidden">
+      <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants} exit="hidden">
         Metamask plugin not found
       </motion.h1>
-      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants} exit="hidden">
+      <motion.p className="max-w-md text-white my-4 text-xl" variants={variants} exit="hidden">
         Lets go through the onboarding process
       </motion.p>
       <motion.button
@@ -30,8 +31,13 @@ const NoProviderPresentational = ({ onClickOnboarding }: { onClickOnboarding: Mo
 
 //TODO : handle this case
 
-export const NoProvider = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
-  const [accounts, setAccounts] = useState<string[]>([])
+export const NoProvider = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+  const { sdk, connected, account } = useSDK()
+  useEffect(() => {
+    if (connected) {
+      goToNextStep()
+    }
+  }, [connected])
   // const onboarding = useRef<MetaMaskOnboarding>()
 
   // //keep reference to onboarding
@@ -75,10 +81,8 @@ export const NoProvider = ({ goToNextStep }: { goToNextStep: MouseEventHandler }
   // }, [])
 
   const onClickOnboarding = () => {
-    // if (onboarding.current) {
-    //   onboarding.current.startOnboarding()
-    // }
+    sdk?.connect()
   }
 
-  return <NoProviderPresentational onClickOnboarding={goToNextStep} />
+  return <NoProviderPresentational onClickOnboarding={onClickOnboarding} />
 }

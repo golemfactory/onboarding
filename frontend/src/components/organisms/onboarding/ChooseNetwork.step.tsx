@@ -26,30 +26,30 @@ const ChooseNetworkPresentational = ({
 
   return (
     <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}>
+      <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
         Metamask is connected
       </motion.h1>
-      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}>
+      <motion.p className="max-w-md text-white my-4 text-xl" variants={variants}>
         Thats great, now choose network
       </motion.p>
-
-      <motion.select onChange={onNetworkSelection} variants={variants} value={chainId}>
-        {Object.keys(networks).map((network) => {
-          console.log('network', network)
-          return (
-            <option key={network} value={network}>
-              {networks[network].chainName}
-            </option>
-          )
-        })}
-      </motion.select>
-      <motion.button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-        variants={variants}
-        onClick={onConfirm}
-      >
-        Go
-      </motion.button>
+      <motion.div variants={variants}>
+        <select onChange={onNetworkSelection} value={chainId}>
+          {Object.keys(networks).map((network) => {
+            console.log('network', network)
+            return (
+              <option key={network} value={network}>
+                {networks[network].chainName}
+              </option>
+            )
+          })}
+        </select>
+        <button
+          className="mt-4 px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+          onClick={onConfirm}
+        >
+          Go
+        </button>
+      </motion.div>
     </div>
   )
 }
@@ -62,7 +62,7 @@ export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: MouseEventHandle
       throw new Error('Network not found')
     }
 
-    window.ethereum.request({
+    window.ethereum?.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: networks[network].chainId }],
     })

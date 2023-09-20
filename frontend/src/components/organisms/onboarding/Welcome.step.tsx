@@ -10,10 +10,10 @@ const variants = {
 const WelcomePresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
   return (
     <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}>
+      <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
         Welcome to Golem
       </motion.h1>
-      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}>
+      <motion.p className="max-w-md text-white my-4 text-xl" variants={variants}>
         Golem network is a decentralized sharing economy of computing power.
       </motion.p>
       <motion.button

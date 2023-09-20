@@ -32,7 +32,7 @@ export const swapETHForGLM = async ({ value }: { value: BigNumberish }) => {
   //TODO : make it possible to pass Infinity or make this optional
   const deadline = BigInt('9223372036854775807') // 2^63 - 1
 
-  const to = window.ethereum.selectedAddress
+  const to = window.ethereum?.selectedAddress as EthereumAddress
   const chain = getChainId()
   const contracts = getContracts(chain)
   const path = [contracts.wrappedNativeToken.address, contracts.GLM.address]
