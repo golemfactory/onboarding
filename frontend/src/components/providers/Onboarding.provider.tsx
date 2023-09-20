@@ -1,10 +1,11 @@
-import { FC, ReactNode, createContext } from 'react'
+import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 import { useInterpret } from '@xstate/react'
 import { InterpreterFrom } from 'xstate'
 import { createStateMachineWithContext } from 'state/machine'
 import { useSearchParams } from 'react-router-dom'
 
 import { useSDK } from '@metamask/sdk-react'
+import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 
 //TODO : provide better typing
 
@@ -17,10 +18,20 @@ export const OnboardingContext = createContext<{
 
 export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({ children }) => {
   const { connected } = useSDK()
-  if (connected) {
+
+  const [showLoading, setShowLoading] = useState(true)
+  useEffect(() => {
+    if (connected) {
+      setTimeout(() => {
+        setShowLoading(false)
+      }, 2000)
+    }
+  }, [connected])
+
+  if (!showLoading) {
     return <>{children}</>
   } else {
-    return <div>loading</div>
+    return <LoadingSpinner />
   }
 }
 

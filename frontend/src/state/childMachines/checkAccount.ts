@@ -23,14 +23,13 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const isBelowThreshold = await isBelowThresholdFactory(settings.minimalBalance, getChainId())
-
-const isBelowThresholdGLM = isBelowThreshold(TokenCategory.GLM)
-const isBelowThresholdNative = isBelowThreshold(TokenCategory.NATIVE)
-
 export const checkAccountBalances = async (context: OnboardingContextData): Promise<BalanceCase | undefined> => {
   //to make sure loader is not blinking
   delay(1000)
+  const isBelowThreshold = await isBelowThresholdFactory(settings.minimalBalance, getChainId())
+
+  const isBelowThresholdGLM = isBelowThreshold(TokenCategory.GLM)
+  const isBelowThresholdNative = isBelowThreshold(TokenCategory.NATIVE)
 
   if (isBelowThresholdGLM && isBelowThresholdNative) {
     return BalanceCase.NO_GLM_NO_MATIC
