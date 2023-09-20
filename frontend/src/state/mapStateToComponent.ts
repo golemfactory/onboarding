@@ -1,6 +1,14 @@
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { Steps } from './steps'
-import { Welcome, ConnectWallet, NoProvider, ChooseNetwork, OnRamp, WalletIntro } from 'components/organisms/onboarding'
+import {
+  Welcome,
+  ConnectWallet,
+  NoProvider,
+  ChooseNetwork,
+  OnRamp,
+  WalletIntro,
+  SwapTokens,
+} from 'components/organisms/onboarding'
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
   switch (state) {
@@ -22,6 +30,8 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return LoadingSpinner
     case Steps.CHECK_ACCOUNT:
       return LoadingSpinner
+    case Steps.SWAP:
+      return SwapTokens
     default:
       return LoadingSpinner
   }

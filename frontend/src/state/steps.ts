@@ -9,4 +9,5 @@ export enum Steps {
   ON_RAMP = 'on-ramp',
   WALLET_INTRO = 'wallet-intro',
   CHECK_ACCOUNT = 'check-account',
+  SWAP = 'swap',
 }

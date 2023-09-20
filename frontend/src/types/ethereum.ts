@@ -13,6 +13,8 @@ export interface MetaMaskEthereumProvider {
   addListener(eventName: string | symbol, listener: (...args: any[]) => void): this
   removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this
   removeAllListeners(event?: string | symbol): this
+  selectedAddress: EthereumAddress
+  chainId: string
 }
 
 export interface IToken {
@@ -58,16 +60,38 @@ export interface ISupportedNativeToken extends IToken {
 
 export type ISupportedToken = ISupportedERC20Token | ISupportedNativeToken
 
-export enum Network {
-  POLYGON = '0x89',
-  MUMBAI = '0x13881',
+export const Network = {
+  POLYGON: '0x89',
+  MUMBAI: '0x13881',
+} as const
+
+export type NetworkType = (typeof Network)[keyof typeof Network]
+
+export function assertSupportedChainId(x: string): asserts x is NetworkType {
+  if (!Object.values(Network as Record<string, string>).includes(x)) {
+    throw new Error('Invalid Ethereum chain ID')
+  }
 }
 
 export interface ISupportedNetwork extends INetwork {
-  chainId: Network // Override chainId with Network enum type
+  chainId: NetworkType // Override chainId with Network enum type
   nativeCurrency: {
     name: string
     symbol: Token
     decimals: number
+  }
+}
+
+export type IContracts = {
+  uniswapV2: {
+    address: EthereumAddress
+  }
+  GLM: {
+    address: EthereumAddress
+  }
+
+  //I intentionally do not use ETH to describe native token to avoid confusion
+  wrappedNativeToken: {
+    address: EthereumAddress
   }
 }

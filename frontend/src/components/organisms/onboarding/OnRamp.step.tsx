@@ -38,21 +38,6 @@ const OnRampPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) =
     <div className="text-center">
       <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}></motion.h1>
       <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}></motion.p>
-      {/* <motion.button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-        variants={variants}
-        onClick={(e) => {
-          onConfirm(e)
-        }}
-      > */}
-      {/* <a
-        href="https://app.ramp.network?hostApiKey=9the9ervmr72ezz6fwaxus72y3h2w5p47j9u8m9o&hostAppName=golem&hostLogoUrl=https://example.com/logo.png"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Go to Ramp
-      </a> */}
-      {/* </motion.button> */}
     </div>
   )
 }

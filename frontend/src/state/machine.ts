@@ -8,8 +8,11 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.ON_RAMP,
+    initial: Steps.SWAP,
     states: {
+      [Steps.SWAP]: {
+        on: {},
+      },
       [Steps.WALLET_INTRO]: {
         on: {
           [Commands.NEXT]: Steps.DETECT_METAMASK,

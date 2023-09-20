@@ -8,9 +8,6 @@ export default defineConfig((configEnv) => {
   return {
     base: '/onboarding',
     plugins: [react()],
-    define: {
-      CHAIN_ID: '0x13881',
-    },
     resolve: {
       alias: {
         app: resolve(__dirname, 'src', 'app'),
@@ -25,9 +22,7 @@ export default defineConfig((configEnv) => {
     },
     css: {
       modules: {
-        generateScopedName: isDevelopment
-          ? '[name]__[local]__[hash:base64:5]'
-          : '[hash:base64:5]',
+        generateScopedName: isDevelopment ? '[name]__[local]__[hash:base64:5]' : '[hash:base64:5]',
       },
     },
   }

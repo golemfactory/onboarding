@@ -12,14 +12,13 @@ export const verifyMetamask = (provider: SDKProvider | undefined) => {
     return providerState.NO_PROVIDER
   }
 
-  if (provider !== window.ethereum) {
-    return providerState.NOT_METAMASK
-  }
-
   if (!provider.isConnected()) {
     return providerState.NOT_CONNECTED
   }
 
+  if (provider != window.ethereum) {
+    return providerState.NOT_METAMASK
+  }
   return providerState.METAMASK
 }
 

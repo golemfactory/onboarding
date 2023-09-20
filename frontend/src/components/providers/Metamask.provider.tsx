@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import detectEthereumProvider from '@metamask/detect-provider'
 import { createContext, FC, ReactNode } from 'react'
 import { formatBalance } from 'utils/formatBalance'
+import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 
 const ethereum = window.ethereum || {
   on: () => {
@@ -37,13 +38,9 @@ const disconnectedState: WalletState = {
   chainId: '',
 }
 
-export const MetaMaskContext = createContext<MetaMaskContextData>(
-  {} as MetaMaskContextData
-)
+export const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMaskContextData)
 
-export const MetaMaskContextProvider: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const MetaMaskContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [hasProvider, setHasProvider] = useState<boolean | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -52,8 +49,7 @@ export const MetaMaskContextProvider: FC<{ children: ReactNode }> = ({
   const [wallet, setWallet] = useState(disconnectedState)
 
   const _updateWallet = useCallback(async (providedAccounts?: unknown[]) => {
-    const accounts =
-      providedAccounts || (await ethereum.request({ method: 'eth_accounts' }))
+    const accounts = providedAccounts || (await ethereum.request({ method: 'eth_accounts' }))
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
@@ -81,10 +77,7 @@ export const MetaMaskContextProvider: FC<{ children: ReactNode }> = ({
     setWallet({ accounts, balance, chainId })
   }, [])
 
-  const updateWalletAndAccounts = useCallback(
-    () => _updateWallet(),
-    [_updateWallet]
-  )
+  const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
   const updateWallet = useCallback(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
@@ -122,31 +115,10 @@ export const MetaMaskContextProvider: FC<{ children: ReactNode }> = ({
       clearError()
       updateWallet(accounts)
     } catch (err: unknown) {
-      setErrorMessage(
-        err instanceof Error ? err.message : 'Something went wrong'
-      )
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong')
     }
     setIsConnecting(false)
   }
-
-  return (
-    <MetaMaskContext.Provider
-      value={{
-        wallet,
-        hasProvider,
-        error: !!errorMessage,
-        errorMessage,
-        isConnecting,
-        connectMetaMask,
-        clearError,
-        request: ethereum
-          ? ethereum.request
-          : async () => {
-              return Promise.reject('No provider')
-            },
-      }}
-    >
-      {children}
-    </MetaMaskContext.Provider>
-  )
+  console.log('hello')
+  return <LoadingSpinner />
 }

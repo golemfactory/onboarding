@@ -1,32 +1,20 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
-import { MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 // import MetaMaskOnboarding from '@metamask/onboarding'
 
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const NoProviderPresentational = ({
-  onClickOnboarding,
-}: {
-  onClickOnboarding: MouseEventHandler
-}) => {
+const NoProviderPresentational = ({ onClickOnboarding }: { onClickOnboarding: MouseEventHandler }) => {
   return (
     <div className="text-center">
-      <motion.h1
-        className="text-4xl font-bold mb-4 text-gray-800"
-        variants={variants}
-        exit="hidden"
-      >
+      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants} exit="hidden">
         Metamask plugin not found
       </motion.h1>
-      <motion.p
-        className="max-w-md text-gray-600 my-4 text-lg"
-        variants={variants}
-        exit="hidden"
-      >
+      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants} exit="hidden">
         Lets go through the onboarding process
       </motion.p>
       <motion.button
@@ -40,6 +28,8 @@ const NoProviderPresentational = ({
     </div>
   )
 }
+
+//TODO : handle this case
 
 export const NoProvider = () => {
   const [accounts, setAccounts] = useState<string[]>([])

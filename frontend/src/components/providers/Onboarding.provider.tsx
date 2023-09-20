@@ -15,20 +15,16 @@ export const OnboardingContext = createContext<{
   service: {} as InterpreterFrom<any>,
 })
 
-export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const { ready } = useSDK()
-  if (ready) {
+export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({ children }) => {
+  const { connected } = useSDK()
+  if (connected) {
     return <>{children}</>
   } else {
     return <div>loading</div>
   }
 }
 
-export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   //TODO : make own hook for this to avoid calling get for every param
 
   const [queryParams] = useSearchParams()
@@ -45,8 +41,6 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({
 
   return (
     //@ts-ignore
-    <OnboardingContext.Provider value={{ service }}>
-      {children}
-    </OnboardingContext.Provider>
+    <OnboardingContext.Provider value={{ service }}>{children}</OnboardingContext.Provider>
   )
 }

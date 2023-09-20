@@ -14,7 +14,8 @@
     "test": "jest",
     "dev:storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "dev": "pnpm run '/^dev:.*/'"
+    "dev": "pnpm run '/^dev:.*/'",
+    "generate-types": "typechain --target=ethers-v6 'src/ethereum/**/abi.json' --out-dir=src/ethereum/types"
   },
   "dependencies": {
     "@heroicons/react": "2.0.13",
@@ -23,6 +24,7 @@
     "@metamask/sdk": "^0.6.1",
     "@metamask/sdk-react": "^0.6.1",
     "@ramp-network/ramp-instant-sdk": "^4.0.4",
+    "@typechain/ethers-v6": "^0.5.0",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
     "@xstate/react": "^3.2.2",
