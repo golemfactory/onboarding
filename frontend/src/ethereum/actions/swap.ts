@@ -3,7 +3,7 @@ import { EthereumAddress } from 'types/ethereum'
 import { getContracts } from 'utils/getContracts'
 import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
 import { getSigner } from 'utils/getSigner'
-import { getChain } from 'utils/getChain'
+import { getChainId } from 'utils/getChain'
 
 export const handleUniswapV2 = async ({
   amountOutMin,
@@ -20,7 +20,7 @@ export const handleUniswapV2 = async ({
   signer: ethers.Signer
   value?: BigNumberish
 }) => {
-  const uniswapV2 = new ethers.Contract(getContracts(getChain()).uniswapV2.address, uniswapV2Abi, signer)
+  const uniswapV2 = new ethers.Contract(getContracts(getChainId()).uniswapV2.address, uniswapV2Abi, signer)
 
   return await uniswapV2.swapExactETHForTokens(amountOutMin, path, to, deadline, {
     value,
@@ -33,7 +33,7 @@ export const swapETHForGLM = async ({ value }: { value: BigNumberish }) => {
   const deadline = BigInt('9223372036854775807') // 2^63 - 1
 
   const to = window.ethereum.selectedAddress
-  const chain = getChain()
+  const chain = getChainId()
   const contracts = getContracts(chain)
   const path = [contracts.wrappedNativeToken.address, contracts.GLM.address]
   const amountOutMin = 0

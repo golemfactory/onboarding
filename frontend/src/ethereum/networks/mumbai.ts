@@ -1,13 +1,10 @@
-import { ISupportedNetwork, Network, Token } from 'types/ethereum'
+import { INetwork, Network } from 'types/ethereum'
+import { glmMumbai, maticMumbai } from '..'
 
-export const MUMBAI: ISupportedNetwork = {
+export const MUMBAI: INetwork = {
   chainId: Network.MUMBAI,
   chainName: 'Mumbai Testnet',
   rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
   blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
-  nativeCurrency: {
-    name: 'MATIC',
-    symbol: Token.MATIC,
-    decimals: 18,
-  },
+  nativeCurrency: maticMumbai,
 }

@@ -1,7 +1,7 @@
 import { getExpectedBalances } from './testingPaths'
 import { EthereumAddress, Network } from 'types/ethereum'
 import { JsonRpcSigner, ethers } from 'ethers'
-import { GLM } from 'ethereum/tokens/glm/GLM'
+import { GLM } from 'ethereum/tokens/glm/polygon'
 import { erc20abi } from 'ethereum/contracts'
 
 import { BalanceCase } from 'types/path'

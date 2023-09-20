@@ -1,13 +1,10 @@
-import { ISupportedNetwork, Network, Token } from 'types/ethereum'
+import { INetwork, Network, Token } from 'types/ethereum'
+import { maticMumbai } from '..'
 
-export const POLYGON: ISupportedNetwork = {
+export const POLYGON: INetwork = {
   chainId: Network.POLYGON,
   chainName: 'Polygon',
   rpcUrls: ['https://polygon-rpc.com/'],
   blockExplorerUrls: ['https://polygonscan.com/'],
-  nativeCurrency: {
-    name: 'MATIC',
-    symbol: Token.MATIC,
-    decimals: 18,
-  },
+  nativeCurrency: maticMumbai,
 }

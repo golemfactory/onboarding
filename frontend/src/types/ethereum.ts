@@ -1,3 +1,6 @@
+import { type } from 'os'
+import { To } from 'react-router-dom'
+
 interface RequestArguments {
   method: string
   params?: unknown[] | object
@@ -17,18 +20,76 @@ export interface MetaMaskEthereumProvider {
   chainId: string
 }
 
+//TODO rethink how we could keep one enum Token
+
+export const UtilityToken = {
+  GLM_POLYGON: 'GLM_POLYGON',
+  GLM_MUMBAI: 'GLM_MUMBAI',
+} as const
+
+export type UtilityTokenType = (typeof UtilityToken)[keyof typeof UtilityToken]
+
+export const NativeToken = {
+  MATIC_POLYGON: 'MATIC_POLYGON',
+  MATIC_MUMBAI: 'MATIC_MUMBAI',
+} as const
+
+export type NativeTokenType = (typeof NativeToken)[keyof typeof NativeToken]
+
+export const WrappedToken = {
+  WMATIC_POLYGON: 'WMATIC_POLYGON',
+  WMATIC_MUMBAI: 'WMATIC_MUMBAI',
+} as const
+
+export type WrappedTokenType = (typeof WrappedToken)[keyof typeof WrappedToken]
+
+export const Token = {
+  ...UtilityToken,
+  ...NativeToken,
+  ...WrappedToken,
+} as const
+
+export type TokenType = UtilityTokenType | NativeTokenType | WrappedTokenType
+
+export enum TokenCategory {
+  //represents set of all ERC20 tokens deployed by Golem
+  //to be used as utility token
+  GLM = 'GLM',
+  //represents set of all native tokens
+  NATIVE = 'NATIVE',
+}
+
 export interface IToken {
   name: string
-  symbol: string
   decimals: number
+  isNative: boolean
+  symbol: TokenType
+  network: NetworkType
+}
+
+export interface INativeToken extends IToken {
+  isNative: true
+  symbol: NativeTokenType
+}
+
+export interface IUtilityToken extends IToken {
+  isNative: false
+  symbol: UtilityTokenType
+  address: EthereumAddress
+}
+
+export interface IWrappedToken extends IToken {
+  isNative: false
+  symbol: WrappedTokenType
+  address: EthereumAddress
 }
 
 export interface INetwork {
-  chainId: string
+  chainId: NetworkType
   chainName: string
   rpcUrls: string[]
   blockExplorerUrls: string[]
-  nativeCurrency: IToken
+  nativeCurrency: INativeToken
 }
 
 export type EthereumAddress = string & { __brand: 'EthereumAddress' }
@@ -40,25 +101,6 @@ export function assertEthereumAddress(x: string): asserts x is EthereumAddress {
     throw new Error('Invalid ethereum account')
   }
 }
-
-export enum Token {
-  GLM = 'GLM',
-  MATIC = 'MATIC',
-  ETH = 'ETH',
-}
-
-export interface ISupportedERC20Token extends IToken {
-  symbol: Token
-  getAddress(network: string): EthereumAddress
-  isNative: false
-}
-
-export interface ISupportedNativeToken extends IToken {
-  symbol: Token
-  isNative: true
-}
-
-export type ISupportedToken = ISupportedERC20Token | ISupportedNativeToken
 
 export const Network = {
   POLYGON: '0x89',
@@ -73,15 +115,6 @@ export function assertSupportedChainId(x: string): asserts x is NetworkType {
   }
 }
 
-export interface ISupportedNetwork extends INetwork {
-  chainId: NetworkType // Override chainId with Network enum type
-  nativeCurrency: {
-    name: string
-    symbol: Token
-    decimals: number
-  }
-}
-
 export type IContracts = {
   uniswapV2: {
     address: EthereumAddress
@@ -89,7 +122,6 @@ export type IContracts = {
   GLM: {
     address: EthereumAddress
   }
-
   //I intentionally do not use ETH to describe native token to avoid confusion
   wrappedNativeToken: {
     address: EthereumAddress

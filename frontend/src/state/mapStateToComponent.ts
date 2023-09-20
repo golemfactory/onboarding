@@ -28,7 +28,7 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return WalletIntro
     case Steps.DETECT_METAMASK:
       return LoadingSpinner
-    case Steps.CHECK_ACCOUNT:
+    case Steps.CHECK_ACCOUNT_BALANCES:
       return LoadingSpinner
     case Steps.SWAP:
       return SwapTokens

@@ -16,9 +16,9 @@ export const verifyMetamask = (provider: SDKProvider | undefined) => {
     return providerState.NOT_CONNECTED
   }
 
-  if (provider != window.ethereum) {
-    return providerState.NOT_METAMASK
-  }
+  // if (provider != window.ethereum) {
+  //   return providerState.NOT_METAMASK
+  // }
   return providerState.METAMASK
 }
 

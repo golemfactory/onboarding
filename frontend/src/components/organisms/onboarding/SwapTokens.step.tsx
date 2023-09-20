@@ -1,13 +1,13 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { OnboardingStep } from 'components/templates/OnboardingStep.template'
-import { MouseEventHandler, useEffect } from 'react'
+import { MouseEventHandler } from 'react'
 import { useSDK } from '@metamask/sdk-react'
 
-import { getContracts } from 'utils/getContracts'
 import { swapETHForGLM } from 'ethereum/actions/swap'
 import { parseUnits } from 'ethers'
-import { getBalances } from 'utils/getBalances'
+import { settings } from 'src/settings'
+import { getNativeToken } from 'utils/getNativeToken'
 
 const variants = {
   show: { opacity: 1 },
@@ -39,9 +39,10 @@ export const SwapTokens = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
   return (
     <OnboardingStep>
       <SwapTokensPresentational
-        onSwapButtonClick={() => {
+        onSwapButtonClick={async () => {
+          const nativeToken = await getNativeToken()
           swapETHForGLM({
-            value: parseUnits('1', 18),
+            value: parseUnits(settings.minimalSwap[nativeToken], 18),
           })
         }}
       />

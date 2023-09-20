@@ -1,2 +1,3 @@
-export * from './matic/MATIC'
-export * from './glm/GLM'
+export * from './matic'
+export * from './glm'
+export * from './wmatic'

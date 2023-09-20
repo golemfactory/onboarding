@@ -1,5 +1,5 @@
 import { createMachine } from 'xstate'
-import { checkAccount, ensureMetamaskConnection, providerState } from './childMachines'
+import { checkAccountBalances, ensureMetamaskConnection, providerState } from './childMachines'
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
@@ -20,7 +20,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
       },
       [Steps.CHOOSE_NETWORK]: {
         on: {
-          [Commands.NEXT]: Steps.CHECK_ACCOUNT,
+          [Commands.NEXT]: Steps.CHECK_ACCOUNT_BALANCES,
         },
       },
       [Steps.ON_RAMP]: {
@@ -39,10 +39,10 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
           [Commands.NEXT]: Steps.DETECT_METAMASK,
         },
       },
-      [Steps.CHECK_ACCOUNT]: {
+      [Steps.CHECK_ACCOUNT_BALANCES]: {
         invoke: {
           id: 'check-account',
-          src: checkAccount,
+          src: checkAccountBalances,
           onDone: [
             {
               target: Steps.ON_RAMP,

@@ -8,6 +8,6 @@ export enum Steps {
   CHOOSE_NETWORK = 'choose-network',
   ON_RAMP = 'on-ramp',
   WALLET_INTRO = 'wallet-intro',
-  CHECK_ACCOUNT = 'check-account',
+  CHECK_ACCOUNT_BALANCES = 'check-account-balances',
   SWAP = 'swap',
 }

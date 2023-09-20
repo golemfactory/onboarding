@@ -1,52 +1,48 @@
 import { ethers } from 'ethers'
-import erc20Abi from 'ethereum/contracts/erc20token/abi.json'
-import { GLM } from 'ethereum/tokens/glm/GLM'
 import { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
+import { getBalances } from 'utils/getBalances'
+import { settings } from '../../settings'
+import { NativeTokenType, NetworkType, TokenCategory, UtilityTokenType } from 'types/ethereum'
+import { getTokenByCategory } from 'utils/getTokenByNetwrok'
+import { getChainId } from 'utils/getChain'
+
+const balanceToNumber = (balance: bigint) => Number(ethers.formatEther(balance))
+
+async function isBelowThresholdFactory(
+  minimalBalance: Record<NativeTokenType | UtilityTokenType, number>,
+  network: NetworkType
+) {
+  const balance = await getBalances()
+  return function isBelowThreshold(tokenCategory: TokenCategory) {
+    return balanceToNumber(balance[tokenCategory]) < minimalBalance[getTokenByCategory(network, tokenCategory)]
+  }
+}
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
-//TODO maybe change those values and move them to config
-const minimalBalanceETH = 0.1
-const minimalBalanceGLM = 100
 
-const balanceToNumber = (balance: bigint) => Number(ethers.formatEther(balance))
+const isBelowThreshold = await isBelowThresholdFactory(settings.minimalBalance, getChainId())
 
-export const checkAccount = async (context: OnboardingContextData): Promise<BalanceCase | undefined> => {
-  //TODO provide better abstraction for working with ethereum
+const isBelowThresholdGLM = isBelowThreshold(TokenCategory.GLM)
+const isBelowThresholdNative = isBelowThreshold(TokenCategory.NATIVE)
 
-  const network = context.sdk?.activeProvider?.chainId
+export const checkAccountBalances = async (context: OnboardingContextData): Promise<BalanceCase | undefined> => {
+  //to make sure loader is not blinking
+  delay(1000)
 
-  //TODO : handle the case
-  if (!network) {
-    return
-  }
-  const golemAddress = GLM.getAddress(network)
-
-  const provider = new ethers.BrowserProvider(window.ethereum)
-  const address = context.sdk?.activeProvider?.selectedAddress
-
-  //TODO : handle the case
-  if (!address) {
-    return
-  }
-
-  await delay(2000)
-
-  const signer = await new ethers.BrowserProvider(window.ethereum).getSigner(address)
-  const tokenContract = new ethers.Contract(golemAddress, erc20Abi, signer)
-
-  const ETH_balance = await provider.getBalance(address)
-
-  const GLM_Balance = await tokenContract.balanceOf(address)
-  if (balanceToNumber(GLM_Balance) < minimalBalanceGLM && balanceToNumber(ETH_balance) < minimalBalanceETH) {
+  if (isBelowThresholdGLM && isBelowThresholdNative) {
     return BalanceCase.NO_GLM_NO_MATIC
-  } else if (balanceToNumber(GLM_Balance) < minimalBalanceGLM) {
-    return BalanceCase.NO_GLM
-  } else if (balanceToNumber(ETH_balance) < minimalBalanceETH) {
-    return BalanceCase.NO_MATIC
-  } else {
-    return BalanceCase.BOTH
   }
+
+  if (isBelowThresholdGLM) {
+    return BalanceCase.NO_GLM
+  }
+
+  if (isBelowThresholdNative) {
+    return BalanceCase.NO_MATIC
+  }
+
+  return BalanceCase.BOTH
 }
