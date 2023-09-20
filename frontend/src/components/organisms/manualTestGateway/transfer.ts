@@ -1,7 +1,8 @@
 import { getExpectedBalances } from './testingPaths'
 import { EthereumAddress, Network } from 'types/ethereum'
 import { JsonRpcSigner, ethers } from 'ethers'
-import { GLM } from 'ethereum/tokens/glm/polygon'
+import { getContracts } from 'utils/getContracts'
+import { getChainId } from 'utils/getChain'
 import { erc20abi } from 'ethereum/contracts'
 
 import { BalanceCase } from 'types/path'
@@ -17,7 +18,7 @@ export const transferInitialBalances = async ({
 }) => {
   const network = Network.MUMBAI
   const balances = getExpectedBalances({ testingPath, network })
-  const golemAddress = GLM.getAddress(network)
+  const golemAddress = getContracts(getChainId()).GLM.address
 
   await sendGolemToken({
     balance: ethers.parseEther(balances.glm.toString()),

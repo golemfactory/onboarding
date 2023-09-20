@@ -45,6 +45,9 @@
       "assets/*": [
         "src/assets/*"
       ],
+      "settings": [
+        "src/settings.ts"
+      ]
     }
   },
   "include": [

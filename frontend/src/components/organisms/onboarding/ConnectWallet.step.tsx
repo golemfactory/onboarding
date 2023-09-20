@@ -1,30 +1,19 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { OnboardingStep } from 'components/templates/OnboardingStep.template'
-import { FC, MouseEventHandler } from 'react'
+import { MouseEventHandler } from 'react'
 import { useSDK } from '@metamask/sdk-react'
 
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const ConnectWalletPresentational = ({
-  onConfirm,
-}: {
-  onConfirm: MouseEventHandler
-}) => {
+const ConnectWalletPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
   return (
     <div className="text-center">
-      <motion.h1
-        className="text-4xl font-bold mb-4 text-gray-800"
-        variants={variants}
-      >
+      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}>
         Wallet connection
       </motion.h1>
-      <motion.p
-        className="max-w-md text-gray-600 my-4 text-lg"
-        variants={variants}
-      >
+      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}>
         We detected you have Metamask installed but it is not connected
       </motion.p>
       <motion.button
@@ -40,15 +29,7 @@ const ConnectWalletPresentational = ({
   )
 }
 
-export const ConnectWallet = ({
-  onConfirm,
-}: {
-  onConfirm: MouseEventHandler
-}) => {
+export const ConnectWallet = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
   const { sdk } = useSDK()
-  return (
-    <OnboardingStep>
-      <ConnectWalletPresentational onConfirm={() => sdk?.connect()} />
-    </OnboardingStep>
-  )
+  return <ConnectWalletPresentational onConfirm={() => sdk?.connect()} />
 }

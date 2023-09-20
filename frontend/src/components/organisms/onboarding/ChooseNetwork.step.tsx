@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion'
-import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { MouseEventHandler, ChangeEventHandler, ChangeEvent, useState } from 'react'
-import { useMetaMask } from 'hooks/useMetamask'
 import { networks } from 'ethereum/networks'
-import { Network } from 'types/ethereum'
+import { Network, NetworkType } from 'types/ethereum'
 import { useSDK } from '@metamask/sdk-react'
 
 const variants = {
@@ -56,8 +54,8 @@ const ChooseNetworkPresentational = ({
   )
 }
 
-export const ChooseNetwork = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
-  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement> & { target: { value: Network } }) => {
+export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
+  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement> & { target: { value: NetworkType } }) => {
     const network = e.target.value
 
     if (!(network === Network.MUMBAI || network === Network.POLYGON)) {
@@ -70,9 +68,5 @@ export const ChooseNetwork = ({ onConfirm }: { onConfirm: MouseEventHandler }) =
     })
   }
 
-  return (
-    <OnboardingStep>
-      <ChooseNetworkPresentational onConfirm={onConfirm} onNetworkSelection={onNetworkSelection} />
-    </OnboardingStep>
-  )
+  return <ChooseNetworkPresentational onConfirm={goToNextStep} onNetworkSelection={onNetworkSelection} />
 }

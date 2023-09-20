@@ -8,7 +8,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.SWAP,
+    initial: Steps.WELCOME,
     states: {
       [Steps.SWAP]: {
         on: {},

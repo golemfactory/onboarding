@@ -1,6 +1,5 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { MouseEventHandler, useState } from 'react'
 // import MetaMaskOnboarding from '@metamask/onboarding'
 
@@ -31,7 +30,7 @@ const NoProviderPresentational = ({ onClickOnboarding }: { onClickOnboarding: Mo
 
 //TODO : handle this case
 
-export const NoProvider = () => {
+export const NoProvider = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
   const [accounts, setAccounts] = useState<string[]>([])
   // const onboarding = useRef<MetaMaskOnboarding>()
 
@@ -81,9 +80,5 @@ export const NoProvider = () => {
     // }
   }
 
-  return (
-    <OnboardingStep>
-      <NoProviderPresentational onClickOnboarding={onClickOnboarding} />
-    </OnboardingStep>
-  )
+  return <NoProviderPresentational onClickOnboarding={goToNextStep} />
 }

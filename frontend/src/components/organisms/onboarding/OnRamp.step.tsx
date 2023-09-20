@@ -1,6 +1,5 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { OnboardingStep } from 'components/templates/OnboardingStep.template'
 import { MouseEventHandler, useEffect } from 'react'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { hideRampBackground } from 'utils/hideRampBackground'
@@ -42,10 +41,6 @@ const OnRampPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) =
   )
 }
 
-export const OnRamp = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
-  return (
-    <OnboardingStep>
-      <OnRampPresentational onConfirm={onConfirm} />
-    </OnboardingStep>
-  )
+export const OnRamp = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
+  return <OnRampPresentational onConfirm={goToNextStep} />
 }

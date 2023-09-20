@@ -18,6 +18,7 @@ export default defineConfig((configEnv) => {
         ethereum: resolve(__dirname, 'src', 'ethereum'),
         types: resolve(__dirname, 'src', 'types'),
         assets: resolve(__dirname, 'src', 'assets'),
+        settings: resolve(__dirname, 'src', 'settings'),
       },
     },
     css: {
