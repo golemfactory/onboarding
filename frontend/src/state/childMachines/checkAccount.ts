@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { OnboardingContextData } from 'types/dataContext'
-import { BalanceCase } from 'types/path'
+import { BalanceCase, BalanceCaseType } from 'types/path'
 import { getBalances } from 'utils/getBalances'
 import { settings } from '../../settings'
 import { NativeTokenType, NetworkType, TokenCategory, UtilityTokenType } from 'types/ethereum'
@@ -23,9 +23,14 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const checkAccountBalances = async (context: OnboardingContextData): Promise<BalanceCase | undefined> => {
+export const checkAccountBalances = async (context: OnboardingContextData): Promise<BalanceCaseType | undefined> => {
   //to make sure loader is not blinking
+
   delay(1000)
+
+  if (context.balanceCase) {
+    return context.balanceCase
+  }
   const isBelowThreshold = await isBelowThresholdFactory(settings.minimalBalance, getChainId())
 
   const isBelowThresholdGLM = isBelowThreshold(TokenCategory.GLM)

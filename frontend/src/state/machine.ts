@@ -16,7 +16,12 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
   >({
     context,
     id: 'onboarding',
-    initial: Steps.CHECK_ACCOUNT_BALANCES,
+    initial:
+      initialStep ||
+      //get first not skipped step
+      [Steps.WELCOME, Steps.WALLET_INTRO, Steps.DETECT_METAMASK].find((step) => {
+        return !context.skipSteps?.includes(step)
+      }),
     states: {
       [Steps.WELCOME]: {
         on: {
@@ -64,7 +69,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
       },
       [Steps.CHOOSE_NETWORK]: {
         on: {
-          [Commands.NEXT]: Steps.ADD_GLM,
+          [Commands.NEXT]: context.skipSteps?.includes(Steps.ADD_GLM) ? Steps.CHECK_ACCOUNT_BALANCES : Steps.ADD_GLM,
         },
       },
       [Steps.ADD_GLM]: {

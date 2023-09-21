@@ -8,6 +8,7 @@ import { useSDK } from '@metamask/sdk-react'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { useMetaMask } from './MetamaskProvider'
 import { Steps } from 'state/steps'
+import { useSetup } from './Setup.provider'
 
 //TODO : provide better typing
 
@@ -35,10 +36,7 @@ export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({ children }) =
 
 export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   //TODO : make own hook for this to avoid calling get for every param
-
-  const [queryParams] = useSearchParams()
-
-  const yagnaWalletAddress = queryParams.get('yagnaWalletAddress') ?? ''
+  const setup = useSetup()
   const metaMask = useMetaMask()
   const [initialStep, setInitialStep] = useState<Steps>(
     (localStorage.getItem('OnboardingStep') as Steps) || Steps.WELCOME
@@ -51,7 +49,7 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children
   const service = useInterpret(
     createStateMachineWithContext(
       {
-        yagnaWalletAddress,
+        ...setup,
         metaMask,
         glmAdded: false,
       },

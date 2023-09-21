@@ -1,8 +1,17 @@
-import { FC, createContext } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { FC, createContext, useContext, useMemo } from 'react'
+import { Steps } from 'state/steps'
+import { BalanceCaseType } from 'types/path'
+
+function useQuery() {
+  const search = window.location.search
+
+  return useMemo(() => new URLSearchParams(search), [search])
+}
 
 type SetupContextData = {
-  address: ''
+  address: string | null
+  balanceCase?: BalanceCaseType
+  skipSteps?: Steps[]
 }
 
 const SetupContext = createContext<SetupContextData>({
@@ -10,7 +19,27 @@ const SetupContext = createContext<SetupContextData>({
 })
 
 export const SetupProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [searchParams] = useSearchParams()
+  const query = useQuery()
 
-  return <SetupContext.Provider value={{ address: '' }}>{children}</SetupContext.Provider>
+  const address = query.get('address')
+  const balanceCase = query.get('balanceCase')
+  //TODO add assert
+  const skipSteps = query.getAll('skipSteps') as Steps[]
+
+  return (
+    <SetupContext.Provider
+      value={{
+        address: address,
+        balanceCase: balanceCase as BalanceCaseType,
+        skipSteps: skipSteps,
+      }}
+    >
+      {children}
+    </SetupContext.Provider>
+  )
+}
+
+export const useSetup = () => {
+  const context = useContext(SetupContext)
+  return context
 }

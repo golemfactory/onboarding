@@ -1,3 +1,6 @@
+import { Steps } from 'state/steps'
+import { BalanceCaseType } from './path'
+
 export interface WalletState {
   accounts: any[]
   balance: string
@@ -16,7 +19,9 @@ export interface MetaMaskContextData {
 }
 
 export type OnboardingContextData = {
-  yagnaWalletAddress: string
+  address?: string | null
+  balanceCase?: BalanceCaseType
   metaMask: MetaMaskContextData
   glmAdded: boolean
+  skipSteps?: Steps[]
 }

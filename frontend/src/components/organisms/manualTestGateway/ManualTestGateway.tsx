@@ -9,7 +9,8 @@ import { testingSetup } from './testingPaths'
 import { EthereumAddress, assertEthereumAddress } from 'types/ethereum'
 import { transferInitialBalances } from './transfer'
 import { WrongAccountModal } from './WrongAccountModal'
-import { BalanceCase } from 'types/path'
+import { BalanceCaseType } from 'types/path'
+import { useMetaMask } from 'components/providers/MetamaskProvider'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
@@ -17,7 +18,8 @@ const createNewAccount = async () => {
 }
 
 export const ManualTestGateway: FC = () => {
-  const { sdk, connected: isMetamaskConnected, account } = useSDK()
+  const metamask = useMetaMask()
+  const account = metamask.wallet.accounts[0]
   const [showModal, setShowModal] = useState(false)
 
   const [currentAccount, setCurrentAccount] = useState<EthereumAddress>('' as EthereumAddress)
@@ -25,8 +27,8 @@ export const ManualTestGateway: FC = () => {
   const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>('' as EthereumAddress)
 
   const [createdAccount, setCreatedAccount] = useState(false)
-  const [testingPath, setTestingPath] = useState<BalanceCase | null>(null)
-  const isMetamaskInstalled = !!window.ethereum && sdk?.getProvider() === window.ethereum
+  const [testingPath, setTestingPath] = useState<BalanceCaseType | null>(null)
+  const isMetamaskInstalled = window.ethereum?.isMetaMask
 
   const [wallet, setWallet] = useState<ethers.HDNodeWallet>({} as ethers.HDNodeWallet)
 
@@ -40,20 +42,20 @@ export const ManualTestGateway: FC = () => {
             Metamask is installed
           </>
         ) : (
-          <div>
-            <XIcon className="mr-4 text-red-400" /> Metamask is not installed
+          <>
+            <XIcon className="mr-4 text-red-400" />{' '}
             <Button
               onClick={() => {
-                sdk?.connect()
+                metamask.connect()
               }}
             >
               Install metamask
             </Button>
-          </div>
+          </>
         )}
       </Paragraph>
       <Paragraph>
-        {isMetamaskConnected ? (
+        {metamask.isConnected ? (
           <>
             <CheckmarkIcon className="mr-4 text-green-400" />
             Metamask is connected
@@ -63,7 +65,7 @@ export const ManualTestGateway: FC = () => {
             <XIcon className="mr-4 text-red-400" />{' '}
             <Button
               onClick={() => {
-                sdk?.connect()
+                metamask.connect()
               }}
             >
               Connect to metamask
@@ -123,7 +125,8 @@ export const ManualTestGateway: FC = () => {
             className="mr-10"
             onChange={async (e) => {
               //TODO: avoid using as here
-              const path = e.currentTarget.value as BalanceCase
+              const path = e.currentTarget.value as BalanceCaseType
+              const CHAIN_ID = 80001
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
                 //@ts-ignore
