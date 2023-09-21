@@ -2,12 +2,9 @@ import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 import { useInterpret } from '@xstate/react'
 import { InterpreterFrom } from 'xstate'
 import { createStateMachineWithContext } from 'state/machine'
-import { useSearchParams } from 'react-router-dom'
-
-import { useSDK } from '@metamask/sdk-react'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { useMetaMask } from './MetamaskProvider'
-import { Steps } from 'state/steps'
+import { StepType, Step } from 'state/steps'
 import { useSetup } from './Setup.provider'
 
 //TODO : provide better typing
@@ -38,9 +35,7 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children
   //TODO : make own hook for this to avoid calling get for every param
   const setup = useSetup()
   const metaMask = useMetaMask()
-  const [initialStep, setInitialStep] = useState<Steps>(
-    (localStorage.getItem('OnboardingStep') as Steps) || Steps.WELCOME
-  )
+  const [initialStep, setInitialStep] = useState<StepType>(localStorage.getItem('OnboardingStep') as StepType)
 
   useEffect(() => {
     localStorage.setItem('OnboardingStep', '')

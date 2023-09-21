@@ -1,4 +1,4 @@
-import { Steps } from 'state/steps'
+import { StepType } from 'state/steps'
 import { BalanceCaseType } from './path'
 
 export interface WalletState {
@@ -23,5 +23,5 @@ export type OnboardingContextData = {
   balanceCase?: BalanceCaseType
   metaMask: MetaMaskContextData
   glmAdded: boolean
-  skipSteps?: Steps[]
+  skipSteps?: StepType[]
 }

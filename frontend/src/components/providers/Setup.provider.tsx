@@ -1,5 +1,5 @@
 import { FC, createContext, useContext, useMemo } from 'react'
-import { Steps } from 'state/steps'
+import { StepType } from 'state/steps'
 import { BalanceCaseType } from 'types/path'
 
 function useQuery() {
@@ -11,7 +11,7 @@ function useQuery() {
 type SetupContextData = {
   address: string | null
   balanceCase?: BalanceCaseType
-  skipSteps?: Steps[]
+  skipSteps?: StepType[]
 }
 
 const SetupContext = createContext<SetupContextData>({
@@ -22,10 +22,11 @@ export const SetupProvider: FC<{ children: React.ReactNode }> = ({ children }) =
   const query = useQuery()
 
   const address = query.get('address')
-  const balanceCase = query.get('balanceCase')
+  const balanceCase = query.get('balance-case')
   //TODO add assert
-  const skipSteps = query.getAll('skipSteps') as Steps[]
+  const skipSteps = query.getAll('skip-steps') as StepType[]
 
+  console.log('skipSteps', skipSteps)
   return (
     <SetupContext.Provider
       value={{

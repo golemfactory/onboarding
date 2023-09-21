@@ -1,11 +1,8 @@
-// components/welcome/intro.tsx
 import { useSDK } from '@metamask/sdk-react'
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
-// import MetaMaskOnboarding from '@metamask/onboarding'
 import { MetaMaskProvider } from '@metamask/sdk-react'
-import { t } from 'xstate'
-import { Steps } from 'state/steps'
+import { Step } from 'state/steps'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -31,7 +28,7 @@ const NoProviderPresentational = ({ onClickOnboarding }: { onClickOnboarding: Mo
   )
 }
 
-//TODO : handle this case
+//Metamask sdk is used here only to use install UI
 
 const metaMaskSDKOptions = {
   logging: {
@@ -54,20 +51,11 @@ export const NoProviderWrapped = ({ goToNextStep }: { goToNextStep: () => {} }) 
 }
 
 export const NoProvider = ({ goToNextStep }: { goToNextStep: () => {} }) => {
-  const { sdk, connected } = useSDK()
+  const { sdk } = useSDK()
 
   const onClickOnboarding = () => {
-    localStorage.setItem('OnboardingStep', Steps.CONNECT_WALLET)
+    localStorage.setItem('OnboardingStep', Step.CONNECT_WALLET)
     sdk?.connect()
-    // goToNextStep()
   }
-
-  // const preventMMReload = function (e) {
-  //   // Cancel the page reload
-  //   e.preventDefault()
-  //   // Prompt the user with a confirmation message (optional)
-  //   e.returnValue = ''
-  // }
-
   return <NoProviderPresentational onClickOnboarding={onClickOnboarding} />
 }

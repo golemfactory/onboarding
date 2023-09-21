@@ -1,9 +1,8 @@
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
-import { Steps } from './steps'
+import { Step } from './steps'
 import {
   Welcome,
   ConnectWallet,
-  NoProvider,
   ChooseNetwork,
   OnRamp,
   WalletIntro,
@@ -16,31 +15,31 @@ import {
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
   switch (state) {
-    case Steps.WELCOME:
+    case Step.WELCOME:
       return Welcome
-    case Steps.CONNECT_WALLET_SUCCESS:
+    case Step.CONNECT_WALLET_SUCCESS:
       return ChooseNetwork
-    case Steps.CONNECT_WALLET:
+    case Step.CONNECT_WALLET:
       return ConnectWallet
-    case Steps.SHOW_METAMASK_LINK:
+    case Step.SHOW_METAMASK_LINK:
       return NoProviderWrapped
-    case Steps.CHOOSE_NETWORK:
+    case Step.CHOOSE_NETWORK:
       return ChooseNetwork
-    case Steps.ON_RAMP:
+    case Step.ON_RAMP:
       return OnRamp
-    case Steps.WALLET_INTRO:
+    case Step.WALLET_INTRO:
       return WalletIntro
-    case Steps.DETECT_METAMASK:
+    case Step.DETECT_METAMASK:
       return LoadingSpinner
-    case Steps.CHECK_ACCOUNT_BALANCES:
+    case Step.CHECK_ACCOUNT_BALANCES:
       return LoadingSpinner
-    case Steps.SWAP:
+    case Step.SWAP:
       return SwapTokens
-    case Steps.GASLESS_SWAP:
+    case Step.GASLESS_SWAP:
       return NotSupported
-    case Steps.FINISH:
+    case Step.FINISH:
       return Finish
-    case Steps.ADD_GLM:
+    case Step.ADD_GLM:
       return AddGLM
     default:
       return LoadingSpinner

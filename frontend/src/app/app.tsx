@@ -3,7 +3,6 @@ import { AwaitForMetamaskSDK, OnboardingProvider, SetupProvider } from 'componen
 
 import { FC } from 'react'
 import { ManualTestGateway } from 'components/organisms/manualTestGateway/ManualTestGateway'
-import { TestingSetupProvider } from 'components/providers/TestingSetup.provider'
 
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
@@ -32,9 +31,7 @@ const router = createHashRouter([
     element: (
       <MetaMaskProvider>
         <AwaitForMetamaskSDK>
-          <TestingSetupProvider>
-            <ManualTestGateway />
-          </TestingSetupProvider>
+          <ManualTestGateway />
         </AwaitForMetamaskSDK>
       </MetaMaskProvider>
     ),
