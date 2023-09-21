@@ -11,6 +11,8 @@ import { transferInitialBalances } from './transfer'
 import { WrongAccountModal } from './WrongAccountModal'
 import { BalanceCaseType } from 'types/path'
 import { useMetaMask } from 'components/providers/MetamaskProvider'
+import { SkippableStepType } from 'state/steps'
+import { SkipStepSelection } from './StepSelection'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
@@ -31,6 +33,18 @@ export const ManualTestGateway: FC = () => {
   const isMetamaskInstalled = window.ethereum?.isMetaMask
 
   const [wallet, setWallet] = useState<ethers.HDNodeWallet>({} as ethers.HDNodeWallet)
+
+  const [ignoredSteps, setIgnoredSteps] = useState<SkippableStepType[]>([])
+
+  const handleStepToggle = (step: SkippableStepType) => {
+    if (ignoredSteps.includes(step)) {
+      // Remove the step if it's already in the ignored list
+      setIgnoredSteps(ignoredSteps.filter((s) => s !== step))
+    } else {
+      // Add the step to the ignored list if it's not already there
+      setIgnoredSteps([...ignoredSteps, step])
+    }
+  }
 
   //TODO : divide into smaller pieces
   return (
@@ -165,6 +179,9 @@ export const ManualTestGateway: FC = () => {
           Choose testing path. This will automatically set proper account balance on the newly created account
         </Paragraph>
       )}
+      <Paragraph>
+        <SkipStepSelection handleStepToggle={handleStepToggle} ignoredSteps={ignoredSteps} />
+      </Paragraph>
       {testingPath && (
         <Paragraph>
           <Button
@@ -172,7 +189,12 @@ export const ManualTestGateway: FC = () => {
               setCurrentAccount(account as EthereumAddress)
               setExpectedAccount(wallet.address as EthereumAddress)
               if (account?.toLocaleLowerCase() == wallet.address.toLowerCase()) {
+                const search = new URLSearchParams(window.location.search)
+                ignoredSteps.forEach((step) => {
+                  search.append('skip-steps', step)
+                })
                 window.location.hash = '#/'
+                window.location.search = search.toString()
               } else {
                 setShowModal(true)
               }

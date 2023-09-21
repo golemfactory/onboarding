@@ -1,5 +1,12 @@
-export const Step = {
+export const SkippableStep = {
   WELCOME: 'welcome',
+  FINISH: 'finish',
+  ADD_GLM: 'add-glm',
+  WALLET_INTRO: 'wallet-intro',
+} as const
+
+export const Step = {
+  ...SkippableStep,
   CONNECT_WALLET: 'connect-wallet',
   DETECT_METAMASK: 'detect-metamask',
   SHOW_METAMASK_LINK: 'show-metamask-link',
@@ -7,12 +14,12 @@ export const Step = {
   CONNECT_WALLET_SUCCESS: 'connect-wallet-success',
   CHOOSE_NETWORK: 'choose-network',
   ON_RAMP: 'on-ramp',
-  WALLET_INTRO: 'wallet-intro',
   CHECK_ACCOUNT_BALANCES: 'check-account-balances',
   SWAP: 'swap',
   GASLESS_SWAP: 'gasless-swap',
-  FINISH: 'finish',
-  ADD_GLM: 'add-glm',
 } as const
 
+import _ from 'lodash'
+
+export type SkippableStepType = (typeof SkippableStep)[keyof typeof SkippableStep]
 export type StepType = (typeof Step)[keyof typeof Step]
