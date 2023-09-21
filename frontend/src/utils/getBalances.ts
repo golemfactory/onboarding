@@ -17,6 +17,7 @@ export const getBalances = async (): Promise<Record<TokenCategory, bigint>> => {
   const address = window.ethereum.selectedAddress
 
   const signer = await getSigner()
+
   const tokenContract = new ethers.Contract(contracts.GLM.address, erc20Abi, signer)
 
   const nativeBalance = await provider.getBalance(address)

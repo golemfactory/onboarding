@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useSDK } from '@metamask/sdk-react'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { useMetaMask } from './MetamaskProvider'
+import { Steps } from 'state/steps'
 
 //TODO : provide better typing
 
@@ -39,12 +40,21 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children
 
   const yagnaWalletAddress = queryParams.get('yagnaWalletAddress') ?? ''
   const metaMask = useMetaMask()
+  const [initialStep, setInitialStep] = useState<Steps>(
+    (localStorage.getItem('OnboardingStep') as Steps) || Steps.WELCOME
+  )
+  useEffect(() => {
+    localStorage.setItem('OnboardingStep', '')
+  }, [initialStep])
 
   const service = useInterpret(
-    createStateMachineWithContext({
-      yagnaWalletAddress,
-      metaMask,
-    })
+    createStateMachineWithContext(
+      {
+        yagnaWalletAddress,
+        metaMask,
+      },
+      initialStep
+    )
   )
 
   return (

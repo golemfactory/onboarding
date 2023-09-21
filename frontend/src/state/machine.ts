@@ -4,11 +4,11 @@ import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
 
-export const createStateMachineWithContext = (context: OnboardingContextData) => {
+export const createStateMachineWithContext = (context: OnboardingContextData, initialStep?: Steps) => {
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.WELCOME,
+    initial: initialStep || Steps.WELCOME,
     states: {
       [Steps.SWAP]: {
         on: {},
@@ -36,7 +36,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
       },
       [Steps.CONNECT_WALLET]: {
         on: {
-          [Commands.NEXT]: Steps.DETECT_METAMASK,
+          [Commands.NEXT]: Steps.CHOOSE_NETWORK,
         },
       },
       [Steps.CHECK_ACCOUNT_BALANCES]: {
@@ -76,7 +76,11 @@ export const createStateMachineWithContext = (context: OnboardingContextData) =>
         },
       },
       [Steps.CONNECT_WALLET_SUCCESS]: {},
-      [Steps.SHOW_METAMASK_LINK]: {},
+      [Steps.SHOW_METAMASK_LINK]: {
+        on: {
+          [Commands.NEXT]: Steps.CONNECT_WALLET,
+        },
+      },
     },
   })
 }

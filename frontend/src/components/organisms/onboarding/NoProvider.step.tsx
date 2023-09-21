@@ -1,9 +1,11 @@
 // components/welcome/intro.tsx
 import { useSDK } from '@metamask/sdk-react'
 import { motion } from 'framer-motion'
-import { MouseEventHandler, useEffect, useState } from 'react'
+import { MouseEventHandler } from 'react'
 // import MetaMaskOnboarding from '@metamask/onboarding'
-
+import { MetaMaskProvider } from '@metamask/sdk-react'
+import { t } from 'xstate'
+import { Steps } from 'state/steps'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -31,58 +33,41 @@ const NoProviderPresentational = ({ onClickOnboarding }: { onClickOnboarding: Mo
 
 //TODO : handle this case
 
+const metaMaskSDKOptions = {
+  logging: {
+    developerMode: true,
+  },
+  checkInstallationImmediately: false,
+  checkInstallationOnAllCalls: false,
+  dappMetadata: {
+    name: 'Golem onboarding',
+    url: window.location.host,
+  },
+}
+
+export const NoProviderWrapped = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+  return (
+    <MetaMaskProvider sdkOptions={metaMaskSDKOptions}>
+      <NoProvider goToNextStep={goToNextStep} />
+    </MetaMaskProvider>
+  )
+}
+
 export const NoProvider = ({ goToNextStep }: { goToNextStep: () => {} }) => {
-  const { sdk, connected, account } = useSDK()
-  useEffect(() => {
-    if (connected) {
-      goToNextStep()
-    }
-  }, [connected])
-  // const onboarding = useRef<MetaMaskOnboarding>()
-
-  // //keep reference to onboarding
-  // useEffect(() => {
-  //   if (!onboarding.current) {
-  //     console.log('creating onboarding')
-  //     onboarding.current = new MetaMaskOnboarding({
-  //       forwarderMode: 'INJECT',
-  //     })
-  //   }
-  // }, [])
-
-  // //track accounts and if one is added stop onboarding
-  // useEffect(() => {
-  //   if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-  //     if (accounts.length > 0) {
-  //       if (onboarding.current) {
-  //         onboarding.current.stopOnboarding()
-  //       }
-  //     }
-  //   }
-  // }, [accounts])
-
-  // useEffect(() => {
-  //   function handleNewAccounts(newAccounts: string[]) {
-  //     setAccounts(newAccounts)
-  //   }
-  //   if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-  //     window.ethereum
-  //       .request({ method: 'eth_requestAccounts' })
-  //       .then((eth_accounts) => {
-  //         if (Array.isArray(eth_accounts)) {
-  //           handleNewAccounts(eth_accounts)
-  //         }
-  //       })
-  //     window.ethereum.on('accountsChanged', handleNewAccounts)
-  //     return () => {
-  //       window.ethereum.removeListener('accountsChanged', handleNewAccounts)
-  //     }
-  //   }
-  // }, [])
+  const { sdk, connected } = useSDK()
 
   const onClickOnboarding = () => {
+    localStorage.setItem('OnboardingStep', Steps.CONNECT_WALLET)
     sdk?.connect()
+    // goToNextStep()
   }
+
+  // const preventMMReload = function (e) {
+  //   // Cancel the page reload
+  //   e.preventDefault()
+  //   // Prompt the user with a confirmation message (optional)
+  //   e.returnValue = ''
+  // }
 
   return <NoProviderPresentational onClickOnboarding={onClickOnboarding} />
 }

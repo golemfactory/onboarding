@@ -1,7 +1,7 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
-import { useSDK } from '@metamask/sdk-react'
+import { MetaMaskProvider } from '@metamask/sdk-react'
 
 const variants = {
   show: { opacity: 1 },

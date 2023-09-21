@@ -29,5 +29,16 @@ const WalletIntroPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler
 }
 
 export const WalletIntro = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
+  const metaMaskSDKOptions = {
+    logging: {
+      developerMode: true,
+    },
+    checkInstallationImmediately: false,
+    checkInstallationOnAllCalls: false,
+    dappMetadata: {
+      name: 'Golem onboarding',
+      url: window.location.host,
+    },
+  }
   return <WalletIntroPresentational onConfirm={goToNextStep} />
 }

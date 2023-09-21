@@ -8,6 +8,7 @@ import {
   OnRamp,
   WalletIntro,
   SwapTokens,
+  NoProviderWrapped,
 } from 'components/organisms/onboarding'
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
@@ -19,7 +20,7 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
     case Steps.CONNECT_WALLET:
       return ConnectWallet
     case Steps.SHOW_METAMASK_LINK:
-      return NoProvider
+      return NoProviderWrapped
     case Steps.CHOOSE_NETWORK:
       return ChooseNetwork
     case Steps.ON_RAMP:
