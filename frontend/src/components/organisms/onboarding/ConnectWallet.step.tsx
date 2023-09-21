@@ -1,6 +1,6 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { MouseEventHandler } from 'react'
+import { MouseEventHandler, useEffect } from 'react'
 import { useMetaMask } from 'components/providers/MetamaskProvider'
 
 const variants = {
@@ -29,7 +29,12 @@ const ConnectWalletPresentational = ({ onConfirm }: { onConfirm: MouseEventHandl
   )
 }
 
-export const ConnectWallet = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
+export const ConnectWallet = ({ goToNextStep }: { goToNextStep: () => {} }) => {
   const metaMask = useMetaMask()
+  useEffect(() => {
+    if (metaMask.wallet.accounts.length > 0) {
+      goToNextStep()
+    }
+  }, [metaMask.wallet])
   return <ConnectWalletPresentational onConfirm={() => metaMask.connect()} />
 }

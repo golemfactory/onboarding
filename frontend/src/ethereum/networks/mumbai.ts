@@ -6,5 +6,9 @@ export const MUMBAI: INetwork = {
   chainName: 'Mumbai Testnet',
   rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
   blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
-  nativeCurrency: maticMumbai,
+  nativeCurrency: {
+    //@ts-ignore
+    symbol: 'MATIC',
+    decimals: 18,
+  },
 }

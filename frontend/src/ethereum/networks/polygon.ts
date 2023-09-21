@@ -6,5 +6,9 @@ export const POLYGON: INetwork = {
   chainName: 'Polygon',
   rpcUrls: ['https://polygon-rpc.com/'],
   blockExplorerUrls: ['https://polygonscan.com/'],
-  nativeCurrency: maticMumbai,
+  nativeCurrency: {
+    //@ts-ignore
+    symbol: 'MATIC',
+    decimals: 18,
+  },
 }

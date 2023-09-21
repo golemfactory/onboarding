@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { MouseEventHandler, ChangeEventHandler, ChangeEvent, useState } from 'react'
 import { networks } from 'ethereum/networks'
 import { Network, NetworkType } from 'types/ethereum'
-import { useSDK } from '@metamask/sdk-react'
+import { useMetaMask } from 'components/providers/MetamaskProvider'
 
 const variants = {
   show: { opacity: 1 },
@@ -11,18 +11,13 @@ const variants = {
 const ChooseNetworkPresentational = ({
   onConfirm,
   onNetworkSelection,
+  selectedNetwork,
 }: {
   onConfirm: MouseEventHandler
   onNetworkSelection: ChangeEventHandler<HTMLSelectElement>
+  selectedNetwork: NetworkType
 }) => {
-  const { sdk } = useSDK()
-  const [chainId, setChainId] = useState(sdk?.activeProvider?.chainId || undefined)
-
-  //@ts-ignore
-
-  sdk?.activeProvider?.on('chainChanged', (chainId: string) => {
-    setChainId(chainId)
-  })
+  const metamask = useMetaMask()
 
   return (
     <div className="text-center">
@@ -33,9 +28,8 @@ const ChooseNetworkPresentational = ({
         Thats great, now choose network
       </motion.p>
       <motion.div variants={variants}>
-        <select onChange={onNetworkSelection} value={chainId}>
+        <select onChange={onNetworkSelection} value={selectedNetwork}>
           {Object.keys(networks).map((network) => {
-            console.log('network', network)
             return (
               <option key={network} value={network}>
                 {networks[network].chainName}
@@ -54,19 +48,28 @@ const ChooseNetworkPresentational = ({
   )
 }
 
-export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
-  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement> & { target: { value: NetworkType } }) => {
-    const network = e.target.value
+export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(Network.MUMBAI)
 
-    if (!(network === Network.MUMBAI || network === Network.POLYGON)) {
-      throw new Error('Network not found')
-    }
-
-    window.ethereum?.request({
-      method: 'wallet_switchEthereumChain',
-      params: [{ chainId: networks[network].chainId }],
-    })
+  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedNetwork(e.target.value as NetworkType)
   }
 
-  return <ChooseNetworkPresentational onConfirm={goToNextStep} onNetworkSelection={onNetworkSelection} />
+  const onConfirm = async () => {
+    await window.ethereum?.request({
+      method: 'wallet_addEthereumChain',
+      params: [networks[selectedNetwork]],
+    })
+    goToNextStep()
+  }
+
+  return (
+    <ChooseNetworkPresentational
+      onConfirm={(e) => {
+        onConfirm()
+      }}
+      onNetworkSelection={onNetworkSelection}
+      selectedNetwork={selectedNetwork}
+    />
+  )
 }

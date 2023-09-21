@@ -8,7 +8,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: initialStep || Steps.WELCOME,
+    initial: Steps.CHOOSE_NETWORK,
     states: {
       [Steps.SWAP]: {
         on: {},
@@ -47,6 +47,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
             {
               target: Steps.ON_RAMP,
               cond: (context, event) => {
+                console.log('here')
                 return true
               },
             },

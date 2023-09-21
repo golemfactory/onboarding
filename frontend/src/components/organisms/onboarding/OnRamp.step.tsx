@@ -3,14 +3,15 @@ import { motion } from 'framer-motion'
 import { MouseEventHandler, useEffect } from 'react'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { hideRampBackground } from 'utils/hideRampBackground'
-import { useSDK } from '@metamask/sdk-react'
+import { useMetaMask } from 'components/providers/MetamaskProvider'
 
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
 const OnRampPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
-  const { account } = useSDK()
+  const metamask = useMetaMask()
+  const account = metamask.wallet.accounts[0]
   let widget: RampInstantSDK | null = null
 
   useEffect(() => {
