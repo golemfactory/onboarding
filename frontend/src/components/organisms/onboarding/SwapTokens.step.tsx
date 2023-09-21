@@ -15,10 +15,10 @@ const variants = {
 const SwapTokensPresentational = ({ onSwapButtonClick }: { onSwapButtonClick: MouseEventHandler }) => {
   return (
     <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}>
+      <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
         Swap tokens
       </motion.h1>
-      <motion.p className="max-w-md text-white my-4 text-lg" variants={variants}>
+      <motion.p className="max-w-md text-white my-4 text-xl" variants={variants}>
         You have only native tokens in your wallet. You need to swap them to have GLM
       </motion.p>
       <motion.button
@@ -32,16 +32,16 @@ const SwapTokensPresentational = ({ onSwapButtonClick }: { onSwapButtonClick: Mo
   )
 }
 
-export const SwapTokens = ({ goToNextStep }: { goToNextStep: MouseEventHandler }) => {
-  const { sdk } = useSDK()
-
+export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+  console.log('SwapTokens')
   return (
     <SwapTokensPresentational
       onSwapButtonClick={async () => {
         const nativeToken = await getNativeToken()
-        swapETHForGLM({
+        await swapETHForGLM({
           value: parseUnits(settings.minimalSwap[nativeToken], 18),
         })
+        goToNextStep()
       }}
     />
   )

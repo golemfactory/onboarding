@@ -43,6 +43,7 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children
   const [initialStep, setInitialStep] = useState<Steps>(
     (localStorage.getItem('OnboardingStep') as Steps) || Steps.WELCOME
   )
+
   useEffect(() => {
     localStorage.setItem('OnboardingStep', '')
   }, [initialStep])
@@ -52,6 +53,7 @@ export const OnboardingProvider: FC<{ children: React.ReactNode }> = ({ children
       {
         yagnaWalletAddress,
         metaMask,
+        glmAdded: false,
       },
       initialStep
     )

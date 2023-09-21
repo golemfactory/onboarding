@@ -10,32 +10,7 @@ const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const OnRampPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
-  return (
-    <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}></motion.h1>
-      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}></motion.p>
-    </div>
-  )
-}
-
-export const OnRamp = ({ goToNextStep }: { goToNextStep: () => {} }) => {
-  // // useEffect(() => {
-  // //   console.log('balance effect', metamask.wallet.balance)
-  // // }, [metamask.wallet.balance])
-
-  // const observeAccount = setInterval(async () => {
-  //   const balance = await window.ethereum.request({
-  //     method: 'eth_getBalance',
-  //     params: [metamask.wallet.accounts[0], 'latest'],
-  //   })
-  //   const formatted = parseInt(formatBalance(balance))
-  //   console.log('aha')
-  //   if (formatted > 0) {
-  //     goToNextStep()
-  //     clearInterval(observeAccount)
-  //   }
-  // }, 500)
+const OnRampPresentational = ({ onConfirm }: { onConfirm: () => {} }) => {
   const metamask = useMetaMask()
   const account = metamask.wallet.accounts[0]
   let widget: RampInstantSDK | null = null
@@ -60,12 +35,39 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => {} }) => {
       widget.on('*', (event) => {
         console.log('widget event', event)
         if (event.type === 'WIDGET_CLOSE') {
-          goToNextStep()
+          onConfirm()
         }
       })
     }
 
     hideRampBackground()
   }, [account])
+  return (
+    <div className="text-center">
+      <motion.h1 className="text-4xl font-bold mb-4 text-gray-800" variants={variants}></motion.h1>
+      <motion.p className="max-w-md text-gray-600 my-4 text-lg" variants={variants}></motion.p>
+    </div>
+  )
+}
+
+export const OnRamp = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+  const metamask = useMetaMask()
+  console.log('here')
+  // // useEffect(() => {
+  // //   console.log('balance effect', metamask.wallet.balance)
+  // // }, [metamask.wallet.balance])
+
+  // const observeAccount = setInterval(async () => {
+  //   const balance = await window.ethereum.request({
+  //     method: 'eth_getBalance',
+  //     params: [metamask.wallet.accounts[0], 'latest'],
+  //   })
+  //   const formatted = parseInt(formatBalance(balance))
+  //   console.log('aha')
+  //   if (formatted > 0) {
+  //     goToNextStep()
+  //     clearInterval(observeAccount)
+  //   }
+  // }, 500)
   return <OnRampPresentational onConfirm={goToNextStep} />
 }

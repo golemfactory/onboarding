@@ -12,4 +12,5 @@ export enum Steps {
   SWAP = 'swap',
   GASLESS_SWAP = 'gasless-swap',
   FINISH = 'finish',
+  ADD_GLM = 'add-glm',
 }

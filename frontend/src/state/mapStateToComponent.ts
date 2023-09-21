@@ -10,6 +10,8 @@ import {
   SwapTokens,
   NoProviderWrapped,
   NotSupported,
+  Finish,
+  AddGLM,
 } from 'components/organisms/onboarding'
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
@@ -36,7 +38,10 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return SwapTokens
     case Steps.GASLESS_SWAP:
       return NotSupported
-
+    case Steps.FINISH:
+      return Finish
+    case Steps.ADD_GLM:
+      return AddGLM
     default:
       return LoadingSpinner
   }

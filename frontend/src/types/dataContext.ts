@@ -18,4 +18,5 @@ export interface MetaMaskContextData {
 export type OnboardingContextData = {
   yagnaWalletAddress: string
   metaMask: MetaMaskContextData
+  glmAdded: boolean
 }

@@ -1,15 +1,22 @@
-import { createMachine } from 'xstate'
+import { createMachine, assign } from 'xstate'
 import { checkAccountBalances, ensureMetamaskConnection, providerState } from './childMachines'
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 
+const addGLM = assign({
+  glmAdded: true,
+})
+
 export const createStateMachineWithContext = (context: OnboardingContextData, initialStep?: Steps) => {
-  return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
+  return createMachine<
+    OnboardingContextData,
+    { type: 'ADD_GLM' } | { type: Commands.NEXT } | { type: Commands.PREVIOUS }
+  >({
     context,
     id: 'onboarding',
-    initial: Steps.WELCOME,
+    initial: Steps.CHECK_ACCOUNT_BALANCES,
     states: {
       [Steps.WELCOME]: {
         on: {
@@ -57,14 +64,26 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
       },
       [Steps.CHOOSE_NETWORK]: {
         on: {
+          [Commands.NEXT]: Steps.ADD_GLM,
+        },
+      },
+      [Steps.ADD_GLM]: {
+        on: {
           [Commands.NEXT]: Steps.CHECK_ACCOUNT_BALANCES,
         },
       },
+
       [Steps.CHECK_ACCOUNT_BALANCES]: {
         invoke: {
           id: 'check-account',
           src: checkAccountBalances,
           onDone: [
+            {
+              target: Steps.SWAP,
+              cond: (context, event) => {
+                return event.data === BalanceCase.NO_GLM
+              },
+            },
             {
               target: Steps.ON_RAMP,
               cond: (context, event) => {
@@ -78,12 +97,6 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
               },
             },
             {
-              target: Steps.SWAP,
-              cond: (context, event) => {
-                return event.data === BalanceCase.NO_GLM
-              },
-            },
-            {
               target: Steps.GASLESS_SWAP,
               cond: (context, event) => {
                 return event.data === BalanceCase.NO_MATIC
@@ -92,6 +105,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
           ],
         },
       },
+
       [Steps.ON_RAMP]: {
         on: {
           [Commands.NEXT]: Steps.CHECK_ACCOUNT_BALANCES,
