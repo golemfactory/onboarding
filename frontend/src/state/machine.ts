@@ -3,57 +3,26 @@ import { checkAccountBalances, ensureMetamaskConnection, providerState } from '.
 import { Steps } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
+import { BalanceCase } from 'types/path'
 
 export const createStateMachineWithContext = (context: OnboardingContextData, initialStep?: Steps) => {
   return createMachine<OnboardingContextData, { type: Commands.NEXT } | { type: Commands.PREVIOUS }>({
     context,
     id: 'onboarding',
-    initial: Steps.CHOOSE_NETWORK,
+    initial: Steps.WELCOME,
     states: {
-      [Steps.SWAP]: {
-        on: {},
-      },
-      [Steps.WALLET_INTRO]: {
-        on: {
-          [Commands.NEXT]: Steps.DETECT_METAMASK,
-        },
-      },
-      [Steps.CHOOSE_NETWORK]: {
-        on: {
-          [Commands.NEXT]: Steps.CHECK_ACCOUNT_BALANCES,
-        },
-      },
-      [Steps.ON_RAMP]: {
-        on: {
-          [Commands.NEXT]: Steps.WELCOME,
-          [Commands.PREVIOUS]: Steps.CHOOSE_NETWORK,
-        },
-      },
       [Steps.WELCOME]: {
         on: {
           [Commands.NEXT]: Steps.WALLET_INTRO,
         },
       },
-      [Steps.CONNECT_WALLET]: {
+
+      [Steps.WALLET_INTRO]: {
         on: {
-          [Commands.NEXT]: Steps.CHOOSE_NETWORK,
+          [Commands.NEXT]: Steps.DETECT_METAMASK,
         },
       },
-      [Steps.CHECK_ACCOUNT_BALANCES]: {
-        invoke: {
-          id: 'check-account',
-          src: checkAccountBalances,
-          onDone: [
-            {
-              target: Steps.ON_RAMP,
-              cond: (context, event) => {
-                console.log('here')
-                return true
-              },
-            },
-          ],
-        },
-      },
+
       [Steps.DETECT_METAMASK]: {
         invoke: {
           id: 'detect-metamask',
@@ -76,12 +45,69 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
           ],
         },
       },
-      [Steps.CONNECT_WALLET_SUCCESS]: {},
       [Steps.SHOW_METAMASK_LINK]: {
         on: {
           [Commands.NEXT]: Steps.CONNECT_WALLET,
         },
       },
+      [Steps.CONNECT_WALLET]: {
+        on: {
+          [Commands.NEXT]: Steps.CHOOSE_NETWORK,
+        },
+      },
+      [Steps.CHOOSE_NETWORK]: {
+        on: {
+          [Commands.NEXT]: Steps.CHECK_ACCOUNT_BALANCES,
+        },
+      },
+      [Steps.CHECK_ACCOUNT_BALANCES]: {
+        invoke: {
+          id: 'check-account',
+          src: checkAccountBalances,
+          onDone: [
+            {
+              target: Steps.ON_RAMP,
+              cond: (context, event) => {
+                return event.data === BalanceCase.NO_GLM_NO_MATIC
+              },
+            },
+            {
+              target: Steps.FINISH,
+              cond: (context, event) => {
+                return event.data === BalanceCase.BOTH
+              },
+            },
+            {
+              target: Steps.SWAP,
+              cond: (context, event) => {
+                return event.data === BalanceCase.NO_GLM
+              },
+            },
+            {
+              target: Steps.GASLESS_SWAP,
+              cond: (context, event) => {
+                return event.data === BalanceCase.NO_MATIC
+              },
+            },
+          ],
+        },
+      },
+      [Steps.ON_RAMP]: {
+        on: {
+          [Commands.NEXT]: Steps.CHECK_ACCOUNT_BALANCES,
+        },
+      },
+      [Steps.GASLESS_SWAP]: {
+        on: {
+          [Commands.NEXT]: Steps.ON_RAMP,
+        },
+      },
+      [Steps.SWAP]: {
+        on: {
+          [Commands.NEXT]: Steps.FINISH,
+        },
+      },
+      [Steps.FINISH]: {},
     },
   })
 }

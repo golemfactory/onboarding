@@ -10,4 +10,6 @@ export enum Steps {
   WALLET_INTRO = 'wallet-intro',
   CHECK_ACCOUNT_BALANCES = 'check-account-balances',
   SWAP = 'swap',
+  GASLESS_SWAP = 'gasless-swap',
+  FINISH = 'finish',
 }

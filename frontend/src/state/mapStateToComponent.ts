@@ -9,6 +9,7 @@ import {
   WalletIntro,
   SwapTokens,
   NoProviderWrapped,
+  NotSupported,
 } from 'components/organisms/onboarding'
 
 export const mapStateToComponent = (state: any): React.FC<any> => {
@@ -33,6 +34,9 @@ export const mapStateToComponent = (state: any): React.FC<any> => {
       return LoadingSpinner
     case Steps.SWAP:
       return SwapTokens
+    case Steps.GASLESS_SWAP:
+      return NotSupported
+
     default:
       return LoadingSpinner
   }
