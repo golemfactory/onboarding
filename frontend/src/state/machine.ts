@@ -6,16 +6,6 @@ import type { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 
 export const createStateMachineWithContext = (context: OnboardingContextData, initialStep?: StepType) => {
-  console.log('createStateMachineWithContext', context)
-  console.log(
-    'dfsf',
-    initialStep,
-    initialStep ||
-      //get first not skipped step
-      [Step.WELCOME, Step.WALLET_INTRO, Step.DETECT_METAMASK].find((step) => {
-        return !context.skipSteps?.includes(step)
-      })
-  )
   return createMachine<
     OnboardingContextData,
     { type: 'ADD_GLM' } | { type: Commands.NEXT } | { type: Commands.PREVIOUS }

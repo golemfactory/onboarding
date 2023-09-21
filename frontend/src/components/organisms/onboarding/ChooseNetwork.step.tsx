@@ -49,6 +49,7 @@ const ChooseNetworkPresentational = ({
 }
 
 export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+  const metamask = useMetaMask()
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(Network.MUMBAI)
 
   const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -56,10 +57,12 @@ export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: () => {} }) => {
   }
 
   const onConfirm = async () => {
-    await window.ethereum?.request({
-      method: 'wallet_addEthereumChain',
-      params: [networks[selectedNetwork]],
-    })
+    if (metamask.wallet.chainId !== selectedNetwork) {
+      await window.ethereum?.request({
+        method: 'wallet_addEthereumChain',
+        params: [networks[selectedNetwork]],
+      })
+    }
     goToNextStep()
   }
 

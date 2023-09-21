@@ -9,8 +9,22 @@ const setTransparentBackgroundInShadowRoot = (root: Element) => {
   }
 }
 
+const hideIframe = (root: Element) => {
+  if (root.shadowRoot) {
+    root.shadowRoot.querySelectorAll('iframe').forEach((element) => {
+      element.style.display = 'none'
+    })
+  }
+}
+
 export const hideRampBackground = () => {
   document.querySelectorAll(rampElementsQuery).forEach((element) => {
     setTransparentBackgroundInShadowRoot(element)
+  })
+}
+
+export const hideRampWidget = () => {
+  document.querySelectorAll(rampElementsQuery).forEach((element) => {
+    hideIframe(element)
   })
 }

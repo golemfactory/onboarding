@@ -8,7 +8,6 @@ export const providerState = {
 }
 
 export const verifyMetamask = ({ metaMask }: { metaMask: MetaMaskContextData }) => {
-  console.log('fdsfsdf')
   const provider = window.ethereum
   if (!provider) {
     return providerState.NO_PROVIDER
@@ -18,7 +17,6 @@ export const verifyMetamask = ({ metaMask }: { metaMask: MetaMaskContextData }) 
     return providerState.NOT_METAMASK
   }
 
-  console.log(',mme', metaMask.wallet)
   if (!metaMask.wallet.accounts.length) {
     return providerState.NOT_CONNECTED
   }

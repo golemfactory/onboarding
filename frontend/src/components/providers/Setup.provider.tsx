@@ -26,7 +26,6 @@ export const SetupProvider: FC<{ children: React.ReactNode }> = ({ children }) =
   //TODO add assert
   const skipSteps = query.getAll('skip-steps') as StepType[]
 
-  console.log('skipSteps', skipSteps)
   return (
     <SetupContext.Provider
       value={{
