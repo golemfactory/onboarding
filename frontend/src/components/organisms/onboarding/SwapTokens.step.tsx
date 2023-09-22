@@ -33,7 +33,6 @@ const SwapTokensPresentational = ({ onSwapButtonClick }: { onSwapButtonClick: Mo
 }
 
 export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => {} }) => {
-  console.log('SwapTokens')
   return (
     <SwapTokensPresentational
       onSwapButtonClick={async () => {

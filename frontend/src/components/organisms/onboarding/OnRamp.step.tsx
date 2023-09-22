@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { hideRampBackground, hideRampWidget } from 'utils/hideRampBackground'
 import { useMetaMask } from 'components/providers/MetamaskProvider'
+import debug from 'debug'
+
+const log = debug('ramp')
+//@ts-ignore
+window.ramp = RampInstantSDK
 
 const variants = {
   show: { opacity: 1 },
@@ -27,6 +32,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => {} }) => {
 
   useEffect(() => {
     if (account && !done) {
+      debug('creating widget')
       widget = new RampInstantSDK({
         hostAppName: 'Your App',
         hostLogoUrl: 'https://assets.ramp.network/misc/test-logo.png',
@@ -40,11 +46,15 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => {} }) => {
       widget.show()
 
       widget.on('*', (event) => {
-        hideRampWidget()
+        debug('event')
+        debug(event.type)
         if (event.type === 'WIDGET_CLOSE') {
           goToNextStep()
+          debug('closing widget')
+          hideRampWidget()
         }
       })
+      debug('setting done')
       setDone(true)
     }
 

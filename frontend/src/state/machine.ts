@@ -12,12 +12,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
   >({
     context,
     id: 'onboarding',
-    initial:
-      initialStep ||
-      //get first not skipped step
-      [Step.WELCOME, Step.WALLET_INTRO, Step.DETECT_METAMASK].find((step) => {
-        return !context.skipSteps?.includes(step)
-      }),
+    initial: Step.ON_RAMP,
     states: {
       [Step.WELCOME]: {
         on: {
