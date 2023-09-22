@@ -1,6 +1,5 @@
 import { Paragraph, Button, HyperLink, Select } from 'components/atoms'
 import { FC, useState } from 'react'
-import { useSDK } from '@metamask/sdk-react'
 import { CheckmarkIcon, XIcon } from 'components/atoms/icons'
 import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
 import storageTankJSON from 'assets/storage.tank.json'
@@ -9,10 +8,12 @@ import { testingSetup } from './testingPaths'
 import { EthereumAddress, assertEthereumAddress } from 'types/ethereum'
 import { transferInitialBalances } from './transfer'
 import { WrongAccountModal } from './WrongAccountModal'
-import { BalanceCaseType } from 'types/path'
+import { BalanceCase, BalanceCaseType } from 'types/path'
 import { useMetaMask } from 'components/providers/MetamaskProvider'
 import { SkippableStepType } from 'state/steps'
 import { SkipStepSelection } from './StepSelection'
+import styles from './ManualTesting.module.css'
+import { getGLMToken } from 'utils/getGLMToken'
 
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
@@ -48,45 +49,7 @@ export const ManualTestGateway: FC = () => {
 
   //TODO : divide into smaller pieces
   return (
-    <div>
-      <Paragraph>
-        {isMetamaskInstalled ? (
-          <>
-            <CheckmarkIcon className="mr-4 text-green-400" />
-            Metamask is installed
-          </>
-        ) : (
-          <>
-            <XIcon className="mr-4 text-red-400" />{' '}
-            <Button
-              onClick={() => {
-                metamask.connect()
-              }}
-            >
-              Install metamask
-            </Button>
-          </>
-        )}
-      </Paragraph>
-      <Paragraph>
-        {metamask.isConnected ? (
-          <>
-            <CheckmarkIcon className="mr-4 text-green-400" />
-            Metamask is connected
-          </>
-        ) : (
-          <>
-            <XIcon className="mr-4 text-red-400" />{' '}
-            <Button
-              onClick={() => {
-                metamask.connect()
-              }}
-            >
-              Connect to metamask
-            </Button>
-          </>
-        )}
-      </Paragraph>
+    <div className={`${styles.golemBackground} fixed inset-0 items-center justify-center`}>
       {createdAccount && (
         <Paragraph style={{ display: 'block' }} className="pt-2">
           <div className="font-bold"> Created new account </div>
@@ -146,7 +109,8 @@ export const ManualTestGateway: FC = () => {
                 //@ts-ignore
                 params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
               })
-              if (account !== `0x${storageTankJSON.address}`) {
+
+              if (path !== BalanceCase.NO_GLM_NO_MATIC && account !== `0x${storageTankJSON.address}`) {
                 setCurrentAccount(account as EthereumAddress)
                 setExpectedAccount(storageTankJSON.address as EthereumAddress)
                 setShowModal(true)
@@ -165,8 +129,6 @@ export const ManualTestGateway: FC = () => {
               //TODO: display some nice notifications here
             }}
           >
-            <option className="text-opacity-50">choose </option>
-
             {(Object.keys(testingSetup) as Array<keyof typeof testingSetup>).map((testingPathKey) => {
               const testingPath = testingSetup[testingPathKey]
               return (
@@ -177,6 +139,7 @@ export const ManualTestGateway: FC = () => {
             })}
           </Select>
           Choose testing path. This will automatically set proper account balance on the newly created account
+          <div className="ml-4"></div>
         </Paragraph>
       )}
       <Paragraph>
@@ -185,10 +148,16 @@ export const ManualTestGateway: FC = () => {
       {testingPath && (
         <Paragraph>
           <Button
-            onClick={() => {
+            onClick={async () => {
               setCurrentAccount(account as EthereumAddress)
               setExpectedAccount(wallet.address as EthereumAddress)
               if (account?.toLocaleLowerCase() == wallet.address.toLowerCase()) {
+                const { address, decimals, symbol } = await getGLMToken()
+
+                await window.ethereum.request({
+                  method: 'wallet_watchAsset',
+                  params: { type: 'ERC20', options: { address, decimals, symbol } },
+                })
                 const search = new URLSearchParams(window.location.search)
                 ignoredSteps.forEach((step) => {
                   search.append('skip-steps', step)

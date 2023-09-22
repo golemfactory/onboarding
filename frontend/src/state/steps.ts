@@ -1,12 +1,12 @@
 export const SkippableStep = {
   WELCOME: 'welcome',
-  FINISH: 'finish',
   ADD_GLM: 'add-glm',
   WALLET_INTRO: 'wallet-intro',
 } as const
 
 export const Step = {
   ...SkippableStep,
+  FINISH: 'finish',
   CONNECT_WALLET: 'connect-wallet',
   DETECT_METAMASK: 'detect-metamask',
   SHOW_METAMASK_LINK: 'show-metamask-link',

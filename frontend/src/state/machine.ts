@@ -12,7 +12,7 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
   >({
     context,
     id: 'onboarding',
-    initial: Step.ON_RAMP,
+    initial: Step.WELCOME,
     states: {
       [Step.WELCOME]: {
         on: {

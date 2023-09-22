@@ -5,14 +5,14 @@ import { getContracts } from 'utils/getContracts'
 import { getChainId } from 'utils/getChain'
 import { erc20abi } from 'ethereum/contracts'
 
-import { BalanceCase } from 'types/path'
+import { BalanceCaseType } from 'types/path'
 
 export const transferInitialBalances = async ({
   testingPath,
   address,
   signer,
 }: {
-  testingPath: BalanceCase
+  testingPath: BalanceCaseType
   address: EthereumAddress
   signer: JsonRpcSigner
 }) => {
