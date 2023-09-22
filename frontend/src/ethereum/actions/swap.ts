@@ -22,9 +22,12 @@ export const handleUniswapV2 = async ({
 }) => {
   const uniswapV2 = new ethers.Contract(getContracts(getChainId()).uniswapV2.address, uniswapV2Abi, signer)
 
-  return await uniswapV2.swapExactETHForTokens(amountOutMin, path, to, deadline, {
+  console.log('Swapping ETH for GLM', value)
+  const tx = await uniswapV2.swapExactETHForTokens(1, path, to, deadline, {
     value,
   })
+
+  return await tx.wait()
 }
 
 export const swapETHForGLM = async ({ value }: { value: BigNumberish }) => {

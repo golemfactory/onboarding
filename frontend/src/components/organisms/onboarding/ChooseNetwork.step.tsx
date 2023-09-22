@@ -58,10 +58,23 @@ export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: () => {} }) => {
 
   const onConfirm = async () => {
     if (metamask.wallet.chainId !== selectedNetwork) {
-      await window.ethereum?.request({
-        method: 'wallet_addEthereumChain',
-        params: [networks[selectedNetwork]],
-      })
+      try {
+        await window.ethereum?.request({
+          method: 'wallet_switchEthereumChain',
+          params: [
+            {
+              chainId: selectedNetwork,
+            },
+          ],
+        })
+      } catch (err) {
+        if (err.code === 4902) {
+          await window.ethereum?.request({
+            method: 'wallet_addEthereumChain',
+            params: [networks[selectedNetwork]],
+          })
+        }
+      }
     }
     goToNextStep()
   }

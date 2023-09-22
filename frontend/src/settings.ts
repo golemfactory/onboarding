@@ -14,9 +14,9 @@ export const settings = {
     [Token.MATIC_POLYGON]: 1,
   },
   minimalSwap: {
-    [Token.GLM_MUMBAI]: '1',
-    [Token.MATIC_MUMBAI]: '1',
-    [Token.GLM_POLYGON]: '1',
-    [Token.MATIC_POLYGON]: '1',
+    [Token.GLM_MUMBAI]: '0.1',
+    [Token.MATIC_MUMBAI]: '0.1',
+    [Token.GLM_POLYGON]: '0.1',
+    [Token.MATIC_POLYGON]: '0.1',
   },
 }

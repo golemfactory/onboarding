@@ -12,7 +12,16 @@ const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const SwapTokensPresentational = ({ onSwapButtonClick }: { onSwapButtonClick: MouseEventHandler }) => {
+import { useState } from 'react'
+
+const SwapTokensPresentational = ({ onSwapButtonClick }: { onSwapButtonClick: () => {} }) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSwapButtonClick = async () => {
+    setIsLoading(true)
+    await onSwapButtonClick()
+  }
+
   return (
     <div className="text-center">
       <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
@@ -24,9 +33,21 @@ const SwapTokensPresentational = ({ onSwapButtonClick }: { onSwapButtonClick: Mo
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
         variants={variants}
-        onClick={onSwapButtonClick}
+        onClick={handleSwapButtonClick}
+        disabled={isLoading}
       >
-        Swap
+        {isLoading ? (
+          <div className="flex justify-center items-center ">
+            <div className="relative">
+              <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
+              {/* <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-golemblue font-bold text-4xl">
+                G
+              </div> */}
+            </div>
+          </div>
+        ) : (
+          'Swap'
+        )}
       </motion.button>
     </div>
   )
@@ -37,7 +58,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => {} }) => {
     <SwapTokensPresentational
       onSwapButtonClick={async () => {
         const nativeToken = await getNativeToken()
-        await swapETHForGLM({
+        const transaction = await swapETHForGLM({
           value: parseUnits(settings.minimalSwap[nativeToken], 18),
         })
         goToNextStep()
