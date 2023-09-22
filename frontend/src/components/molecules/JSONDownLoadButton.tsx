@@ -4,10 +4,12 @@ function JSONDownloadButton({
   onClick = () => {},
   jsonData,
   buttonText = 'Download',
+  fileName = 'data.json',
 }: {
   onClick?: () => void
   jsonData: Record<string, unknown>
   buttonText?: string
+  fileName?: string
 }) {
   // Function to handle the download
   const handleDownload = () => {
@@ -17,7 +19,7 @@ function JSONDownloadButton({
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'data.json'
+    a.download = fileName
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)

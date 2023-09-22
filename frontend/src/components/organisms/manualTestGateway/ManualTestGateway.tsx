@@ -84,7 +84,7 @@ export const ManualTestGateway: FC = () => {
       )}
       <Paragraph>
         <>
-          <JSONDownloadButton jsonData={storageTankJSON} />
+          <JSONDownloadButton jsonData={storageTankJSON} fileName="storage-tank.json" />
           <div className="ml-4">
             JSON file and then import it as described{' '}
             <HyperLink
