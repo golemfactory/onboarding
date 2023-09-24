@@ -22,7 +22,7 @@ export const OnboardingContainer = () => {
   const [show, setShow] = useState(true)
   return (
     <>
-      <div className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-golemblue`}>
+      <div className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-white`}>
         <AnimatePresence>
           {show ? (
             <motion.div

@@ -25,7 +25,7 @@ export const SetupProvider: FC<{ children: React.ReactNode }> = ({ children }) =
   const balanceCase = query.get('balance-case')
   //TODO add assert
   const skipSteps = query.getAll('skip-steps') as StepType[]
-
+  console.log('skip', skipSteps)
   return (
     <SetupContext.Provider
       value={{

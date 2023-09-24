@@ -11,7 +11,7 @@ const AddGLMPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) =
   return (
     <div className="text-center">
       <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
-        Add GLM to wallet
+        Add GLM token to wallet
       </motion.h1>
       <motion.p className="max-w-md text-white my-4 text-xl" variants={variants}>
         We need to be sure you track your GLM balance in your wallet
@@ -23,7 +23,7 @@ const AddGLMPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) =
           onConfirm(e)
         }}
       >
-        Get Started
+        Add GLM
       </motion.button>
     </div>
   )

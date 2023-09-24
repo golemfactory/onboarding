@@ -17,6 +17,7 @@ export const Step = {
   CHECK_ACCOUNT_BALANCES: 'check-account-balances',
   SWAP: 'swap',
   GASLESS_SWAP: 'gasless-swap',
+  YAGNA_TRANSFER: 'yagna-transfer',
 } as const
 
 import _ from 'lodash'

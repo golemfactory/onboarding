@@ -28,15 +28,3 @@ const ConnectWalletPresentational = ({ onConfirm }: { onConfirm: MouseEventHandl
     </div>
   )
 }
-
-export const ConnectWallet = ({ goToNextStep }: { goToNextStep: () => {} }) => {
-  const metaMask = useMetaMask()
-  const [done, setDone] = useState(false)
-  useEffect(() => {
-    if (!done && metaMask.wallet.accounts.length > 0) {
-      goToNextStep()
-      setDone(true)
-    }
-  }, [metaMask.wallet])
-  return <ConnectWalletPresentational onConfirm={() => metaMask.connect()} />
-}

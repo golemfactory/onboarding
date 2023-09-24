@@ -12,8 +12,19 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
   >({
     context,
     id: 'onboarding',
-    initial: Step.WELCOME,
+    initial:
+      initialStep ||
+      //get first not skipped step
+      [Step.WELCOME, Step.WALLET_INTRO, Step.DETECT_METAMASK].find((step) => {
+        console.log('con', context.skipSteps)
+        return !context.skipSteps?.includes(step)
+      }),
     states: {
+      // [Step.YAGNA_TRANSFER]: {
+      //   on: {
+      //     [Commands.NEXT]: Step.FINISH,
+      //   },
+      // },
       [Step.WELCOME]: {
         on: {
           [Commands.NEXT]: Step.WALLET_INTRO,
