@@ -2,29 +2,13 @@
 
 import { FC, ReactNode } from 'react'
 
-// import styles from './paragraph.module.css'
-
-// const Modal : FC<{
-//   children: React.ReactNode
-//   className?: string
-// }> = ({ children, className, ...rest }) => {
-//     const combinedClassName = ` ${className || ''} ${styles.paragraph}`.trim()
-
-//     return (
-//       <div ref={ref} className={combinedClassName} {...rest}>
-//         {children}
-//       </div>
-//     )
-//   }
-// )
-
 export const Modal: FC<{
   children: ReactNode
   className: string
   toggleVisibility: (visibility: boolean) => void
   isVisible: boolean
   title: string
-}> = ({ children, className, toggleVisibility, isVisible, title, ...rest }) => {
+}> = ({ children, toggleVisibility, isVisible, title }) => {
   return (
     <>
       {isVisible ? (

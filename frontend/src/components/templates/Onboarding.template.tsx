@@ -1,22 +1,19 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 type Props = {
-  header: JSX.Element
-  footer: JSX.Element
-  main: JSX.Element
+  header: ReactNode
+  footer: ReactNode
+  main: ReactNode
 }
+
 export const TemplateOnboarding: FC<Props> = ({
   header,
   footer,
   main,
-}: {
-  header: JSX.Element
-  footer: JSX.Element
-  main: JSX.Element
-}) => {
+}: Props) => {
   return (
     <main>
-      <header className="bg-golemblue">{header}</header>
+      <header className="bg-blue-500">{header}</header>
       <section>{main}</section>
       <footer>{footer}</footer>
     </main>

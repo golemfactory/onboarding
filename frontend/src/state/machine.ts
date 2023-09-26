@@ -1,11 +1,24 @@
 import { createMachine, assign } from 'xstate'
-import { checkAccountBalances, ensureMetamaskConnection, providerState } from './childMachines'
-import { Step, StepType } from './steps'
+import {
+  checkAccountBalances,
+  ensureMetamaskConnection,
+  providerState,
+} from './childMachines'
+
+import { Step } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 
-export const createStateMachineWithContext = (context: OnboardingContextData, initialStep?: StepType) => {
+const move = (stage: string) =>
+  assign({
+    stage: () => {
+      return stage
+    },
+  })
+export const createStateMachineWithContext = (
+  context: OnboardingContextData
+) => {
   return createMachine<
     OnboardingContextData,
     { type: 'ADD_GLM' } | { type: Commands.NEXT } | { type: Commands.PREVIOUS }
@@ -16,13 +29,19 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
     states: {
       [Step.WELCOME]: {
         on: {
-          [Commands.NEXT]: Step.WALLET_INTRO,
+          [Commands.NEXT]: {
+            target: Step.WALLET_INTRO,
+            actions: move('wallet'),
+          },
         },
       },
 
       [Step.WALLET_INTRO]: {
         on: {
-          [Commands.NEXT]: Step.DETECT_METAMASK,
+          [Commands.NEXT]: {
+            target: Step.DETECT_METAMASK,
+            actions: move('matic'),
+          },
         },
       },
 
@@ -33,17 +52,19 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
           onDone: [
             {
               target: Step.CHOOSE_NETWORK,
-              cond: (context, event) => event.data === providerState.METAMASK,
+              cond: (_context, event) => event.data === providerState.METAMASK,
             },
             {
               target: Step.SHOW_METAMASK_LINK,
-              cond: (context, event) =>
+              cond: (_context, event) =>
                 //TODO: handle another wallets
-                event.data === providerState.NO_PROVIDER || event.data === providerState.NOT_METAMASK,
+                event.data === providerState.NO_PROVIDER ||
+                event.data === providerState.NOT_METAMASK,
             },
             {
               target: Step.CONNECT_WALLET,
-              cond: (context, event) => event.data === providerState.NOT_CONNECTED,
+              cond: (_context, event) =>
+                event.data === providerState.NOT_CONNECTED,
             },
           ],
         },
@@ -60,7 +81,9 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
       },
       [Step.CHOOSE_NETWORK]: {
         on: {
-          [Commands.NEXT]: context.skipSteps?.includes(Step.ADD_GLM) ? Step.CHECK_ACCOUNT_BALANCES : Step.ADD_GLM,
+          [Commands.NEXT]: context.skipSteps?.includes(Step.ADD_GLM)
+            ? Step.CHECK_ACCOUNT_BALANCES
+            : Step.ADD_GLM,
         },
       },
       [Step.ADD_GLM]: {
@@ -76,27 +99,30 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
           onDone: [
             {
               target: Step.SWAP,
-              cond: (context, event) => {
+              cond: (_context, event) => {
                 return event.data === BalanceCase.NO_GLM
               },
+              actions: move('glm'),
             },
             {
               target: Step.ON_RAMP,
-              cond: (context, event) => {
+              cond: (_context, event) => {
                 return event.data === BalanceCase.NO_GLM_NO_MATIC
               },
+              actions: move('matic'),
             },
             {
               target: Step.FINISH,
-              cond: (context, event) => {
+              cond: (_context, event) => {
                 return event.data === BalanceCase.BOTH
               },
             },
             {
               target: Step.GASLESS_SWAP,
-              cond: (context, event) => {
+              cond: (_context, event) => {
                 return event.data === BalanceCase.NO_MATIC
               },
+              actions: move('matic'),
             },
           ],
         },
@@ -114,10 +140,19 @@ export const createStateMachineWithContext = (context: OnboardingContextData, in
       },
       [Step.SWAP]: {
         on: {
-          [Commands.NEXT]: Step.FINISH,
+          [Commands.NEXT]: {
+            target: Step.FINISH,
+            actions: move('final'),
+          },
         },
       },
-      [Step.FINISH]: {},
+      [Step.FINISH]: {
+        // entry: () => {
+        //   assign({
+        //     stage: 'final',
+        //   })
+        // },
+      },
     },
   })
 }

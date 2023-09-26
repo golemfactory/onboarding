@@ -24,4 +24,5 @@ export type OnboardingContextData = {
   metaMask: MetaMaskContextData
   glmAdded: boolean
   skipSteps?: StepType[]
+  stage: string
 }

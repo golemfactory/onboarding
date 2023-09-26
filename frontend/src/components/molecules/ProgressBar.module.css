@@ -1,0 +1,50 @@
+.progressBarContainer{
+ @apply items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0
+}
+
+.selectedStep {
+  @apply text-golemblue
+}
+
+.progressBarItem {
+  padding: 10px;
+  margin: 2px;
+  transition: all 0.8s ease-in-out;
+  transition: border 0.01s ease-in-out;
+  @apply flex items-center space-x-2.5 ;
+}
+
+.uncompleted {
+  border: solid 2px white;
+      border-radius: 10px;
+  @apply opacity-25
+}
+
+.completed {
+  border: solid 2px white;
+  color : #12d40c;
+    border-radius: 10px;
+
+
+}
+.current {
+  color : #0c14d4;
+  border: solid 2px;
+  border-radius: 10px;
+}
+
+.current .progressBarCircle {
+  box-shadow: inset 0em 0em 30px #0c14d4;
+  @apply  flex items-center justify-center w-12 h-12 border-golemblue rounded-full 
+}
+
+
+.completed .progressBarCircle {
+  box-shadow: inset 0em 0em 30px #12d40c;
+    @apply flex items-center justify-center w-12 h-12 border-golemblue rounded-full
+}
+
+.uncompleted .progressBarCircle {
+  box-shadow: inset 0em 0em 30px;
+    @apply flex items-center justify-center w-12 h-12 border-golemblue rounded-full
+}

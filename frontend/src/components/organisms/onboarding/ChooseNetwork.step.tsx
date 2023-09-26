@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion'
-import { MouseEventHandler, ChangeEventHandler, ChangeEvent, useState } from 'react'
+import {
+  MouseEventHandler,
+  ChangeEventHandler,
+  ChangeEvent,
+  useState,
+} from 'react'
 import { networks } from 'ethereum/networks'
 import { Network, NetworkType } from 'types/ethereum'
 import { useMetaMask } from 'components/providers/MetamaskProvider'
-
+import onboardingStyle from './Onboarding.module.css'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -17,14 +22,12 @@ const ChooseNetworkPresentational = ({
   onNetworkSelection: ChangeEventHandler<HTMLSelectElement>
   selectedNetwork: NetworkType
 }) => {
-  const metamask = useMetaMask()
-
   return (
-    <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
+    <div className={onboardingStyle.step}>
+      <motion.h1 className={onboardingStyle.title} variants={variants}>
         Metamask is connected
       </motion.h1>
-      <motion.p className="max-w-md text-white my-4 text-xl" variants={variants}>
+      <motion.p className={onboardingStyle.description} variants={variants}>
         Thats great, now choose network
       </motion.p>
       <motion.div variants={variants}>
@@ -37,10 +40,7 @@ const ChooseNetworkPresentational = ({
             )
           })}
         </select>
-        <button
-          className="mt-4 px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-          onClick={onConfirm}
-        >
+        <button className={onboardingStyle.button} onClick={onConfirm}>
           Go
         </button>
       </motion.div>
@@ -48,9 +48,15 @@ const ChooseNetworkPresentational = ({
   )
 }
 
-export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+export const ChooseNetwork = ({
+  goToNextStep,
+}: {
+  goToNextStep: () => void
+}) => {
   const metamask = useMetaMask()
-  const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(Network.MUMBAI)
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(
+    Network.MUMBAI
+  )
 
   const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedNetwork(e.target.value as NetworkType)
@@ -81,7 +87,7 @@ export const ChooseNetwork = ({ goToNextStep }: { goToNextStep: () => {} }) => {
 
   return (
     <ChooseNetworkPresentational
-      onConfirm={(e) => {
+      onConfirm={() => {
         onConfirm()
       }}
       onNetworkSelection={onNetworkSelection}

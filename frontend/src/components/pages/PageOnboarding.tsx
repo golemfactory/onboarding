@@ -1,4 +1,3 @@
-import { HeaderOnboarding } from 'components/organisms/HeaderOnboarding'
 import { TemplateOnboarding } from 'components/templates/Onboarding.template'
 
 export const PageOnboarding = () => {
@@ -9,11 +8,9 @@ export const PageOnboarding = () => {
     return <h1>Footer</h1>
   }
 
-  return (
-    <TemplateOnboarding
-      header={<HeaderOnboarding />}
-      main={<MainOnboarding />}
-      footer={<FooterOnboarding />}
-    />
-  )
+  const HeaderOnboarding = () => {
+    return <h1>Header</h1>
+  }
+
+  return <TemplateOnboarding header={<HeaderOnboarding />} main={<MainOnboarding />} footer={<FooterOnboarding />} />
 }

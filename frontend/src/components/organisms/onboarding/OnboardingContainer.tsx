@@ -10,22 +10,27 @@ import { mapStateToComponent } from 'state/mapStateToComponent'
 import { Commands } from 'state/commands'
 import { OnboardingContext } from 'components/providers'
 import { AnimatePresence, motion } from 'framer-motion'
+import { ProgressBar } from 'components/molecules/ProgressBar'
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 export const OnboardingContainer = () => {
   const { service } = useContext(OnboardingContext)
 
-  const [state, send] = useActor(service)
-
+  const [state, send] = useActor(service) as any
   const StepToRender = mapStateToComponent(state.value)
 
   const [show, setShow] = useState(true)
   return (
     <>
-      <div className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-golemblue`}>
+      <div
+        className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-white p-4`}
+      >
+        <ProgressBar category={{ value: state.context.stage }} />
+        <div className={`${styles.break}`} />
         <AnimatePresence>
           {show ? (
             <motion.div
+              className="pb-48"
               variants={{
                 show: {
                   opacity: 1,

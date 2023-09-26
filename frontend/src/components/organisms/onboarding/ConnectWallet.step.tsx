@@ -7,13 +7,23 @@ const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const ConnectWalletPresentational = ({ onConfirm }: { onConfirm: MouseEventHandler }) => {
+const ConnectWalletPresentational = ({
+  onConfirm,
+}: {
+  onConfirm: MouseEventHandler
+}) => {
   return (
     <div className="text-center">
-      <motion.h1 className="text-4xl font-bold mb-4 text-white" variants={variants}>
+      <motion.h1
+        className="text-4xl font-bold mb-4 text-black"
+        variants={variants}
+      >
         Wallet connection
       </motion.h1>
-      <motion.p className="max-w-md text-white my-4 text-xl" variants={variants}>
+      <motion.p
+        className="max-w-md text-black my-4 text-xl"
+        variants={variants}
+      >
         We detected you have Metamask installed but it is not connected
       </motion.p>
       <motion.button
@@ -29,7 +39,11 @@ const ConnectWalletPresentational = ({ onConfirm }: { onConfirm: MouseEventHandl
   )
 }
 
-export const ConnectWallet = ({ goToNextStep }: { goToNextStep: () => {} }) => {
+export const ConnectWallet = ({
+  goToNextStep,
+}: {
+  goToNextStep: () => void
+}) => {
   const metaMask = useMetaMask()
   const [done, setDone] = useState(false)
   useEffect(() => {

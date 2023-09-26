@@ -1,5 +1,5 @@
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
-import { Step } from './steps'
+import { Step, StepType } from './steps'
 import {
   Welcome,
   ConnectWallet,
@@ -12,8 +12,9 @@ import {
   Finish,
   AddGLM,
 } from 'components/organisms/onboarding'
+import { FC } from 'react'
 
-export const mapStateToComponent = (state: any): React.FC<any> => {
+export const mapStateToComponent = (state: StepType): FC<any> => {
   switch (state) {
     case Step.WELCOME:
       return Welcome
