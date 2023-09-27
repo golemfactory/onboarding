@@ -1,11 +1,13 @@
-import { Modal } from 'components/molecules/modal'
-import { FC, useState } from 'react'
+import { Modal } from 'components/molecules/modal/modal'
 import { EthereumAddress } from 'types/ethereum'
 
-const WrongAccountModalBody: FC<{
+const WrongAccountModalBody = ({
+  currentAccount,
+  expectedAccount,
+}: {
   currentAccount: EthereumAddress
   expectedAccount: EthereumAddress
-}> = ({ currentAccount, expectedAccount }) => {
+}) => {
   return (
     <div className="relative p-6 flex-auto">
       <p className="my-4 text-slate-500 text-lg leading-relaxed">
@@ -22,19 +24,23 @@ const WrongAccountModalBody: FC<{
         <b> {currentAccount} </b>
         <br></br>
         <br></br>
-        So we can't proceed. This has to be done manually due to metamask
-        design.
+        So we cant proceed. This has to be done manually due to metamask design.
       </p>
     </div>
   )
 }
 
-export const WrongAccountModal: FC<{
+export const WrongAccountModal = ({
+  showModal,
+  setShowModal,
+  currentAccount,
+  expectedAccount,
+}: {
   showModal: boolean
-  setShowModal: (showModal: boolean) => void
+  setShowModal: (show: boolean) => void
   currentAccount: EthereumAddress
   expectedAccount: EthereumAddress
-}> = ({ showModal, setShowModal, currentAccount, expectedAccount }) => {
+}) => {
   return (
     <Modal
       className={''}

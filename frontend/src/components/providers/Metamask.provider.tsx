@@ -1,13 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect, createContext, PropsWithChildren, useContext, useCallback } from 'react'
+import {
+  useState,
+  useEffect,
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useCallback,
+} from 'react'
 
 import detectEthereumProvider from '@metamask/detect-provider'
-import { formatBalance } from 'utils/formatBalance'
 import { MetaMaskContextData, WalletState } from 'types/dataContext'
+import { getBalances } from 'utils/getBalances'
+import { TokenCategory } from 'types/ethereum'
 
-const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' }
+const disconnectedState: WalletState = {
+  accounts: [],
+  balance: {
+    [TokenCategory.GLM]: BigInt(0),
+    [TokenCategory.NATIVE]: BigInt(0),
+  },
+  chainId: '',
+} as WalletState
 
-const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMaskContextData)
+export const MetaMaskContext = createContext<MetaMaskContextData>(
+  {} as MetaMaskContextData
+)
 
 export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
   const [hasProvider, setHasProvider] = useState<boolean | null>(null)
@@ -20,7 +37,10 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
   const [wallet, setWallet] = useState(disconnectedState)
   // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
   const _updateWallet = useCallback(async (providedAccounts?: any) => {
-    const accounts = providedAccounts || (await window.ethereum.request({ method: 'eth_accounts' }))
+    console.log('update wallet')
+    const accounts =
+      providedAccounts ||
+      (await window.ethereum.request({ method: 'eth_accounts' }))
 
     if (accounts.length === 0) {
       // If there are no accounts, then the user is disconnected
@@ -28,12 +48,8 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
       return
     }
 
-    const balance = formatBalance(
-      await window.ethereum.request({
-        method: 'eth_getBalance',
-        params: [accounts[0], 'latest'],
-      })
-    )
+    const balance = await getBalances()
+
     const chainId = await window.ethereum.request({
       method: 'eth_chainId',
     })
@@ -41,8 +57,14 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
     setWallet({ accounts, balance, chainId })
   }, [])
 
-  const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
-  const updateWallet = useCallback((accounts: any) => _updateWallet(accounts), [_updateWallet])
+  const updateWalletAndAccounts = useCallback(
+    () => _updateWallet(),
+    [_updateWallet]
+  )
+  const updateWallet = useCallback(
+    (accounts: any) => _updateWallet(accounts),
+    [_updateWallet]
+  )
 
   /**
    * This logic checks if MetaMask is installed. If it is, some event handlers are set up
@@ -107,7 +129,9 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
 export const useMetaMask = () => {
   const context = useContext(MetaMaskContext)
   if (context === undefined) {
-    throw new Error('useMetaMask must be used within a "MetaMaskContextProvider"')
+    throw new Error(
+      'useMetaMask must be used within a "MetaMaskContextProvider"'
+    )
   }
   return context
 }

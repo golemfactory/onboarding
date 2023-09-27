@@ -1,14 +1,13 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
-
-import onboardingStyle from './Onboarding.module.css'
-
+import { getGLMToken } from 'utils/getGLMToken'
+import onboardingStyle from '../Onboarding.module.css'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const WalletIntroPresentational = ({
+const AddGLMPresentational = ({
   onConfirm,
 }: {
   onConfirm: MouseEventHandler
@@ -16,11 +15,10 @@ const WalletIntroPresentational = ({
   return (
     <div className={onboardingStyle.step}>
       <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Metamask connection
+        Add GLM to wallet
       </motion.h1>
       <motion.p className={onboardingStyle.description} variants={variants}>
-        First you need to make sure you have Metamask wallet installed and
-        connected
+        We need to be sure you track your GLM balance in your wallet
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
@@ -29,18 +27,23 @@ const WalletIntroPresentational = ({
           onConfirm(e)
         }}
       >
-        Continue
+        Get Started
       </motion.button>
     </div>
   )
 }
 
-export const WalletIntro = ({ goToNextStep }: { goToNextStep: () => void }) => {
-  return (
-    <WalletIntroPresentational
-      onConfirm={() => {
-        goToNextStep()
-      }}
-    />
-  )
+export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
+  const addGLM = async () => {
+    const { address, decimals, symbol } = await getGLMToken()
+
+    await window.ethereum.request({
+      method: 'wallet_watchAsset',
+      params: { type: 'ERC20', options: { address, decimals, symbol } },
+    })
+
+    goToNextStep()
+  }
+
+  return <AddGLMPresentational onConfirm={addGLM} />
 }

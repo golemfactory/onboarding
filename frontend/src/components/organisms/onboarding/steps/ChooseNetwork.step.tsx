@@ -7,8 +7,8 @@ import {
 } from 'react'
 import { networks } from 'ethereum/networks'
 import { Network, NetworkType } from 'types/ethereum'
-import { useMetaMask } from 'components/providers/MetamaskProvider'
-import onboardingStyle from './Onboarding.module.css'
+import { useMetaMask } from 'components/providers/Metamask.provider'
+import onboardingStyle from '../Onboarding.module.css'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },

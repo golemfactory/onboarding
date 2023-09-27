@@ -12,9 +12,8 @@ import {
   Finish,
   AddGLM,
 } from 'components/organisms/onboarding'
-import { FC } from 'react'
 
-export const mapStateToComponent = (state: StepType): FC<any> => {
+export const mapStateToComponent = (state: StepType) => {
   switch (state) {
     case Step.WELCOME:
       return Welcome

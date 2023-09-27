@@ -1,14 +1,14 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { MouseEventHandler, useContext } from 'react'
-import onboardingStyle from './Onboarding.module.css'
-import { OnboardingContext } from 'components/providers/Onboarding.provider'
-import { Commands } from 'state/commands'
+import { MouseEventHandler } from 'react'
+
+import onboardingStyle from '../Onboarding.module.css'
+
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const WelcomePresentational = ({
+const WalletIntroPresentational = ({
   onConfirm,
 }: {
   onConfirm: MouseEventHandler
@@ -16,10 +16,11 @@ const WelcomePresentational = ({
   return (
     <div className={onboardingStyle.step}>
       <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Welcome to Golem
+        Metamask connection
       </motion.h1>
       <motion.p className={onboardingStyle.description} variants={variants}>
-        Golem network is a decentralized sharing economy of computing power.
+        First you need to make sure you have Metamask wallet installed and
+        connected
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
@@ -28,22 +29,16 @@ const WelcomePresentational = ({
           onConfirm(e)
         }}
       >
-        Get Started
+        Continue
       </motion.button>
     </div>
   )
 }
 
-export const Welcome = ({ goToNextStep }: { goToNextStep: () => void }) => {
-  const { categoryService } = useContext(OnboardingContext)
-  console.log(categoryService)
-  //@ts-ignore
-  const send = categoryService[1]
-
+export const WalletIntro = ({ goToNextStep }: { goToNextStep: () => void }) => {
   return (
-    <WelcomePresentational
+    <WalletIntroPresentational
       onConfirm={() => {
-        send(Commands.NEXT)
         goToNextStep()
       }}
     />

@@ -2,8 +2,8 @@ import { forwardRef, ComponentProps } from 'react'
 
 import styles from './paragraph.module.css'
 
-const Paragraph = forwardRef<HTMLParagraphElement, ComponentProps<'p'>>(
-  ({ children, className, ...rest }, ref) => {
+export const Paragraph = forwardRef<HTMLParagraphElement, ComponentProps<'p'>>(
+  function Paragraph({ children, className, ...rest }, ref) {
     const combinedClassName = ` ${className || ''} ${styles.paragraph}`.trim()
 
     return (
@@ -13,5 +13,3 @@ const Paragraph = forwardRef<HTMLParagraphElement, ComponentProps<'p'>>(
     )
   }
 )
-
-export { Paragraph }

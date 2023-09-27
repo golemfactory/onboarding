@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { hideRampBackground, hideRampWidget } from 'utils/hideRampBackground'
-import { useMetaMask } from 'components/providers/MetamaskProvider'
+import { useMetaMask } from 'components/providers/Metamask.provider'
 import debug from 'debug'
 
 const variants = {

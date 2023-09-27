@@ -1,13 +1,13 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
-import { getGLMToken } from 'utils/getGLMToken'
-import onboardingStyle from './Onboarding.module.css'
+import onboardingStyle from '../Onboarding.module.css'
+
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const AddGLMPresentational = ({
+const WelcomePresentational = ({
   onConfirm,
 }: {
   onConfirm: MouseEventHandler
@@ -15,10 +15,10 @@ const AddGLMPresentational = ({
   return (
     <div className={onboardingStyle.step}>
       <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Add GLM to wallet
+        Welcome to Golem
       </motion.h1>
       <motion.p className={onboardingStyle.description} variants={variants}>
-        We need to be sure you track your GLM balance in your wallet
+        Golem network is a decentralized sharing economy of computing power.
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
@@ -33,17 +33,12 @@ const AddGLMPresentational = ({
   )
 }
 
-export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
-  const addGLM = async () => {
-    const { address, decimals, symbol } = await getGLMToken()
-
-    await window.ethereum.request({
-      method: 'wallet_watchAsset',
-      params: { type: 'ERC20', options: { address, decimals, symbol } },
-    })
-
-    goToNextStep()
-  }
-
-  return <AddGLMPresentational onConfirm={addGLM} />
+export const Welcome = ({ goToNextStep }: { goToNextStep: () => void }) => {
+  return (
+    <WelcomePresentational
+      onConfirm={() => {
+        goToNextStep()
+      }}
+    />
+  )
 }

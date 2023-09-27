@@ -1,13 +1,3 @@
-import { type } from 'os'
-import { To } from 'react-router-dom'
-
-interface RequestArguments {
-  method: string
-  params?: unknown[] | object
-}
-
-//TODO rethink how we could keep one enum Token
-
 export const UtilityToken = {
   GLM_POLYGON: 'GLM_POLYGON',
   GLM_MUMBAI: 'GLM_MUMBAI',
@@ -45,6 +35,13 @@ export enum TokenCategory {
   NATIVE = 'NATIVE',
 }
 
+export const Network = {
+  POLYGON: '0x89',
+  MUMBAI: '0x13881',
+} as const
+
+export type NetworkType = (typeof Network)[keyof typeof Network]
+
 export interface IToken {
   name: string
   decimals: number
@@ -57,6 +54,8 @@ export interface INativeToken extends IToken {
   isNative: true
   symbol: NativeTokenType
 }
+
+export type EthereumAddress = string & { __brand: 'EthereumAddress' }
 
 export interface IUtilityToken extends IToken {
   isNative: false
@@ -78,8 +77,6 @@ export interface INetwork {
   nativeCurrency: INativeToken
 }
 
-export type EthereumAddress = string & { __brand: 'EthereumAddress' }
-
 export function assertEthereumAddress(x: string): asserts x is EthereumAddress {
   const regex = /^(0x)?[0-9a-fA-F]{40}$/
 
@@ -87,13 +84,6 @@ export function assertEthereumAddress(x: string): asserts x is EthereumAddress {
     throw new Error('Invalid ethereum account')
   }
 }
-
-export const Network = {
-  POLYGON: '0x89',
-  MUMBAI: '0x13881',
-} as const
-
-export type NetworkType = (typeof Network)[keyof typeof Network]
 
 export function assertSupportedChainId(x: string): asserts x is NetworkType {
   if (!Object.values(Network as Record<string, string>).includes(x)) {

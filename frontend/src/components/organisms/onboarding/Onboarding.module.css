@@ -24,3 +24,7 @@
   box-shadow: inset 0em 0em 60px #0c14d4;
   @apply mt-4 px-4 py-2 text-white rounded focus:outline-none focus:ring focus:ring-blue-300
 }
+
+.progressBarContainer {
+  @apply items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0
+}

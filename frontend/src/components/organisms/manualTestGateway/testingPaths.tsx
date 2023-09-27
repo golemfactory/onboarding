@@ -1,5 +1,3 @@
-import { Network } from 'types/ethereum'
-
 import { BalanceCaseType, BalanceCase } from 'types/path'
 
 type TestingSetupType = {
@@ -32,10 +30,8 @@ export const testingSetup: Record<BalanceCaseType, TestingSetupType> = {
 }
 
 export const getExpectedBalances = ({
-  network = Network.POLYGON,
   testingPath,
 }: {
-  network?: NetworkType
   testingPath: BalanceCaseType
 }) => {
   const { glmBalance, maticBalance } = testingSetup[testingPath]

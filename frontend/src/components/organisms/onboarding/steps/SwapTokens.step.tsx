@@ -5,7 +5,7 @@ import { swapETHForGLM } from 'ethereum/actions/swap'
 import { parseUnits } from 'ethers'
 import { settings } from 'settings'
 import { getNativeToken } from 'utils/getNativeToken'
-import onboardingStyle from './Onboarding.module.css'
+import onboardingStyle from '../Onboarding.module.css'
 
 import buttonStyle from 'components/atoms/button/button.module.css'
 const variants = {

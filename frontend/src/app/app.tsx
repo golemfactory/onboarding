@@ -1,12 +1,16 @@
-import { OnboardingContainer } from 'components/organisms/onboarding/OnboardingContainer'
-import { AwaitForMetamaskSDK, OnboardingProvider, SetupProvider } from 'components/providers'
+import { OnboardingContainer } from 'components/organisms/onboarding/container/OnboardingContainer'
+import {
+  AwaitForMetamaskSDK,
+  OnboardingProvider,
+  SetupProvider,
+} from 'components/providers'
 
 import { FC } from 'react'
 import { ManualTestGateway } from 'components/organisms/manualTestGateway/ManualTestGateway'
 
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
-import { MetaMaskProvider } from 'components/providers/MetamaskProvider'
+import { MetaMaskProvider } from 'components/providers/Metamask.provider'
 
 import { ErrorBoundary } from 'components/providers/ErrorBoundary'
 

@@ -1,9 +1,11 @@
 import { StepType } from 'state/steps'
 import { BalanceCaseType } from './path'
+import { TokenCategory } from './ethereum'
+import { OnboardingStageType } from 'state/stages'
 
 export interface WalletState {
   accounts: any[]
-  balance: string
+  balance: Record<TokenCategory, bigint>
   chainId: string
 }
 
@@ -24,5 +26,5 @@ export type OnboardingContextData = {
   metaMask: MetaMaskContextData
   glmAdded: boolean
   skipSteps?: StepType[]
-  stage: string
+  stage: OnboardingStageType
 }

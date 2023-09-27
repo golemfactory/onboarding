@@ -1,7 +1,6 @@
 import { Paragraph, Button, HyperLink, Select } from 'components/atoms'
-import { FC, useState } from 'react'
-import { CheckmarkIcon, XIcon } from 'components/atoms/icons'
-import JSONDownloadButton from 'components/molecules/JSONDownLoadButton'
+import { useState } from 'react'
+import JSONDownloadButton from 'components/molecules/jsonDownloadButton/JSONDownloadButton'
 import storageTankJSON from 'assets/storage.tank.json'
 import * as ethers from 'ethers'
 import { testingSetup } from './testingPaths'
@@ -9,35 +8,39 @@ import { EthereumAddress, assertEthereumAddress } from 'types/ethereum'
 import { transferInitialBalances } from './transfer'
 import { WrongAccountModal } from './WrongAccountModal'
 import { BalanceCase, BalanceCaseType } from 'types/path'
-import { useMetaMask } from 'components/providers/MetamaskProvider'
-import { SkippableStepType } from 'state/steps'
-import { SkipStepSelection } from './StepSelection'
+import { useMetaMask } from 'components/providers'
+import { SkipableStepType } from 'state/steps'
 import styles from './ManualTesting.module.css'
 import { getGLMToken } from 'utils/getGLMToken'
-
+import { SkipStepSelection } from './SkipStepSelection'
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
   return randomWallet
 }
 
-export const ManualTestGateway: FC = () => {
+export const ManualTestGateway = () => {
   const metamask = useMetaMask()
   const account = metamask.wallet.accounts[0]
   const [showModal, setShowModal] = useState(false)
 
-  const [currentAccount, setCurrentAccount] = useState<EthereumAddress>('' as EthereumAddress)
+  const [currentAccount, setCurrentAccount] = useState<EthereumAddress>(
+    '' as EthereumAddress
+  )
 
-  const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>('' as EthereumAddress)
+  const [expectedAccount, setExpectedAccount] = useState<EthereumAddress>(
+    '' as EthereumAddress
+  )
 
   const [createdAccount, setCreatedAccount] = useState(false)
   const [testingPath, setTestingPath] = useState<BalanceCaseType | null>(null)
-  const isMetamaskInstalled = window.ethereum?.isMetaMask
 
-  const [wallet, setWallet] = useState<ethers.HDNodeWallet>({} as ethers.HDNodeWallet)
+  const [wallet, setWallet] = useState<ethers.HDNodeWallet>(
+    {} as ethers.HDNodeWallet
+  )
 
-  const [ignoredSteps, setIgnoredSteps] = useState<SkippableStepType[]>([])
+  const [ignoredSteps, setIgnoredSteps] = useState<SkipableStepType[]>([])
 
-  const handleStepToggle = (step: SkippableStepType) => {
+  const handleStepToggle = (step: SkipableStepType) => {
     if (ignoredSteps.includes(step)) {
       // Remove the step if it's already in the ignored list
       setIgnoredSteps(ignoredSteps.filter((s) => s !== step))
@@ -49,7 +52,9 @@ export const ManualTestGateway: FC = () => {
 
   //TODO : divide into smaller pieces
   return (
-    <div className={`${styles.golemBackground} fixed inset-0 items-center justify-center`}>
+    <div
+      className={`${styles.golemBackground} fixed inset-0 items-center justify-center`}
+    >
       {createdAccount && (
         <Paragraph style={{ display: 'block' }} className="pt-2">
           <div className="font-bold"> Created new account </div>
@@ -84,7 +89,10 @@ export const ManualTestGateway: FC = () => {
       )}
       <Paragraph>
         <>
-          <JSONDownloadButton jsonData={storageTankJSON} fileName="storage-tank.json" />
+          <JSONDownloadButton
+            jsonData={storageTankJSON}
+            fileName="storage-tank.json"
+          />
           <div className="ml-4">
             JSON file and then import it as described{' '}
             <HyperLink
@@ -110,7 +118,10 @@ export const ManualTestGateway: FC = () => {
                 params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
               })
 
-              if (path !== BalanceCase.NO_GLM_NO_MATIC && account !== `0x${storageTankJSON.address}`) {
+              if (
+                path !== BalanceCase.NO_GLM_NO_MATIC &&
+                account !== `0x${storageTankJSON.address}`
+              ) {
                 setCurrentAccount(account as EthereumAddress)
                 setExpectedAccount(storageTankJSON.address as EthereumAddress)
                 setShowModal(true)
@@ -122,14 +133,18 @@ export const ManualTestGateway: FC = () => {
                 await transferInitialBalances({
                   testingPath: path,
                   address: wallet.address,
-                  signer: await new ethers.BrowserProvider(window.ethereum).getSigner(account),
+                  signer: await new ethers.BrowserProvider(
+                    window.ethereum
+                  ).getSigner(account),
                 })
               }
 
               //TODO: display some nice notifications here
             }}
           >
-            {(Object.keys(testingSetup) as Array<keyof typeof testingSetup>).map((testingPathKey) => {
+            {(
+              Object.keys(testingSetup) as Array<keyof typeof testingSetup>
+            ).map((testingPathKey) => {
               const testingPath = testingSetup[testingPathKey]
               return (
                 <option key={testingPathKey} value={testingPathKey}>
@@ -138,12 +153,16 @@ export const ManualTestGateway: FC = () => {
               )
             })}
           </Select>
-          Choose testing path. This will automatically set proper account balance on the newly created account
+          Choose testing path. This will automatically set proper account
+          balance on the newly created account
           <div className="ml-4"></div>
         </Paragraph>
       )}
       <Paragraph>
-        <SkipStepSelection handleStepToggle={handleStepToggle} ignoredSteps={ignoredSteps} />
+        <SkipStepSelection
+          handleStepToggle={handleStepToggle}
+          ignoredSteps={ignoredSteps}
+        />
       </Paragraph>
       {testingPath && (
         <Paragraph>
@@ -151,12 +170,17 @@ export const ManualTestGateway: FC = () => {
             onClick={async () => {
               setCurrentAccount(account as EthereumAddress)
               setExpectedAccount(wallet.address as EthereumAddress)
-              if (account?.toLocaleLowerCase() == wallet.address.toLowerCase()) {
+              if (
+                account?.toLocaleLowerCase() == wallet.address.toLowerCase()
+              ) {
                 const { address, decimals, symbol } = await getGLMToken()
 
                 await window.ethereum.request({
                   method: 'wallet_watchAsset',
-                  params: { type: 'ERC20', options: { address, decimals, symbol } },
+                  params: {
+                    type: 'ERC20',
+                    options: { address, decimals, symbol },
+                  },
                 })
                 const search = new URLSearchParams(window.location.search)
                 ignoredSteps.forEach((step) => {

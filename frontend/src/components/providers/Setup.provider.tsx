@@ -1,4 +1,4 @@
-import { FC, createContext, useContext, useMemo } from 'react'
+import { PropsWithChildren, createContext, useContext, useMemo } from 'react'
 import { StepType } from 'state/steps'
 import { BalanceCaseType } from 'types/path'
 
@@ -18,7 +18,7 @@ const SetupContext = createContext<SetupContextData>({
   address: '',
 })
 
-export const SetupProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SetupProvider = ({ children }: PropsWithChildren) => {
   const query = useQuery()
 
   const address = query.get('address')

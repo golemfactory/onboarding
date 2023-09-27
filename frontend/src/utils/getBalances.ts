@@ -10,7 +10,10 @@ export const getBalances = async (): Promise<Record<TokenCategory, bigint>> => {
   //read network from window.ethereum (TODO: sdk from metamask or finally general sdk that is able to
   //work with different wallets)
 
-  const network = window.ethereum.chainId
+  const network = await window.ethereum.request({
+    method: 'eth_chainId',
+  })
+
   const contracts = getContracts(network)
 
   const provider = new ethers.BrowserProvider(window.ethereum)
@@ -18,7 +21,11 @@ export const getBalances = async (): Promise<Record<TokenCategory, bigint>> => {
 
   const signer = await getSigner()
 
-  const tokenContract = new ethers.Contract(contracts.GLM.address, erc20Abi, signer)
+  const tokenContract = new ethers.Contract(
+    contracts.GLM.address,
+    erc20Abi,
+    signer
+  )
 
   const nativeBalance = await provider.getBalance(address)
 

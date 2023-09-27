@@ -1,0 +1,37 @@
+.progressStageItem {
+  padding: 10px;
+  margin: 2px;
+  transition: all 0.8s ease-in-out;
+  @apply flex items-center space-x-2.5 ;
+}
+
+.uncompleted {
+  border: solid 2px white;
+      border-radius: 10px;
+  @apply opacity-25
+}
+
+.completed {
+  border: solid 2px white;
+  color : #0c14d4;
+    border-radius: 10px;
+}
+
+.current {
+  color : #0c14d4;
+  border: solid 2px;
+  border-radius: 10px;
+}
+
+.current .progressStageCircle {
+  @apply  flex items-center justify-center w-12 h-12 border-2 border-golemblue rounded-full 
+}
+
+
+.completed .progressStageCircle {
+    @apply flex items-center justify-center w-12 h-12 border-2 border-golemblue rounded-full
+}
+
+.uncompleted .progressStageCircle {
+    @apply flex items-center justify-center w-12 h-12 border-2 border-black rounded-full
+}

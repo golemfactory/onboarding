@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
-import onboardingStyle from './Onboarding.module.css'
+import onboardingStyle from '../Onboarding.module.css'
 
 const variants = {
   show: { opacity: 1 },

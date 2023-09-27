@@ -1,22 +1,23 @@
-import { FC, ReactNode, createContext, useEffect, useState } from 'react'
-import { useActor, useInterpret } from '@xstate/react'
-import { InterpreterFrom } from 'xstate'
+import {
+  FC,
+  PropsWithChildren,
+  ReactNode,
+  createContext,
+  useEffect,
+  useState,
+} from 'react'
+import { useInterpret } from '@xstate/react'
 import { createStateMachineWithContext } from 'state/machine'
-import { categoryMachineInstance } from 'state/categoryMachine'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
-import { useMetaMask } from './MetamaskProvider'
+import { useMetaMask } from './Metamask.provider'
 import { StepType } from 'state/steps'
 import { useSetup } from './Setup.provider'
-
-//TODO : provide better typing
+import { OnboardingStage } from 'state/stages'
 
 export const OnboardingContext = createContext<{
-  service: InterpreterFrom<any>
-  categoryService: InterpreterFrom<any>
+  service: any
 }>({
-  //a little hack to make TS happy
-  service: {} as InterpreterFrom<any>,
-  categoryService: {} as InterpreterFrom<any>,
+  service: {} as any,
 })
 
 export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
@@ -36,9 +37,7 @@ export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
   }
 }
 
-export const OnboardingProvider: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   //TODO : make own hook for this to avoid calling get for every param
   const setup = useSetup()
   const metaMask = useMetaMask()
@@ -55,15 +54,12 @@ export const OnboardingProvider: FC<{ children: ReactNode }> = ({
       ...setup,
       metaMask,
       glmAdded: false,
-      stage: 'wellcome',
+      stage: OnboardingStage.WELCOME,
     })
   )
 
-  const categoryService = useActor(categoryMachineInstance)
-
   return (
-    //@ts-ignore
-    <OnboardingContext.Provider value={{ service, categoryService }}>
+    <OnboardingContext.Provider value={{ service }}>
       {children}
     </OnboardingContext.Provider>
   )

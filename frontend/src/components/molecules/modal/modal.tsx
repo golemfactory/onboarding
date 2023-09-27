@@ -1,14 +1,19 @@
 // import { forwardRef, ComponentProps } from 'react'
 
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
-export const Modal: FC<{
+export const Modal = ({
+  children,
+  toggleVisibility,
+  isVisible,
+  title,
+}: {
   children: ReactNode
   className: string
   toggleVisibility: (visibility: boolean) => void
   isVisible: boolean
   title: string
-}> = ({ children, toggleVisibility, isVisible, title }) => {
+}) => {
   return (
     <>
       {isVisible ? (

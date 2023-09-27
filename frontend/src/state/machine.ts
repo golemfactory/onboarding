@@ -9,8 +9,9 @@ import { Step } from './steps'
 import { Commands } from './commands'
 import type { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
+import { OnboardingStage, OnboardingStageType } from './stages'
 
-const move = (stage: string) =>
+const move = (stage: OnboardingStageType) =>
   assign({
     stage: () => {
       return stage
@@ -31,7 +32,7 @@ export const createStateMachineWithContext = (
         on: {
           [Commands.NEXT]: {
             target: Step.WALLET_INTRO,
-            actions: move('wallet'),
+            actions: move(OnboardingStage.WALLET),
           },
         },
       },
@@ -40,7 +41,6 @@ export const createStateMachineWithContext = (
         on: {
           [Commands.NEXT]: {
             target: Step.DETECT_METAMASK,
-            actions: move('matic'),
           },
         },
       },
@@ -81,11 +81,16 @@ export const createStateMachineWithContext = (
       },
       [Step.CHOOSE_NETWORK]: {
         on: {
-          [Commands.NEXT]: context.skipSteps?.includes(Step.ADD_GLM)
-            ? Step.CHECK_ACCOUNT_BALANCES
-            : Step.ADD_GLM,
+          [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
         },
       },
+
+      //TODO: make sure we use localstorage to keep info
+      // if visitor already added GLM token
+      // unfortunately this is not possible to get list of
+      //of all tracked assets from metamask
+      //(issue #33)
+
       [Step.ADD_GLM]: {
         on: {
           [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
@@ -102,14 +107,14 @@ export const createStateMachineWithContext = (
               cond: (_context, event) => {
                 return event.data === BalanceCase.NO_GLM
               },
-              actions: move('glm'),
+              actions: move(OnboardingStage.GLM),
             },
             {
               target: Step.ON_RAMP,
               cond: (_context, event) => {
                 return event.data === BalanceCase.NO_GLM_NO_MATIC
               },
-              actions: move('matic'),
+              actions: move(OnboardingStage.MATIC),
             },
             {
               target: Step.FINISH,
@@ -122,7 +127,7 @@ export const createStateMachineWithContext = (
               cond: (_context, event) => {
                 return event.data === BalanceCase.NO_MATIC
               },
-              actions: move('matic'),
+              actions: move(OnboardingStage.MATIC),
             },
           ],
         },
@@ -142,7 +147,7 @@ export const createStateMachineWithContext = (
         on: {
           [Commands.NEXT]: {
             target: Step.FINISH,
-            actions: move('final'),
+            actions: move(OnboardingStage.FINISH),
           },
         },
       },

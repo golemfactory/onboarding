@@ -1,5 +1,3 @@
-import MetaMaskSDK, { SDKProvider } from '@metamask/sdk'
-import { MetaMaskContextData } from 'types/dataContext'
 export const providerState = {
   NO_PROVIDER: 'no-provider',
   NOT_METAMASK: 'not-metamask',
@@ -7,8 +5,9 @@ export const providerState = {
   METAMASK: 'metamask',
 }
 
-export const verifyMetamask = ({ metaMask }: { metaMask: MetaMaskContextData }) => {
+export const verifyMetamask = () => {
   const provider = window.ethereum
+
   if (!provider) {
     return providerState.NO_PROVIDER
   }
@@ -17,13 +16,13 @@ export const verifyMetamask = ({ metaMask }: { metaMask: MetaMaskContextData }) 
     return providerState.NOT_METAMASK
   }
 
-  if (!metaMask.wallet.accounts.length) {
+  if (!provider.selectedAddress) {
     return providerState.NOT_CONNECTED
   }
 
   return providerState.METAMASK
 }
 
-export const ensureMetamaskConnection = async (context: any) => {
-  return verifyMetamask({ metaMask: context.metaMask })
+export const ensureMetamaskConnection = async () => {
+  return verifyMetamask()
 }

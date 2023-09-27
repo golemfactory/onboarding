@@ -3,7 +3,7 @@ import { forwardRef, ComponentProps } from 'react'
 import styles from './button.module.css'
 
 const Button = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
-  ({ children, className = styles.button, ...rest }, ref) => {
+  function Button({ children, className = styles.button, ...rest }, ref) {
     return (
       <button ref={ref} className={className} {...rest}>
         {children}
@@ -11,7 +11,5 @@ const Button = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
     )
   }
 )
-
-Button.displayName = 'Button'
 
 export default Button

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
 import { MetaMaskProvider } from '@metamask/sdk-react'
 import { Step } from 'state/steps'
-import onboardingStyle from './Onboarding.module.css'
+import onboardingStyle from '../Onboarding.module.css'
 
 const variants = {
   show: { opacity: 1 },

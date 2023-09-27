@@ -1,7 +1,7 @@
 import { Button } from 'components/atoms'
 
 function JSONDownloadButton({
-  onClick = () => {},
+  onClick,
   jsonData,
   buttonText = 'Download',
   fileName = 'data.json',
@@ -13,7 +13,7 @@ function JSONDownloadButton({
 }) {
   // Function to handle the download
   const handleDownload = () => {
-    onClick()
+    onClick?.()
     const jsonString = JSON.stringify(jsonData, null, 2)
     const blob = new Blob([jsonString], { type: 'application/json' })
     const url = window.URL.createObjectURL(blob)

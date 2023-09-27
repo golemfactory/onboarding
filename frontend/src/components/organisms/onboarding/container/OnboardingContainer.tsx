@@ -2,7 +2,7 @@
 //This is the container component for the onboarding step
 //It is responsible for the launching logic
 
-import styles from './Onboarding.module.css'
+import styles from '../Onboarding.module.css'
 
 import { useContext, useState } from 'react'
 import { useActor } from '@xstate/react'
@@ -10,7 +10,7 @@ import { mapStateToComponent } from 'state/mapStateToComponent'
 import { Commands } from 'state/commands'
 import { OnboardingContext } from 'components/providers'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ProgressBar } from 'components/molecules/ProgressBar'
+import { ProgressBar } from 'components/organisms'
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 export const OnboardingContainer = () => {
@@ -25,7 +25,7 @@ export const OnboardingContainer = () => {
       <div
         className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-white p-4`}
       >
-        <ProgressBar category={{ value: state.context.stage }} />
+        <ProgressBar stage={{ value: state.context.stage }} />
         <div className={`${styles.break}`} />
         <AnimatePresence>
           {show ? (

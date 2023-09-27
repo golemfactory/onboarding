@@ -1,7 +1,7 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 import { MouseEventHandler, useEffect, useState } from 'react'
-import { useMetaMask } from 'components/providers/MetamaskProvider'
+import { useMetaMask } from 'hooks/useMetamask'
 
 const variants = {
   show: { opacity: 1 },
@@ -45,6 +45,7 @@ export const ConnectWallet = ({
   goToNextStep: () => void
 }) => {
   const metaMask = useMetaMask()
+  console.log('metamask', metaMask)
   const [done, setDone] = useState(false)
   useEffect(() => {
     if (!done && metaMask.wallet.accounts.length > 0) {
