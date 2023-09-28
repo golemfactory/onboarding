@@ -37,7 +37,6 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
   const [wallet, setWallet] = useState(disconnectedState)
   // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
   const _updateWallet = useCallback(async (providedAccounts?: any) => {
-    console.log('update wallet')
     const accounts =
       providedAccounts ||
       (await window.ethereum.request({ method: 'eth_accounts' }))

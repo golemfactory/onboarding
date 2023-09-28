@@ -20,12 +20,7 @@ const SetupContext = createContext<SetupContextData>({})
 
 const useSetupParams = () => {
   const query = useQuery()
-
-  const setup = {
-    yagnaAddress: query.get('yagna-address'),
-    balanceCase: query.get('balance-case'),
-    skipSteps: query.getAll('skip-steps'),
-  }
+  const setup = Object.fromEntries(query)
   assertProperSetup(setup)
   return setup
 }

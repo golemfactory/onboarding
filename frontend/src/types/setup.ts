@@ -47,7 +47,15 @@ export function assertProperSetup(
     throw new Error(`invalid key ${invalidKey} in setup context data`)
   }
 
-  assertEthereumAddress(x.yagnaAddress)
-  assertBalanceCaseType(x.balanceCase)
-  assertStepsArray(x.skipSteps)
+  if (x.yagnaAddress) {
+    assertEthereumAddress(x.yagnaAddress)
+  }
+
+  if (x.balanceCase) {
+    assertBalanceCaseType(x.balanceCase)
+  }
+
+  if (x.skipSteps) {
+    assertStepsArray(x.skipSteps)
+  }
 }

@@ -1,8 +1,17 @@
-import { glmMumbai, glmPolygon, wmaticMumbai, wmaticPolygon } from 'ethereum/tokens'
-import { IContracts, assertSupportedChainId, Network, assertEthereumAddress } from 'types/ethereum'
+import {
+  glmMumbai,
+  glmPolygon,
+  wmaticMumbai,
+  wmaticPolygon,
+} from 'ethereum/tokens'
+import {
+  IContracts,
+  assertSupportedChainId,
+  Network,
+  assertEthereumAddress,
+} from 'types/ethereum'
 
 export const getContracts: (chainId: string) => IContracts = (chainId) => {
-  console.log('chain ', chainId)
   assertSupportedChainId(chainId)
 
   const uniswapV2Polygon = '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff'

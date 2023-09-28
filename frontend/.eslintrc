@@ -13,6 +13,7 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
+    "@typescript-eslint/no-empty-function": ["error", { "allow": ["constructors"] }],
     "@typescript-eslint/ban-ts-comment": "warn",
     "react/react-in-jsx-scope": "off",
     "no-undef": "error",
