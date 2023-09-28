@@ -21,8 +21,7 @@
 }
 
 .step .button {
-  box-shadow: inset 0em 0em 60px #0c14d4;
-  @apply mt-4 px-4 py-2 text-white rounded focus:outline-none focus:ring focus:ring-blue-300
+  @apply mt-4 px-4 py-2 text-white rounded bg-golemblue
 }
 
 .progressBarContainer {

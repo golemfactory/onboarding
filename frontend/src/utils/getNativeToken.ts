@@ -1,8 +1,8 @@
 import { NativeTokenType, Network, Token } from 'types/ethereum'
 import { getChainId } from './getChain'
 
-export const getNativeToken = async (): Promise<NativeTokenType> => {
-  const chainId = await getChainId()
+export const getNativeToken = (): NativeTokenType => {
+  const chainId = getChainId()
 
   switch (chainId) {
     case Network.POLYGON:

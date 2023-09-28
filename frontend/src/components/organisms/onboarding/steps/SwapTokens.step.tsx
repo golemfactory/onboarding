@@ -1,8 +1,6 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
 
-import { swapETHForGLM } from 'ethereum/actions/swap'
-import { parseUnits } from 'ethers'
 import { settings } from 'settings'
 import { getNativeToken } from 'utils/getNativeToken'
 import onboardingStyle from '../Onboarding.module.css'
@@ -12,12 +10,18 @@ const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { Slider, ISliderProps } from 'components/atoms/slider/slider'
+import { parseUnits } from 'ethers'
+import { swapETHForGLM } from 'ethereum/actions/swap'
+import { useMetaMask } from 'components/providers'
 
 const SwapTokensPresentational = ({
   onSwapButtonClick,
+  sliderProps,
 }: {
   onSwapButtonClick: () => void
+  sliderProps: ISliderProps
 }) => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -25,7 +29,6 @@ const SwapTokensPresentational = ({
     setIsLoading(true)
     await onSwapButtonClick()
   }
-
   return (
     <div className={onboardingStyle.step}>
       <motion.h1 className={onboardingStyle.title} variants={variants}>
@@ -34,6 +37,7 @@ const SwapTokensPresentational = ({
       <motion.p className={onboardingStyle.description} variants={variants}>
         You have only native tokens in your wallet. You need to swap them to
         have GLM
+        <Slider {...sliderProps} />
       </motion.p>
       <motion.button
         className={buttonStyle.primaryButton}
@@ -56,16 +60,37 @@ const SwapTokensPresentational = ({
 }
 
 export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
+  const nativeToken = getNativeToken()
+
+  const minimalAmount = parseFloat(settings.minimalSwap[nativeToken])
+  const [amount, setAmount] = useState(minimalAmount)
+  const { wallet } = useMetaMask()
+
+  const sliderProps = {
+    min: minimalAmount,
+    step: 0.1,
+    max: Number(wallet?.balance.NATIVE),
+    label: '',
+    value: amount,
+    displayValue: (v: number) => `Swap ${v} Matic`,
+    onChange: (e: ChangeEvent<HTMLInputElement>) => {
+      const value = parseFloat(e.currentTarget.value)
+      setAmount(value)
+    },
+  }
+
   return (
-    <SwapTokensPresentational
-      onSwapButtonClick={async () => {
-        const nativeToken = await getNativeToken()
-        const transaction = await swapETHForGLM({
-          value: parseUnits(settings.minimalSwap[nativeToken], 18),
-        })
-        await transaction.wait()
-        goToNextStep()
-      }}
-    />
+    <div>
+      <SwapTokensPresentational
+        sliderProps={sliderProps}
+        onSwapButtonClick={async () => {
+          const transaction = await swapETHForGLM({
+            value: parseUnits(amount.toString(), 18),
+          })
+          await transaction.wait()
+          goToNextStep()
+        }}
+      />
+    </div>
   )
 }

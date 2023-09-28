@@ -114,7 +114,6 @@ export const ManualTestGateway = () => {
               const CHAIN_ID = 80001
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                //@ts-ignore
                 params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
               })
 
@@ -145,10 +144,9 @@ export const ManualTestGateway = () => {
             {(
               Object.keys(testingSetup) as Array<keyof typeof testingSetup>
             ).map((testingPathKey) => {
-              const testingPath = testingSetup[testingPathKey]
               return (
                 <option key={testingPathKey} value={testingPathKey}>
-                  {testingPath.label}
+                  {testingSetup[testingPathKey].label}
                 </option>
               )
             })}
@@ -171,7 +169,7 @@ export const ManualTestGateway = () => {
               setCurrentAccount(account as EthereumAddress)
               setExpectedAccount(wallet.address as EthereumAddress)
               if (
-                account?.toLocaleLowerCase() == wallet.address.toLowerCase()
+                account?.toLocaleLowerCase() === wallet.address.toLowerCase()
               ) {
                 const { address, decimals, symbol } = await getGLMToken()
 

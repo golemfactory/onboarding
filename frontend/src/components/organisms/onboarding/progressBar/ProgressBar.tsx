@@ -9,7 +9,6 @@ export const ProgressBar = ({
 }: {
   stage: { value: OnboardingStageType }
 }) => {
-  console.log('stage', stage)
   return (
     <div style={{ position: 'fixed', top: '40px' }}>
       <ol className={style.progressBarContainer}>

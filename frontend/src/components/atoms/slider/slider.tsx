@@ -1,46 +1,40 @@
 import styles from './slider.module.css'
+import './slider.css'
 
+export type ISliderProps = {
+  min: number
+  max: number
+  step?: number
+  value: number
+  label?: string
+  displayValue?: (v: number) => string
+}
 export const Slider = ({
   min,
   max,
   step = 1,
   value,
   label = '',
-  InputClassName,
-  LabelClassName,
+  displayValue = (v: number) => (v ? v.toString() : ''),
   ...rest
-}: {
-  min: number
-  max: number
-  step?: number
-  value: number
-  label?: string
-  InputClassName?: string
-  LabelClassName: string
-}) => {
-  const combinedInputClassName = ` ${InputClassName || ''} ${
-    styles.input
-  }`.trim()
-
-  const combinedLabelClassName = ` ${styles.label}  ${
-    LabelClassName || ''
-  }`.trim()
-
+}: ISliderProps) => {
   // <label for="default-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default range</label>
 
   return (
     <div>
-      <label className={combinedLabelClassName}>{label}</label>
+      <label className={styles.label}>{label}</label>
       <input
         type="range"
         min={min}
         max={max}
         step={step}
-        className={combinedInputClassName}
+        className="slider"
         value={value}
         {...rest}
       />
-      <p className="text-center mt-2">Value: {value}</p>
+      <p className="text-center mt-2">
+        {displayValue ? displayValue(value) : value}
+      </p>
     </div>
   )
 }
