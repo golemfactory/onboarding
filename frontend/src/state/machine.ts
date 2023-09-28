@@ -20,6 +20,7 @@ const move = (stage: OnboardingStageType) =>
 export const createStateMachineWithContext = (
   context: OnboardingContextData
 ) => {
+  console.log('contrac', context)
   return createMachine<
     OnboardingContextData,
     { type: 'ADD_GLM' } | { type: Commands.NEXT } | { type: Commands.PREVIOUS }

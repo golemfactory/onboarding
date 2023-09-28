@@ -77,11 +77,13 @@ export interface INetwork {
   nativeCurrency: INativeToken
 }
 
-export function assertEthereumAddress(x: string): asserts x is EthereumAddress {
+export function assertEthereumAddress(
+  x: unknown
+): asserts x is EthereumAddress {
   const regex = /^(0x)?[0-9a-fA-F]{40}$/
 
-  if (!regex.test(x)) {
-    throw new Error('Invalid ethereum account')
+  if (!regex.test(String(x))) {
+    throw new Error(`Invalid ethereum account ${x}`)
   }
 }
 

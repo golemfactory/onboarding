@@ -1,6 +1,8 @@
 import { PropsWithChildren, createContext, useContext, useMemo } from 'react'
 import { StepType } from 'state/steps'
+import { EthereumAddress } from 'types/ethereum'
 import { BalanceCaseType } from 'types/path'
+import { assertProperSetup } from 'types/setup'
 
 function useQuery() {
   const search = window.location.search
@@ -9,31 +11,28 @@ function useQuery() {
 }
 
 type SetupContextData = {
-  address: string | null
+  yagnaAddress?: EthereumAddress
   balanceCase?: BalanceCaseType
   skipSteps?: StepType[]
 }
 
-const SetupContext = createContext<SetupContextData>({
-  address: '',
-})
+const SetupContext = createContext<SetupContextData>({})
 
-export const SetupProvider = ({ children }: PropsWithChildren) => {
+const useSetupParams = () => {
   const query = useQuery()
 
-  const address = query.get('address')
-  const balanceCase = query.get('balance-case')
-  //TODO add assert
-  const skipSteps = query.getAll('skip-steps') as StepType[]
+  const setup = {
+    yagnaAddress: query.get('yagna-address'),
+    balanceCase: query.get('balance-case'),
+    skipSteps: query.getAll('skip-steps'),
+  }
+  assertProperSetup(setup)
+  return setup
+}
 
+export const SetupProvider = ({ children }: PropsWithChildren) => {
   return (
-    <SetupContext.Provider
-      value={{
-        address: address,
-        balanceCase: balanceCase as BalanceCaseType,
-        skipSteps: skipSteps,
-      }}
-    >
+    <SetupContext.Provider value={useSetupParams()}>
       {children}
     </SetupContext.Provider>
   )
