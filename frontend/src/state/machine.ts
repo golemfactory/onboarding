@@ -17,6 +17,7 @@ const move = (stage: OnboardingStageType) =>
       return stage
     },
   })
+
 export const createStateMachineWithContext = (
   context: OnboardingContextData
 ) => {
@@ -26,8 +27,13 @@ export const createStateMachineWithContext = (
   >({
     context,
     id: 'onboarding',
-    initial: Step.WELCOME,
+    initial: Step.TRANSFER,
     states: {
+      [Step.TRANSFER]: {
+        on: {
+          [Commands.NEXT]: Step.WELCOME,
+        },
+      },
       [Step.WELCOME]: {
         on: {
           [Commands.NEXT]: {

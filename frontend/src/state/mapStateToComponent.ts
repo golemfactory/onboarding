@@ -12,6 +12,7 @@ import {
   Finish,
   AddGLM,
   ChooseWallet,
+  Transfer,
 } from 'components/organisms/onboarding'
 
 const componentByStep: Record<StepType, any> = {
@@ -30,7 +31,7 @@ const componentByStep: Record<StepType, any> = {
   [Step.ADD_GLM]: AddGLM,
   [Step.CHOOSE_WALLET]: ChooseWallet,
   [Step.NOT_METAMASK]: NotSupported,
-  [Step.TRANSFER]: NotSupported,
+  [Step.TRANSFER]: Transfer,
 }
 
 export const mapStateToComponent = (state: StepType) => {

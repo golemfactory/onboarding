@@ -19,11 +19,14 @@ export default defineConfig((configEnv) => {
         types: resolve(__dirname, 'src', 'types'),
         assets: resolve(__dirname, 'src', 'assets'),
         settings: resolve(__dirname, 'src', 'settings'),
+        themes: resolve(__dirname, 'src', 'themes'),
       },
     },
     css: {
       modules: {
-        generateScopedName: isDevelopment ? '[name]__[local]__[hash:base64:5]' : '[hash:base64:5]',
+        generateScopedName: isDevelopment
+          ? '[name]__[local]__[hash:base64:5]'
+          : '[hash:base64:5]',
       },
     },
   }
