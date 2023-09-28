@@ -1,4 +1,7 @@
-// components/welcome/intro.tsx
+/**
+ * @deprecated
+ */
+
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
 
@@ -8,6 +11,7 @@ const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
+
 const WalletIntroPresentational = ({
   onConfirm,
 }: {

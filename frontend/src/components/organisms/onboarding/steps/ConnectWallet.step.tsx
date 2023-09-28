@@ -45,7 +45,6 @@ export const ConnectWallet = ({
   goToNextStep: () => void
 }) => {
   const metaMask = useMetaMask()
-  console.log('metamask', metaMask)
   const [done, setDone] = useState(false)
   useEffect(() => {
     if (!done && metaMask.wallet.accounts.length > 0) {

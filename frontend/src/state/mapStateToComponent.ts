@@ -11,37 +11,28 @@ import {
   NotSupported,
   Finish,
   AddGLM,
+  ChooseWallet,
 } from 'components/organisms/onboarding'
 
+const componentByStep: Record<StepType, any> = {
+  [Step.WELCOME]: Welcome,
+  [Step.CONNECT_WALLET_SUCCESS]: ChooseNetwork,
+  [Step.CONNECT_WALLET]: ConnectWallet,
+  [Step.SHOW_METAMASK_LINK]: NoProviderWrapped,
+  [Step.CHOOSE_NETWORK]: ChooseNetwork,
+  [Step.ON_RAMP]: OnRamp,
+  [Step.WALLET_INTRO]: WalletIntro,
+  [Step.DETECT_METAMASK]: LoadingSpinner,
+  [Step.CHECK_ACCOUNT_BALANCES]: LoadingSpinner,
+  [Step.SWAP]: SwapTokens,
+  [Step.GASLESS_SWAP]: NotSupported,
+  [Step.FINISH]: Finish,
+  [Step.ADD_GLM]: AddGLM,
+  [Step.CHOOSE_WALLET]: ChooseWallet,
+  [Step.NOT_METAMASK]: NotSupported,
+  [Step.TRANSFER]: NotSupported,
+}
+
 export const mapStateToComponent = (state: StepType) => {
-  switch (state) {
-    case Step.WELCOME:
-      return Welcome
-    case Step.CONNECT_WALLET_SUCCESS:
-      return ChooseNetwork
-    case Step.CONNECT_WALLET:
-      return ConnectWallet
-    case Step.SHOW_METAMASK_LINK:
-      return NoProviderWrapped
-    case Step.CHOOSE_NETWORK:
-      return ChooseNetwork
-    case Step.ON_RAMP:
-      return OnRamp
-    case Step.WALLET_INTRO:
-      return WalletIntro
-    case Step.DETECT_METAMASK:
-      return LoadingSpinner
-    case Step.CHECK_ACCOUNT_BALANCES:
-      return LoadingSpinner
-    case Step.SWAP:
-      return SwapTokens
-    case Step.GASLESS_SWAP:
-      return NotSupported
-    case Step.FINISH:
-      return Finish
-    case Step.ADD_GLM:
-      return AddGLM
-    default:
-      return LoadingSpinner
-  }
+  return componentByStep[state]
 }

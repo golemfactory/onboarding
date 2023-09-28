@@ -31,17 +31,15 @@ export const createStateMachineWithContext = (
       [Step.WELCOME]: {
         on: {
           [Commands.NEXT]: {
-            target: Step.WALLET_INTRO,
+            target: Step.CHOOSE_WALLET,
             actions: move(OnboardingStage.WALLET),
           },
         },
       },
 
-      [Step.WALLET_INTRO]: {
+      [Step.CHOOSE_WALLET]: {
         on: {
-          [Commands.NEXT]: {
-            target: Step.DETECT_METAMASK,
-          },
+          [Commands.NEXT]: Step.DETECT_METAMASK,
         },
       },
 
