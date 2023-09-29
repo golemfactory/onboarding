@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
 import { getGLMToken } from 'utils/getGLMToken'
 import onboardingStyle from '../Onboarding.module.css'
+import { useLocalStorage } from 'hooks/useLocalStorage'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -34,6 +35,8 @@ const AddGLMPresentational = ({
 }
 
 export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
+  const [store, setState] = useLocalStorage('onboarding', {})
+
   const addGLM = async () => {
     const { address, decimals, symbol } = await getGLMToken()
 
@@ -42,7 +45,9 @@ export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
       params: { type: 'ERC20', options: { address, decimals, symbol } },
     })
 
-    goToNextStep()
+    setState({ ...store, isGLMTracked: true })
+
+    // goToNextStep()
   }
 
   return <AddGLMPresentational onConfirm={addGLM} />

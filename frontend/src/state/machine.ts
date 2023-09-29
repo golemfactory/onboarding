@@ -18,6 +18,13 @@ const move = (stage: OnboardingStageType) =>
     },
   })
 
+//TODO this should be known in context that comes from provider which should use
+//proper hook
+
+const isGLMTracked = () => {
+  return JSON.parse(window.localStorage.getItem('onboarding') || '{}')
+    .isGLMTracked
+}
 export const createStateMachineWithContext = (
   context: OnboardingContextData
 ) => {
@@ -97,7 +104,7 @@ export const createStateMachineWithContext = (
 
       [Step.ADD_GLM]: {
         on: {
-          [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
+          [Commands.NEXT]: Step.SWAP,
         },
       },
 
@@ -107,9 +114,16 @@ export const createStateMachineWithContext = (
           src: checkAccountBalances,
           onDone: [
             {
+              target: Step.ADD_GLM,
+              cond: (_context, event) => {
+                return event.data === BalanceCase.NO_GLM && isGLMTracked()
+              },
+              actions: move(OnboardingStage.GLM),
+            },
+            {
               target: Step.SWAP,
               cond: (_context, event) => {
-                return event.data === BalanceCase.NO_GLM
+                return event.data === BalanceCase.NO_GLM && !isGLMTracked()
               },
               actions: move(OnboardingStage.GLM),
             },
