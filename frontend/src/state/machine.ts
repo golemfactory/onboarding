@@ -27,7 +27,7 @@ export const createStateMachineWithContext = (
   >({
     context,
     id: 'onboarding',
-    initial: Step.TRANSFER,
+    initial: Step.WELCOME,
     states: {
       [Step.TRANSFER]: {
         on: {
@@ -125,6 +125,7 @@ export const createStateMachineWithContext = (
               cond: (_context, event) => {
                 return event.data === BalanceCase.BOTH
               },
+              actions: move(OnboardingStage.FINISH),
             },
             {
               target: Step.GASLESS_SWAP,
@@ -156,11 +157,10 @@ export const createStateMachineWithContext = (
         },
       },
       [Step.FINISH]: {
-        // entry: () => {
-        //   assign({
-        //     stage: 'final',
-        //   })
-        // },
+        entry: () => {
+          console.log('FINISH')
+          move(OnboardingStage.FINISH)
+        },
       },
     },
   })

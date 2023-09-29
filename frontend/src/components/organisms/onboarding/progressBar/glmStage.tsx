@@ -1,4 +1,5 @@
 import { ProgressStage } from 'components/molecules'
+import { formatEther } from 'ethers'
 import { useMetaMask } from 'hooks/useMetamask'
 import { OnboardingStage, OnboardingStageType } from 'state/stages'
 
@@ -8,7 +9,9 @@ export const GLMStage = ({ stage }: { stage: OnboardingStageType }) => {
   const { wallet } = useMetaMask()
 
   const uncompletedMessage = 'You need to acquire matic for gas'
-  const completedMessage = `Current balance: ${wallet.balance.GLM}`
+  const completedMessage = `Current balance: ${parseFloat(
+    formatEther(wallet.balance.GLM.toString())
+  ).toFixed(2)}`
   return (
     <ProgressStage
       title="GLM"
