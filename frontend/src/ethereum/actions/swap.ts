@@ -6,23 +6,24 @@ import { getSigner } from 'utils/getSigner'
 import { getChainId } from 'utils/getChain'
 
 export const handleUniswapV2 = async ({
-  amountOutMin,
   path,
   to,
   deadline,
   signer,
   value,
 }: {
-  amountOutMin: BigNumberish
   path: EthereumAddress[]
   to: EthereumAddress
   deadline: BigNumberish
   signer: ethers.Signer
   value?: BigNumberish
 }) => {
-  const uniswapV2 = new ethers.Contract(getContracts(getChainId()).uniswapV2.address, uniswapV2Abi, signer)
+  const uniswapV2 = new ethers.Contract(
+    getContracts(getChainId()).uniswapV2.address,
+    uniswapV2Abi,
+    signer
+  )
 
-  console.log('Swapping ETH for GLM', value)
   const tx = await uniswapV2.swapExactETHForTokens(1, path, to, deadline, {
     value,
   })
@@ -39,9 +40,7 @@ export const swapETHForGLM = async ({ value }: { value: BigNumberish }) => {
   const chain = getChainId()
   const contracts = getContracts(chain)
   const path = [contracts.wrappedNativeToken.address, contracts.GLM.address]
-  const amountOutMin = 0
   return await handleUniswapV2({
-    amountOutMin,
     path,
     to,
     deadline,

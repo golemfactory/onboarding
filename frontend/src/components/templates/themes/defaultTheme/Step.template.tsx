@@ -20,9 +20,9 @@ export const StepTemplate: FC<StepPropsType> = ({
       <motion.h1 className={style.title} variants={variants}>
         {title}
       </motion.h1>
-      <motion.p className={style.description} variants={variants}>
+      <motion.div className={style.description} variants={variants}>
         {content}
-      </motion.p>
+      </motion.div>
       <motion.button
         className={style.button}
         variants={variants}

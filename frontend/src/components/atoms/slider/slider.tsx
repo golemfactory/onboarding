@@ -2,8 +2,8 @@ import styles from './slider.module.css'
 import './slider.css'
 
 export type ISliderProps = {
-  min: number
-  max: number
+  min: number | string
+  max: number | string
   step?: number
   value: number
   label?: string

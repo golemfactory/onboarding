@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 export type StepPropsType = {
   onConfirm: () => void
   title: string
-  content: string
+  content: ReactNode | string
   buttonText: string
 }
 

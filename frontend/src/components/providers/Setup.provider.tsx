@@ -16,7 +16,7 @@ type SetupContextData = {
   skipSteps?: StepType[]
 }
 
-const SetupContext = createContext<SetupContextData>({})
+export const SetupContext = createContext<SetupContextData>({})
 
 const useSetupParams = () => {
   const query = useQuery()

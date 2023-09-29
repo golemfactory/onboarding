@@ -1,11 +1,10 @@
-import { getExpectedBalances } from './testingPaths'
-import { EthereumAddress, Network } from 'types/ethereum'
-import { JsonRpcSigner, ethers } from 'ethers'
 import { getContracts } from 'utils/getContracts'
+import { getExpectedBalances } from './testingPaths'
 import { getChainId } from 'utils/getChain'
-import { erc20abi } from 'ethereum/contracts'
-
+import { sendGolemToken, sendNativeToken } from 'ethereum/actions/transfer'
+import { JsonRpcSigner, ethers } from 'ethers'
 import { BalanceCaseType } from 'types/path'
+import { EthereumAddress } from 'types/ethereum'
 
 export const transferInitialBalances = async ({
   testingPath,
@@ -16,8 +15,7 @@ export const transferInitialBalances = async ({
   address: EthereumAddress
   signer: JsonRpcSigner
 }) => {
-  const network = Network.MUMBAI
-  const balances = getExpectedBalances({ testingPath, network })
+  const balances = getExpectedBalances({ testingPath })
   const golemAddress = getContracts(getChainId()).GLM.address
 
   await sendGolemToken({
@@ -34,45 +32,4 @@ export const transferInitialBalances = async ({
   })
 
   return balances
-}
-
-const sendNativeToken = async ({
-  balance,
-  signer,
-  address,
-}: {
-  balance: bigint
-  signer: JsonRpcSigner
-  address: EthereumAddress
-}) => {
-  if (balance === 0n) {
-    console.log('No native token to send')
-    return
-  }
-  const tx = await signer.sendTransaction({
-    to: address,
-    value: balance,
-  })
-  await tx.wait()
-}
-
-const sendGolemToken = async ({
-  balance,
-  signer,
-  address,
-  golemAddress,
-}: {
-  balance: bigint
-  signer: JsonRpcSigner
-  address: EthereumAddress
-  golemAddress: EthereumAddress
-}) => {
-  if (balance === 0n) {
-    console.log('No golem token to send')
-    return
-  }
-
-  const tokenContract = new ethers.Contract(golemAddress, erc20abi, signer)
-
-  await tokenContract.transfer(address, balance)
 }

@@ -12,7 +12,7 @@ const variants = {
 }
 import { ChangeEvent, useState } from 'react'
 import { Slider, ISliderProps } from 'components/atoms/slider/slider'
-import { parseUnits } from 'ethers'
+import { formatEther, parseUnits } from 'ethers'
 import { swapETHForGLM } from 'ethereum/actions/swap'
 import { useMetaMask } from 'components/providers'
 
@@ -68,8 +68,8 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
   const sliderProps = {
     min: minimalAmount,
-    step: 0.1,
-    max: Number(wallet?.balance.NATIVE),
+    step: 0.01,
+    max: parseFloat(formatEther(wallet?.balance.NATIVE)).toFixed(2),
     label: '',
     value: amount,
     displayValue: (v: number) => `Swap ${v} Matic`,

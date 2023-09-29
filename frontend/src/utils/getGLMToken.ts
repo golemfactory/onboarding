@@ -1,9 +1,9 @@
 import { glmMumbai } from 'ethereum/tokens'
-import { Network, NetworkType } from 'types/ethereum'
+import { Network } from 'types/ethereum'
 import { getChainId } from './getChain'
 
-export const getGLMToken = async () => {
-  const network = await getChainId()
+export const getGLMToken = () => {
+  const network = getChainId()
   switch (network) {
     case Network.MUMBAI:
       return glmMumbai
