@@ -19,7 +19,7 @@ export const MaticStage = ({ stage }: { stage: OnboardingStageType }) => {
       message={isCompleted ? completedMessage : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
-      index={1}
+      index={2}
     />
   )
 }
