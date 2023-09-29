@@ -43,7 +43,11 @@ const router = createHashRouter([
 ])
 
 const App: FC = () => {
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  )
 }
 
 export default App

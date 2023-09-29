@@ -24,7 +24,7 @@ export const ProgressStage = ({
   index: number
 }) => {
   return (
-    <div style={{ top: '10px' }}>
+    <div style={{ top: '10px', minWidth: '310px' }}>
       <li
         className={`${style.progressStageItem} ${getStyle(
           isCompleted,

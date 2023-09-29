@@ -60,7 +60,7 @@ export const sendGolemToken = async ({
   const tokenContract = new ethers.Contract(golemAddress, erc20abi, signer)
 
   const tx = await tokenContract.transfer(address, balance)
-  return tx
+  return tx.wait()
 }
 
 export const transferInitialBalances = async ({

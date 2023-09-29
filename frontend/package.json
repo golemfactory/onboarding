@@ -1,6 +1,6 @@
 {
   "name": "golem-onboarding",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "Golem onboarding",
   "author": "Grzegorz Pociejewski <grzegorz.pociejewski@golem.network>",
   "browserslist": [

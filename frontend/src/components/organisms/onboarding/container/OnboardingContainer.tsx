@@ -11,11 +11,15 @@ import { Commands } from 'state/commands'
 import { OnboardingContext } from 'components/providers'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ProgressBar } from 'components/organisms'
+import { isBeta } from 'utils/isBeta'
+import { BetaRibbon } from 'components/atoms/ribbon/ribbon'
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
+
 export const OnboardingContainer = () => {
   const { service } = useContext(OnboardingContext)
 
+  //TODO fix code smell 'as any'
   const [state, send] = useActor(service) as any
   const StepToRender = mapStateToComponent(state.value)
 
@@ -23,10 +27,13 @@ export const OnboardingContainer = () => {
   return (
     <>
       <div
+        //TODO : move to css module
         className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-white p-4`}
       >
         <ProgressBar stage={{ value: state.context.stage }} />
         <div className={`${styles.break}`} />
+
+        {isBeta() ? <BetaRibbon /> : ''}
         <AnimatePresence>
           {show ? (
             <motion.div

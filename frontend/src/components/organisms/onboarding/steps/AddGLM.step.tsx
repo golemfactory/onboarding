@@ -47,7 +47,7 @@ export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
     setState({ ...store, isGLMTracked: true })
 
-    // goToNextStep()
+    goToNextStep()
   }
 
   return <AddGLMPresentational onConfirm={addGLM} />

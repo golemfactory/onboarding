@@ -1,11 +1,14 @@
 // components/welcome/intro.tsx
+import { useMetaMask } from 'components/providers'
 import { motion } from 'framer-motion'
-
+import { WalletState } from 'types/dataContext'
+import { formatEther } from 'ethers'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const FinishPresentational = () => {
+const FinishPresentational = ({ wallet }: { wallet: WalletState }) => {
+  console.log('wa', wallet)
   return (
     <div className="text-center">
       <motion.h1
@@ -18,12 +21,16 @@ const FinishPresentational = () => {
         className="max-w-md text-black my-4 text-xl"
         variants={variants}
       >
-        You are ready to use Golem network now
+        You are ready to use Golem network now. Your balances are{' '}
+        {formatEther(wallet.balance.GLM)} GLM and{' '}
+        {formatEther(wallet.balance.NATIVE)} Matic.
       </motion.p>
     </div>
   )
 }
 
 export const Finish = () => {
-  return <FinishPresentational />
+  const { wallet } = useMetaMask()
+
+  return <FinishPresentational wallet={wallet} />
 }
