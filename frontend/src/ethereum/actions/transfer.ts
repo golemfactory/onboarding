@@ -9,18 +9,15 @@ import { BalanceCaseType } from 'types/path'
 import { useMetaMask } from 'hooks/useMetamask'
 import { useEffect, useState } from 'react'
 import { useSetup } from 'hooks/useSetup'
-import { TokenCategory } from 'types/ethereum'
+import { TokenCategory, TxStatus } from 'types/ethereum'
 
 //TODO : use hooks here so we can better track status of the transfer
 // so useSendNativeToken, useSendGolemToken
 // probably better to use wagmi hooks instead of own implementation
 
-enum yagnaSupplyStatus {
-  READY = 'READY',
-  NATIVE_TRANSFERRING = 'NATIVE_TRANSFERRING',
-  NATIVE_DONE = 'NATIVE_DONE',
-  GLM_TRANSFERRING = 'GLM_TRANSFERRING',
-  DONE = 'DONE',
+type yagnaSupplyStatus = {
+  [TokenCategory.GLM]: TxStatus
+  [TokenCategory.NATIVE]: TxStatus
 }
 
 export const sendNativeToken = async ({
@@ -60,7 +57,7 @@ export const sendGolemToken = async ({
   const tokenContract = new ethers.Contract(golemAddress, erc20abi, signer)
 
   const tx = await tokenContract.transfer(address, balance)
-  return tx.wait()
+  return tx
 }
 
 export const transferInitialBalances = async ({
@@ -94,20 +91,16 @@ export const transferInitialBalances = async ({
 export const useSupplyYagnaWallet = () => {
   const { wallet } = useMetaMask()
 
-  const [txStatus, setTxStatus] = useState<yagnaSupplyStatus>(
-    yagnaSupplyStatus.READY
-  )
+  const [txStatus, setTxStatus] = useState<yagnaSupplyStatus>({
+    [TokenCategory.GLM]: TxStatus.READY,
+    [TokenCategory.NATIVE]: TxStatus.READY,
+  })
 
   const [account, setAccount] = useState(wallet.accounts[0])
-  const [signer, setSigner] = useState<JsonRpcSigner>()
-  new ethers.BrowserProvider(window.ethereum).getSigner(account).then(setSigner)
 
   useEffect(() => {
     const newAccount = wallet.accounts[0]
     setAccount(newAccount)
-    new ethers.BrowserProvider(window.ethereum)
-      .getSigner(newAccount)
-      .then(setSigner)
   }, [wallet.accounts])
 
   const { yagnaAddress } = useSetup()
@@ -122,10 +115,13 @@ export const useSupplyYagnaWallet = () => {
     [TokenCategory.GLM]: number
     [TokenCategory.NATIVE]: number
   }) => {
+    const signer = await new ethers.BrowserProvider(window.ethereum).getSigner(
+      account
+    )
+
     if (!signer) {
       throw new Error('Signer is not set')
     }
-    setTxStatus(yagnaSupplyStatus.NATIVE_TRANSFERRING)
 
     const nativeTransferTx = await sendNativeToken({
       balance: ethers.parseEther(amount[TokenCategory.NATIVE].toString()),
@@ -133,8 +129,17 @@ export const useSupplyYagnaWallet = () => {
       address: yagnaAddress,
     })
 
-    await nativeTransferTx.wait()
-    setTxStatus(yagnaSupplyStatus.NATIVE_DONE)
+    setTxStatus((prev) => ({
+      ...prev,
+      [TokenCategory.NATIVE]: TxStatus.PENDING,
+    }))
+
+    nativeTransferTx.wait().then(() => {
+      setTxStatus((prev) => ({
+        ...prev,
+        [TokenCategory.NATIVE]: TxStatus.SUCCESS,
+      }))
+    })
 
     const golemTransferTx = await sendGolemToken({
       balance: ethers.parseEther(amount[TokenCategory.GLM].toString()),
@@ -143,8 +148,19 @@ export const useSupplyYagnaWallet = () => {
       golemAddress,
     })
 
-    await golemTransferTx.wait()
-    setTxStatus(yagnaSupplyStatus.DONE)
+    setTxStatus((prev) => ({
+      ...prev,
+      [TokenCategory.GLM]: TxStatus.PENDING,
+    }))
+
+    golemTransferTx.wait().then(() => {
+      setTxStatus((prev) => ({
+        ...prev,
+        [TokenCategory.GLM]: TxStatus.SUCCESS,
+      }))
+    })
+
+    return Promise.all([nativeTransferTx.wait(), golemTransferTx.wait()])
   }
 
   return {

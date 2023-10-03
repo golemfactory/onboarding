@@ -1,4 +1,4 @@
-import { TokenCategory } from 'types/ethereum'
+import { TokenCategory, TxStatus } from 'types/ethereum'
 import { ThemesManager } from '../../../../themes/ThemesManager'
 import { settings } from 'settings'
 import { getGLMToken } from 'utils/getGLMToken'
@@ -8,7 +8,6 @@ import { useMetaMask } from 'components/providers'
 import { Slider } from 'components/atoms/slider/slider'
 import { formatEther } from 'ethers'
 import { useSupplyYagnaWallet } from 'ethereum/actions/transfer'
-
 type Amount = {
   [TokenCategory.GLM]: number
   [TokenCategory.NATIVE]: number
@@ -18,10 +17,12 @@ const SliderMatic = ({
   amount,
   setAmount,
   balance,
+  status,
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
   balance: bigint
+  status: TxStatus
 }) => {
   const sliderMaticProps = {
     min: settings.minimalBalance[getNativeToken()],
@@ -36,17 +37,32 @@ const SliderMatic = ({
     },
   }
 
-  return <Slider {...sliderMaticProps} />
+  return status === TxStatus.READY ? (
+    <Slider {...sliderMaticProps} />
+  ) : status === TxStatus.PENDING ? (
+    <div className="flex justify-center items-center">
+      <div className="relative flex items-center">
+        <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
+        <div className="ml-2">{`Transferring ${
+          amount[TokenCategory.NATIVE]
+        } Matic`}</div>
+      </div>
+    </div>
+  ) : (
+    <div>Transferred ${amount[TokenCategory.NATIVE]} Matic</div>
+  )
 }
 
 const SliderGLM = ({
   amount,
   setAmount,
   balance,
+  status,
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
   balance: bigint
+  status: TxStatus
 }) => {
   const sliderMaticProps = {
     min: settings.minimalBalance[getGLMToken().symbol],
@@ -61,7 +77,20 @@ const SliderGLM = ({
     },
   }
 
-  return <Slider {...sliderMaticProps} />
+  return status === TxStatus.READY ? (
+    <Slider {...sliderMaticProps} />
+  ) : status === TxStatus.PENDING ? (
+    <div className="flex justify-center items-center">
+      <div className="relative flex items-center">
+        <div className="animate-spin ml-2 mr-2 mt-4 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
+        <div className="ml-2">{`Transferring ${
+          amount[TokenCategory.GLM]
+        } GLM`}</div>
+      </div>
+    </div>
+  ) : (
+    <div>Transferred ${amount[TokenCategory.GLM]} GLM</div>
+  )
 }
 
 export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
@@ -81,8 +110,6 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
     goToNextStep()
   }
 
-  console.log(txStatus)
-
   return (
     <StepTemplate
       onConfirm={onConfirm}
@@ -97,11 +124,13 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
             amount={amount}
             setAmount={setAmount}
             balance={wallet.balance.NATIVE}
+            status={txStatus[TokenCategory.NATIVE]}
           />
           <SliderGLM
             amount={amount}
             setAmount={setAmount}
             balance={wallet.balance.GLM}
+            status={txStatus[TokenCategory.GLM]}
           />
         </>
       }

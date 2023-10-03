@@ -105,3 +105,10 @@ export type IContracts = {
     address: EthereumAddress
   }
 }
+
+export enum TxStatus {
+  READY = 'READY',
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}

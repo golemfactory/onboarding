@@ -52,7 +52,6 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
     const chainId = await window.ethereum.request({
       method: 'eth_chainId',
     })
-
     setWallet({ accounts, balance, chainId })
   }, [])
 
