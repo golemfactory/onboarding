@@ -1,6 +1,8 @@
 import { ProgressStage } from 'components/molecules'
 import { useMetaMask } from 'hooks/useMetamask'
 import { OnboardingStage, OnboardingStageType } from 'state/stages'
+import { faWallet } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const accountShorthand = (account: string) => {
   return `${account.slice(0, 6)}...${account.slice(-4)}`
@@ -20,7 +22,7 @@ export const WalletStage = ({ stage }: { stage: OnboardingStageType }) => {
       message={isCompleted ? completedMessage : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
-      index={1}
+      index={<FontAwesomeIcon icon={faWallet} />}
     />
   )
 }

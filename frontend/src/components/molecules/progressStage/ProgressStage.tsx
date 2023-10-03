@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import style from './ProgressStage.module.css'
 
 const getStyle = (isCompleted: boolean, isCurrent: boolean) => {
@@ -21,7 +22,7 @@ export const ProgressStage = ({
   message: string
   isCompleted: boolean
   isCurrent: boolean
-  index: number
+  index: ReactElement
 }) => {
   return (
     <div style={{ top: '10px', minWidth: '310px' }}>

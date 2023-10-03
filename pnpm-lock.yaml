@@ -20,6 +20,12 @@ importers:
 
   frontend:
     dependencies:
+      '@fortawesome/free-solid-svg-icons':
+        specifier: ^6.4.2
+        version: 6.4.2
+      '@fortawesome/react-fontawesome':
+        specifier: github:fortawesome/react-fontawesome
+        version: github.com/fortawesome/react-fontawesome/976c1adc59934b34e52b11c03dda4bd69831a6df(@fortawesome/fontawesome-svg-core@6.4.2)(react@18.2.0)
       '@heroicons/react':
         specifier: 2.0.13
         version: 2.0.13(react@18.2.0)
@@ -2131,6 +2137,28 @@ packages:
   /@floating-ui/utils@0.1.1:
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
     dev: true
+
+  /@fortawesome/fontawesome-common-types@6.4.2:
+    resolution: {integrity: sha512-1DgP7f+XQIJbLFCTX1V2QnxVmpLdKdzzo2k8EmvDOePfchaIGQ9eCHj2up3/jNEbZuBqel5OxiaOJf37TWauRA==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dev: false
+
+  /@fortawesome/fontawesome-svg-core@6.4.2:
+    resolution: {integrity: sha512-gjYDSKv3TrM2sLTOKBc5rH9ckje8Wrwgx1CxAPbN5N3Fm4prfi7NsJVWd1jklp7i5uSCVwhZS5qlhMXqLrpAIg==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.4.2
+    dev: false
+
+  /@fortawesome/free-solid-svg-icons@6.4.2:
+    resolution: {integrity: sha512-sYwXurXUEQS32fZz9hVCUUv/xu49PEJEyUOsA51l6PU/qVgfbTb2glsTEaJngVVT8VqBATRIdh7XVgV1JF1LkA==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.4.2
+    dev: false
 
   /@hapi/hoek@9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -14807,3 +14835,17 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  github.com/fortawesome/react-fontawesome/976c1adc59934b34e52b11c03dda4bd69831a6df(@fortawesome/fontawesome-svg-core@6.4.2)(react@18.2.0):
+    resolution: {tarball: https://codeload.github.com/fortawesome/react-fontawesome/tar.gz/976c1adc59934b34e52b11c03dda4bd69831a6df}
+    id: github.com/fortawesome/react-fontawesome/976c1adc59934b34e52b11c03dda4bd69831a6df
+    name: '@fortawesome/react-fontawesome'
+    version: 0.2.0
+    peerDependencies:
+      '@fortawesome/fontawesome-svg-core': ~1 || ~6
+      react: '>=16.3'
+    dependencies:
+      '@fortawesome/fontawesome-svg-core': 6.4.2
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false

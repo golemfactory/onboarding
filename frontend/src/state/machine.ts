@@ -34,7 +34,7 @@ export const createStateMachineWithContext = (
   >({
     context,
     id: 'onboarding',
-    initial: Step.WELCOME,
+    initial: Step.TRANSFER,
     states: {
       [Step.TRANSFER]: {
         on: {

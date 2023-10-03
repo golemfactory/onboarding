@@ -1,2 +1,5 @@
 export * from './X.icon'
 export * from './checkmark.icon'
+export * from './matic.icon'
+export * from './golem.icon'
+export * from './yagna.icon'

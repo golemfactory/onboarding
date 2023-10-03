@@ -2,7 +2,7 @@ import { ProgressStage } from 'components/molecules'
 import { formatEther } from 'ethers'
 import { useMetaMask } from 'hooks/useMetamask'
 import { OnboardingStageType, OnboardingStage } from 'state/stages'
-
+import { MaticIcon } from 'components/atoms/icons'
 export const MaticStage = ({ stage }: { stage: OnboardingStageType }) => {
   const isCompleted = stage > OnboardingStage.MATIC
   const isCurrent = stage === OnboardingStage.MATIC
@@ -19,7 +19,7 @@ export const MaticStage = ({ stage }: { stage: OnboardingStageType }) => {
       message={isCompleted ? completedMessage : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
-      index={2}
+      index={<MaticIcon />}
     />
   )
 }

@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react'
 import { useSetup } from 'hooks/useSetup'
 import { TokenCategory, TxStatus } from 'types/ethereum'
 
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
+
 //TODO : use hooks here so we can better track status of the transfer
 // so useSendNativeToken, useSendGolemToken
 // probably better to use wagmi hooks instead of own implementation
@@ -123,24 +125,6 @@ export const useSupplyYagnaWallet = () => {
       throw new Error('Signer is not set')
     }
 
-    const nativeTransferTx = await sendNativeToken({
-      balance: ethers.parseEther(amount[TokenCategory.NATIVE].toString()),
-      signer,
-      address: yagnaAddress,
-    })
-
-    setTxStatus((prev) => ({
-      ...prev,
-      [TokenCategory.NATIVE]: TxStatus.PENDING,
-    }))
-
-    nativeTransferTx.wait().then(() => {
-      setTxStatus((prev) => ({
-        ...prev,
-        [TokenCategory.NATIVE]: TxStatus.SUCCESS,
-      }))
-    })
-
     const golemTransferTx = await sendGolemToken({
       balance: ethers.parseEther(amount[TokenCategory.GLM].toString()),
       signer,
@@ -153,14 +137,33 @@ export const useSupplyYagnaWallet = () => {
       [TokenCategory.GLM]: TxStatus.PENDING,
     }))
 
-    golemTransferTx.wait().then(() => {
-      setTxStatus((prev) => ({
-        ...prev,
-        [TokenCategory.GLM]: TxStatus.SUCCESS,
-      }))
+    await golemTransferTx.wait()
+
+    setTxStatus((prev) => ({
+      ...prev,
+      [TokenCategory.GLM]: TxStatus.SUCCESS,
+    }))
+
+    const nativeTransferTx = await sendNativeToken({
+      balance: ethers.parseEther(amount[TokenCategory.NATIVE].toString()),
+      signer,
+      address: yagnaAddress,
     })
 
-    return Promise.all([nativeTransferTx.wait(), golemTransferTx.wait()])
+    setTxStatus((prev) => ({
+      ...prev,
+      [TokenCategory.NATIVE]: TxStatus.PENDING,
+    }))
+
+    await nativeTransferTx.wait()
+
+    setTxStatus((prev) => ({
+      ...prev,
+      [TokenCategory.NATIVE]: TxStatus.SUCCESS,
+    }))
+
+    await delay(1000)
+    return
   }
 
   return {

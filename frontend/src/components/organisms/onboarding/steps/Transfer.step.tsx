@@ -120,17 +120,17 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
           <br></br>
           <div>Transfer tokens to your Yagna wallet</div>
           <br></br>
-          <SliderMatic
-            amount={amount}
-            setAmount={setAmount}
-            balance={wallet.balance.NATIVE}
-            status={txStatus[TokenCategory.NATIVE]}
-          />
           <SliderGLM
             amount={amount}
             setAmount={setAmount}
             balance={wallet.balance.GLM}
             status={txStatus[TokenCategory.GLM]}
+          />
+          <SliderMatic
+            amount={amount}
+            setAmount={setAmount}
+            balance={wallet.balance.NATIVE}
+            status={txStatus[TokenCategory.NATIVE]}
           />
         </>
       }

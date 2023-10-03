@@ -1,3 +1,4 @@
+import { YagnaIcon } from 'components/atoms/icons'
 import { ProgressStage } from 'components/molecules'
 import { OnboardingStage, OnboardingStageType } from 'state/stages'
 
@@ -11,7 +12,7 @@ export const YagnaStage = ({ stage }: { stage: OnboardingStageType }) => {
       message={message}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
-      index={4}
+      index={<YagnaIcon />}
     />
   )
 }

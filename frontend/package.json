@@ -18,6 +18,8 @@
     "generate-types": "typechain --target=ethers-v6 'src/ethereum/**/abi.json' --out-dir=src/ethereum/types"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
     "@heroicons/react": "2.0.13",
     "@metamask/detect-provider": "^2.0.0",
     "@metamask/onboarding": "^1.0.1",

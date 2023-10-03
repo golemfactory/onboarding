@@ -2,7 +2,7 @@ import { ProgressStage } from 'components/molecules'
 import { formatEther } from 'ethers'
 import { useMetaMask } from 'hooks/useMetamask'
 import { OnboardingStage, OnboardingStageType } from 'state/stages'
-
+import { GolemIcon } from 'components/atoms/icons'
 export const GLMStage = ({ stage }: { stage: OnboardingStageType }) => {
   const isCompleted = stage > OnboardingStage.GLM
   const isCurrent = stage === OnboardingStage.GLM
@@ -18,7 +18,7 @@ export const GLMStage = ({ stage }: { stage: OnboardingStageType }) => {
       message={isCompleted ? completedMessage : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
-      index={3}
+      index={<GolemIcon />}
     />
   )
 }
