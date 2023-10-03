@@ -8,6 +8,7 @@ import { useMetaMask } from 'components/providers'
 import { Slider } from 'components/atoms/slider/slider'
 import { formatEther } from 'ethers'
 import { useSupplyYagnaWallet } from 'ethereum/actions/transfer'
+import { CheckmarkIcon } from 'components/atoms/icons'
 type Amount = {
   [TokenCategory.GLM]: number
   [TokenCategory.NATIVE]: number
@@ -40,9 +41,9 @@ const SliderMatic = ({
   return status === TxStatus.READY ? (
     <Slider {...sliderMaticProps} />
   ) : status === TxStatus.PENDING ? (
-    <div className="flex justify-center items-center">
+    <div className="flex  border-2">
       <div className="relative flex items-center">
-        <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
+        <div className="animate-spin mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
         <div className="ml-2">{`Transferring ${
           amount[TokenCategory.NATIVE]
         } Matic`}</div>
@@ -80,16 +81,30 @@ const SliderGLM = ({
   return status === TxStatus.READY ? (
     <Slider {...sliderMaticProps} />
   ) : status === TxStatus.PENDING ? (
-    <div className="flex justify-center items-center">
+    <div className="flex mb-4 ">
       <div className="relative flex items-center">
-        <div className="animate-spin ml-2 mr-2 mt-4 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
+        <div className="animate-spin mr-2 mt-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
         <div className="ml-2">{`Transferring ${
           amount[TokenCategory.GLM]
         } GLM`}</div>
       </div>
     </div>
   ) : (
-    <div>Transferred ${amount[TokenCategory.GLM]} GLM</div>
+    <div
+      style={
+        {
+          // paddingLeft: '42px',
+          // textAlign: 'left',
+        }
+      }
+    >
+      <div>
+        <p className="flex ">
+          <CheckmarkIcon className="mr-4" /> Transferred $
+          {amount[TokenCategory.NATIVE]} Matic
+        </p>
+      </div>
+    </div>
   )
 }
 

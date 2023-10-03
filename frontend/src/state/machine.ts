@@ -37,6 +37,10 @@ export const createStateMachineWithContext = (
     initial: Step.TRANSFER,
     states: {
       [Step.TRANSFER]: {
+        entry: () => {
+          console.log('TRANSFER')
+          move(OnboardingStage.YAGNA)
+        },
         on: {
           [Commands.NEXT]: Step.WELCOME,
         },
