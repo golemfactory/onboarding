@@ -4,10 +4,9 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig((configEnv) => {
   const isDevelopment = configEnv.mode === 'development'
-  console.log('using version', process?.env?.npm_package_version)
   return {
     define: {
-      APP_VERSION: JSON.stringify(process?.env?.npm_package_version),
+      APP_VERSION: '1.0.0-beta.',
     },
     base: '/onboarding#/',
     plugins: [react()],
