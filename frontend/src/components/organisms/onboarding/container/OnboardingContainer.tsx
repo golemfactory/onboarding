@@ -8,7 +8,7 @@ import { useContext, useState } from 'react'
 import { useActor } from '@xstate/react'
 import { mapStateToComponent } from 'state/mapStateToComponent'
 import { Commands } from 'state/commands'
-import { OnboardingContext } from 'components/providers'
+import { OnboardingContext, useSetup } from 'components/providers'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ProgressBar } from 'components/organisms'
 import { isBeta } from 'utils/isBeta'
@@ -22,7 +22,7 @@ export const OnboardingContainer = () => {
   //TODO fix code smell 'as any'
   const [state, send] = useActor(service) as any
   const StepToRender = mapStateToComponent(state.value)
-
+  const { yagnaAddress } = useSetup()
   const [show, setShow] = useState(true)
   return (
     <>
@@ -30,7 +30,10 @@ export const OnboardingContainer = () => {
         //TODO : move to css module
         className={`${styles.onboardingStep} fixed inset-0 flex items-center justify-center bg-white p-4`}
       >
-        <ProgressBar stage={{ value: state.context.stage }} />
+        <ProgressBar
+          showYagnaStep={!!yagnaAddress}
+          stage={{ value: state.context.stage }}
+        />
         <div className={`${styles.break}`} />
 
         {isBeta() ? <BetaRibbon /> : ''}

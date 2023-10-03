@@ -3,7 +3,8 @@ export const OnboardingStage = {
   WALLET: 2,
   MATIC: 3,
   GLM: 4,
-  FINISH: 5,
+  YAGNA: 5,
+  FINISH: 1000,
 } as const
 
 export type OnboardingStageType =

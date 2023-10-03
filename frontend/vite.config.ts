@@ -6,7 +6,7 @@ export default defineConfig((configEnv) => {
   const isDevelopment = configEnv.mode === 'development'
   return {
     define: {
-      APP_VERSION: '1.0.0-beta.',
+      APP_VERSION: JSON.stringify(process?.env?.npm_package_version),
     },
     base: '/onboarding#/',
     plugins: [react()],
