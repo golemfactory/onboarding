@@ -11,7 +11,6 @@ export const ProgressBar = ({
   stage: { value: OnboardingStageType }
   showYagnaStep?: boolean
 }) => {
-  console.log('ProgressBar.tsx: showYagnaStep:', stage)
   return (
     <div style={{ position: 'fixed', top: '40px' }}>
       <ol className={style.progressBarContainer}>

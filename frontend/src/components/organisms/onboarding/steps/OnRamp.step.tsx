@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
-import { hideRampBackground, hideRampWidget } from 'utils/hideRampBackground'
+import { hideRampBackground } from 'utils/hideRampBackground'
 import { useMetaMask } from 'components/providers/Metamask.provider'
 import debug from 'debug'
 
@@ -34,7 +34,10 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
   useEffect(() => {
     if (account && !done) {
+      setDone(true)
+
       debug('creating widget')
+
       widgetRef.current = new RampInstantSDK({
         hostAppName: 'onboarding',
         hostLogoUrl: `${window.location.origin}/onboarding/logo.svg`,
@@ -46,19 +49,22 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         userAddress: account,
         defaultFlow: 'ONRAMP',
       })
-      widgetRef.current.show()
+
+      //TODO : fix this
+      setTimeout(() => {
+        widgetRef.current?.show()
+      }, 0)
 
       widgetRef.current.on('*', (event) => {
         debug('event')
         debug(event.type)
         if (event.type === 'WIDGET_CLOSE') {
-          goToNextStep()
-          debug('closing widget')
-          hideRampWidget()
+          setTimeout(() => {
+            goToNextStep()
+          }, 0)
         }
       })
       debug('setting done')
-      setDone(true)
     }
 
     hideRampBackground()

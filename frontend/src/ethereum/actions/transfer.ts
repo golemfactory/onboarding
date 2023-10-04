@@ -94,7 +94,7 @@ export const useSupplyYagnaWallet = () => {
   const { wallet } = useMetaMask()
 
   const [txStatus, setTxStatus] = useState<yagnaSupplyStatus>({
-    [TokenCategory.GLM]: TxStatus.PENDING,
+    [TokenCategory.GLM]: TxStatus.READY,
     [TokenCategory.NATIVE]: TxStatus.READY,
   })
 
