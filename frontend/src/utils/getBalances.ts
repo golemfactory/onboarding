@@ -39,6 +39,7 @@ export const getBalances = async (): Promise<Record<TokenCategory, bigint>> => {
 
   const glmBalance = await tokenContract.balanceOf(address)
 
+  console.log('nativeBalance: ', nativeBalance)
   return {
     [TokenCategory.NATIVE]: nativeBalance,
     [TokenCategory.GLM]: glmBalance,

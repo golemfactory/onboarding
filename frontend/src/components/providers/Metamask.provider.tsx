@@ -90,12 +90,11 @@ export const MetaMaskProvider = ({ children }: PropsWithChildren) => {
     }
   }, [updateWallet, updateWalletAndAccounts])
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     console.log('updat')
-  //     updateWalletAndAccounts()
-  //   }, 5000)
-  // }, [])
+  useEffect(() => {
+    setInterval(() => {
+      updateWalletAndAccounts()
+    }, 5000)
+  }, [])
 
   const connect = async () => {
     setIsConnecting(true)
