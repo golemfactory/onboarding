@@ -20,6 +20,7 @@ const createNewAccount = async () => {
 
 export const ManualTestGateway = () => {
   const metamask = useMetaMask()
+  console.log('met', metamask)
   const account = metamask.wallet.accounts[0]
   const [showModal, setShowModal] = useState(false)
 

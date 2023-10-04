@@ -9,7 +9,7 @@ export const MaticStage = ({ stage }: { stage: OnboardingStageType }) => {
 
   const { wallet } = useMetaMask()
 
-  const uncompletedMessage = 'You need to acquire matic for gas'
+  const uncompletedMessage = 'Token for gas'
   const completedMessage = `Current balance: ${parseFloat(
     formatEther(wallet.balance.NATIVE.toString())
   ).toFixed(2)}`

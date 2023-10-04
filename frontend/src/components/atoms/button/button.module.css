@@ -3,5 +3,5 @@
 }
 
 .primaryButton {
- @apply mt-4 px-4 py-2 text-white rounded bg-golemblue hover:bg-red-500 focus:bg-green-300 focus:outline-none 
+ @apply mt-4 px-4 py-2 text-white rounded bg-golemblue focus:outline-none 
 }

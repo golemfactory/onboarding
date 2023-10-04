@@ -88,9 +88,9 @@ export function assertEthereumAddress(
 }
 
 export function assertSupportedChainId(x: string): asserts x is NetworkType {
-  if (!Object.values(Network as Record<string, string>).includes(x)) {
-    throw new Error('Invalid Ethereum chain ID')
-  }
+  // if (!Object.values(Network as Record<string, string>).includes(x)) {
+  //   throw new Error('Invalid Ethereum chain ID')
+  // }
 }
 
 export type IContracts = {

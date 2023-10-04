@@ -44,6 +44,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         fiatValue: '6',
         fiatCurrency: 'EUR',
         userAddress: account,
+        defaultFlow: 'ONRAMP',
       })
       widgetRef.current.show()
 

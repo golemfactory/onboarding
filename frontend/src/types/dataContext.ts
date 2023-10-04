@@ -27,4 +27,5 @@ export type OnboardingContextData = {
   glmAdded: boolean
   skipSteps?: StepType[]
   stage: OnboardingStageType
+  initialStep: string
 }

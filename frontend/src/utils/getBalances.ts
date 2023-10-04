@@ -14,6 +14,14 @@ export const getBalances = async (): Promise<Record<TokenCategory, bigint>> => {
     method: 'eth_chainId',
   })
 
+  console.log('network: ', network)
+  if (network === '0x1') {
+    return {
+      [TokenCategory.NATIVE]: 0n,
+      [TokenCategory.GLM]: 0n,
+    }
+  }
+
   const contracts = getContracts(network)
 
   const provider = new ethers.BrowserProvider(window.ethereum)

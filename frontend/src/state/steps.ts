@@ -1,7 +1,6 @@
 export const SkipableStep = {
   WELCOME: 'welcome',
   ADD_GLM: 'add-glm',
-  WALLET_INTRO: 'wallet-intro',
 } as const
 
 export const Step = {

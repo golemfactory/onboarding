@@ -8,7 +8,7 @@ export const GLMStage = ({ stage }: { stage: OnboardingStageType }) => {
   const isCurrent = stage === OnboardingStage.GLM
   const { wallet } = useMetaMask()
 
-  const uncompletedMessage = 'You need to acquire matic for gas'
+  const uncompletedMessage = 'Network utility token'
   const completedMessage = `Current balance: ${parseFloat(
     formatEther(wallet.balance.GLM.toString())
   ).toFixed(2)}`

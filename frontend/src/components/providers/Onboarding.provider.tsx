@@ -10,7 +10,7 @@ import { useInterpret } from '@xstate/react'
 import { createStateMachineWithContext } from 'state/machine'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { useMetaMask } from './Metamask.provider'
-import { StepType } from 'state/steps'
+import { Step, StepType } from 'state/steps'
 import { useSetup } from './Setup.provider'
 import { OnboardingStage } from 'state/stages'
 
@@ -54,7 +54,11 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
       ...setup,
       metaMask,
       glmAdded: false,
-      stage: OnboardingStage.WELCOME,
+      stage:
+        initialStep === Step.CONNECT_WALLET
+          ? OnboardingStage.WALLET
+          : OnboardingStage.WELCOME,
+      initialStep,
     })
   )
 

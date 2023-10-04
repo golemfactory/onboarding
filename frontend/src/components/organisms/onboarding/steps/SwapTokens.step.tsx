@@ -87,7 +87,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
           const transaction = await swapETHForGLM({
             value: parseUnits(amount.toString(), 18),
           })
-          await transaction.wait()
+          console.log('transaction', transaction)
           goToNextStep()
         }}
       />
