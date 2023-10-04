@@ -6,9 +6,10 @@ import {
   useState,
 } from 'react'
 import { networks } from 'ethereum/networks'
-import { Network, NetworkType } from 'types/ethereum'
+import { NetworkType } from 'types/ethereum'
 import { useMetaMask } from 'components/providers/Metamask.provider'
 import onboardingStyle from '../Onboarding.module.css'
+import { Network } from 'ethereum/networks/types'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -33,14 +34,23 @@ const ChooseNetworkPresentational = ({
       <motion.div variants={variants}>
         <select onChange={onNetworkSelection} value={selectedNetwork}>
           {Object.keys(networks).map((network) => {
+            const networkId = network as NetworkType
             return (
-              <option key={network} value={network}>
-                {networks[network].chainName}
+              <option key={networkId} value={networkId}>
+                {networks[networkId].chainName}
               </option>
             )
           })}
         </select>
-        <button className={onboardingStyle.button} onClick={onConfirm}>
+        <button
+          className={onboardingStyle.button}
+          style={{
+            borderTopLeftRadius: '0',
+            borderBottomLeftRadius: '0',
+            height: '42px',
+          }}
+          onClick={onConfirm}
+        >
           Go
         </button>
       </motion.div>
@@ -73,16 +83,19 @@ export const ChooseNetwork = ({
             },
           ],
         })
+        goToNextStep()
       } catch (err) {
         if (err.code === 4902) {
           await window.ethereum?.request({
             method: 'wallet_addEthereumChain',
             params: [networks[selectedNetwork]],
           })
+          goToNextStep()
         }
       }
+    } else {
+      goToNextStep()
     }
-    goToNextStep()
   }
 
   return (

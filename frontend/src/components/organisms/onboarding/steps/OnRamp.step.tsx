@@ -36,8 +36,8 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
     if (account && !done) {
       debug('creating widget')
       widgetRef.current = new RampInstantSDK({
-        hostAppName: 'Your App',
-        hostLogoUrl: 'https://assets.ramp.network/misc/test-logo.png',
+        hostAppName: 'onboarding',
+        hostLogoUrl: `${window.location.origin}/onboarding/logo.svg`,
         hostApiKey: '9the9ervmr72ezz6fwaxus72y3h2w5p47j9u8m9o',
         url: 'https://app.demo.ramp.network',
         swapAsset: 'MATIC_MATIC',

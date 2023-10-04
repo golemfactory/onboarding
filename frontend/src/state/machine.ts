@@ -34,11 +34,10 @@ export const createStateMachineWithContext = (
   >({
     context,
     id: 'onboarding',
-    initial: Step.TRANSFER,
+    initial: Step.WELCOME,
     states: {
       [Step.TRANSFER]: {
         entry: () => {
-          console.log('TRANSFER')
           move(OnboardingStage.YAGNA)
         },
         on: {
@@ -119,6 +118,7 @@ export const createStateMachineWithContext = (
           onDone: [
             {
               target: Step.ADD_GLM,
+
               cond: (_context, event) => {
                 return event.data === BalanceCase.NO_GLM && isGLMTracked()
               },
@@ -176,7 +176,6 @@ export const createStateMachineWithContext = (
       },
       [Step.FINISH]: {
         entry: () => {
-          console.log('FINISH')
           move(OnboardingStage.FINISH)
         },
       },
