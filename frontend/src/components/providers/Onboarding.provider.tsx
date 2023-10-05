@@ -4,6 +4,7 @@ import {
   ReactNode,
   createContext,
   useEffect,
+  useRef,
   useState,
 } from 'react'
 import { useInterpret } from '@xstate/react'
@@ -39,17 +40,15 @@ export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
 
 export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   //TODO : make own hook for this to avoid calling get for every param
+
   const setup = useSetup()
   const metaMask = useMetaMask()
+
   const [initialStep] = useState<StepType>(
     localStorage.getItem('OnboardingStep') as StepType
   )
 
-  useEffect(() => {
-    localStorage.setItem('OnboardingStep', '')
-  }, [initialStep])
-
-  const service = useInterpret(
+  const ref = useRef(
     createStateMachineWithContext({
       ...setup,
       metaMask,
@@ -61,6 +60,12 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
       initialStep,
     })
   )
+
+  useEffect(() => {
+    localStorage.setItem('OnboardingStep', '')
+  }, [initialStep])
+
+  const service = useInterpret(ref.current)
 
   return (
     <OnboardingContext.Provider value={{ service }}>

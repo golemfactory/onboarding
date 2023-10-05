@@ -37,9 +37,8 @@ export const createStateMachineWithContext = (
     initial: context.initialStep || Step.WELCOME,
     states: {
       [Step.TRANSFER]: {
-        entry: () => {
-          move(OnboardingStage.YAGNA)
-        },
+        //TODO check why with () => { move } it does not work
+        entry: move(OnboardingStage.YAGNA),
         on: {
           [Commands.NEXT]: Step.WELCOME,
         },
@@ -94,6 +93,7 @@ export const createStateMachineWithContext = (
         },
       },
       [Step.CHOOSE_NETWORK]: {
+        entry: [move(OnboardingStage.NETWORK)],
         on: {
           [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
         },
