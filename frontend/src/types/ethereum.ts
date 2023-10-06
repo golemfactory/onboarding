@@ -1,6 +1,7 @@
 export const UtilityToken = {
   GLM_POLYGON: 'GLM_POLYGON',
   GLM_MUMBAI: 'GLM_MUMBAI',
+  GLM_MAINNET: 'GLM_MAINNET',
 } as const
 
 export type UtilityTokenType = (typeof UtilityToken)[keyof typeof UtilityToken]
@@ -8,6 +9,7 @@ export type UtilityTokenType = (typeof UtilityToken)[keyof typeof UtilityToken]
 export const NativeToken = {
   MATIC_POLYGON: 'MATIC_POLYGON',
   MATIC_MUMBAI: 'MATIC_MUMBAI',
+  ETH_MAINNET: 'ETH_MAINNET',
 } as const
 
 export type NativeTokenType = (typeof NativeToken)[keyof typeof NativeToken]

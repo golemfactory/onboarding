@@ -10,14 +10,14 @@ export const GLMStage = ({ stage }: { stage: OnboardingStageType }) => {
   const { balance } = useGLMBalance()
   const uncompletedMessage = 'Network utility token'
 
-  const completedMessage = `Current balance: ${parseFloat(
-    formatEther(balance?.toString() || '0')
-  ).toFixed(2)}`
+  // const completedMessage = `Current balance: ${parseFloat(
+  //   formatEther(balance?.toString() || '0')
+  // ).toFixed(2)}`
 
   return (
     <ProgressStage
       title="GLM"
-      message={isCompleted ? completedMessage : uncompletedMessage}
+      message={isCompleted ? 'dupa' : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
       index={<GolemIcon />}

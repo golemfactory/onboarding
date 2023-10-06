@@ -18,7 +18,6 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
 export const OnboardingContainer = () => {
   const { service } = useContext(OnboardingContext)
-
   //TODO fix code smell 'as any'
   const [state, send] = useActor(service) as any
   const StepToRender = mapStateToComponent(state.value)

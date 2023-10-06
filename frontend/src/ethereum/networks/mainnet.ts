@@ -1,6 +1,6 @@
 import { INetwork, Network } from 'types/ethereum'
 
-export const POLYGON: INetwork = {
+export const MAINNET: INetwork = {
   chainId: Network.MAINNET,
   chainName: 'Mainnet',
   rpcUrls: ['https://polygon-rpc.com/'],

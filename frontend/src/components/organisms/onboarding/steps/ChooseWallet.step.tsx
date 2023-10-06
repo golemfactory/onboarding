@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import onboardingStyle from '../Onboarding.module.css'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useNetwork, useSwitchNetwork } from 'wagmi'
 
 const variants = {
   show: { opacity: 1 },

@@ -10,13 +10,13 @@ export const MaticStage = ({ stage }: { stage: OnboardingStageType }) => {
   const { wallet } = useMetaMask()
 
   const uncompletedMessage = 'Token for gas'
-  const completedMessage = `Current balance: ${parseFloat(
-    formatEther(wallet.balance.NATIVE.toString())
-  ).toFixed(2)}`
+  // const completedMessage = `Current balance: ${parseFloat(
+  //   formatEther(wallet.balance.NATIVE.toString())
+  // ).toFixed(2)}`
   return (
     <ProgressStage
       title="Matic"
-      message={isCompleted ? completedMessage : uncompletedMessage}
+      message={isCompleted ? 'dupa' : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
       index={<MaticIcon />}

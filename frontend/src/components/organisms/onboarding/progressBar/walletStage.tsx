@@ -11,15 +11,15 @@ const accountShorthand = (account: string) => {
 export const WalletStage = ({ stage }: { stage: OnboardingStageType }) => {
   const isCompleted = stage > OnboardingStage.WALLET
   const isCurrent = stage === OnboardingStage.WALLET
-  const { wallet } = useMetaMask()
+  // const { wallet } = useMetaMask()
   const uncompletedMessage = 'You need to have a wallet installed'
-  const completedMessage = `Address: ${accountShorthand(
-    wallet.accounts[0] || ''
-  )}`
+  // const completedMessage = `Address: ${accountShorthand(
+  //   wallet.accounts[0] || ''
+  // )}`
   return (
     <ProgressStage
       title="Wallet"
-      message={isCompleted ? completedMessage : uncompletedMessage}
+      message={isCompleted ? 'dupa' : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
       index={<FontAwesomeIcon icon={faWallet} />}
