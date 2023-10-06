@@ -34,7 +34,7 @@ export const createStateMachineWithContext = (
   >({
     context,
     id: 'onboarding',
-    initial: context.initialStep || Step.WELCOME,
+    initial: Step.CHOOSE_WALLET,
     states: {
       [Step.TRANSFER]: {
         //TODO check why with () => { move } it does not work

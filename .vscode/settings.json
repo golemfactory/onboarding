@@ -1,3 +1,19 @@
 {
-  "cSpell.words": ["checkmark", "commitlint", "cond", "Dowloaded", "linebreak", "Numberish", "plusplus", "Skipable", "Skippable", "tailwindcss", "vite", "WMATIC", "xstate", "yagna"]
+  "cSpell.words": [
+    "checkmark",
+    "commitlint",
+    "cond",
+    "Dowloaded",
+    "linebreak",
+    "Numberish",
+    "plusplus",
+    "Skipable",
+    "Skippable",
+    "tailwindcss",
+    "vite",
+    "Wagmi",
+    "WMATIC",
+    "xstate",
+    "yagna"
+  ]
 }

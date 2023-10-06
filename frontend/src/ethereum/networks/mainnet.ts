@@ -1,8 +1,8 @@
 import { INetwork, Network } from 'types/ethereum'
 
 export const POLYGON: INetwork = {
-  chainId: Network.POLYGON,
-  chainName: 'Polygon',
+  chainId: Network.MAINNET,
+  chainName: 'Mainnet',
   rpcUrls: ['https://polygon-rpc.com/'],
   blockExplorerUrls: ['https://polygonscan.com/'],
   nativeCurrency: {

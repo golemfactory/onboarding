@@ -10,9 +10,9 @@ import { ManualTestGateway } from 'components/organisms/manualTestGateway/Manual
 
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
-import { MetaMaskProvider } from 'components/providers/Metamask.provider'
-
 import { ErrorBoundary } from 'components/providers/ErrorBoundary'
+
+import { BlockchainProvider } from 'components/providers'
 
 const router = createHashRouter([
   {
@@ -20,24 +20,24 @@ const router = createHashRouter([
     errorElement: <ErrorBoundary />,
     element: (
       <SetupProvider>
-        <MetaMaskProvider>
+        <BlockchainProvider>
           <AwaitForMetamaskSDK>
             <OnboardingProvider>
               <OnboardingContainer />
             </OnboardingProvider>
           </AwaitForMetamaskSDK>
-        </MetaMaskProvider>
+        </BlockchainProvider>
       </SetupProvider>
     ),
   },
   {
     path: '/testing_gateway',
     element: (
-      <MetaMaskProvider>
+      <BlockchainProvider>
         <AwaitForMetamaskSDK>
           <ManualTestGateway />
         </AwaitForMetamaskSDK>
-      </MetaMaskProvider>
+      </BlockchainProvider>
     ),
   },
 ])

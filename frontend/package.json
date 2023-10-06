@@ -30,6 +30,7 @@
     "@types/lodash": "^4.14.198",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
+    "@web3modal/wagmi": "^3.0.2",
     "@xstate/react": "^3.2.2",
     "debug": "^4.3.4",
     "ethers": "^6.7.1",
@@ -40,6 +41,8 @@
     "react-error-boundary": "^4.0.11",
     "react-router-dom": "^6.15.0",
     "use-query-params": "^2.2.1",
+    "viem": "^1.15.3",
+    "wagmi": "^1.4.3",
     "winston": "^3.10.0",
     "xstate": "^4.38.2"
   },

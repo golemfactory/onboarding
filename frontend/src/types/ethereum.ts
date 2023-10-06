@@ -38,6 +38,7 @@ export enum TokenCategory {
 export const Network = {
   POLYGON: '0x89',
   MUMBAI: '0x13881',
+  MAINNET: '0x1',
 } as const
 
 export type NetworkType = (typeof Network)[keyof typeof Network]

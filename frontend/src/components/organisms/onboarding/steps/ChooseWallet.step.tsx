@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import onboardingStyle from '../Onboarding.module.css'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 const variants = {
   show: { opacity: 1 },
@@ -35,7 +36,10 @@ const Presentational = ({
       <motion.button
         className={onboardingStyle.button}
         variants={variants}
-        onClick={onConfirm}
+        onClick={() => {
+          console.log('clicked')
+          onConfirm()
+        }}
       >
         Next
       </motion.button>
@@ -43,8 +47,11 @@ const Presentational = ({
   )
 }
 
+//@ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Container = ({ goToNextStep }: { goToNextStep: () => void }) => {
   //This is just placeholder
+  const { open } = useWeb3Modal()
   const supportedWallets = [
     {
       name: 'Metamask',
@@ -59,12 +66,8 @@ const Container = ({ goToNextStep }: { goToNextStep: () => void }) => {
       isActive: false,
     },
   ]
-  return (
-    <Presentational
-      onConfirm={goToNextStep}
-      supportedWallets={supportedWallets}
-    />
-  )
+
+  return <Presentational onConfirm={open} supportedWallets={supportedWallets} />
 }
 
 export const ChooseWallet = Container

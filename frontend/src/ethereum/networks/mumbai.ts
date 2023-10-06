@@ -1,5 +1,4 @@
 import { INetwork, Network } from 'types/ethereum'
-import { glmMumbai, maticMumbai } from '..'
 
 export const MUMBAI: INetwork = {
   chainId: Network.MUMBAI,
