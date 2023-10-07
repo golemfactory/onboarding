@@ -13,6 +13,7 @@ import { createHashRouter, RouterProvider } from 'react-router-dom'
 import { ErrorBoundary } from 'components/providers/ErrorBoundary'
 
 import { BlockchainProvider } from 'components/providers'
+import { DevPlaygroundDashboard } from 'components/organisms/DevPlaygroundDashboard'
 
 const router = createHashRouter([
   {
@@ -37,6 +38,14 @@ const router = createHashRouter([
         <AwaitForMetamaskSDK>
           <ManualTestGateway />
         </AwaitForMetamaskSDK>
+      </BlockchainProvider>
+    ),
+  },
+  {
+    path: '/playground',
+    element: (
+      <BlockchainProvider>
+        <DevPlaygroundDashboard />
       </BlockchainProvider>
     ),
   },

@@ -1,13 +1,11 @@
 import { motion } from 'framer-motion'
 import onboardingStyle from '../Onboarding.module.css'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
-import { useNetwork, useSwitchNetwork } from 'wagmi'
 
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-
 const Presentational = ({
   onConfirm,
   supportedWallets,

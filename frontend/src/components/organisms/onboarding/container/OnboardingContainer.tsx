@@ -33,6 +33,7 @@ export const OnboardingContainer = () => {
           showYagnaStep={!!yagnaAddress}
           stage={{ value: state.context.stage }}
         />
+
         <div className={`${styles.break}`} />
 
         {isBeta() ? <BetaRibbon /> : ''}
