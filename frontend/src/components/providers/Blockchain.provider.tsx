@@ -15,7 +15,12 @@ const metadata = {
 const chains = [polygon, polygonMumbai, mainnet]
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 
-createWeb3Modal({ wagmiConfig, projectId, chains })
+createWeb3Modal({
+  wagmiConfig,
+  projectId,
+  chains,
+  themeMode: 'light',
+})
 
 export const BlockchainProvider = ({ children }: { children: ReactNode }) => {
   return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>

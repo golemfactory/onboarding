@@ -1,6 +1,6 @@
 import { StepType } from 'state/steps'
 import { BalanceCaseType } from './path'
-import { TokenCategory } from './ethereum'
+import { EthereumAddress, NetworkType, TokenCategory } from './ethereum'
 import { OnboardingStageType } from 'state/stages'
 
 export interface WalletState {
@@ -9,23 +9,25 @@ export interface WalletState {
   chainId: string
 }
 
-export interface MetaMaskContextData {
-  wallet: WalletState
-  hasProvider: boolean | null
-  error: boolean
-  errorMessage: string
-  isConnecting: boolean
+export type BlockchainContextData = {
+  chainId?: NetworkType
+  address?: EthereumAddress
+}
+
+export interface BlockchainContextDataInterface extends BlockchainContextData {
   isConnected: boolean
-  connect: () => void
-  clearError: () => void
 }
 
 export type OnboardingContextData = {
   address?: string | null
   balanceCase?: BalanceCaseType
-  metaMask: MetaMaskContextData
   glmAdded: boolean
   skipSteps?: StepType[]
   stage: OnboardingStageType
   initialStep: string
+  blockchain: BlockchainContextData
+}
+
+export interface OnboardingContextDataInterface extends OnboardingContextData {
+  blockchain: BlockchainContextDataInterface
 }

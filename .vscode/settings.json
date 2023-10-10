@@ -10,6 +10,7 @@
     "Skipable",
     "Skippable",
     "tailwindcss",
+    "viem",
     "vite",
     "Wagmi",
     "WMATIC",

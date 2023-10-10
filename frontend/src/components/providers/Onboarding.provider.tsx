@@ -10,10 +10,12 @@ import {
 import { useInterpret } from '@xstate/react'
 import { createStateMachineWithContext } from 'state/machine'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
-import { useMetaMask } from './Metamask.provider'
 import { Step, StepType } from 'state/steps'
 import { useSetup } from './Setup.provider'
 import { OnboardingStage } from 'state/stages'
+import { useNetwork } from 'hooks/useNetwork'
+import { Commands } from 'state/commands'
+import { useAccount } from 'hooks/useAccount'
 
 export const OnboardingContext = createContext<{
   service: any
@@ -42,22 +44,23 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   //TODO : make own hook for this to avoid calling get for every param
 
   const setup = useSetup()
-  const metaMask = useMetaMask()
 
   const [initialStep] = useState<StepType>(
     localStorage.getItem('OnboardingStep') as StepType
   )
 
+  const { chain } = useNetwork()
+  const { address } = useAccount()
   const ref = useRef(
     createStateMachineWithContext({
       ...setup,
-      metaMask,
       glmAdded: false,
       stage:
         initialStep === Step.CONNECT_WALLET
           ? OnboardingStage.WALLET
           : OnboardingStage.WELCOME,
       initialStep,
+      blockchain: {},
     })
   )
 
@@ -66,6 +69,13 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   }, [initialStep])
 
   const service = useInterpret(ref.current)
+
+  useEffect(() => {
+    service.send({
+      type: Commands.CHAIN_CONTEXT_CHANGED,
+      payload: chain ? { chainId: chain.id, address } : { address },
+    })
+  }, [chain, service])
 
   return (
     <OnboardingContext.Provider value={{ service }}>

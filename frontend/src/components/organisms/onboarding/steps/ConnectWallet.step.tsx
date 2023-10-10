@@ -1,7 +1,7 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { MouseEventHandler, useEffect, useState } from 'react'
-import { useMetaMask } from 'hooks/useMetamask'
+import { MouseEventHandler } from 'react'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 const variants = {
   show: { opacity: 1 },
@@ -44,13 +44,25 @@ export const ConnectWallet = ({
 }: {
   goToNextStep: () => void
 }) => {
-  const metaMask = useMetaMask()
-  const [done, setDone] = useState(false)
-  useEffect(() => {
-    if (!done && metaMask.wallet.accounts.length > 0) {
-      goToNextStep()
-      setDone(true)
-    }
-  }, [metaMask.wallet])
-  return <ConnectWalletPresentational onConfirm={() => metaMask.connect()} />
+  const { open } = useWeb3Modal()
+
+  // const { connector: activeConnector, isConnected } = useAccount()
+  // const { connect, connectors, error, isLoading, pendingConnector } =
+  //   useConnect()
+
+  // console.log(connectors)
+
+  // useEffect(() => {
+  //   if (!done && metaMask.wallet.accounts.length > 0) {
+  //     goToNextStep()
+  //     setDone(true)
+  //   }
+  // }, [metaMask.wallet])
+  return (
+    <ConnectWalletPresentational
+      onConfirm={() => {
+        open()
+      }}
+    />
+  )
 }

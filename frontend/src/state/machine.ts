@@ -1,13 +1,13 @@
 import { createMachine, assign } from 'xstate'
-import {
-  checkAccountBalances,
-  ensureMetamaskConnection,
-  providerState,
-} from './childMachines'
+import { checkAccountBalances } from './childMachines'
 
 import { Step } from './steps'
 import { Commands } from './commands'
-import type { OnboardingContextData } from 'types/dataContext'
+import type {
+  BlockchainContextData,
+  OnboardingContextData,
+  OnboardingContextDataInterface,
+} from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 import { OnboardingStage, OnboardingStageType } from './stages'
 
@@ -25,68 +25,90 @@ const isGLMTracked = () => {
   return JSON.parse(window.localStorage.getItem('onboarding') || '{}')
     .isGLMTracked
 }
-export const createStateMachineWithContext = (
-  context: OnboardingContextData
-) => {
+export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
   return createMachine<
-    OnboardingContextData,
-    { type: 'ADD_GLM' } | { type: Commands.NEXT } | { type: Commands.PREVIOUS }
+    OnboardingContextDataInterface,
+    | { type: 'ADD_GLM' }
+    | { type: Commands.NEXT }
+    | { type: Commands.PREVIOUS }
+
+    //this event is used to communicate from blockchain related hooks
+    //that transfer changes here so machine can keep needed data in context
+    //this is far from ideal as it create two sources of truth
+    //but wagmi do not provide any other way to do this
+    | {
+        type: Commands.CHAIN_CONTEXT_CHANGED
+        payload: BlockchainContextData
+      }
   >({
-    context,
+    context: {
+      ...ctx,
+      blockchain: {
+        chainId: ctx.blockchain.chainId,
+        isConnected: false,
+      },
+    },
     id: 'onboarding',
-    initial: Step.CHOOSE_WALLET,
+    initial: ctx.initialStep || Step.CONNECT_WALLET,
+    on: {
+      [Commands.CHAIN_CONTEXT_CHANGED]: {
+        actions: assign({
+          blockchain: (context, event) => {
+            return {
+              ...context.blockchain,
+              chainId: event.payload.chainId,
+            }
+          },
+        }),
+      },
+    },
+
     states: {
       [Step.TRANSFER]: {
-        //TODO check why with () => { move } it does not work
         entry: move(OnboardingStage.YAGNA),
         on: {
           [Commands.NEXT]: Step.WELCOME,
         },
       },
+
       [Step.WELCOME]: {
         on: {
           [Commands.NEXT]: {
-            target: Step.CHOOSE_WALLET,
+            target: Step.CONNECT_WALLET,
             actions: move(OnboardingStage.WALLET),
           },
         },
       },
 
-      [Step.CHOOSE_WALLET]: {
-        on: {
-          [Commands.NEXT]: Step.DETECT_METAMASK,
-        },
-      },
-
-      [Step.DETECT_METAMASK]: {
-        invoke: {
-          id: 'detect-metamask',
-          src: ensureMetamaskConnection,
-          onDone: [
-            {
-              target: Step.CHOOSE_NETWORK,
-              cond: (_context, event) => event.data === providerState.METAMASK,
-            },
-            {
-              target: Step.SHOW_METAMASK_LINK,
-              cond: (_context, event) =>
-                //TODO: handle another wallets
-                event.data === providerState.NO_PROVIDER ||
-                event.data === providerState.NOT_METAMASK,
-            },
-            {
-              target: Step.CONNECT_WALLET,
-              cond: (_context, event) =>
-                event.data === providerState.NOT_CONNECTED,
-            },
-          ],
-        },
-      },
-      [Step.SHOW_METAMASK_LINK]: {
-        on: {
-          [Commands.NEXT]: Step.CONNECT_WALLET,
-        },
-      },
+      // [Step.DETECT_METAMASK]: {
+      //   invoke: {
+      //     id: 'detect-metamask',
+      //     src: ensureMetamaskConnection,
+      //     onDone: [
+      //       {
+      //         target: Step.CHOOSE_NETWORK,
+      //         cond: (_context, event) => event.data === providerState.METAMASK,
+      //       },
+      //       {
+      //         target: Step.SHOW_METAMASK_LINK,
+      //         cond: (_context, event) =>
+      //           //TODO: handle another wallets
+      //           event.data === providerState.NO_PROVIDER ||
+      //           event.data === providerState.NOT_METAMASK,
+      //       },
+      //       {
+      //         target: Step.CONNECT_WALLET,
+      //         cond: (_context, event) =>
+      //           event.data === providerState.NOT_CONNECTED,
+      //       },
+      //     ],
+      //   },
+      // },
+      // [Step.SHOW_METAMASK_LINK]: {
+      //   on: {
+      //     [Commands.NEXT]: Step.CONNECT_WALLET,
+      //   },
+      // },
       [Step.CONNECT_WALLET]: {
         on: {
           [Commands.NEXT]: Step.CHOOSE_NETWORK,
