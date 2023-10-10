@@ -1,14 +1,16 @@
 // components/welcome/intro.tsx
-import { useMetaMask } from 'components/providers'
 import { motion } from 'framer-motion'
-import { WalletState } from 'types/dataContext'
-import { formatEther } from 'ethers'
 import { GolemIcon, MaticIcon } from 'components/atoms/icons'
+import { useBalance } from 'hooks/useBalance'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
-const FinishPresentational = ({ wallet }: { wallet: WalletState }) => {
+const FinishPresentational = ({
+  balance,
+}: {
+  balance: ReturnType<typeof useBalance>
+}) => {
   return (
     <div className="text-center">
       <motion.h1
@@ -29,7 +31,7 @@ const FinishPresentational = ({ wallet }: { wallet: WalletState }) => {
               <GolemIcon style={{ maxHeight: '30px' }} />{' '}
             </div>
             <div className="text-lg">
-              {parseFloat(formatEther(wallet.balance.GLM)).toFixed(2)} <br />
+              {balance.GLM} <br />
             </div>
           </div>
 
@@ -41,19 +43,16 @@ const FinishPresentational = ({ wallet }: { wallet: WalletState }) => {
               <MaticIcon style={{ maxHeight: '30px' }} />{' '}
             </div>
             <div className="text-lg">
-              {parseFloat(formatEther(wallet.balance.NATIVE)).toFixed(2)} <br />
+              {balance.NATIVE} <br />
             </div>
           </div>
         </div>
-
-        {/* {parseFloat(formatEther(wallet.balance.NATIVE)).toFixed(2)} . */}
       </motion.div>
     </div>
   )
 }
 
 export const Finish = () => {
-  const { wallet } = useMetaMask()
-
-  return <FinishPresentational wallet={wallet} />
+  const balance = useBalance()
+  return <FinishPresentational balance={balance} />
 }

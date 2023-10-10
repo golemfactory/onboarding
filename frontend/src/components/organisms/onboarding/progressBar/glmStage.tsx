@@ -1,5 +1,4 @@
 import { ProgressStage } from 'components/molecules'
-import { formatEther } from 'ethers'
 import { OnboardingStage, OnboardingStageType } from 'state/stages'
 import { GolemIcon } from 'components/atoms/icons'
 import { useGLMBalance } from 'hooks/useGLMBalance'
@@ -8,16 +7,16 @@ export const GLMStage = ({ stage }: { stage: OnboardingStageType }) => {
   const isCompleted = stage > OnboardingStage.GLM
   const isCurrent = stage === OnboardingStage.GLM
   const { balance } = useGLMBalance()
-  const uncompletedMessage = 'Network utility token'
+  const formattedBalance = parseFloat(balance?.formatted || '').toFixed(2)
+  const completedMessage = `Balance: ${formattedBalance}`
 
-  // const completedMessage = `Current balance: ${parseFloat(
-  //   formatEther(balance?.toString() || '0')
-  // ).toFixed(2)}`
+  const uncompletedMessage =
+    balance?.value === BigInt(0) ? 'Network utility token' : completedMessage
 
   return (
     <ProgressStage
       title="GLM"
-      message={isCompleted ? 'dupa' : uncompletedMessage}
+      message={isCompleted ? completedMessage : uncompletedMessage}
       isCompleted={isCompleted}
       isCurrent={isCurrent}
       index={<GolemIcon />}

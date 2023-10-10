@@ -52,7 +52,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const { chain } = useNetwork()
   const { address } = useAccount()
 
-  console.log('c', chain)
   const ref = useRef(
     createStateMachineWithContext({
       ...setup,
@@ -73,8 +72,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const service = useInterpret(ref.current)
 
   useEffect(() => {
-    console.log('sending')
-    console.log('with chain', chain)
     service.send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
       payload: chain ? { chainId: chain.id, address } : { address },

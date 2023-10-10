@@ -1,6 +1,6 @@
 import { EthereumAddress, Token, Network, IUtilityToken } from 'types/ethereum'
 
-export const glmMumbai: IUtilityToken = {
+export const glmMainnet: IUtilityToken = {
   isNative: false,
   name: 'Golem',
   decimals: 18,
