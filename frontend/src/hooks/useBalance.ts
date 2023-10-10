@@ -3,9 +3,6 @@ import { useAccount, useBalance as useBalanceWagmi } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { TokenCategory } from 'types/ethereum'
 
-const formatTokenBalance = (balance: string) => {
-  return parseFloat(balance).toFixed(2)
-}
 export const useBalance = () => {
   const { address } = useAccount()
   const { chain } = useNetwork()
@@ -29,7 +26,7 @@ export const useBalance = () => {
     throw new Error('Missing balance')
 
   return {
-    [TokenCategory.GLM]: formatTokenBalance(glmBalance.data?.formatted),
-    [TokenCategory.NATIVE]: formatTokenBalance(nativeBalance.data?.formatted),
+    [TokenCategory.GLM]: glmBalance.data?.value,
+    [TokenCategory.NATIVE]: nativeBalance.data?.value,
   }
 }

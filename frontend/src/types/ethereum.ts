@@ -58,7 +58,7 @@ export interface INativeToken extends IToken {
   symbol: NativeTokenType
 }
 
-export type EthereumAddress = string & { __brand: 'EthereumAddress' }
+export type EthereumAddress = `0x${string}` & { __brand: 'EthereumAddress' }
 
 export interface IUtilityToken extends IToken {
   isNative: false

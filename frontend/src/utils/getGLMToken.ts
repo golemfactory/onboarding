@@ -1,8 +1,8 @@
 import { glmMumbai } from 'ethereum/tokens'
 import { Network, NetworkType } from 'types/ethereum'
 import { glmMainnet } from 'ethereum/tokens/glm/mainnet'
-export const getGLMToken = (chainId: NetworkType) => {
-  switch (chainId) {
+export const getGLMToken = (network: NetworkType) => {
+  switch (network) {
     case Network.MUMBAI:
       return glmMumbai
     case Network.POLYGON:

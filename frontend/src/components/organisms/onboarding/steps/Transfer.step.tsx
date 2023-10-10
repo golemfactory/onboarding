@@ -1,14 +1,17 @@
-import { TokenCategory, TxStatus } from 'types/ethereum'
+import { NetworkType, TokenCategory, TxStatus } from 'types/ethereum'
 import { ThemesManager } from '../../../../themes/ThemesManager'
 import { settings } from 'settings'
 import { getGLMToken } from 'utils/getGLMToken'
 import { getNativeToken } from 'utils/getNativeToken'
 import { ChangeEvent, useState } from 'react'
-import { useMetaMask } from 'components/providers'
 import { Slider } from 'components/atoms/slider/slider'
 import { formatEther } from 'ethers'
-import { useSupplyYagnaWallet } from 'ethereum/actions/transfer'
+import { useSupplyYagnaWallet } from 'hooks/useSupplyYagnaWallet'
 import { CheckmarkIcon } from 'components/atoms/icons'
+import { useNetwork } from 'hooks/useNetwork'
+import { useBalance } from 'hooks/useBalance'
+import { formatBalance } from 'utils/formatBalance'
+
 type Amount = {
   [TokenCategory.GLM]: number
   [TokenCategory.NATIVE]: number
@@ -19,14 +22,16 @@ const SliderMatic = ({
   setAmount,
   balance,
   status,
+  chainId,
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
   balance: bigint
   status: TxStatus
+  chainId: NetworkType
 }) => {
   const sliderMaticProps = {
-    min: settings.minimalBalance[getNativeToken()],
+    min: settings.minimalBalance[getNativeToken(chainId)],
     step: 0.011,
     max: parseFloat(formatEther(balance)).toFixed(2),
     label: '',
@@ -59,16 +64,18 @@ const SliderGLM = ({
   setAmount,
   balance,
   status,
+  chainId,
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
   balance: bigint
   status: TxStatus
+  chainId: NetworkType
 }) => {
   const sliderMaticProps = {
-    min: settings.minimalBalance[getGLMToken().symbol],
+    min: settings.minimalBalance[getGLMToken(chainId).symbol],
     step: 0.01,
-    max: parseFloat(formatEther(balance)).toFixed(2),
+    max: formatBalance(balance),
     label: '',
     value: amount[TokenCategory.GLM],
     displayValue: (v: number) => `Transfer ${v} GLM`,
@@ -90,14 +97,7 @@ const SliderGLM = ({
       </div>
     </div>
   ) : (
-    <div
-      style={
-        {
-          // paddingLeft: '42px',
-          // textAlign: 'left',
-        }
-      }
-    >
+    <div>
       <div>
         <p className="flex ">
           <CheckmarkIcon className="mr-4" /> Transferred $
@@ -109,11 +109,17 @@ const SliderGLM = ({
 }
 
 export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
-  const { wallet } = useMetaMask()
+  const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
+  const { chain } = useNetwork()
+
+  if (!chain?.id) {
+    throw new Error('Chain not found')
+  }
+
   const [amount, setAmount] = useState<Amount>({
-    [TokenCategory.GLM]: settings.minimalBalance[getGLMToken().symbol],
-    [TokenCategory.NATIVE]: settings.minimalBalance[getNativeToken()],
+    [TokenCategory.GLM]: settings.minimalBalance[getGLMToken(chain.id).symbol],
+    [TokenCategory.NATIVE]: settings.minimalBalance[getNativeToken(chain.id)],
   })
 
   const StepTemplate = ThemesManager.getInstance()
@@ -136,15 +142,17 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
           <div>Transfer tokens to your Yagna wallet</div>
           <br></br>
           <SliderGLM
+            chainId={chain.id}
             amount={amount}
             setAmount={setAmount}
-            balance={wallet.balance.GLM}
+            balance={balance.GLM}
             status={txStatus[TokenCategory.GLM]}
           />
           <SliderMatic
+            chainId={chain.id}
             amount={amount}
             setAmount={setAmount}
-            balance={wallet.balance.NATIVE}
+            balance={balance.NATIVE}
             status={txStatus[TokenCategory.NATIVE]}
           />
         </>

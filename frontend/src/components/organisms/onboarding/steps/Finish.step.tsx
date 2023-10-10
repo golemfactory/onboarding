@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { GolemIcon, MaticIcon } from 'components/atoms/icons'
 import { useBalance } from 'hooks/useBalance'
+import { formatBalance } from 'utils/formatBalance'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -31,7 +32,7 @@ const FinishPresentational = ({
               <GolemIcon style={{ maxHeight: '30px' }} />{' '}
             </div>
             <div className="text-lg">
-              {balance.GLM} <br />
+              {formatBalance(balance.GLM)} <br />
             </div>
           </div>
 
@@ -43,7 +44,7 @@ const FinishPresentational = ({
               <MaticIcon style={{ maxHeight: '30px' }} />{' '}
             </div>
             <div className="text-lg">
-              {balance.NATIVE} <br />
+              {formatBalance(balance.NATIVE)} <br />
             </div>
           </div>
         </div>

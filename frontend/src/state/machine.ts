@@ -46,14 +46,14 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       ...ctx,
       blockchain: {
         chainId: ctx.blockchain.chainId,
-        //TODO : I would prefer getter here, check why it doesnt work
+        //TODO : I would prefer getter here, check why it doesn't work
         isConnected() {
           return this.chainId !== undefined
         },
       },
     },
     id: 'onboarding',
-    initial: ctx.initialStep || Step.CHOOSE_NETWORK,
+    initial: ctx.initialStep || Step.TRANSFER,
     on: {
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
