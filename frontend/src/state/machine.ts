@@ -18,14 +18,15 @@ const move = (stage: OnboardingStageType) =>
     },
   })
 
-//TODO this should be known in context that comes from provider which should use
-//proper hook
+//TODO this should be known in context that comes from provider which should use proper hook
 
 const isGLMTracked = () => {
   return JSON.parse(window.localStorage.getItem('onboarding') || '{}')
     .isGLMTracked
 }
+
 export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
+  console.log('creating machine with context', ctx)
   return createMachine<
     OnboardingContextDataInterface,
     | { type: 'ADD_GLM' }
@@ -45,11 +46,14 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       ...ctx,
       blockchain: {
         chainId: ctx.blockchain.chainId,
-        isConnected: false,
+        //TODO : I would prefer getter here, check why it doesnt work
+        isConnected() {
+          return this.chainId !== undefined
+        },
       },
     },
     id: 'onboarding',
-    initial: ctx.initialStep || Step.CONNECT_WALLET,
+    initial: ctx.initialStep || Step.CHOOSE_NETWORK,
     on: {
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
@@ -73,59 +77,37 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
 
       [Step.WELCOME]: {
         on: {
-          [Commands.NEXT]: {
-            target: Step.CONNECT_WALLET,
-            actions: move(OnboardingStage.WALLET),
-          },
+          [Commands.NEXT]: [
+            {
+              target: Step.CHOOSE_NETWORK,
+              actions: move(OnboardingStage.WALLET),
+              cond: (_context) => {
+                return _context.blockchain.isConnected()
+              },
+            },
+            {
+              target: Step.CONNECT_WALLET,
+              actions: move(OnboardingStage.WALLET),
+              cond: (_context) => {
+                return !_context.blockchain.isConnected()
+              },
+            },
+          ],
         },
       },
 
-      // [Step.DETECT_METAMASK]: {
-      //   invoke: {
-      //     id: 'detect-metamask',
-      //     src: ensureMetamaskConnection,
-      //     onDone: [
-      //       {
-      //         target: Step.CHOOSE_NETWORK,
-      //         cond: (_context, event) => event.data === providerState.METAMASK,
-      //       },
-      //       {
-      //         target: Step.SHOW_METAMASK_LINK,
-      //         cond: (_context, event) =>
-      //           //TODO: handle another wallets
-      //           event.data === providerState.NO_PROVIDER ||
-      //           event.data === providerState.NOT_METAMASK,
-      //       },
-      //       {
-      //         target: Step.CONNECT_WALLET,
-      //         cond: (_context, event) =>
-      //           event.data === providerState.NOT_CONNECTED,
-      //       },
-      //     ],
-      //   },
-      // },
-      // [Step.SHOW_METAMASK_LINK]: {
-      //   on: {
-      //     [Commands.NEXT]: Step.CONNECT_WALLET,
-      //   },
-      // },
       [Step.CONNECT_WALLET]: {
         on: {
           [Commands.NEXT]: Step.CHOOSE_NETWORK,
         },
       },
+
       [Step.CHOOSE_NETWORK]: {
         entry: [move(OnboardingStage.NETWORK)],
         on: {
           [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
         },
       },
-
-      //TODO: make sure we use localstorage to keep info
-      // if visitor already added GLM token
-      // unfortunately this is not possible to get list of
-      //of all tracked assets from metamask
-      //(issue #33)
 
       [Step.ADD_GLM]: {
         on: {

@@ -1,7 +1,8 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { MouseEventHandler } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useAccount } from 'hooks/useAccount'
 
 const variants = {
   show: { opacity: 1 },
@@ -24,7 +25,7 @@ const ConnectWalletPresentational = ({
         className="max-w-md text-black my-4 text-xl"
         variants={variants}
       >
-        We detected you have Metamask installed but it is not connected
+        We need you to connect your wallet to continue
       </motion.p>
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
@@ -45,24 +46,31 @@ export const ConnectWallet = ({
   goToNextStep: () => void
 }) => {
   const { open } = useWeb3Modal()
+  const { address } = useAccount()
 
-  // const { connector: activeConnector, isConnected } = useAccount()
-  // const { connect, connectors, error, isLoading, pendingConnector } =
-  //   useConnect()
+  const [done, setDone] = useState(false)
 
-  // console.log(connectors)
+  useEffect(() => {
+    if (done && address) {
+      goToNextStep()
+    }
+  }, [address, done, goToNextStep])
 
-  // useEffect(() => {
-  //   if (!done && metaMask.wallet.accounts.length > 0) {
-  //     goToNextStep()
-  //     setDone(true)
-  //   }
-  // }, [metaMask.wallet])
   return (
     <ConnectWalletPresentational
       onConfirm={() => {
+        setDone(true)
         open()
       }}
     />
   )
 }
+
+// const waitForAddressAndContinue = ( goToNextStep : () => void) => {
+//   const { address } = useAccount()
+//   useEffect(() => {
+//     if (address) {
+//       goToNextStep()
+//     }
+//   }, [address])
+// }

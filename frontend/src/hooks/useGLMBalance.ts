@@ -6,7 +6,6 @@ export const useGLMBalance = () => {
     address: '0x2036807B0B3aaf5b1858EE822D0e111fDdac7018',
   })
 
-  console.log('chain', chain, data)
   return {
     balance: data,
     isError,

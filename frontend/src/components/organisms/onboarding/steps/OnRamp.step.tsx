@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { hideRampBackground } from 'utils/hideRampBackground'
-import { useMetaMask } from 'components/providers/Metamask.provider'
 import debug from 'debug'
+import { useAccount } from 'hooks/useAccount'
 
 const variants = {
   show: { opacity: 1 },
@@ -26,14 +26,13 @@ const OnRampPresentational = () => {
 }
 
 export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
-  const metamask = useMetaMask()
-  const account = metamask.wallet.accounts[0]
+  const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
 
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (account && !done) {
+    if (address && !done) {
       setDone(true)
 
       debug('creating widget')
@@ -46,7 +45,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         swapAsset: 'MATIC_MATIC',
         fiatValue: '6',
         fiatCurrency: 'EUR',
-        userAddress: account,
+        userAddress: address,
         defaultFlow: 'ONRAMP',
       })
 
@@ -68,7 +67,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
     }
 
     hideRampBackground()
-  }, [account, done, goToNextStep, widgetRef])
+  }, [address, done, goToNextStep, widgetRef])
 
   return <OnRampPresentational />
 }

@@ -15,7 +15,7 @@ export type BlockchainContextData = {
 }
 
 export interface BlockchainContextDataInterface extends BlockchainContextData {
-  isConnected: boolean
+  isConnected: () => boolean
 }
 
 export type OnboardingContextData = {

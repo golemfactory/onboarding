@@ -7,9 +7,11 @@ import {
 } from 'react'
 import { networks } from 'ethereum/networks'
 import { NetworkType } from 'types/ethereum'
-import { useMetaMask } from 'components/providers/Metamask.provider'
 import onboardingStyle from '../Onboarding.module.css'
 import { Network } from 'ethereum/networks/types'
+import { hexToNumber } from 'viem'
+import { useSwitchNetwork } from 'wagmi'
+import { useNetwork } from 'hooks/useNetwork'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -26,10 +28,10 @@ const ChooseNetworkPresentational = ({
   return (
     <div className={onboardingStyle.step}>
       <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Metamask is connected
+        Wallet is connected
       </motion.h1>
       <motion.p className={onboardingStyle.description} variants={variants}>
-        Thats great, now choose network
+        Now you need to choose network
       </motion.p>
       <motion.div variants={variants}>
         <select onChange={onNetworkSelection} value={selectedNetwork}>
@@ -63,39 +65,24 @@ export const ChooseNetwork = ({
 }: {
   goToNextStep: () => void
 }) => {
-  const metamask = useMetaMask()
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(
     Network.MUMBAI
   )
+
+  const { chain } = useNetwork()
+  const { switchNetworkAsync } = useSwitchNetwork()
 
   const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedNetwork(e.target.value as NetworkType)
   }
 
   const onConfirm = async () => {
-    if (metamask.wallet.chainId !== selectedNetwork) {
-      try {
-        await window.ethereum?.request({
-          method: 'wallet_switchEthereumChain',
-          params: [
-            {
-              chainId: selectedNetwork,
-            },
-          ],
-        })
-        goToNextStep()
-      } catch (err) {
-        if (err.code === 4902) {
-          await window.ethereum?.request({
-            method: 'wallet_addEthereumChain',
-            params: [networks[selectedNetwork]],
-          })
-          goToNextStep()
-        }
-      }
-    } else {
+    if (chain?.id === selectedNetwork) {
       goToNextStep()
+      return
     }
+    await switchNetworkAsync?.(hexToNumber(selectedNetwork))
+    goToNextStep()
   }
 
   return (
