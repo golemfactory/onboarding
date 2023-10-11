@@ -1,9 +1,9 @@
 // components/welcome/intro.tsx
 import { motion } from 'framer-motion'
-import { MouseEventHandler } from 'react'
-import { getGLMToken } from 'utils/getGLMToken'
+import { MouseEventHandler, useEffect } from 'react'
 import onboardingStyle from '../Onboarding.module.css'
 import { useLocalStorage } from 'hooks/useLocalStorage'
+import { useWatchGLM } from 'hooks/useWatchGLM'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -37,18 +37,18 @@ const AddGLMPresentational = ({
 export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const [store, setState] = useLocalStorage('onboarding', {})
 
+  const { watch, success } = useWatchGLM()
+
   const addGLM = async () => {
-    const { address, decimals, symbol } = await getGLMToken()
-
-    await window.ethereum.request({
-      method: 'wallet_watchAsset',
-      params: { type: 'ERC20', options: { address, decimals, symbol } },
-    })
-
-    setState({ ...store, isGLMTracked: true })
-
-    goToNextStep()
+    watch()
   }
+
+  useEffect(() => {
+    if (success) {
+      setState({ ...store, addGLM: true })
+      goToNextStep()
+    }
+  }, [success])
 
   return <AddGLMPresentational onConfirm={addGLM} />
 }

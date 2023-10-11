@@ -2,6 +2,7 @@ import { TokenCategory } from 'types/ethereum'
 import { useSendNativeToken } from './useSendNativeToken'
 import { useSetup } from './useSetup'
 import { parseEther } from 'viem'
+
 export const useSupplyYagnaWallet = () => {
   const { send: sendNative, status: nativeStatus } = useSendNativeToken()
   const { send: sendGolem, status: golemStatus } = useSendNativeToken()
