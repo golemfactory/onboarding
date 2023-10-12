@@ -8,20 +8,22 @@ import { EthereumAddress, assertEthereumAddress } from 'types/ethereum'
 import { transferInitialBalances } from '../../../ethereum/actions/transfer'
 import { WrongAccountModal } from './WrongAccountModal'
 import { BalanceCase, BalanceCaseType } from 'types/path'
-import { useMetaMask } from 'components/providers'
 import { SkipableStepType } from 'state/steps'
 import styles from './ManualTesting.module.css'
 import { getGLMToken } from 'utils/getGLMToken'
 import { SkipStepSelection } from './SkipStepSelection'
+import { useAccount } from 'hooks/useAccount'
+import { useNetwork } from 'hooks/useNetwork'
 const createNewAccount = async () => {
   const randomWallet = ethers.Wallet.createRandom()
   return randomWallet
 }
 
 export const ManualTestGateway = () => {
-  const metamask = useMetaMask()
-  console.log('met', metamask)
-  const account = metamask.wallet.accounts[0]
+  const { address } = useAccount()
+  const { chain } = useNetwork()
+  const account = address
+
   const [showModal, setShowModal] = useState(false)
 
   const [currentAccount, setCurrentAccount] = useState<EthereumAddress>(
@@ -172,7 +174,13 @@ export const ManualTestGateway = () => {
               if (
                 account?.toLocaleLowerCase() === wallet.address.toLowerCase()
               ) {
-                const { address, decimals, symbol } = await getGLMToken()
+                if (!chain?.id) {
+                  throw new Error('Chain id not found. Cant transfer')
+                }
+
+                const { address, decimals, symbol } = await getGLMToken(
+                  chain.id
+                )
 
                 await window.ethereum.request({
                   method: 'wallet_watchAsset',

@@ -41,6 +41,7 @@
     "react-error-boundary": "^4.0.11",
     "react-router-dom": "^6.15.0",
     "use-query-params": "^2.2.1",
+    "usehooks-ts": "^2.9.1",
     "viem": "^1.15.3",
     "wagmi": "^1.4.3",
     "winston": "^3.10.0",

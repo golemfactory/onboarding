@@ -1,18 +1,18 @@
 import { getGLMToken } from 'utils/getGLMToken'
-import { useAccount, useBalance as useBalanceWagmi } from 'wagmi'
+import { useBalance as useBalanceWagmi } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
+import { useAccount } from 'hooks/useAccount'
 import { TokenCategory } from 'types/ethereum'
 
 export const useBalance = () => {
   const { address } = useAccount()
   const { chain } = useNetwork()
-  if (!chain) throw new Error('Chain is not defined')
 
-  const glmAddress = getGLMToken(chain?.id).address
+  const glmAddress = chain?.id ? getGLMToken(chain?.id).address : undefined
 
   const glmBalance = useBalanceWagmi({
     address,
-    token: glmAddress as `0x${string}`,
+    token: glmAddress,
   })
 
   const nativeBalance = useBalanceWagmi({
@@ -26,7 +26,7 @@ export const useBalance = () => {
     throw new Error('Missing balance')
 
   return {
-    [TokenCategory.GLM]: glmBalance.data?.value,
-    [TokenCategory.NATIVE]: nativeBalance.data?.value,
+    [TokenCategory.GLM]: glmBalance.data?.value ?? 0n,
+    [TokenCategory.NATIVE]: nativeBalance.data?.value ?? 0n,
   }
 }

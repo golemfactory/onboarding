@@ -32,9 +32,9 @@ export const Slider = ({
         value={value}
         {...rest}
       />
-      <p className="text-center mt-2">
+      <div className="text-center mt-2">
         {displayValue ? displayValue(value) : value}
-      </p>
+      </div>
     </div>
   )
 }

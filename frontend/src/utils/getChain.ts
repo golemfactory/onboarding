@@ -1,5 +1,3 @@
-//TODO : replace this by hook usage
-
 import { NetworkType, assertSupportedChainId } from 'types/ethereum'
 
 export const getChainId = (): NetworkType => {

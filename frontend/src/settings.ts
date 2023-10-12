@@ -20,5 +20,7 @@ export const settings = {
     [Token.MATIC_MUMBAI]: '0.1',
     [Token.GLM_POLYGON]: '0.1',
     [Token.MATIC_POLYGON]: '0.1',
+    [Token.ETH_MAINNET]: '0.1',
+    [Token.GLM_MAINNET]: '0.1',
   },
 }
