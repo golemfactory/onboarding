@@ -26,7 +26,6 @@ const isGLMTracked = () => {
 }
 
 export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
-  console.log('creating machine with context', ctx)
   return createMachine<
     OnboardingContextDataInterface,
     | { type: 'ADD_GLM' }

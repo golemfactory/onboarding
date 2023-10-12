@@ -19,14 +19,8 @@ export const useBalance = () => {
     address,
   })
 
-  //this should never happen
-  //as long as we have proper address and chain
-
-  if (!glmBalance.data?.formatted || !nativeBalance.data?.formatted)
-    throw new Error('Missing balance')
-
   return {
-    [TokenCategory.GLM]: glmBalance.data?.value ?? 0n,
-    [TokenCategory.NATIVE]: nativeBalance.data?.value ?? 0n,
+    [TokenCategory.GLM]: glmBalance.data?.value ?? undefined,
+    [TokenCategory.NATIVE]: nativeBalance.data?.value ?? undefined,
   }
 }

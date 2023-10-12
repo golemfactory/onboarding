@@ -12,10 +12,10 @@ const variants = {
 }
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Slider, ISliderProps } from 'components/atoms/slider/slider'
-import { formatEther, parseUnits } from 'ethers'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
+import { formatEther, parseUnits } from 'viem'
 
 const SwapTokensPresentational = ({
   onSwapButtonClick,
@@ -68,12 +68,16 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   }
   const balance = useBalance()
 
+  if (!balance.NATIVE) {
+    throw new Error('Native token balance is not defined')
+  }
+
   const nativeToken = getNativeToken(chain.id)
 
   const minimalAmount = parseFloat(settings.minimalSwap[nativeToken])
   const [amount, setAmount] = useState(minimalAmount)
 
-  /// debounce to prevent too many preparations
+  // debounce to prevent too many preparations
   const debouncedAmount = useDebounce<number>(amount, 500)
 
   const { swap, isSuccess } = useSwapEthForGlm({
@@ -90,7 +94,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const sliderProps = {
     min: minimalAmount,
     step: 0.01,
-    max: parseFloat(formatEther(balance.NATIVE)).toFixed(2),
+    max: parseFloat(formatEther(balance.NATIVE)),
     label: '',
     value: amount,
     displayValue: (v: number) => `Swap ${v} Matic`,

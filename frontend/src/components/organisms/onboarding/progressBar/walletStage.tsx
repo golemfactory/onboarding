@@ -11,7 +11,7 @@ const accountShorthand = (account: string) => {
 export const WalletStage = ({ stage }: { stage: OnboardingStageType }) => {
   const isCompleted = stage > OnboardingStage.WALLET
   const isCurrent = stage === OnboardingStage.WALLET
-  // const { wallet } = useMetaMask()
+
   const uncompletedMessage = 'You need to have a wallet installed'
 
   const { address } = useAccount()
