@@ -22,6 +22,7 @@ const WelcomePresentational = ({
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
+        data-test-id="next-button"
         variants={variants}
         onClick={(e) => {
           onConfirm(e)

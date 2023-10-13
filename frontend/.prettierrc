@@ -3,5 +3,13 @@
   "tabWidth": 2,
   "semi": false,
   "singleQuote": true,
-  "printWidth": 80
+  "printWidth": 80,
+  "overrides": [
+    {
+      "files": "**/node_modules/**/*.d.ts",
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ]
 }

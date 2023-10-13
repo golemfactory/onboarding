@@ -8,7 +8,8 @@
     "prepare": "husky install",
     "dev:frontend": "cd frontend && pnpm run dev:start",
     "dev:storybook": "cd frontend && pnpm run dev:storybook",
-    "dev": "pnpm run '/^dev:.*/'"
+    "dev": "pnpm run '/^dev:.*/'", 
+    "cypress:open": "cd frontend && pnpm run cypress open"
   },
   "keywords": [],
   "author": "",

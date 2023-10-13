@@ -34,6 +34,7 @@ const Presentational = ({
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
+        data-id="nextStepButton"
         variants={variants}
         onClick={() => {
           console.log('clicked')

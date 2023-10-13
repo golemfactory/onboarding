@@ -2,6 +2,7 @@ import { StepType } from 'state/steps'
 import { BalanceCaseType } from './path'
 import { EthereumAddress, NetworkType, TokenCategory } from './ethereum'
 import { OnboardingStageType } from 'state/stages'
+import { Commands } from 'state/commands'
 
 export interface WalletState {
   accounts: any[]
@@ -14,20 +15,27 @@ export type BlockchainContextData = {
   address?: EthereumAddress
 }
 
-export interface BlockchainContextDataInterface extends BlockchainContextData {
-  isConnected: () => boolean
-}
-
-export type OnboardingContextData = {
+export type OnboardingContextDataType = {
   address?: string | null
   balanceCase?: BalanceCaseType
-  glmAdded: boolean
   skipSteps?: StepType[]
   stage: OnboardingStageType
   initialStep: string
-  blockchain: BlockchainContextData
+  blockchain: BlockchainContextData & {
+    isConnected: () => boolean
+  }
 }
 
-export interface OnboardingContextDataInterface extends OnboardingContextData {
-  blockchain: BlockchainContextDataInterface
-}
+export type OnboardingEventsType =
+  | { type: 'ADD_GLM' }
+  | { type: Commands.NEXT }
+  | { type: Commands.PREVIOUS }
+
+  //this event is used to communicate from blockchain related hooks
+  //that transfer changes here so machine can keep needed data in context
+  //this is far from ideal as it create two sources of truth
+  //but wagmi do not provide any other way to do this
+  | {
+      type: Commands.CHAIN_CONTEXT_CHANGED
+      payload: BlockchainContextData
+    }

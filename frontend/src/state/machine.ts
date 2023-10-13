@@ -4,12 +4,12 @@ import { checkAccountBalances } from './childMachines'
 import { Step } from './steps'
 import { Commands } from './commands'
 import type {
-  BlockchainContextData,
-  OnboardingContextData,
-  OnboardingContextDataInterface,
+  OnboardingContextDataType,
+  OnboardingEventsType,
 } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 import { OnboardingStage, OnboardingStageType } from './stages'
+import { addTests } from './utils/addTests'
 
 const move = (stage: OnboardingStageType) =>
   assign({
@@ -25,22 +25,10 @@ const isGLMTracked = () => {
     .isGLMTracked
 }
 
-export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
-  return createMachine<
-    OnboardingContextDataInterface,
-    | { type: 'ADD_GLM' }
-    | { type: Commands.NEXT }
-    | { type: Commands.PREVIOUS }
-
-    //this event is used to communicate from blockchain related hooks
-    //that transfer changes here so machine can keep needed data in context
-    //this is far from ideal as it create two sources of truth
-    //but wagmi do not provide any other way to do this
-    | {
-        type: Commands.CHAIN_CONTEXT_CHANGED
-        payload: BlockchainContextData
-      }
-  >({
+export const createStateMachineWithContext = (
+  ctx: Omit<OnboardingContextDataType, 'blockchain.isConnected'>
+) => {
+  return createMachine<OnboardingContextDataType, OnboardingEventsType>({
     context: {
       ...ctx,
       blockchain: {
@@ -52,7 +40,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
     },
     id: 'onboarding',
-    initial: ctx.initialStep || Step.SWAP,
+    initial: ctx.initialStep || Step.WELCOME,
     on: {
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
@@ -66,7 +54,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
     },
 
-    states: {
+    states: addTests<OnboardingContextDataType, any, OnboardingEventsType>({
       [Step.TRANSFER]: {
         entry: move(OnboardingStage.YAGNA),
         on: {
@@ -81,7 +69,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
               target: Step.CHOOSE_NETWORK,
               actions: move(OnboardingStage.WALLET),
               cond: (_context) => {
-                return _context.blockchain.isConnected()
+                return _context.blockchain?.isConnected()
               },
             },
             {
@@ -182,6 +170,6 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
           move(OnboardingStage.FINISH)
         },
       },
-    },
+    }),
   })
 }

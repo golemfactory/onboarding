@@ -55,13 +55,16 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const ref = useRef(
     createStateMachineWithContext({
       ...setup,
-      glmAdded: false,
       stage:
         initialStep === Step.CONNECT_WALLET
           ? OnboardingStage.WALLET
           : OnboardingStage.WELCOME,
       initialStep,
-      blockchain: {},
+      blockchain: {
+        isConnected() {
+          return chain !== undefined
+        },
+      },
     })
   )
 
