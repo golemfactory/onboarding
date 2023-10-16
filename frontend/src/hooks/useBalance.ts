@@ -13,10 +13,12 @@ export const useBalance = () => {
   const glmBalance = useBalanceWagmi({
     address,
     token: glmAddress,
+    watch: true,
   })
 
   const nativeBalance = useBalanceWagmi({
     address,
+    watch: true,
   })
 
   return {
