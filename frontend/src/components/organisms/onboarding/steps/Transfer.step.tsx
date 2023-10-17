@@ -26,14 +26,14 @@ const SliderMatic = ({
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
-  balance: bigint
+  balance?: bigint
   status: TxStatus
   chainId: NetworkType
 }) => {
   const sliderMaticProps = {
     min: settings.minimalBalance[getNativeToken(chainId)],
     step: 0.011,
-    max: parseFloat(formatEther(balance)).toFixed(2),
+    max: parseFloat(formatEther(balance || 0n)).toFixed(2),
     label: '',
     value: amount[TokenCategory.NATIVE],
     displayValue: (v: number) => `Transfer ${v} Matic`,
@@ -68,14 +68,14 @@ const SliderGLM = ({
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
-  balance: bigint
+  balance?: bigint
   status: TxStatus
   chainId: NetworkType
 }) => {
   const sliderMaticProps = {
     min: settings.minimalBalance[getGLMToken(chainId).symbol],
     step: 0.01,
-    max: formatBalance(balance),
+    max: formatBalance(balance || 0n),
     label: '',
     value: amount[TokenCategory.GLM],
     displayValue: (v: number) => `Transfer ${v} GLM`,

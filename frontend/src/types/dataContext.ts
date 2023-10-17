@@ -12,6 +12,7 @@ export interface WalletState {
 export type BlockchainContextData = {
   chainId?: NetworkType
   address?: EthereumAddress
+  balance: Record<TokenCategory, bigint | undefined>
 }
 
 export interface BlockchainContextDataInterface extends BlockchainContextData {

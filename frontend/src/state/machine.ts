@@ -44,6 +44,8 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
     context: {
       ...ctx,
       blockchain: {
+        address: ctx.blockchain.address,
+        balance: ctx.blockchain.balance,
         chainId: ctx.blockchain.chainId,
         //TODO : I would prefer getter here, check why it doesn't work
         isConnected() {
@@ -102,7 +104,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
 
       [Step.CHOOSE_NETWORK]: {
-        entry: [move(OnboardingStage.NETWORK)],
+        entry: [move(OnboardingStage.WALLET)],
         on: {
           [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
         },

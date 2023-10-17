@@ -16,6 +16,7 @@ import { OnboardingStage } from 'state/stages'
 import { useNetwork } from 'hooks/useNetwork'
 import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
+import { useBalance } from 'hooks/useBalance'
 
 export const OnboardingContext = createContext<{
   service: any
@@ -51,6 +52,7 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
 
   const { chain } = useNetwork()
   const { address } = useAccount()
+  const balance = useBalance()
 
   const ref = useRef(
     createStateMachineWithContext({
@@ -61,7 +63,11 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
           ? OnboardingStage.WALLET
           : OnboardingStage.WELCOME,
       initialStep,
-      blockchain: {},
+      blockchain: {
+        chainId: chain?.id,
+        address,
+        balance,
+      },
     })
   )
 
@@ -72,11 +78,14 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const service = useInterpret(ref.current)
 
   useEffect(() => {
+    console.log('CHAIN CONTEXT CHANGED')
     service.send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
-      payload: chain ? { chainId: chain.id, address } : { address },
+      payload: chain
+        ? { chainId: chain.id, address, balance }
+        : { address, balance },
     })
-  }, [chain, service])
+  }, [chain, service, balance])
 
   return (
     <OnboardingContext.Provider value={{ service }}>

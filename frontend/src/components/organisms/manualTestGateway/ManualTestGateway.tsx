@@ -119,10 +119,16 @@ export const ManualTestGateway = () => {
                 method: 'wallet_switchEthereumChain',
                 params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
               })
-
+              console.log(
+                'switched chain',
+                account,
+                `0x${storageTankJSON.address}`,
+                account?.trim() !== `0x${storageTankJSON.address.trim()}`
+              )
               if (
                 path !== BalanceCase.NO_GLM_NO_MATIC &&
-                account !== `0x${storageTankJSON.address}`
+                account?.toLocaleLowerCase() !==
+                  `0x${storageTankJSON.address.toLocaleLowerCase()}`
               ) {
                 setCurrentAccount(account as EthereumAddress)
                 setExpectedAccount(storageTankJSON.address as EthereumAddress)
