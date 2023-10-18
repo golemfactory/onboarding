@@ -46,9 +46,15 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
 
   const setup = useSetup()
 
+  //cleanup local storage
+
   const [initialStep] = useState<StepType>(
     localStorage.getItem('OnboardingStep') as StepType
   )
+
+  useEffect(() => {
+    localStorage.setItem('OnboardingStep', '')
+  }, [initialStep])
 
   const { chain } = useNetwork()
   const { address } = useAccount()
@@ -71,14 +77,10 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
     })
   )
 
-  useEffect(() => {
-    localStorage.setItem('OnboardingStep', '')
-  }, [initialStep])
-
   const service = useInterpret(ref.current)
 
+  //update state machine context so we are sure
   useEffect(() => {
-    console.log('CHAIN CONTEXT CHANGED')
     service.send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
       payload: chain

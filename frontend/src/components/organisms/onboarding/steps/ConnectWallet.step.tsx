@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { MouseEventHandler, useEffect, useState } from 'react'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { useAccount } from 'hooks/useAccount'
+import { Step } from 'state/steps'
 
 const variants = {
   show: { opacity: 1 },
@@ -54,13 +55,14 @@ export const ConnectWallet = ({
     if (done && address) {
       goToNextStep()
     }
-  }, [address, done, goToNextStep])
+  }, [done, address])
 
   return (
     <ConnectWalletPresentational
       onConfirm={() => {
         setDone(true)
         open()
+        localStorage.setItem('OnboardingStep', Step.CONNECT_WALLET)
       }}
     />
   )

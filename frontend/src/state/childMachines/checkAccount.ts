@@ -34,18 +34,12 @@ export const checkAccountBalances = async (
         getTokenByCategory(context.blockchain.chainId, TokenCategory.GLM)
       ]
 
-  console.log('is below', isBelowThresholdGLM)
-
   const isBelowThresholdNative =
     !context.blockchain.balance.NATIVE ||
     balanceToNumber(context.blockchain.balance.NATIVE) <
       settings.minimalBalance[
         getTokenByCategory(context.blockchain.chainId, TokenCategory.NATIVE)
       ]
-
-  console.log('is below', isBelowThresholdNative)
-
-  console.log('contect', JSON.parse(JSON.stringify(context)))
 
   if (isBelowThresholdGLM && isBelowThresholdNative) {
     return BalanceCase.NO_GLM_NO_MATIC

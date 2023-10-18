@@ -62,6 +62,8 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
             return {
               ...context.blockchain,
               chainId: event.payload.chainId,
+              address: event.payload.address,
+              balance: event.payload.balance,
             }
           },
         }),

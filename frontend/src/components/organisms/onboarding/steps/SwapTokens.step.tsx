@@ -68,10 +68,6 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   }
   const balance = useBalance()
 
-  if (!balance.NATIVE) {
-    throw new Error('Native token balance is not defined')
-  }
-
   const nativeToken = getNativeToken(chain.id)
 
   const minimalAmount = parseFloat(settings.minimalSwap[nativeToken])
@@ -94,7 +90,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const sliderProps = {
     min: minimalAmount,
     step: 0.01,
-    max: parseFloat(formatEther(balance.NATIVE)),
+    max: parseFloat(formatEther(balance.NATIVE || 0n)),
     label: '',
     value: amount,
     displayValue: (v: number) => `Swap ${v} Matic`,
