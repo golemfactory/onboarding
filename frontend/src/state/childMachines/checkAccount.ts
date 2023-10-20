@@ -1,10 +1,15 @@
+<<<<<<< Updated upstream
 import { ethers } from 'ethers'
 import { OnboardingContextData } from 'types/dataContext'
+=======
+import { OnboardingContextDataInterface } from 'types/dataContext'
+>>>>>>> Stashed changes
 import { BalanceCase, BalanceCaseType } from 'types/path'
 import { getBalances } from 'utils/getBalances'
 import { settings } from '../../settings'
 import { NativeTokenType, NetworkType, TokenCategory, UtilityTokenType } from 'types/ethereum'
 import { getTokenByCategory } from 'utils/getTokenByNetwrok'
+<<<<<<< Updated upstream
 import { getChainId } from 'utils/getChain'
 
 const balanceToNumber = (balance: bigint) => Number(ethers.formatEther(balance))
@@ -18,6 +23,12 @@ async function isBelowThresholdFactory(
     return balanceToNumber(balance[tokenCategory]) < minimalBalance[getTokenByCategory(network, tokenCategory)]
   }
 }
+=======
+import { formatEther } from 'viem'
+
+const balanceToNumber = (balance: bigint | undefined) =>
+  Number(formatEther(balance || 0n))
+>>>>>>> Stashed changes
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))

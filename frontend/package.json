@@ -18,6 +18,7 @@
     "generate-types": "typechain --target=ethers-v6 'src/ethereum/**/abi.json' --out-dir=src/ethereum/types"
   },
   "dependencies": {
+    "@depay/web3-mock": "^14.17.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
     "@heroicons/react": "2.0.13",
@@ -34,8 +35,11 @@
     "@xstate/react": "^3.2.2",
     "cypress": "^13.3.1",
     "debug": "^4.3.4",
+<<<<<<< Updated upstream
     "eslint-plugin-cypress": "^2.15.1",
     "ethers": "^6.7.1",
+=======
+>>>>>>> Stashed changes
     "framer-motion": "^10.16.0",
     "lodash": "^4.17.21",
     "react": "18.2.0",

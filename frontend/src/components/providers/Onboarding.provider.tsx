@@ -52,6 +52,8 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const { chain } = useNetwork()
   const { address } = useAccount()
 
+  console.log('ch', chain)
+  console.log('addres', address)
   const ref = useRef(
     createStateMachineWithContext({
       ...setup,

@@ -5,12 +5,12 @@ import { getGLMToken } from 'utils/getGLMToken'
 import { getNativeToken } from 'utils/getNativeToken'
 import { ChangeEvent, useState } from 'react'
 import { Slider } from 'components/atoms/slider/slider'
-import { formatEther } from 'ethers'
 import { useSupplyYagnaWallet } from 'hooks/useSupplyYagnaWallet'
 import { CheckmarkIcon } from 'components/atoms/icons'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { formatBalance } from 'utils/formatBalance'
+import { formatEther } from 'viem'
 
 type Amount = {
   [TokenCategory.GLM]: number

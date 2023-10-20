@@ -24,6 +24,9 @@ export default defineConfig((configEnv) => {
         themes: resolve(__dirname, 'src', 'themes'),
       },
     },
+    optimizeDeps: {
+      exclude: ['@depay/web3-mock'],
+    },
     css: {
       modules: {
         generateScopedName: isDevelopment
