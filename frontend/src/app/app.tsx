@@ -15,20 +15,24 @@ import { ErrorBoundary } from 'components/providers/ErrorBoundary'
 import { BlockchainProvider } from 'components/providers'
 import { DevPlaygroundDashboard } from 'components/organisms/DevPlaygroundDashboard'
 
+import { EtherScanProvider } from 'useEtherscan'
+
 const router = createHashRouter([
   {
     path: '/',
     errorElement: <ErrorBoundary />,
     element: (
-      <SetupProvider>
-        <BlockchainProvider>
-          <AwaitForMetamaskSDK>
-            <OnboardingProvider>
-              <OnboardingContainer />
-            </OnboardingProvider>
-          </AwaitForMetamaskSDK>
-        </BlockchainProvider>
-      </SetupProvider>
+      <EtherScanProvider>
+        <SetupProvider>
+          <BlockchainProvider>
+            <AwaitForMetamaskSDK>
+              <OnboardingProvider>
+                <OnboardingContainer />
+              </OnboardingProvider>
+            </AwaitForMetamaskSDK>
+          </BlockchainProvider>
+        </SetupProvider>
+      </EtherScanProvider>
     ),
   },
   {

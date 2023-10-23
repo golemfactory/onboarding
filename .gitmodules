@@ -1,0 +1,3 @@
+[submodule "useEtherscan"]
+	path = useEtherscan
+	url = git@github.com:pociej/useEtherscan.git
