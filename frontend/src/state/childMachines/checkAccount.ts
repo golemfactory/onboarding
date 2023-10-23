@@ -1,40 +1,20 @@
-<<<<<<< Updated upstream
-import { ethers } from 'ethers'
-import { OnboardingContextData } from 'types/dataContext'
-=======
 import { OnboardingContextDataInterface } from 'types/dataContext'
->>>>>>> Stashed changes
 import { BalanceCase, BalanceCaseType } from 'types/path'
-import { getBalances } from 'utils/getBalances'
 import { settings } from '../../settings'
-import { NativeTokenType, NetworkType, TokenCategory, UtilityTokenType } from 'types/ethereum'
+import { TokenCategory } from 'types/ethereum'
 import { getTokenByCategory } from 'utils/getTokenByNetwrok'
-<<<<<<< Updated upstream
-import { getChainId } from 'utils/getChain'
-
-const balanceToNumber = (balance: bigint) => Number(ethers.formatEther(balance))
-
-async function isBelowThresholdFactory(
-  minimalBalance: Record<NativeTokenType | UtilityTokenType, number>,
-  network: NetworkType
-) {
-  const balance = await getBalances()
-  return function isBelowThreshold(tokenCategory: TokenCategory) {
-    return balanceToNumber(balance[tokenCategory]) < minimalBalance[getTokenByCategory(network, tokenCategory)]
-  }
-}
-=======
 import { formatEther } from 'viem'
 
 const balanceToNumber = (balance: bigint | undefined) =>
   Number(formatEther(balance || 0n))
->>>>>>> Stashed changes
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const checkAccountBalances = async (context: OnboardingContextData): Promise<BalanceCaseType | undefined> => {
+export const checkAccountBalances = async (
+  context: OnboardingContextDataInterface
+): Promise<BalanceCaseType | undefined> => {
   //to make sure loader is not blinking
 
   delay(1000)
@@ -42,10 +22,24 @@ export const checkAccountBalances = async (context: OnboardingContextData): Prom
   if (context.balanceCase) {
     return context.balanceCase
   }
-  const isBelowThreshold = await isBelowThresholdFactory(settings.minimalBalance, getChainId())
 
-  const isBelowThresholdGLM = isBelowThreshold(TokenCategory.GLM)
-  const isBelowThresholdNative = isBelowThreshold(TokenCategory.NATIVE)
+  if (!context.blockchain.chainId) {
+    throw new Error('checkAccountBalances: blockchain is not connected')
+  }
+
+  const isBelowThresholdGLM =
+    !context.blockchain.balance.GLM ||
+    balanceToNumber(context.blockchain.balance.GLM) <
+      settings.minimalBalance[
+        getTokenByCategory(context.blockchain.chainId, TokenCategory.GLM)
+      ]
+
+  const isBelowThresholdNative =
+    !context.blockchain.balance.NATIVE ||
+    balanceToNumber(context.blockchain.balance.NATIVE) <
+      settings.minimalBalance[
+        getTokenByCategory(context.blockchain.chainId, TokenCategory.NATIVE)
+      ]
 
   if (isBelowThresholdGLM && isBelowThresholdNative) {
     return BalanceCase.NO_GLM_NO_MATIC

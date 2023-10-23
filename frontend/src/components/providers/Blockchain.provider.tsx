@@ -4,9 +4,12 @@ import { createPublicClient, custom } from 'viem'
 import { polygon, polygonMumbai, mainnet } from 'wagmi/chains'
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 
+//@ts-ignore
 import { mock } from '@depay/web3-mock'
 
 //...
+
+console.log('co kurwa', createConfig)
 
 mock({
   blockchain: 'ethereum',
