@@ -8,7 +8,7 @@ export default defineConfig((configEnv) => {
     define: {
       APP_VERSION: JSON.stringify(process?.env?.npm_package_version),
     },
-    base: '/onboarding#/',
+    base: '/onboarding_staging#/',
     plugins: [react()],
     resolve: {
       alias: {
