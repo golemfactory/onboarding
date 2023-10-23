@@ -2,7 +2,7 @@ name: github pages production deploy
 on:
   push:
     # Only staging branch is deployed on github pages
-    branches: ["main"]
+    branches: ["release"]
   #enable manual run
   workflow_dispatch:
 permissions:
