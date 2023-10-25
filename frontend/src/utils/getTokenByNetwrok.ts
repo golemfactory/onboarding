@@ -1,5 +1,13 @@
-import { NativeTokenType, Network, NetworkType, Token, TokenCategory, UtilityTokenType } from 'types/ethereum'
+import {
+  NativeTokenType,
+  Network,
+  NetworkType,
+  Token,
+  TokenCategory,
+  UtilityTokenType,
+} from 'types/ethereum'
 
+//TODO : move to hook
 export const getTokenByCategory = (
   network: NetworkType,
   tokenCategory: TokenCategory
@@ -12,12 +20,21 @@ export const getTokenByCategory = (
         case TokenCategory.GLM:
           return Token.GLM_MUMBAI
       }
+      break
     case Network.POLYGON:
       switch (tokenCategory) {
         case TokenCategory.NATIVE:
           return Token.MATIC_POLYGON
         case TokenCategory.GLM:
           return Token.GLM_POLYGON
+      }
+      break
+    case Network.MAINNET:
+      switch (tokenCategory) {
+        case TokenCategory.NATIVE:
+          return Token.ETH_MAINNET
+        case TokenCategory.GLM:
+          return Token.GLM_MAINNET
       }
   }
 }
