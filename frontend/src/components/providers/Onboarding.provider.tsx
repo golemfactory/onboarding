@@ -17,6 +17,8 @@ import { useNetwork } from 'hooks/useNetwork'
 import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { set } from 'lodash'
 
 export const OnboardingContext = createContext<{
   service: any
@@ -79,6 +81,20 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
 
   const service = useInterpret(ref.current)
 
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  service.onTransition((state) => {
+    if (state.changed && state.value !== Step.WELCOME) {
+      setTimeout(() => {
+        console.log('czy kogos pojebalo')
+        const searchParams = new URLSearchParams(window.location.search)
+        searchParams.set('step', String(state.value))
+        const newUrl = `${location.pathname}?${searchParams.toString()}`
+        navigate(newUrl)
+      }, 1000)
+    }
+  })
   //update state machine context so we are sure
   useEffect(() => {
     service.send({
