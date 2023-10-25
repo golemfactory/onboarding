@@ -55,6 +55,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
     },
     id: 'onboarding',
     initial: ctx.initialStep || Step.WELCOME,
+
     entry: (ctx) => {
       console.log('entry', ctx)
     },
