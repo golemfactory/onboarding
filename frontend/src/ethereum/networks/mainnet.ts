@@ -10,4 +10,5 @@ export const MAINNET: INetwork = {
     symbol: 'MATIC',
     decimals: 18,
   },
+  isProduction: true,
 }
