@@ -2,10 +2,11 @@ import { TokenCategory } from 'types/ethereum'
 import { useSendNativeToken } from './useSendNativeToken'
 import { useSetup } from './useSetup'
 import { parseEther } from 'viem'
+import { useSendGLMs } from './useSendGLMs'
 
 export const useSupplyYagnaWallet = () => {
   const { send: sendNative, status: nativeStatus } = useSendNativeToken()
-  const { send: sendGolem, status: golemStatus } = useSendNativeToken()
+  const { send: sendGolem, status: golemStatus } = useSendGLMs()
 
   const { yagnaAddress } = useSetup()
 
@@ -21,6 +22,7 @@ export const useSupplyYagnaWallet = () => {
       to: yagnaAddress,
       value: BigInt(parseEther(amount[TokenCategory.GLM].toString())),
     })
+
     await sendNative({
       to: yagnaAddress,
       value: BigInt(parseEther(amount[TokenCategory.NATIVE].toString())),
