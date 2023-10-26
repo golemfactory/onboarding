@@ -11,6 +11,8 @@
   "scripts": {
     "dev:start": "vite",
     "build": "vite build",
+    "build-staging": "vite build --mode staging",
+    "build-production": "vite build --mode production",
     "test": "jest",
     "dev:storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
