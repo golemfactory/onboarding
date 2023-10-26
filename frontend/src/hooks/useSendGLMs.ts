@@ -12,12 +12,12 @@ export const useSendGLMs = () => {
   const [status, setStatus] = useState<TxStatus>(TxStatus.READY)
 
   //TODO : what is 'isIdle'
-  const { isSuccess, isError, isIdle, isLoading, write } = useContractWrite({
-    address: chain?.id ? getGLMToken(chain.id).address : undefined,
-    abi: erc20abi,
-    functionName: 'transfer',
-  })
-
+  const { isSuccess, isError, isIdle, isLoading, writeAsync } =
+    useContractWrite({
+      address: chain?.id ? getGLMToken(chain.id).address : undefined,
+      abi: erc20abi,
+      functionName: 'transfer',
+    })
   useEffect(() => {
     if (isSuccess) {
       setStatus(TxStatus.SUCCESS)
@@ -26,7 +26,7 @@ export const useSendGLMs = () => {
       setStatus(TxStatus.ERROR)
     }
     if (isIdle) {
-      setStatus(TxStatus.PENDING)
+      setStatus(TxStatus.READY)
     }
     if (isLoading) {
       setStatus(TxStatus.PENDING)
@@ -35,6 +35,10 @@ export const useSendGLMs = () => {
 
   return {
     status,
-    send: write,
+    send: async ({ to, value }: { to: string; value: bigint }) => {
+      await writeAsync({
+        args: [to, value],
+      })
+    },
   }
 }
