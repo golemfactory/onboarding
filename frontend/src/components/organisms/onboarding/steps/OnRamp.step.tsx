@@ -117,7 +117,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         hostAppName: 'onboarding',
         hostLogoUrl: `${window.location.origin}/onboarding/logo.svg`,
         hostApiKey: import.meta.env.VITE_RAMP_KEY,
-        url: 'https://app.ramp.network',
+        url: import.meta.env.VITE_RAMP_API_URL,
         swapAsset: 'MATIC_MATIC',
         fiatValue: '10',
         fiatCurrency: 'EUR',
