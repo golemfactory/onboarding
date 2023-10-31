@@ -15,17 +15,29 @@ import { Slider, ISliderProps } from 'components/atoms/slider/slider'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
-import { formatEther, parseUnits } from 'viem'
+import { useSwapOut } from 'hooks/useSwapOut'
+import { formatEther } from 'utils/formatEther'
+import { parseUnits } from 'viem'
 
 const SwapTokensPresentational = ({
   onSwapButtonClick,
   sliderProps,
+  amountOut,
 }: {
   onSwapButtonClick: () => void
   sliderProps: ISliderProps
+  amountOut: bigint
 }) => {
   const [isLoading, setIsLoading] = useState(false)
 
+  const [glmOut, setGlmOut] = useState('')
+
+  useEffect(() => {
+    if (amountOut) {
+      const newAmount = formatEther({ wei: amountOut || 0n, precision: 4 })
+      setGlmOut(newAmount)
+    }
+  }, [amountOut])
   const handleSwapButtonClick = async () => {
     setIsLoading(true)
     await onSwapButtonClick()
@@ -40,12 +52,16 @@ const SwapTokensPresentational = ({
         have GLM
         <Slider {...sliderProps} />
       </motion.div>
+      <motion.div className={onboardingStyle.description} variants={variants}>
+        You will receive {glmOut} GLM
+      </motion.div>
       <motion.button
         className={buttonStyle.primaryButton}
         variants={variants}
         onClick={handleSwapButtonClick}
         disabled={isLoading}
       >
+        <div></div>
         {isLoading ? (
           <div className="flex justify-center items-center ">
             <div className="relative">
@@ -76,6 +92,18 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   // debounce to prevent too many preparations
   const debouncedAmount = useDebounce<number>(amount, 500)
 
+  //keep separated debounced amount to prevent too many rpc calls
+
+  //NOTE : it is interesting  to compare two approaches
+  //TODO
+  // 1. useSwapOut that exports setter of value
+  // 2. useSwapEthForGlm that takes argument in hook
+
+  const { data: amountOut, setAmountIn } = useSwapOut()
+
+  useEffect(() => {
+    setAmountIn(parseUnits(debouncedAmount.toString(), 18))
+  }, [debouncedAmount, setAmountIn])
   const { swap, isSuccess } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
@@ -90,7 +118,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const sliderProps = {
     min: minimalAmount,
     step: 0.01,
-    max: parseFloat(formatEther(balance.NATIVE || 0n)),
+    max: parseFloat(formatEther({ wei: balance.NATIVE || 0n })),
     label: '',
     value: amount,
     displayValue: (v: number) => `Swap ${v} Matic`,
@@ -107,6 +135,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
         onSwapButtonClick={async () => {
           swap?.()
         }}
+        amountOut={amountOut?.[1]}
       />
     </div>
   )

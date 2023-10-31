@@ -78,6 +78,7 @@ export interface INetwork {
   rpcUrls: string[]
   blockExplorerUrls: string[]
   nativeCurrency: INativeToken
+  isProduction: boolean
 }
 
 export function assertEthereumAddress(

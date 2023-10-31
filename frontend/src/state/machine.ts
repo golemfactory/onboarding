@@ -74,7 +74,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       [Step.TRANSFER]: {
         entry: move(OnboardingStage.YAGNA),
         on: {
-          [Commands.NEXT]: Step.WELCOME,
+          [Commands.NEXT]: Step.FINISH,
         },
       },
 
@@ -144,6 +144,15 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
                 return event.data === BalanceCase.NO_GLM_NO_MATIC
               },
               actions: move(OnboardingStage.MATIC),
+            },
+            {
+              target: Step.TRANSFER,
+              cond: (_context, event) => {
+                return (
+                  event.data === BalanceCase.BOTH && !!_context.yagnaAddress
+                )
+              },
+              actions: move(OnboardingStage.YAGNA),
             },
             {
               target: Step.FINISH,

@@ -4,7 +4,7 @@ import { EthereumAddress, NetworkType, TokenCategory } from './ethereum'
 import { OnboardingStageType } from 'state/stages'
 
 export interface WalletState {
-  accounts: any[]
+  accounts: unknown[]
   balance: Record<TokenCategory, bigint>
   chainId: string
 }
@@ -27,6 +27,7 @@ export type OnboardingContextData = {
   stage: OnboardingStageType
   initialStep: string
   blockchain: BlockchainContextData
+  yagnaAddress?: string
 }
 
 export interface OnboardingContextDataInterface extends OnboardingContextData {

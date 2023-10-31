@@ -10,4 +10,5 @@ export const MUMBAI: INetwork = {
     symbol: 'MATIC',
     decimals: 18,
   },
+  isProduction: false,
 }
