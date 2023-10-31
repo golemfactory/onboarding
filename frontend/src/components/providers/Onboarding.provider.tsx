@@ -17,13 +17,12 @@ import { useNetwork } from 'hooks/useNetwork'
 import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { set } from 'lodash'
+import { useUpdateQueryStringValueWithoutReload } from 'hooks/useUpdateQueryStringWithoutReload'
 
 export const OnboardingContext = createContext<{
-  service: any
+  service: unknown
 }>({
-  service: {} as any,
+  service: {} as unknown,
 })
 
 export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
@@ -61,7 +60,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
-
   const ref = useRef(
     createStateMachineWithContext({
       ...setup,
@@ -70,7 +68,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
         initialStep === Step.CONNECT_WALLET
           ? OnboardingStage.WALLET
           : OnboardingStage.WELCOME,
-      initialStep,
       blockchain: {
         chainId: chain?.id,
         address,
@@ -79,23 +76,15 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
     })
   )
 
-  const service = useInterpret(ref.current)
+  const [step, setStep] = useState<string>(Step.WELCOME)
 
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  service.onTransition((state) => {
-    if (state.changed && state.value !== Step.WELCOME) {
-      setTimeout(() => {
-        console.log('czy kogos pojebalo')
-        const searchParams = new URLSearchParams(window.location.search)
-        searchParams.set('step', String(state.value))
-        const newUrl = `${location.pathname}?${searchParams.toString()}`
-        navigate(newUrl)
-      }, 1000)
-    }
+  const service = useInterpret(ref.current, {}, (state) => {
+    setStep(String(state.value))
   })
-  //update state machine context so we are sure
+
+  useUpdateQueryStringValueWithoutReload('step', step)
+
+  //update state machine context so we are sure we keep machine in sync with the blockchain context
   useEffect(() => {
     service.send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
