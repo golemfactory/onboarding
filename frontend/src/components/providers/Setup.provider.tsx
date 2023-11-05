@@ -1,8 +1,7 @@
+import { Network } from 'ethereum/networks/types'
 import { PropsWithChildren, createContext, useContext, useMemo } from 'react'
-import { StepType } from 'state/steps'
-import { EthereumAddress } from 'types/ethereum'
-import { BalanceCaseType } from 'types/path'
-import { assertProperSetup } from 'types/setup'
+
+import { assertProperSetup, SetupContextData } from 'types/setup'
 
 function useQuery() {
   const search = window.location.search
@@ -10,17 +9,21 @@ function useQuery() {
   return useMemo(() => new URLSearchParams(search), [search])
 }
 
-type SetupContextData = {
-  yagnaAddress?: EthereumAddress
-  balanceCase?: BalanceCaseType
-  skipSteps?: StepType[]
+function queryToSetup(query: URLSearchParams): SetupContextData {
+  console.log('s', query)
+  const result = Object.fromEntries(query)
+  console.log('re', result)
+  result.network =
+    Network[query.get('network') as keyof typeof Network] ||
+    query.get('network')
+  return result
 }
 
 export const SetupContext = createContext<SetupContextData>({})
 
 const useSetupParams = () => {
   const query = useQuery()
-  const setup = Object.fromEntries(query)
+  const setup = queryToSetup(query)
   assertProperSetup(setup)
   return setup
 }

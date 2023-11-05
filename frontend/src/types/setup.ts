@@ -1,6 +1,18 @@
 import { Step, StepType } from 'state/steps'
-import { EthereumAddress, assertEthereumAddress } from './ethereum'
+import {
+  EthereumAddress,
+  Network,
+  NetworkType,
+  assertEthereumAddress,
+} from './ethereum'
 import { BalanceCase, BalanceCaseType } from './path'
+
+export type SetupContextData = {
+  yagnaAddress?: EthereumAddress
+  balanceCase?: BalanceCaseType
+  skipSteps?: StepType[]
+  network?: NetworkType
+}
 
 export function assertBalanceCaseType(
   x: unknown
@@ -16,6 +28,12 @@ export function assertStep(x: unknown): asserts x is StepType {
   }
 }
 
+export function assertNetworkType(x: unknown): asserts x is NetworkType {
+  if (!Object.values(Network).find((v) => v === x)) {
+    throw new Error(`Invalid network type ${x}`)
+  }
+}
+
 export function assertStepsArray(x: unknown): asserts x is StepType[] {
   if (!Array.isArray(x)) {
     throw new Error('Invalid steps array')
@@ -23,24 +41,19 @@ export function assertStepsArray(x: unknown): asserts x is StepType[] {
   x.forEach((step) => assertStep(step))
 }
 
-type SetupContextData = {
-  yagnaAddress?: EthereumAddress
-  balanceCase?: BalanceCaseType
-  skipSteps?: StepType[]
-}
-
+//TODO : use zod
 export function assertProperSetup(
   x: Record<string, unknown>
 ): asserts x is SetupContextData {
   const keys = Object.keys(x)
 
-  if (keys.length > 3) {
-    throw new Error('Invalid setup context data')
-  }
-
+  //get rid of this stupid implementation
   const invalidKey = keys.find(
     (key) =>
-      key !== 'yagnaAddress' && key !== 'balanceCase' && key !== 'skipSteps'
+      key !== 'yagnaAddress' &&
+      key !== 'balanceCase' &&
+      key !== 'skipSteps' &&
+      key !== 'network'
   )
 
   if (invalidKey) {
@@ -57,5 +70,10 @@ export function assertProperSetup(
 
   if (x.skipSteps) {
     assertStepsArray(x.skipSteps)
+  }
+
+  if (x.network) {
+    console.log('hell' + x.network)
+    assertNetworkType(x.network)
   }
 }
