@@ -26,7 +26,7 @@ const SliderMatic = ({
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
-  balance?: bigint
+  balance: bigint | number
   status: TxStatus
   chainId: NetworkType
 }) => {
@@ -42,11 +42,10 @@ const SliderMatic = ({
       setAmount({ ...amount, [TokenCategory.NATIVE]: value })
     },
   }
-
   return status === TxStatus.READY ? (
     <Slider {...sliderMaticProps} />
   ) : status === TxStatus.PENDING ? (
-    <div className="flex  border-2">
+    <div className="flex">
       <div className="relative flex items-center">
         <div className="animate-spin mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
         <div className="ml-2">{`Transferring ${
@@ -55,7 +54,14 @@ const SliderMatic = ({
       </div>
     </div>
   ) : (
-    <div>Transferred ${amount[TokenCategory.NATIVE]} Matic</div>
+    <div>
+      <div>
+        <p className="flex ">
+          <CheckmarkIcon className="mr-4" /> Transferred{' '}
+          {amount[TokenCategory.NATIVE]} MATIC
+        </p>
+      </div>
+    </div>
   )
 }
 
@@ -68,14 +74,14 @@ const SliderGLM = ({
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
-  balance?: bigint
+  balance: bigint | number
   status: TxStatus
   chainId: NetworkType
 }) => {
   const sliderMaticProps = {
     min: settings.minimalBalance[getGLMToken(chainId).symbol],
     step: 0.01,
-    max: formatBalance(balance || 0n),
+    max: formatBalance(BigInt(balance) || 0n),
     label: '',
     value: amount[TokenCategory.GLM],
     displayValue: (v: number) => `Transfer ${v} GLM`,
@@ -100,12 +106,16 @@ const SliderGLM = ({
     <div>
       <div>
         <p className="flex ">
-          <CheckmarkIcon className="mr-4" /> Transferred $
-          {amount[TokenCategory.NATIVE]} Matic
+          <CheckmarkIcon className="mr-4" /> Transferred{' '}
+          {amount[TokenCategory.GLM]} GLM
         </p>
       </div>
     </div>
   )
+}
+
+async function sleep(time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time))
 }
 
 export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
@@ -128,6 +138,7 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
   const onConfirm = async () => {
     await send(amount)
+    await sleep(2000)
     goToNextStep()
   }
 

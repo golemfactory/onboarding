@@ -17,7 +17,7 @@ const NotSupportedPresentational = ({
         Gasless swap not supported yet
       </motion.h1>
       <motion.p className={onboardingStyle.description} variants={variants}>
-        We will temporary redirect you to the Ramp to exachange fiat to Matic
+        We will temporary redirect you to the Ramp to exchange fiat to Matic
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
