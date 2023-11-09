@@ -14,6 +14,7 @@ import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
 export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
   const { chain } = useNetwork()
   if (!chain) throw new Error('Chain is not defined')
+  //TODO : move to hook
   const contracts = getContracts(chain.id)
   const { address: to } = useAccount()
   const { config, isError: isErrorPrepare } = usePrepareContractWrite({
@@ -34,6 +35,8 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
   const { isSuccess, isError: isErrorTransaction } = useWaitForTransaction({
     hash: data?.hash,
   })
+
+  console.log('s', isSuccess, isErrorPrepare, isErrorTransaction)
 
   return {
     swap: write,

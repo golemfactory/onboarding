@@ -19,9 +19,9 @@ import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
 
 export const OnboardingContext = createContext<{
-  service: any
+  service: unknown
 }>({
-  service: {} as any,
+  service: {} as unknown,
 })
 
 export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
