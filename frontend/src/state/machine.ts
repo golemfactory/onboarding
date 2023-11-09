@@ -184,10 +184,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
       [Step.SWAP]: {
         on: {
-          [Commands.NEXT]: {
-            target: Step.FINISH,
-            actions: move(OnboardingStage.FINISH),
-          },
+          [Commands.NEXT]: Step.TRANSFER,
         },
       },
       [Step.FINISH]: {
