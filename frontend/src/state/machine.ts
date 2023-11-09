@@ -54,7 +54,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
     },
     id: 'onboarding',
-    initial: ctx.initialStep || Step.WELCOME,
+    initial: ctx.initialStep || Step.TRANSFER,
     on: {
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({

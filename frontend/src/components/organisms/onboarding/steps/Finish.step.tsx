@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { GolemIcon, MaticIcon } from 'components/atoms/icons'
 import { useBalance } from 'hooks/useBalance'
 import { formatBalance } from 'utils/formatBalance'
+import { useSetup } from 'components/providers'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -54,6 +55,7 @@ const FinishPresentational = ({
 }
 
 export const Finish = () => {
-  const balance = useBalance()
+  const { yagnaAddress } = useSetup()
+  const balance = useBalance(yagnaAddress)
   return <FinishPresentational balance={balance} />
 }

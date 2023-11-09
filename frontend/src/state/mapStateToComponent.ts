@@ -5,9 +5,7 @@ import {
   ConnectWallet,
   ChooseNetwork,
   OnRamp,
-  WalletIntro,
   SwapTokens,
-  NoProviderWrapped,
   NotSupported,
   Finish,
   AddGLM,
@@ -15,14 +13,12 @@ import {
   Transfer,
 } from 'components/organisms/onboarding'
 
-const componentByStep: Record<StepType, any> = {
+const componentByStep: Record<StepType, unknown> = {
   [Step.WELCOME]: Welcome,
   [Step.CONNECT_WALLET_SUCCESS]: ChooseNetwork,
   [Step.CONNECT_WALLET]: ConnectWallet,
-  [Step.SHOW_METAMASK_LINK]: NoProviderWrapped,
   [Step.CHOOSE_NETWORK]: ChooseNetwork,
   [Step.ON_RAMP]: OnRamp,
-  [Step.WALLET_INTRO]: WalletIntro,
   [Step.DETECT_METAMASK]: LoadingSpinner,
   [Step.CHECK_ACCOUNT_BALANCES]: LoadingSpinner,
   [Step.SWAP]: SwapTokens,
