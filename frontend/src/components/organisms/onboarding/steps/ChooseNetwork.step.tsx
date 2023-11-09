@@ -35,11 +35,10 @@ const ChooseNetworkPresentational = ({
       </motion.p>
       <motion.div variants={variants}>
         <select onChange={onNetworkSelection} value={selectedNetwork}>
-          {Object.keys(networks).map((network) => {
-            const networkId = network as NetworkType
+          {networks.map((network) => {
             return (
-              <option key={networkId} value={networkId}>
-                {networks[networkId].chainName}
+              <option key={network.chainId} value={network.chainId}>
+                {network.chainName}
               </option>
             )
           })}
@@ -73,6 +72,7 @@ export const ChooseNetwork = ({
   const { switchNetworkAsync } = useSwitchNetwork()
 
   const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value)
     setSelectedNetwork(e.target.value as NetworkType)
   }
 

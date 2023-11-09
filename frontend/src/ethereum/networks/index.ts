@@ -16,7 +16,7 @@ export const productionNetworks = Object.values(allNetworks).filter(
   (network) => network.isProduction
 )
 
-const networks =
-  import.meta.env.MODE === 'production' ? productionNetworks : allNetworks
+const networks = productionNetworks
+// import.meta.env.MODE === 'production' ? productionNetworks : allNetworks
 
 export { networks, MUMBAI, POLYGON }

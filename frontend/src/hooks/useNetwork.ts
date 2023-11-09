@@ -33,7 +33,6 @@ export const useNetwork = (): Omit<GetNetworkResult, 'chain' | 'chains'> & {
   chains: Chain[]
 } => {
   const network = useNetworkWagmi()
-
   let chain = undefined
 
   if (network.chain) {
