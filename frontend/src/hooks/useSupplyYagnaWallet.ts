@@ -5,7 +5,6 @@ import { parseEther } from 'viem'
 import { useSendGLMs } from './useSendGLMs'
 
 export const useSupplyYagnaWallet = () => {
-  console.log('here')
   const { send: sendNative, status: nativeStatus } = useSendNativeToken()
   const { send: sendGolem, status: golemStatus } = useSendGLMs()
 
@@ -15,7 +14,6 @@ export const useSupplyYagnaWallet = () => {
     throw new Error('Yagna address is not set')
   }
 
-  console.log('ff', golemStatus)
   const send = async (amount: {
     [TokenCategory.GLM]: number
     [TokenCategory.NATIVE]: number

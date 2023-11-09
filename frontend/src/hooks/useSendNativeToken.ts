@@ -39,6 +39,7 @@ export const useSendNativeToken = () => {
         throw new Error('No hash returned from sendTransaction')
       }
 
+      console.log('before wait')
       // wait for transaction to be included
       await publicClient?.waitForTransactionReceipt({
         hash,
