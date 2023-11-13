@@ -36,7 +36,7 @@ const ChooseNetworkPresentational = ({
       <motion.div variants={variants}>
         <select onChange={onNetworkSelection} value={selectedNetwork}>
           {Object.keys(networks).map((network) => {
-            const networkId = network as NetworkType
+            const networkId = network as keyof typeof networks
             return (
               <option key={networkId} value={networkId}>
                 {networks[networkId].chainName}

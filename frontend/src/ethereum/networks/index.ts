@@ -12,9 +12,10 @@ const allNetworks = {
   [Network.MAINNET]: MAINNET,
 }
 
-export const productionNetworks = Object.values(allNetworks).filter(
-  (network) => network.isProduction
-)
+const productionNetworks = {
+  [Network.POLYGON]: POLYGON,
+  [Network.MAINNET]: MAINNET,
+}
 
 const networks =
   import.meta.env.MODE === 'production' ? productionNetworks : allNetworks

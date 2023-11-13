@@ -54,6 +54,9 @@
       ],
       "themes" : [
         "src/themes/*"
+      ],
+      "constans" : [
+        "src/constans/*"
       ]
     }
   },

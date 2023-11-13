@@ -114,6 +114,11 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
       debug('creating widget')
 
+      console.log(
+        'creating widget',
+        import.meta.env.VITE_RAMP_KEY,
+        import.meta.env.VITE_RAMP_API_URL
+      )
       widgetRef.current = new RampInstantSDK({
         hostAppName: 'onboarding',
         hostLogoUrl: `${window.location.href}/logo.svg`,

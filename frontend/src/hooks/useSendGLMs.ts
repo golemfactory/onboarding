@@ -1,4 +1,4 @@
-import { useContractWrite } from 'wagmi'
+import { useContractWrite, usePublicClient } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { erc20abi } from 'ethereum/contracts'
 import { getGLMToken } from 'utils/getGLMToken'
@@ -8,25 +8,30 @@ import { useEffect, useState } from 'react'
 
 export const useSendGLMs = () => {
   const { chain } = useNetwork()
+  const publicClient = usePublicClient()
 
-  const [status, setStatus] = useState<TxStatus>(TxStatus.READY)
-
+  const [status, setStatus] = useState(TxStatus.READY)
   //TODO : what is 'isIdle'
-  const { isSuccess, isError, isIdle, isLoading, writeAsync } =
+  const { data, isSuccess, isError, isIdle, isLoading, writeAsync } =
     useContractWrite({
       address: chain?.id ? getGLMToken(chain.id).address : undefined,
       abi: erc20abi,
       functionName: 'transfer',
     })
+
+  if (data?.hash) {
+    publicClient
+      ?.waitForTransactionReceipt({
+        hash: data?.hash,
+      })
+      .then(() => {
+        setStatus(TxStatus.SUCCESS)
+      })
+  }
+
   useEffect(() => {
-    if (isSuccess) {
-      setStatus(TxStatus.SUCCESS)
-    }
     if (isError) {
       setStatus(TxStatus.ERROR)
-    }
-    if (isIdle) {
-      setStatus(TxStatus.READY)
     }
     if (isLoading) {
       setStatus(TxStatus.PENDING)

@@ -6,20 +6,17 @@ import {
   ChooseNetwork,
   OnRamp,
   SwapTokens,
-  NoProviderWrapped,
   NotSupported,
   Finish,
   AddGLM,
   ChooseWallet,
   Transfer,
 } from 'components/organisms/onboarding'
-import { ComponentType } from 'react'
-
-const componentByStep: Record<StepType, ComponentType<never>> = {
+import React from 'react'
+const componentByStep: Record<StepType, React.ElementType> = {
   [Step.WELCOME]: Welcome,
   [Step.CONNECT_WALLET_SUCCESS]: ChooseNetwork,
   [Step.CONNECT_WALLET]: ConnectWallet,
-  [Step.SHOW_METAMASK_LINK]: NoProviderWrapped,
   [Step.CHOOSE_NETWORK]: ChooseNetwork,
   [Step.ON_RAMP]: OnRamp,
   [Step.DETECT_METAMASK]: LoadingSpinner,

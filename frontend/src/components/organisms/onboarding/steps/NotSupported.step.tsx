@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
 import onboardingStyle from '../Onboarding.module.css'
-import { use0x } from 'hooks/use0x'
-
+import { useSwapGlmForGas } from 'hooks/useSwapGlmForGas'
+import { use0x } from 'hooks/0x/use0x'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -41,7 +41,8 @@ export const NotSupported = ({
 }: {
   goToNextStep: MouseEventHandler
 }) => {
-  const { swap } = use0x()
-
+  const { swap } = useSwapGlmForGas()
+  // const { swap, swapSubmit } = use0x()
+  // window.swap = swapSubmit
   return <NotSupportedPresentational onConfirm={goToNextStep} swap={swap} />
 }

@@ -10,6 +10,9 @@ export default defineConfig((configEnv) => {
     },
     base: '/onboarding_staging#/',
     plugins: [react()],
+    optimizeDeps: {
+      exclude: ['@noble/curves'],
+    },
     resolve: {
       alias: {
         app: resolve(__dirname, 'src', 'app'),
@@ -22,6 +25,7 @@ export default defineConfig((configEnv) => {
         assets: resolve(__dirname, 'src', 'assets'),
         settings: resolve(__dirname, 'src', 'settings'),
         themes: resolve(__dirname, 'src', 'themes'),
+        constants: resolve(__dirname, 'src', 'constants'),
       },
     },
     css: {
