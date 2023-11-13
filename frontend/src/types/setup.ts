@@ -23,7 +23,7 @@ export function assertStepsArray(x: unknown): asserts x is StepType[] {
   x.forEach((step) => assertStep(step))
 }
 
-type SetupContextData = {
+export type SetupContextData = {
   yagnaAddress?: EthereumAddress
   balanceCase?: BalanceCaseType
   skipSteps?: StepType[]
