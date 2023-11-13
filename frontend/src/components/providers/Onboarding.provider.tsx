@@ -17,6 +17,7 @@ import { useNetwork } from 'hooks/useNetwork'
 import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
+import { useUpdateQueryStringValueWithoutReload } from 'hooks/useUpdateQueryStringWithoutReload'
 
 export const OnboardingContext = createContext<{
   service: unknown
@@ -59,7 +60,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
-
   const ref = useRef(
     createStateMachineWithContext({
       ...setup,
@@ -68,7 +68,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
         initialStep === Step.CONNECT_WALLET
           ? OnboardingStage.WALLET
           : OnboardingStage.WELCOME,
-      initialStep,
       blockchain: {
         chainId: chain?.id,
         address,
@@ -77,9 +76,15 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
     })
   )
 
-  const service = useInterpret(ref.current)
+  const [step, setStep] = useState<string>(Step.WELCOME)
 
-  //update state machine context so we are sure
+  const service = useInterpret(ref.current, {}, (state) => {
+    setStep(String(state.value))
+  })
+
+  useUpdateQueryStringValueWithoutReload('step', step)
+
+  //update state machine context so we are sure we keep machine in sync with the blockchain context
   useEffect(() => {
     service.send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
