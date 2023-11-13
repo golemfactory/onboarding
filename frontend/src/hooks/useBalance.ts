@@ -22,7 +22,7 @@ export const useBalance = (addr?: EthereumAddress) => {
   })
 
   return {
-    [TokenCategory.GLM]: glmBalance.data?.value ?? 0,
-    [TokenCategory.NATIVE]: nativeBalance.data?.value ?? 0,
+    [TokenCategory.GLM]: glmBalance.data?.value ?? 0n,
+    [TokenCategory.NATIVE]: nativeBalance.data?.value ?? 0n,
   }
 }

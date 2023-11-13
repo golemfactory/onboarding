@@ -13,7 +13,7 @@ import { settings } from 'settings'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { getTokenByCategory } from 'utils/getTokenByNetwrok'
-import { TokenCategory } from 'types/ethereum'
+import { Network, TokenCategory } from 'types/ethereum'
 // import onboardingStyle from '../Onboarding.module.css'
 
 const log = debug('onboarding:steps:onramp')
@@ -106,7 +106,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         debug(err)
       }
     }
-  }, [balance])
+  }, [balance, chain?.id])
 
   useEffect(() => {
     if (address && !done) {
@@ -119,7 +119,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         hostLogoUrl: `${window.location.href}/logo.svg`,
         hostApiKey: import.meta.env.VITE_RAMP_KEY,
         url: import.meta.env.VITE_RAMP_API_URL,
-        swapAsset: 'MATIC_MATIC',
+        swapAsset: chain.id === Network.MAINNET ? 'ETH_ETH' : 'MATIC_MATIC',
         fiatValue: '10',
         fiatCurrency: 'EUR',
         userAddress: address,

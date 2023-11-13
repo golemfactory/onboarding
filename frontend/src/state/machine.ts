@@ -54,12 +54,8 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
     },
     id: 'onboarding',
-<<<<<<< HEAD
     initial: ctx.step || Step.WELCOME,
 
-=======
-    initial: ctx.initialStep || Step.TRANSFER,
->>>>>>> hotfix/yagna_transfer
     on: {
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
