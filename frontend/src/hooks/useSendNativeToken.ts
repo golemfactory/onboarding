@@ -33,10 +33,21 @@ export const useSendNativeToken = () => {
         throw new Error('No hash returned from sendTransaction')
       }
 
-      log('before wait')
+      log('before wait', publicClient)
+
+      const interval = setInterval(() => {
+        log('interval')
+        publicClient.getTransactionReceipt({ hash }).then((receipt) => {
+          log('receipt', receipt.status)
+          if (receipt.status === 'success') {
+            clearInterval(interval)
+            log('clear interval')
+          }
+        })
+      }, 1000)
       // wait for transaction to be included
       publicClient
-        ?.waitForTransactionReceipt({
+        .waitForTransactionReceipt({
           hash,
         })
         .then(() => {
@@ -46,6 +57,9 @@ export const useSendNativeToken = () => {
         .catch(() => {
           log('Transaction not included in block')
           setStatus(TxStatus.SUCCESS)
+        })
+        .finally(() => {
+          log('Transaction status: ', status)
         })
     } catch (err) {
       log('Error sending native transaction: ', err)

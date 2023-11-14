@@ -9,7 +9,7 @@ import { Token } from './types'
 export const settings = {
   minimalBalance: {
     [Token.GLM_MUMBAI]: 10,
-    [Token.MATIC_MUMBAI]: 1,
+    [Token.MATIC_MUMBAI]: 0.1,
     [Token.GLM_POLYGON]: 10,
     [Token.MATIC_POLYGON]: 1,
     [Token.ETH_MAINNET]: 0.1,
