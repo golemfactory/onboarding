@@ -26,7 +26,7 @@ const ConnectWalletPresentational = ({
         className="max-w-md text-black my-4 text-xl"
         variants={variants}
       >
-        We need you to connect your wallet to continue
+        To proceed further, please connect your cryptocurrency wallet.
       </motion.p>
       <motion.button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
@@ -67,12 +67,3 @@ export const ConnectWallet = ({
     />
   )
 }
-
-// const waitForAddressAndContinue = ( goToNextStep : () => void) => {
-//   const { address } = useAccount()
-//   useEffect(() => {
-//     if (address) {
-//       goToNextStep()
-//     }
-//   }, [address])
-// }

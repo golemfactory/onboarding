@@ -18,8 +18,9 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
 export const OnboardingContainer = () => {
   const { service } = useContext(OnboardingContext)
-  //TODO fix code smell 'as any'
-  const [state, send] = useActor(service) as any
+
+  //@ts-ignore
+  const [state, send] = useActor(service)
   const StepToRender = mapStateToComponent(state.value)
   const { yagnaAddress } = useSetup()
   const [show, setShow] = useState(true)

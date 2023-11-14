@@ -114,10 +114,6 @@ const SliderGLM = ({
   )
 }
 
-async function sleep(time: number) {
-  return new Promise((resolve) => setTimeout(resolve, time))
-}
-
 export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
@@ -130,9 +126,7 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
       txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
       txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
     ) {
-      sleep(2000).then(() => {
-        goToNextStep()
-      })
+      goToNextStep()
     }
   })
 

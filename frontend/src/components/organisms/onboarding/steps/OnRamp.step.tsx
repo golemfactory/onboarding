@@ -14,6 +14,7 @@ import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { getTokenByCategory } from 'utils/getTokenByNetwrok'
 import { TokenCategory } from 'types/ethereum'
+import { extractBaseURL } from 'utils/extractBaseURL'
 // import onboardingStyle from '../Onboarding.module.css'
 
 const log = debug('onboarding:steps:onramp')
@@ -86,8 +87,6 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
     throw new Error('Chain not found')
   }
 
-  const [done, setDone] = useState(false)
-
   useEffect(() => {
     if (
       balance.NATIVE &&
@@ -106,43 +105,40 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
         debug(err)
       }
     }
-  }, [balance])
+  }, [balance, chain?.id])
 
   useEffect(() => {
-    if (address && !done) {
-      setDone(true)
-
-      debug('creating widget')
-
-      widgetRef.current = new RampInstantSDK({
-        hostAppName: 'onboarding',
-        hostLogoUrl: `${window.location.href}/logo.svg`,
-        hostApiKey: import.meta.env.VITE_RAMP_KEY,
-        url: import.meta.env.VITE_RAMP_API_URL,
-        swapAsset: 'MATIC_MATIC',
-        fiatValue: '10',
-        fiatCurrency: 'EUR',
-        userAddress: address,
-        defaultFlow: 'ONRAMP',
-      })
-
-      //TODO : fix this
-      setTimeout(() => {
+    if (address) {
+      try {
+        widgetRef.current = new RampInstantSDK({
+          hostAppName: 'onboarding',
+          hostLogoUrl: `${extractBaseURL(window.location.href)}logo.svg`,
+          hostApiKey: import.meta.env.VITE_RAMP_KEY,
+          url: import.meta.env.VITE_RAMP_API_URL,
+          swapAsset: 'MATIC_MATIC',
+          fiatValue: '10',
+          fiatCurrency: 'EUR',
+          userAddress: address,
+          defaultFlow: 'ONRAMP',
+        })
         widgetRef.current?.show()
-      }, 0)
+
+        widgetRef.current.on(
+          RampInstantEventTypes.PURCHASE_CREATED,
+          (event) => {
+            log('purchase created', event)
+            setTransactionState(TransactionState.PENDING)
+          }
+        )
+      } catch (err) {}
 
       //Unfortunately there is no even on purchase failed and purchase success :(
-
-      widgetRef.current.on(RampInstantEventTypes.PURCHASE_CREATED, (event) => {
-        log('purchase created', event)
-        setTransactionState(TransactionState.PENDING)
-      })
 
       log('setting done')
     }
 
     hideRampBackground()
-  }, [address, done, goToNextStep, widgetRef])
+  }, [address])
 
   return (
     <OnRampPresentational

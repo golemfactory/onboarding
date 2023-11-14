@@ -13,7 +13,9 @@ import {
   Transfer,
 } from 'components/organisms/onboarding'
 
-const componentByStep: Record<StepType, unknown> = {
+import React from 'react'
+
+const componentByStep: Record<StepType, React.ElementType> = {
   [Step.WELCOME]: Welcome,
   [Step.CONNECT_WALLET_SUCCESS]: ChooseNetwork,
   [Step.CONNECT_WALLET]: ConnectWallet,
