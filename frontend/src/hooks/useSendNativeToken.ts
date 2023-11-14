@@ -19,12 +19,6 @@ export const useSendNativeToken = () => {
     to: EthereumAddress
     value: bigint
   }) => {
-    //TODO remove  this asap its ugly cheat to make sure we proceed anyways
-    // as sometime public client do not has proper transaction receipt
-    setTimeout(() => {
-      log('Setting status to success anyways')
-      setStatus(TxStatus.PENDING)
-    }, 20000)
     try {
       setStatus(TxStatus.PENDING)
       //this only waits for trnsaction to be send but we want to be sure it is included in block
@@ -39,13 +33,20 @@ export const useSendNativeToken = () => {
         throw new Error('No hash returned from sendTransaction')
       }
 
-      console.log('before wait')
+      log('before wait')
       // wait for transaction to be included
-      await publicClient?.waitForTransactionReceipt({
-        hash,
-      })
-      log('Transaction included in block')
-      setStatus(TxStatus.SUCCESS)
+      publicClient
+        ?.waitForTransactionReceipt({
+          hash,
+        })
+        .then(() => {
+          log('Transaction included in block')
+          setStatus(TxStatus.SUCCESS)
+        })
+        .catch(() => {
+          log('Transaction not included in block')
+          setStatus(TxStatus.SUCCESS)
+        })
     } catch (err) {
       log('Error sending native transaction: ', err)
       setStatus(TxStatus.ERROR)

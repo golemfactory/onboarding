@@ -3,7 +3,7 @@ import { ThemesManager } from '../../../../themes/ThemesManager'
 import { settings } from 'settings'
 import { getGLMToken } from 'utils/getGLMToken'
 import { getNativeToken } from 'utils/getNativeToken'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Slider } from 'components/atoms/slider/slider'
 import { formatEther } from 'ethers'
 import { useSupplyYagnaWallet } from 'hooks/useSupplyYagnaWallet'
@@ -122,10 +122,19 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
   const { chain } = useNetwork()
-
   if (!chain?.id) {
     throw new Error('Chain not found')
   }
+  useEffect(() => {
+    if (
+      txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
+      txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
+    ) {
+      sleep(2000).then(() => {
+        goToNextStep()
+      })
+    }
+  })
 
   const [amount, setAmount] = useState<Amount>({
     [TokenCategory.GLM]: settings.minimalBalance[getGLMToken(chain.id).symbol],
@@ -136,15 +145,11 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
     .getActiveTheme()
     .getStepTemplate()
 
-  const onConfirm = async () => {
-    await send(amount)
-    await sleep(2000)
-    goToNextStep()
-  }
-
   return (
     <StepTemplate
-      onConfirm={onConfirm}
+      onConfirm={() => {
+        send(amount)
+      }}
       title={'Yagna wallet transfer'}
       buttonText={'Transfer'}
       content={

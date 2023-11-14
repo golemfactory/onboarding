@@ -78,6 +78,7 @@ export const ChooseNetwork = ({
   }
 
   const onConfirm = async () => {
+    console.log('onConfirm', selectedNetwork, chain?.id)
     if (chain?.id === selectedNetwork) {
       goToNextStep()
       return

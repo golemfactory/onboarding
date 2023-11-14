@@ -30,6 +30,10 @@ export const useSendGLMs = () => {
         log('GLM Transaction included in block')
         setStatus(TxStatus.SUCCESS)
       })
+      .catch(() => {
+        log('GLM Transaction not included in block')
+        setStatus(TxStatus.SUCCESS)
+      })
   }
 
   useEffect(() => {
