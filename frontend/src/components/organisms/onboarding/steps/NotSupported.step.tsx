@@ -18,10 +18,10 @@ const NotSupportedPresentational = ({
   return (
     <div className={onboardingStyle.step}>
       <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Gasless swap not supported yet
+        Gasless swap
       </motion.h1>
       <motion.p className={onboardingStyle.description} variants={variants}>
-        We will temporary redirect you to the Ramp to exchange fiat to Matic
+        You have only GLM, swap them for gas
       </motion.p>
       <motion.button
         className={onboardingStyle.button}
@@ -30,7 +30,7 @@ const NotSupportedPresentational = ({
           swap()
         }}
       >
-        Go
+        Swap 10 GLMs
       </motion.button>
     </div>
   )

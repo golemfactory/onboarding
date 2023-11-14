@@ -22,25 +22,25 @@ export const useSwapGlmForGas = () => {
   const { chain } = useNetwork()
   if (!chain) throw new Error('No chain')
   const { data: walletClient } = useWalletClient()
-  if (!walletClient) throw new Error('No wallet client')
 
-  const signMessage = useCallback(
-    (data: SignTypedDataArgs) => {
-      return walletClient.signTypedData(data)
-    },
-    [walletClient]
-  )
+  console.log(walletClient)
 
+  const signMessage = (data: SignTypedDataArgs) => {
+    console.log('WTG', data)
+    return walletClient?.signTypedData(data)
+  }
+
+  window.wc = walletClient
   const glm = useGlm()
   const sellToken = glm.address
   //this is how 0x api handles native token
-  const buyToken = NATIVE_TOKEN_ADDRESS
+  const buyToken = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
 
   const quoteParams: TQuoteRequest['params'] = useMemo(() => {
     return {
       buyToken,
       sellToken,
-      sellAmount: '1000000000000000000',
+      sellAmount: '10000000000000000000',
       takerAddress: address,
       checkApproval: true,
       acceptedTypes: 'metatransaction_v2,otc',
@@ -56,47 +56,37 @@ export const useSwapGlmForGas = () => {
     //get quote from 0x api
     const quote = await getQuote()
 
-    const approvalSig = await signMessage(quote.approval.eip712)
+    console.log(quote)
+    const approvalSig = quote.approval.isRequired
+      ? await signMessage(quote.approval.eip712)
+      : {}
     const tradeSig = await signMessage(quote.trade.eip712)
 
     const isApprovalRequired =
       quote.approval?.isRequired && quote.approval?.isGaslessAvailable
-    const oja = await call0xApi({
+    await call0xApi({
       action: 'submit',
       params: {
-        approval: {
-          type: quote.approval.type,
-          eip712: quote.approval.eip712,
-          //@ts-ignore
-          signature: isApprovalRequired ? splitSignature(approvalSig) : null,
-        },
+        approval: isApprovalRequired
+          ? {
+              type: quote.approval.type,
+              eip712: quote.approval.eip712,
+              signature: isApprovalRequired
+                ? splitSignature(approvalSig)
+                : null,
+            }
+          : null,
         trade: {
           type: quote.trade.type,
           eip712: quote.trade.eip712,
-          //@ts-ignore
           signature: splitSignature(tradeSig),
         },
       },
       chain,
     })
-    console.log(oja)
     //sign the approval and trade
   }
   // const swap = useCallback(() => {
-  //   call0xApi({ action: 'submit', params: quoteParams, chain })
-  //     .then(setData)
-  //     .catch(setError)
-  // }, [quoteParams, chain])
-  // const { data, call } = useTx({
-  //   action: 'quote',
-  //   params: quoteParams,
-  // })
-
-  // const { data, call } = useGaslessSwap({
-  //   sellToken,
-  //   buyToken,
-  //   spendAmount: 1000000000000000000,
-  // })
 
   return {
     swap,

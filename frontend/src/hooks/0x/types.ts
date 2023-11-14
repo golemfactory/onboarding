@@ -28,12 +28,8 @@ export type TQuoteRequest = {
 export type TSubmitRequest = {
   action: 'submit'
   params: {
-    approval: {
-      signature: string
-    } & SignTypedDataArgs
-    trade: {
-      signature: string
-    } & SignTypedDataArgs
+    approval: any
+    trade: any
   }
 }
 

@@ -7,11 +7,29 @@ import {
   TSubmitRequest,
 } from './types'
 
+function downloadJSON(data, filename) {
+  var jsonContent = JSON.stringify(data)
+  var blob = new Blob([jsonContent], { type: 'application/json' })
+  var link = document.createElement('a')
+
+  link.href = window.URL.createObjectURL(blob)
+  link.download = filename
+
+  // Append the link to the document
+  document.body.appendChild(link)
+
+  // Trigger the click event to start the download
+  link.click()
+
+  // Remove the link from the document
+  document.body.removeChild(link)
+}
+
 import { fromHex } from 'viem'
 
 const BASE_URL = 'https://api.0x.org'
 
-const TXRELAY_BASE_URL = `${BASE_URL}/tx-relay/v1/swap/`
+const TXRELAY_BASE_URL = `${BASE_URL}/tx-relay/v1/swap`
 
 const API_KEY = '7449543d-0be6-4a52-8e0f-fab70f6a0299'
 
