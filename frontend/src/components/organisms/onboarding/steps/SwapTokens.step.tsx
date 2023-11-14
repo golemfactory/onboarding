@@ -80,12 +80,14 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
     value: parseUnits(debouncedAmount.toString(), 18),
   })
 
+  const [forceNextStep, setForceNextStep] = useState(true)
+
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || forceNextStep) {
       goToNextStep()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess])
+  }, [isSuccess, forceNextStep])
 
   const sliderProps = {
     min: minimalAmount,
@@ -106,6 +108,9 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
         sliderProps={sliderProps}
         onSwapButtonClick={async () => {
           swap?.()
+          setTimeout(() => {
+            setForceNextStep(true)
+          }, 8000)
         }}
       />
     </div>

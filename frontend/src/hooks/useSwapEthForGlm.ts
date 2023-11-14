@@ -10,6 +10,8 @@ import {
   useWaitForTransaction,
 } from 'wagmi'
 import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
+import debug from 'debug'
+const log = debug('useSwapEthForGlm')
 
 export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
   const { chain } = useNetwork()
@@ -32,11 +34,13 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
 
   const { data, write } = useContractWrite(config)
 
+  log('swap transaction hash ', data?.hash)
+
   const { isSuccess, isError: isErrorTransaction } = useWaitForTransaction({
     hash: data?.hash,
   })
 
-  console.log('s', isSuccess, isErrorPrepare, isErrorTransaction)
+  log('swap status ', isSuccess, isErrorPrepare, isErrorTransaction)
 
   return {
     swap: write,
