@@ -56,7 +56,7 @@ export const useSendNativeToken = () => {
         })
         .catch(() => {
           log('Transaction not included in block')
-          setStatus(TxStatus.SUCCESS)
+          // setStatus(TxStatus.SUCCESS)
         })
         .finally(() => {
           log('Transaction status: ', status)
