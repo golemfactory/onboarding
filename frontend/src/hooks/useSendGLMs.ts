@@ -5,7 +5,8 @@ import { getGLMToken } from 'utils/getGLMToken'
 import { TxStatus } from 'types/ethereum'
 import { useEffect, useState } from 'react'
 //this could be done better having a useERC20ContractWrite hook
-
+import debug from 'debug'
+const log = debug('useSendGLMs')
 export const useSendGLMs = () => {
   const { chain } = useNetwork()
   const publicClient = usePublicClient()
@@ -19,12 +20,14 @@ export const useSendGLMs = () => {
       functionName: 'transfer',
     })
 
+  log('GLM Transaction hash: ', data?.hash)
   if (data?.hash) {
     publicClient
       ?.waitForTransactionReceipt({
         hash: data?.hash,
       })
       .then(() => {
+        log('GLM Transaction included in block')
         setStatus(TxStatus.SUCCESS)
       })
   }
