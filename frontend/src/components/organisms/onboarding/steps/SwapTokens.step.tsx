@@ -77,19 +77,18 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const debouncedAmount = useDebounce<number>(amount, 500)
 
   const [done, setDone] = useState(false)
-  const [forceRedirect, setForceRedirect] = useState(false)
 
   const { swap, isSuccess } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
 
   useEffect(() => {
-    if ((isSuccess || forceRedirect) && !done) {
+    if (isSuccess && !done) {
       setDone(true)
       goToNextStep()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, forceRedirect])
+  }, [isSuccess])
 
   const sliderProps = {
     min: minimalAmount,
@@ -110,9 +109,6 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
         sliderProps={sliderProps}
         onSwapButtonClick={async () => {
           swap?.()
-          setTimeout(() => {
-            setForceRedirect(true)
-          }, 8000)
         }}
       />
     </div>
