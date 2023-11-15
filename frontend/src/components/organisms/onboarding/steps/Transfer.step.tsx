@@ -117,11 +117,20 @@ const SliderGLM = ({
 export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
+  const [isLoading, setIsLoading] = useState(false)
   const { chain } = useNetwork()
   if (!chain?.id) {
     throw new Error('Chain not found')
   }
   useEffect(() => {
+    //control button loading state s
+    if (
+      txStatus[TokenCategory.GLM] === TxStatus.PENDING ||
+      txStatus[TokenCategory.NATIVE] === TxStatus.PENDING
+    ) {
+      setIsLoading(true)
+    }
+    //continue flow when both transactions are successful
     if (
       txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
       txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
@@ -145,7 +154,17 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
         send(amount)
       }}
       title={'Yagna wallet transfer'}
-      buttonText={'Transfer'}
+      buttonText={
+        isLoading ? (
+          <div className="flex justify-center items-center ">
+            <div className="relative">
+              <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
+            </div>
+          </div>
+        ) : (
+          'Transfer'
+        )
+      }
       content={
         <>
           <br></br>

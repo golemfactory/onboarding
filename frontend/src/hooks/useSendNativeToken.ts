@@ -7,7 +7,6 @@ const log = debug('useSendNativeToken')
 import { usePublicClient, useWalletClient } from 'wagmi'
 
 export const useSendNativeToken = () => {
-  //we do not need more detailed status for now
   const publicClient = usePublicClient()
   const { data: walletClient } = useWalletClient()
   const [status, setStatus] = useState<TxStatus>(TxStatus.READY)

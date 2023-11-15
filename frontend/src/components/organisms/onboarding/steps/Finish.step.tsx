@@ -22,7 +22,8 @@ const FinishPresentational = ({
         All good
       </motion.h1>
       <motion.div className="text-black my-4 text-xl" variants={variants}>
-        <h2> You are ready to use Golem </h2>
+        <h2> You are ready to use Golem. </h2>
+        <h2> Your Yagna wallet balance is:</h2>
         <br />
         <div className="ml-12">
           <div className="flex">

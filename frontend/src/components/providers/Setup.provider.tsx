@@ -1,26 +1,13 @@
-import { PropsWithChildren, createContext, useContext, useMemo } from 'react'
-import { StepType } from 'state/steps'
-import { EthereumAddress } from 'types/ethereum'
-import { BalanceCaseType } from 'types/path'
-import { assertProperSetup } from 'types/setup'
+import { PropsWithChildren, createContext, useContext } from 'react'
 
-function useQuery() {
-  const search = window.location.search
-
-  return useMemo(() => new URLSearchParams(search), [search])
-}
-
-type SetupContextData = {
-  yagnaAddress?: EthereumAddress
-  balanceCase?: BalanceCaseType
-  skipSteps?: StepType[]
-}
+import { SetupContextData, assertProperSetup } from 'types/setup'
+import { useSearchParams } from 'react-router-dom'
 
 export const SetupContext = createContext<SetupContextData>({})
 
 const useSetupParams = () => {
-  const query = useQuery()
-  const setup = Object.fromEntries(query)
+  const [searchParams] = useSearchParams()
+  const setup = Object.fromEntries(searchParams)
   assertProperSetup(setup)
   return setup
 }

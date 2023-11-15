@@ -1,10 +1,10 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 export type StepPropsType = {
   onConfirm: () => void
   title: string
   content: ReactNode | string
-  buttonText: string
+  buttonText: unknown
 }
 
 export type LayoutPropsType = {

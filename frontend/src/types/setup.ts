@@ -23,10 +23,11 @@ export function assertStepsArray(x: unknown): asserts x is StepType[] {
   x.forEach((step) => assertStep(step))
 }
 
-type SetupContextData = {
+export type SetupContextData = {
   yagnaAddress?: EthereumAddress
   balanceCase?: BalanceCaseType
   skipSteps?: StepType[]
+  step?: StepType
 }
 
 export function assertProperSetup(
@@ -40,7 +41,10 @@ export function assertProperSetup(
 
   const invalidKey = keys.find(
     (key) =>
-      key !== 'yagnaAddress' && key !== 'balanceCase' && key !== 'skipSteps'
+      key !== 'yagnaAddress' &&
+      key !== 'balanceCase' &&
+      key !== 'skipSteps' &&
+      key !== 'step'
   )
 
   if (invalidKey) {

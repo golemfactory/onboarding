@@ -25,8 +25,8 @@ export type OnboardingContextData = {
   glmAdded: boolean
   skipSteps?: StepType[]
   stage: OnboardingStageType
-  initialStep: string
   blockchain: BlockchainContextData
+  step?: StepType
   yagnaAddress?: string
 }
 

@@ -4,6 +4,7 @@ import { MouseEventHandler, useEffect, useState } from 'react'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { useAccount } from 'hooks/useAccount'
 import { Step } from 'state/steps'
+import onboardingStyle from '../Onboarding.module.css'
 
 const variants = {
   show: { opacity: 1 },
@@ -15,7 +16,7 @@ const ConnectWalletPresentational = ({
   onConfirm: MouseEventHandler
 }) => {
   return (
-    <div className="text-center">
+    <div className={onboardingStyle.step}>
       <motion.h1
         className="text-4xl font-bold mb-4 text-black"
         variants={variants}
@@ -29,7 +30,7 @@ const ConnectWalletPresentational = ({
         To proceed further, please connect your cryptocurrency wallet.
       </motion.p>
       <motion.button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+        className={onboardingStyle.button}
         variants={variants}
         onClick={(e) => {
           onConfirm(e)
