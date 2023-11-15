@@ -15,6 +15,10 @@ import { Slider, ISliderProps } from 'components/atoms/slider/slider'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
+<<<<<<< HEAD
+=======
+import { useSwapOut } from 'hooks/useSwapOut'
+>>>>>>> staging
 import { formatEther } from 'utils/formatEther'
 import { parseUnits } from 'viem'
 
@@ -37,7 +41,6 @@ const SwapTokensPresentational = ({
       setGlmOut(newAmount)
     }
   }, [amountOut])
-
   const handleSwapButtonClick = async () => {
     setIsLoading(true)
     await onSwapButtonClick()
@@ -100,7 +103,6 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   useEffect(() => {
     setAmountIn(parseUnits(debouncedAmount.toString(), 18))
   }, [debouncedAmount, setAmountIn])
-
   const { swap, isSuccess } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
