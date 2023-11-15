@@ -4,9 +4,16 @@ export const useUpdateQueryStringValueWithoutReload = function (
   queryValue: string
 ) {
   useEffect(() => {
-    const currentSearchParams = new URLSearchParams(
+    let reload = false
+    let currentSearchParams = new URLSearchParams(
       window.location.hash.split('#/')[1]
     )
+
+    if (currentSearchParams.size === 0) {
+      console.log('rerr')
+      currentSearchParams = new URLSearchParams(window.location.search)
+      reload = true
+    }
     const oldQuery = currentSearchParams.get(queryKey) ?? ''
     if (queryValue === oldQuery) return
 
@@ -24,5 +31,8 @@ export const useUpdateQueryStringValueWithoutReload = function (
       .join('?')
 
     window.history.replaceState(null, '', newUrl)
+    if (reload) {
+      window.location.reload()
+    }
   }, [queryKey, queryValue])
 }

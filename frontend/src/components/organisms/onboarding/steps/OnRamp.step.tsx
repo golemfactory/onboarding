@@ -76,6 +76,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const balance = useBalance()
   const { chain } = useNetwork()
+  const [done, setDone] = useState(false)
 
   const [transactionState, setTransactionState] = useState(
     TransactionState.READY
@@ -101,6 +102,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
       try {
         widgetRef.current?.close()
+        widgetRef.current?.close()
       } catch (err) {
         debug(err)
       }
@@ -108,7 +110,7 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
   }, [balance, chain?.id])
 
   useEffect(() => {
-    if (address) {
+    if (address && !done) {
       try {
         widgetRef.current = new RampInstantSDK({
           hostAppName: 'onboarding',
@@ -121,8 +123,14 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
           userAddress: address,
           defaultFlow: 'ONRAMP',
         })
-        widgetRef.current?.show()
+        console.log('twice', done)
 
+        setTimeout(() => {
+          if (!done) {
+            widgetRef.current?.show()
+            setDone(true)
+          }
+        }, 500)
         widgetRef.current.on(
           RampInstantEventTypes.PURCHASE_CREATED,
           (event) => {

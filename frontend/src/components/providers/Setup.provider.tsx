@@ -7,6 +7,7 @@ export const SetupContext = createContext<SetupContextData>({})
 
 const useSetupParams = () => {
   const [searchParams] = useSearchParams()
+  console.log(searchParams)
   const setup = Object.fromEntries(searchParams)
   assertProperSetup(setup)
   return setup
