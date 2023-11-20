@@ -1,5 +1,11 @@
 import { Step, StepType } from 'state/steps'
-import { EthereumAddress, assertEthereumAddress } from './ethereum'
+import {
+  EthereumAddress,
+  Network,
+  NetworkType,
+  assertEthereumAddress,
+} from './ethereum'
+
 import { BalanceCase, BalanceCaseType } from './path'
 
 export function assertBalanceCaseType(
@@ -23,11 +29,18 @@ export function assertStepsArray(x: unknown): asserts x is StepType[] {
   x.forEach((step) => assertStep(step))
 }
 
+export function assertNetworkType(x: unknown): asserts x is NetworkType {
+  if (!Object.values(Network).find((v) => v === x)) {
+    throw new Error(`Invalid network type ${x}`)
+  }
+}
+
 export type SetupContextData = {
   yagnaAddress?: EthereumAddress
   balanceCase?: BalanceCaseType
   skipSteps?: StepType[]
   step?: StepType
+  network?: NetworkType
 }
 
 export function assertProperSetup(
@@ -44,7 +57,8 @@ export function assertProperSetup(
       key !== 'yagnaAddress' &&
       key !== 'balanceCase' &&
       key !== 'skipSteps' &&
-      key !== 'step'
+      key !== 'step' &&
+      key !== 'network'
   )
 
   if (invalidKey) {
@@ -61,5 +75,9 @@ export function assertProperSetup(
 
   if (x.skipSteps) {
     assertStepsArray(x.skipSteps)
+  }
+
+  if (x.network) {
+    assertNetworkType(x.network)
   }
 }
