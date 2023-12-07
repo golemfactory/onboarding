@@ -1,14 +1,14 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export type StepPropsType = {
   onConfirm: () => void
   title: string
   content: ReactNode | string
-  buttonText: unknown
+  buttonText: string
 }
 
 export type LayoutPropsType = {
-  header: ReactNode
-  footer: ReactNode
-  main: ReactNode
+  header?: ReactNode
+  footer?: ReactNode
+  main?: ReactNode
 }

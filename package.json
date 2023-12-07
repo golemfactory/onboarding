@@ -7,7 +7,6 @@
     "postinstall": "husky install",
     "prepare": "husky install",
     "dev:frontend": "cd frontend && pnpm run dev:start",
-    "dev:storybook": "cd frontend && pnpm run dev:storybook",
     "dev": "pnpm run '/^dev:.*/'"
   },
   "keywords": [],

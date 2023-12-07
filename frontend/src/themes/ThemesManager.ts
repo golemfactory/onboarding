@@ -2,24 +2,18 @@ import { FC } from 'react'
 import { StepPropsType, LayoutPropsType } from 'types/ui'
 
 type ThemeConfigurationType = {
-  primaryColor: string
+  tailwindConfig: string
   stepTemplate: FC<StepPropsType>
   layoutTemplate: FC<LayoutPropsType>
 }
 
 export class Theme {
-  private primaryColor: string
   private stepTemplate: FC<StepPropsType>
   private layoutTemplate: FC<LayoutPropsType>
 
   public constructor(configuration: ThemeConfigurationType) {
-    this.primaryColor = configuration.primaryColor
     this.stepTemplate = configuration.stepTemplate
     this.layoutTemplate = configuration.layoutTemplate
-  }
-
-  public getPrimaryColor(): string {
-    return this.primaryColor
   }
 
   public getStepTemplate(): FC<StepPropsType> {

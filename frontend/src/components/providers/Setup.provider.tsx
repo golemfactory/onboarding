@@ -27,8 +27,9 @@ const useSetupParams = () => {
 }
 
 export const SetupProvider = ({ children }: PropsWithChildren) => {
+  const setupParams = useSetupParams()
   return (
-    <SetupContext.Provider value={useSetupParams()}>
+    <SetupContext.Provider value={setupParams}>
       {children}
     </SetupContext.Provider>
   )

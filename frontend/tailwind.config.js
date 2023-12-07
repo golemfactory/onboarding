@@ -7,7 +7,6 @@ module.exports = {
         golemblue: '#0c14d4',
         primary: '#181ea9',
         secondary: '#f6f8fc',
-        pociejGray: 'rgb(225, 226, 230)',
       },
       transitionDuration: {
         5000: '5000ms',
@@ -44,8 +43,4 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    // ...
-  ],
 }

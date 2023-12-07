@@ -14,10 +14,20 @@ import { ErrorBoundary } from 'components/providers/ErrorBoundary'
 
 import { BlockchainProvider } from 'components/providers'
 import { DevPlaygroundDashboard } from 'components/organisms/DevPlaygroundDashboard'
+import { ThemeProvider } from 'components/providers/ThemeProvider'
+import { LandingPage } from 'components/pages/LandingPage'
 
 const router = createHashRouter([
   {
     path: '/',
+    element: (
+      <ThemeProvider>
+        <LandingPage />
+      </ThemeProvider>
+    ),
+  },
+  {
+    path: '/onboarding',
     errorElement: <ErrorBoundary />,
     element: (
       <SetupProvider>

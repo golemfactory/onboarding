@@ -1,16 +1,22 @@
 import { FC } from 'react'
 import { LayoutPropsType } from 'types/ui'
 
-export const LayoutTemplate: FC<LayoutPropsType> = ({
-  header,
-  footer,
-  main,
-}: LayoutPropsType) => {
+import style from './Layout.module.css'
+
+const Ellipses = () => {
+  return (
+    <div>
+      <div className={style.ellipse_1}></div>
+      <div className={style.ellipse_2}></div>
+      <div className={style.ellipse_3}></div>
+    </div>
+  )
+}
+
+export const LayoutTemplate: FC<LayoutPropsType> = () => {
   return (
     <main>
-      <header className="bg-blue-500">{header}</header>
-      <section>{main}</section>
-      <footer>{footer}</footer>
+      <Ellipses />
     </main>
   )
 }

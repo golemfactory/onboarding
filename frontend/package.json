@@ -14,7 +14,6 @@
     "build-staging": "vite build --mode staging",
     "build-production": "vite build --mode production",
     "test": "jest",
-    "dev:storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "dev": "pnpm run '/^dev:.*/'",
     "generate-types": "typechain --target=ethers-v6 'src/ethereum/**/abi.json' --out-dir=src/ethereum/types"
