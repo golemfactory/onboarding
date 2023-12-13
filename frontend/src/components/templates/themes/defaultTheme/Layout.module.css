@@ -1,12 +1,12 @@
 .ellipse_1 {
   position: absolute;
   width: calc(3622/1920*100vw);
-  height: calc(3622/1920*100vw);
+  height: calc(3222/1920*100vw);
   top: calc(-1688/1920*100vw);
   left: calc(-1591/1920*100vw);
   border-radius: calc(3622/1920*100vw);
-  opacity: 0.8;
-  background: radial-gradient(35.95% 35.95% at 50% 50%, rgba(24, 30, 169, 0.11) 0%, rgba(24, 30, 169, 0.00) 100%);
+  opacity: 0.2; 
+  background: radial-gradient(35.95% 35.95% at 50% 50%, #181EA9 0%, rgba(24, 30, 169, 0.26) 70.16%, rgba(24, 30, 169, 0.00) 100%);
 }
 
 .ellipse_2 {
@@ -26,6 +26,16 @@
   top: calc(2522/1920*100vw);
   left: calc(-1923/1920*100vw);
   border-radius: (4223/1920*100vw);
-  opacity: 0.8;
-  background: radial-gradient(35.95% 35.95% at 50% 50%, rgba(14, 19, 124, 0.18) 0%, rgba(24, 30, 169, 0.05) 48.44%, rgba(24, 30, 169, 0.00) 100%);
+background: radial-gradient(35.95% 35.95% at 50% 50%, rgba(14, 19, 124, 0.18) 0%, rgba(24, 30, 169, 0.05) 48.44%, rgba(24, 30, 169, 0.00) 100%);
 }
+
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+}
+
+
+

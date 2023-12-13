@@ -3,10 +3,28 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      gridColumn: {
+        all: 'col-span-4 md:col-span-8 xl:col-span-12',
+      },
       colors: {
-        golemblue: '#0c14d4',
-        primary: '#181ea9',
-        secondary: '#f6f8fc',
+        golemblue: '#0C14D4',
+        primary: '#181EA9',
+        'lightblue-50': '#F6F8FC',
+        'lightblue-100': '#E8EBF6',
+        'lightblue-200': '#C6CCED',
+        'blue-300': '#A4ADDE',
+        'blue-400': '#5F6ABF',
+        'darkblue-500': '#181EA9',
+        'darkblue-600': '#0E137C',
+        'darkblue-000': '#0C0E55',
+
+        //TODO add whole color palette with names
+        'success-50': '#E8F6E8',
+        'success-100': '#',
+        'success-200': '#367946',
+        // golemblue: '#0c14d4',
+        // primary: '#181ea9',
+        // secondary: '#f6f8fc',
       },
       transitionDuration: {
         5000: '5000ms',
@@ -16,6 +34,7 @@ module.exports = {
       },
       width: {
         '90p': '90%',
+        'golem-grid-desktop': '1232px',
       },
       maxWidth: {
         '1/2': '50%',
