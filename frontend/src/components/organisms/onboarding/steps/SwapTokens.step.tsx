@@ -86,7 +86,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
   const nativeToken = getNativeToken(chain.id)
 
-  const minimalAmount = parseFloat(settings.minimalSwap[nativeToken])
+  const minimalAmount = settings.minimalSwap[nativeToken]
   const [amount, setAmount] = useState(minimalAmount)
 
   // debounce to prevent too many preparations
@@ -99,6 +99,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   useEffect(() => {
     setAmountIn(parseUnits(debouncedAmount.toString(), 18))
   }, [debouncedAmount, setAmountIn])
+
   const { swap, isSuccess } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
@@ -112,7 +113,7 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   }, [isSuccess])
 
   const sliderProps = {
-    min: minimalAmount,
+    min: 0,
     step: 0.01,
     max: parseFloat(formatEther({ wei: balance.NATIVE || 0n })),
     label: '',
