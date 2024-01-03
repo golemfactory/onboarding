@@ -22,7 +22,6 @@ const SliderMatic = ({
   setAmount,
   balance,
   status,
-  chainId,
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
@@ -31,9 +30,9 @@ const SliderMatic = ({
   chainId: NetworkType
 }) => {
   const sliderMaticProps = {
-    min: settings.minimalBalance[getNativeToken(chainId)],
-    step: 0.011,
-    max: parseFloat(formatEther(balance || 0n)).toFixed(2),
+    min: 0,
+    step: 0.01,
+    max: parseFloat(formatEther(balance)).toFixed(2),
     label: '',
     value: amount[TokenCategory.NATIVE],
     displayValue: (v: number) => `Transfer ${v} Matic`,
@@ -70,7 +69,6 @@ const SliderGLM = ({
   setAmount,
   balance,
   status,
-  chainId,
 }: {
   amount: Amount
   setAmount: (newAmount: Amount) => void
@@ -79,7 +77,7 @@ const SliderGLM = ({
   chainId: NetworkType
 }) => {
   const sliderMaticProps = {
-    min: settings.minimalBalance[getGLMToken(chainId).symbol],
+    min: 0,
     step: 0.01,
     max: formatBalance(BigInt(balance) || 0n),
     label: '',
@@ -137,7 +135,7 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
     ) {
       goToNextStep()
     }
-  })
+  }, [txStatus, goToNextStep])
 
   const [amount, setAmount] = useState<Amount>({
     [TokenCategory.GLM]: settings.minimalBalance[getGLMToken(chain.id).symbol],

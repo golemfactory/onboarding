@@ -16,11 +16,8 @@ export const settings = {
     [Token.GLM_MAINNET]: 10,
   },
   minimalSwap: {
-    [Token.GLM_MUMBAI]: '0.1',
-    [Token.MATIC_MUMBAI]: '0.1',
-    [Token.GLM_POLYGON]: '0.1',
-    [Token.MATIC_POLYGON]: '0.1',
-    [Token.ETH_MAINNET]: '0.1',
-    [Token.GLM_MAINNET]: '0.1',
+    [Token.MATIC_MUMBAI]: 3,
+    [Token.MATIC_POLYGON]: 3,
+    [Token.ETH_MAINNET]: 3,
   },
 }

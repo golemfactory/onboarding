@@ -185,7 +185,7 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
       },
       [Step.SWAP]: {
         on: {
-          [Commands.NEXT]: Step.TRANSFER,
+          [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
         },
       },
       [Step.FINISH]: {
