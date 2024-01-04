@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import './i18n/config'
 import App from 'app/app'
 
 import 'components/templates/themes/defaultTheme'

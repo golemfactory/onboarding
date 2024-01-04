@@ -1,30 +1,21 @@
 import { useTheme } from 'components/providers/ThemeProvider'
 import { GolemCenterLogo } from './GolemCenteredLogo'
-import { config } from './config'
 import style from './LandingPage.module.css'
 import { Fragment } from 'react'
 
 import { Card } from 'components/atoms/card'
+import { Trans } from 'components/atoms'
+import { BulletedContainer } from 'components/atoms/bulletedContainer/BulletedContainer'
 
 const LandingPageContent = () => {
   return (
     <>
       <div className={style.centeredContent}>
         <div className={style.title}>
-          {config.title.split('\n').map((line, index) => (
-            <Fragment key={index}>
-              {line}
-              <br />
-            </Fragment>
-          ))}
+          <Trans i18nKey="title" ns="landing" />
         </div>
         <div className={style.subtitle}>
-          {config.subtitle.split('\n').map((line, index) => (
-            <Fragment key={index}>
-              {line}
-              <br />
-            </Fragment>
-          ))}
+          <Trans i18nKey="subtitle" ns="landing" />
         </div>
         <GolemCenterLogo />
       </div>
@@ -32,6 +23,11 @@ const LandingPageContent = () => {
       <Card className={style.contentCard}>dupa</Card>
       <Card className={style.contentCard}>dupa</Card>
       <Card className={style.contentCard}>dupa</Card>
+      <BulletedContainer>
+        <div className={style.title}>
+          <Trans i18nKey="title" ns="landing" />
+        </div>
+      </BulletedContainer>
     </>
   )
 }
