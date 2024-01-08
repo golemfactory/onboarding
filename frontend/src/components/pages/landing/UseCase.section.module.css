@@ -1,0 +1,26 @@
+.container {
+  @apply col-span-12 grid grid-cols-12 gap-3;
+  padding: 16px 0px 16px 24px;
+}
+
+.bulletContainer {
+  @apply col-span-1;
+} 
+
+.titleContainer {
+  @apply col-span-11;
+  color: var(--primary-blue-500, #181EA9);
+  font-family: Kanit;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 105%;
+  /* 63px */
+  letter-spacing: -1.8px;
+  padding: 45px 0px 45px 0px;
+}
+
+.separator {
+  @apply col-span-12;
+  margin-top: 56px;
+}

@@ -27,6 +27,8 @@ export const LayoutTemplate: FC<LayoutPropsType> = ({ header, main }) => {
         <div className={style.content}>{main}</div>
       </div> */}
       <Grid className="mt-10">
+        {/* <Ellipses /> */}
+
         <div className="col-span-2">
           <GolemLogoWithDescription />
         </div>

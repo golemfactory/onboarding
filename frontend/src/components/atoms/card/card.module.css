@@ -1,7 +1,0 @@
-.card {
-  border-radius: 20px;
-    border: 1.5px solid theme('colors.primary');
-    background: rgba(246, 248, 252, 0.50);
-    box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
-    backdrop-filter: blur(2.5px);
-}

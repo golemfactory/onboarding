@@ -3,9 +3,11 @@ import { GolemCenterLogo } from './GolemCenteredLogo'
 import style from './LandingPage.module.css'
 import { Fragment } from 'react'
 
-import { Card } from 'components/atoms/card'
+// import { Card } from 'components/atoms/card'
 import { Trans } from 'components/atoms'
-import { BulletedContainer } from 'components/atoms/bulletedContainer/BulletedContainer'
+// import { BulletedContainer } from 'components/atoms/bulletedContainer/BulletedContainer'
+import { VideoSection } from './Video.section'
+import { UseCaseSection } from './UseCase.section'
 
 const LandingPageContent = () => {
   return (
@@ -20,14 +22,16 @@ const LandingPageContent = () => {
         <GolemCenterLogo />
       </div>
 
-      <Card className={style.contentCard}>dupa</Card>
-      <Card className={style.contentCard}>dupa</Card>
-      <Card className={style.contentCard}>dupa</Card>
+      <VideoSection />
+      <UseCaseSection />
+      {/* <Card className={style.contentCard}>test</Card>
+      <Card className={style.contentCard}>test</Card>
+      <Card className={style.contentCard}>test</Card>
       <BulletedContainer>
         <div className={style.title}>
           <Trans i18nKey="title" ns="landing" />
         </div>
-      </BulletedContainer>
+      </BulletedContainer> */}
     </>
   )
 }

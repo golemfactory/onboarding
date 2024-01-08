@@ -41,6 +41,13 @@ module.exports = {
       },
       fontSize: {
         mini: '.65rem',
+        '3.5xl': [
+          '32px',
+          {
+            lineHeight: '38.4px',
+            letterSpacing: '-0.64px',
+          },
+        ],
       },
       spacing: {
         'golem-logo': '5.76rem',

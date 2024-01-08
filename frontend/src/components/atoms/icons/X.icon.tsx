@@ -1,6 +1,6 @@
-export const XIcon = ({ className }: { className: string }) => {
+export const XIcon = () => {
   return (
-    <div className={className}>
+    <div>
       <svg
         className="w-6 h-6"
         fill="none"

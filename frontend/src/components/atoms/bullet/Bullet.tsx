@@ -1,5 +1,4 @@
-import { PropsWithChildren } from 'react'
-import style from './BulletedContainer.module.css'
+import style from './Bullet.module.css'
 
 const ExternalDot = () => {
   return (
@@ -181,7 +180,7 @@ const Dot = () => {
   )
 }
 
-export const BulletedContainer = ({ children }: PropsWithChildren) => {
+export const Bullet = () => {
   return (
     <div className={style.container}>
       <div className={style.bulletContainer}>
@@ -189,12 +188,10 @@ export const BulletedContainer = ({ children }: PropsWithChildren) => {
 
         <div className={style.dotContainer}>
           <ExternalDot />
-
           <Dot />
         </div>
         <div className={`${style.fadingLine} ${style.bottomStroke}`}></div>
       </div>
-      {children}
     </div>
   )
 }

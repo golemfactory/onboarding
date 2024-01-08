@@ -14,3 +14,28 @@
   font-family: 'Kanit';
   src: url('/fonts/Kanit-Regular.ttf') format('truetype');
 }
+
+.blackText {
+  color: var(--neutrals-gray-400, #1D222D);
+  /* Headers/Header 6 | Kanit Regular 20px */
+  font-family: Kanit;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+    /* 24px */
+  letter-spacing: -0.2px;
+}
+
+body {
+  font-family: 'Kanit'
+}
+
+.tertiary {
+  display: flex;
+    padding: 9px 4px;
+    align-items: center;
+    gap: 13px;
+  border-radius: 3px 3px 0px 0px;
+  border-bottom: 1px solid var(--primary-blue-500, #181EA9);
+  color : var(--primary-blue-500, #181EA9);
+}
