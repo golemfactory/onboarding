@@ -1,0 +1,21 @@
+.container {
+  @apply col-span-12 grid grid-cols-12 gap-3;
+  padding: 16px 0px 16px;
+}
+
+.fadingLine {
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(24, 30, 169, 0) 0px, rgba(24, 30, 169, 0.5) 40%, rgba(24, 30, 169, 0.5) 60%, rgba(24, 30, 169, 0) 100%);
+  margin: 0 auto;
+  /* Center the line horizontally */
+  backdrop-filter: blur(50%);
+  height: 100%;
+}
+
+.lineContainer {
+  @apply col-span-1;
+}
+
+.contentContainer {
+  @apply md:col-span-6 col-span-11 ;
+}

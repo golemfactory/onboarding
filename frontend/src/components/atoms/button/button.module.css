@@ -1,7 +1,38 @@
+
+
 .button {
-  @apply w-full sm:w-auto flex-none bg-golemblue hover:bg-blue-700 text-white text-lg leading-6 font-semibold py-3 px-6 border border-transparent rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none transition-colors duration-200;
+  display: flex;
+  padding: 9px 17px;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-blue-500, #181EA9);
+    /* 114.286% */
 }
 
-.primaryButton {
- @apply mt-4 px-4 py-2 text-white rounded bg-golemblue focus:outline-none 
+.outline {
+  border-radius: 3px;
+  border: 1px solid var(--primary-blue-500, #181EA9);
+  background: var(--white, #FFF);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.outline:hover{
+  border-radius: 3px;
+  border: 1px solid var(--primary-blue-700-hover, #0C0E55);
+  background: var(--primary-blue-50, #F6F8FC);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.outline:active{
+  border-radius: 3px;
+  border: 1px solid var(--primary-blue-500, #181EA9);
+  background: var(--white, #FFF);
+  box-shadow: 0px 0px 0px 3px #181EA9, 0px 0px 0px 2px #FFF, 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.outline:disabled{
+  border-radius: 3px;
+  border: 1px solid var(--neutrals-gray-200, #A2A3B9);
+  background: var(--white, #FFF);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 }

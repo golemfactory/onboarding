@@ -11,5 +11,8 @@
   "distributionCaseDescription" : "your Python workloads with <strong>Ray on Golem</strong> solution combining benefits of Golem decentralized resources with parallelization power of Ray framework",
   "AICaseTitle" : "Scale your AI models",
   "AICaseDescription" : "with the power of consumer grade GPUs on Golem network <breakLine /> <breakLine/>",
-  "InternalAlfa" : "Internal Alfa"
+  "InternalAlfa" : "Internal Alfa", 
+  "apiSectionTitle" : "Develop, test and run",
+  "apiSectionSubtitle" : "Golem applications with help of our JS and Python API",
+  "readMore" : "Read more"
 }

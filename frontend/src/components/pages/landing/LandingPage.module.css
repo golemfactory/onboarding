@@ -1,7 +1,6 @@
 .title {
     @apply sm:text-6xl text-3xl;
     color: var(--primary-blue-500, #181EA9);
-    text-align: center;
     /* Headers/Header 1 | Kanit Regular 60px */
     font-family: Kanit;
     font-style: normal;
@@ -12,10 +11,8 @@
 }
 
 .subtitle {
-    @apply sm:text-2xl text-xl;
-    margin-top:32px;
-    margin-bottom:56px;
-    color: var(--neutrals-gray-300, #404B63);    text-align: center;
+    @apply sm:text-2xl text-lg;
+    color: var(--neutrals-gray-300, #404B63);    
     /* Headers/Header 4 | Kanit Regular 24px */
     font-family: Kanit;
     font-style: normal;
@@ -46,3 +43,6 @@
   }
 }
 
+.sectionSeparator {
+  @apply xl:h-36 h-10;
+}

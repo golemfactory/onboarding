@@ -2,14 +2,24 @@ import { forwardRef, ComponentProps } from 'react'
 
 import styles from './button.module.css'
 
-const Button = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
-  function Button({ children, className = styles.button, ...rest }, ref) {
-    return (
-      <button ref={ref} className={className} {...rest}>
-        {children}
-      </button>
-    )
-  }
-)
+type buttonStyleType = 'solid' | 'outline' | 'underline'
+
+const Button = forwardRef<
+  HTMLButtonElement,
+  { buttonStyle: buttonStyleType } & ComponentProps<'button'>
+>(function Button(
+  { children, className = styles.button, buttonStyle, ...rest },
+  ref
+) {
+  return (
+    <button
+      ref={ref}
+      className={`${className} ${styles[buttonStyle]}`}
+      {...rest}
+    >
+      {children}
+    </button>
+  )
+})
 
 export default Button

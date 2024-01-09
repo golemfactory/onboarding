@@ -1,5 +1,5 @@
 .card{
-  @apply col-span-4;
+  @apply xl:col-span-4 col-span-12;
   border-radius: 20px;
   border: 1px solid #181EA9;
   background: #F6F8FC;

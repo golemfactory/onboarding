@@ -39,3 +39,16 @@ body {
   border-bottom: 1px solid var(--primary-blue-500, #181EA9);
   color : var(--primary-blue-500, #181EA9);
 }
+
+button.bordered {
+  border-radius: 3px;
+  border: 1px solid var(--primary-blue-300-primary-color, #181EA9);
+}
+
+.fadingLine {
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(24, 30, 169, 0) 0px, rgba(24, 30, 169, 0.5) 15px, rgba(24, 30, 169, 0.5) 80%, rgba(24, 30, 169, 0) 100%);
+  margin: 0 auto;
+  /* Center the line horizontally */
+  backdrop-filter: blur(50px);
+}
