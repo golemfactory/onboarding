@@ -5,6 +5,8 @@ import style from './Layout.module.css'
 import { GolemLogoWithDescription } from 'components/atoms/icons/GolemLogoWithDescription'
 import { Grid } from 'components/organisms/grid/Grid'
 import gridStyle from 'components/organisms/grid/Grid.module.css'
+import { Button } from 'components/atoms/button'
+import { Trans } from 'components/atoms/translation'
 
 const Ellipses = () => {
   return (
@@ -26,14 +28,20 @@ export const LayoutTemplate: FC<LayoutPropsType> = ({ header, main }) => {
         </div>
         <div className={style.content}>{main}</div>
       </div> */}
-      <Grid className="mt-10">
+      <Grid className="mt-10 ">
         {/* <Ellipses /> */}
-
-        <div className="col-span-2">
-          <GolemLogoWithDescription />
+        <div className="col-span-12 grid grid-cols-12">
+          <div className="col-span-2">
+            <GolemLogoWithDescription />
+          </div>
+          <div className="col-span-1 md:col-span-5 xl:col-span-9"></div>
+          <div className="col-span-1">
+            <Button buttonStyle="solid">
+              <Trans i18nKey="readMore" ns="landing" />
+            </Button>
+          </div>
         </div>
-        <div className="col-span-1 md:col-span-5 xl:col-span-9"></div>
-        <div className="col-span-1">{header}</div>
+
         {main}
       </Grid>
     </main>

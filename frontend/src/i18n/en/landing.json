@@ -16,5 +16,6 @@
   "apiSectionSubtitle" : "Golem applications with help of our JS and Python API",
   "readMore" : "Read more", 
   "runCardTitle" : "Run",
-  "runCardDescription" : "your JupyterLab Python Notebooks <breakLine/> on more powerful hardware with help <breakLine/> of <strong>Jupyter on Golem </strong>"
+  "runCardDescription" : "your JupyterLab Python Notebooks <breakLine/> on more powerful hardware with help <breakLine/> of <strong>Jupyter on Golem </strong>",
+  "getGLM" : "Get GLM"
 }

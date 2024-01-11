@@ -1,7 +1,7 @@
 import style from './GolemCenterLogo.module.css'
 export const GolemCenterLogo = () => {
   return (
-    <div className={style.container}>
+    <div className={style.container} id="logo">
       <svg
         className={style.logo}
         xmlns="http://www.w3.org/2000/svg"

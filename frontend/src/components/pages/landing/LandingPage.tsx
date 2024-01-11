@@ -1,7 +1,8 @@
 import { useTheme } from 'components/providers/ThemeProvider'
 import { GolemCenterLogo } from './GolemCenteredLogo'
 import style from './LandingPage.module.css'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import { useDebounce } from 'usehooks-ts'
 
 // import { Card } from 'components/atoms/card'
 import { Trans } from 'components/atoms'
@@ -10,22 +11,51 @@ import { VideoSection } from './Video.section'
 import { UseCaseSection } from './UseCase.section'
 import { APISection } from './API.section'
 import { RunSection } from './Run.section'
+import { use } from 'i18next'
 
 const SectionSeparator = () => {
   return <div className={style.sectionSeparator} />
 }
 
 const LandingPageContent = () => {
+  const [scroll, setScroll] = useState(0)
+
+  const debouncedScroll = useDebounce(scroll, 1)
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
   return (
     <>
       <div className={style.centeredContent}>
-        <div className={`${style.title} text-center`}>
-          <Trans i18nKey="title" ns="landing" />
+        <div
+          style={{
+            position: 'absolute',
+            top: Math.min(Math.max(0, 2 * debouncedScroll), 500) + 'px',
+          }}
+        >
+          <div className={`${style.title} text-center`}>
+            <Trans i18nKey="title" ns="landing" />
+          </div>
+          <div className={`${style.subtitle} text-center mt-4 mb-8`}>
+            <Trans i18nKey="subtitle" ns="landing" />
+          </div>
         </div>
-        <div className={`${style.subtitle} text-center mt-4 mb-8`}>
-          <Trans i18nKey="subtitle" ns="landing" />
+        <div
+          style={{
+            position: 'absolute',
+            top: Math.max(-200, 340 - debouncedScroll),
+          }}
+        >
+          <GolemCenterLogo />
         </div>
-        <GolemCenterLogo />
       </div>
       <VideoSection />
       <SectionSeparator />

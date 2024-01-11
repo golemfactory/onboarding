@@ -31,6 +31,8 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 156px;
+      height: 1053px;
+      position: relative;
 }
 
 .contentCard { 
@@ -46,3 +48,4 @@
 .sectionSeparator {
   @apply xl:h-36 h-10;
 }
+

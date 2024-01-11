@@ -38,3 +38,36 @@
   background: var(--white, #FFF);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 }
+
+.solid {
+  color: var(--white, #FFF);
+  border-radius: 3px;
+  background: var(--primary-blue-500, #181EA9);
+
+  /* shadow/sm */
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.solid:hover{
+  border-radius: 3px;
+  background: var(--primary-blue-700-hover, #0C0E55);
+
+  /* shadow/sm */
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.solid:active{
+  border-radius: 3px;
+  background: var(--primary-blue-500, #181EA9);
+
+  /* shadow/sm/focus:ring-2/focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-500 */
+  box-shadow: 0px 0px 0px 3px #181EA9, 0px 0px 0px 2px #FFF, 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.solid:disabled{
+  border-radius: 3px;
+  background: var(--neutrals-gray-200, #A2A3B9);
+
+  /* shadow/sm */
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
