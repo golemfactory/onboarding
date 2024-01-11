@@ -1,10 +1,10 @@
 import { Bullet, Trans } from 'components/atoms'
 import sectionStyle from './UseCase.section.module.css'
 import landingStyle from './LandingPage.module.css'
-import { UseCaseCard } from './Card'
-import { UseCaseType } from './types'
+import { Card } from './Card'
+import { CardData } from './types'
 
-const useCases: UseCaseType[] = [
+const useCases: CardData[] = [
   {
     title: 'deployCaseTitle',
     description: 'deployCaseDescription',
@@ -36,7 +36,11 @@ export const UseCaseSection = () => {
         </div>
       </div>
       <div className={sectionStyle.separator} />
-      {useCases.map(UseCaseCard)}
+      {useCases
+        .map((x) => {
+          return { ...x, className: sectionStyle.card }
+        })
+        .map(Card)}
     </div>
   )
 }

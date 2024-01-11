@@ -15,6 +15,11 @@
   src: url('/fonts/Kanit-Regular.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/DMMono-Regular.ttf') format('truetype');
+}
+
 .blackText {
   color: var(--neutrals-gray-400, #1D222D);
   /* Headers/Header 6 | Kanit Regular 20px */
@@ -30,19 +35,9 @@ body {
   font-family: 'Kanit'
 }
 
-.tertiary {
-  display: flex;
-    padding: 9px 4px;
-    align-items: center;
-    gap: 13px;
-  border-radius: 3px 3px 0px 0px;
-  border-bottom: 1px solid var(--primary-blue-500, #181EA9);
-  color : var(--primary-blue-500, #181EA9);
-}
-
 button.bordered {
   border-radius: 3px;
-  border: 1px solid var(--primary-blue-300-primary-color, #181EA9);
+  border: 1px solid var(--primary-blue-500, #181EA9);
 }
 
 .fadingLine {

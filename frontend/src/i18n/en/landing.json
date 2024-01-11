@@ -14,5 +14,7 @@
   "InternalAlfa" : "Internal Alfa", 
   "apiSectionTitle" : "Develop, test and run",
   "apiSectionSubtitle" : "Golem applications with help of our JS and Python API",
-  "readMore" : "Read more"
+  "readMore" : "Read more", 
+  "runCardTitle" : "Run",
+  "runCardDescription" : "your JupyterLab Python Notebooks <breakLine/> on more powerful hardware with help <breakLine/> of <strong>Jupyter on Golem </strong>"
 }

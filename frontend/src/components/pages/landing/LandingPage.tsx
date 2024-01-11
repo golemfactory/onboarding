@@ -9,6 +9,7 @@ import { Trans } from 'components/atoms'
 import { VideoSection } from './Video.section'
 import { UseCaseSection } from './UseCase.section'
 import { APISection } from './API.section'
+import { RunSection } from './Run.section'
 
 const SectionSeparator = () => {
   return <div className={style.sectionSeparator} />
@@ -31,6 +32,8 @@ const LandingPageContent = () => {
       <UseCaseSection />
       <SectionSeparator />
       <APISection />
+      <SectionSeparator />
+      <RunSection />
       {/* <Card className={style.contentCard}>test</Card>
       <Card className={style.contentCard}>test</Card>
       <Card className={style.contentCard}>test</Card>

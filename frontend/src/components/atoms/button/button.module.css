@@ -1,11 +1,13 @@
 
 
 .button {
+  @apply text-sm;
   display: flex;
   padding: 9px 17px;
   justify-content: center;
   align-items: center;
   color: var(--primary-blue-500, #181EA9);
+  line-height: 16px;
     /* 114.286% */
 }
 

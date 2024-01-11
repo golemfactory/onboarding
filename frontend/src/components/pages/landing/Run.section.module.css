@@ -1,0 +1,128 @@
+.container {
+  @apply col-span-12 grid grid-cols-12 gap-3 relative; 
+}
+
+.underlyingContainer {
+  display: flex;
+    width: 1229px;
+    height: 408px;
+    padding: 48px 56px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.overlayContainer {
+  @apply md:absolute md:p-10 p-3 md:-top-2 md:-mt-16 -mt-60 ml-6 md:ml-1 col-span-11 md:col-start-6 md:col-span-7;
+  z-index: 10;
+  width: 100%;
+}
+
+.card {
+  /* @apply xl:col-span-4 col-span-12; */
+  border-radius: 20px;
+  border: 1px solid var(--primary-blue-500, #181EA9);
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);
+  /* width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  border: 1px solid #181EA9;
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);
+  padding: 48px 56px; */
+}
+
+.codeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px
+}
+
+.commandBox {
+  line-height: 110%;
+    /* 15.4px */
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px;
+  align-items: left;
+  gap: 8px;
+  border-radius: 20px;
+  width: fit-content;
+  border: 1px solid var(--primary-blue-500, #181EA9);
+  background: linear-gradient(94deg, rgba(128, 162, 249, 0.12) 4.77%, rgba(128, 162, 249, 0.09) 94.7%);
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+}
+
+
+.progressBox { 
+  display: flex;
+  padding-left: 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--neutrals-gray-300, #404B63);
+    font-family: DM Mono;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 140%;
+    white-space: pre;
+    /* 16.8px */
+    display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+}
+
+.progressBox span {
+      display: inline-block;
+        /* Or block, if you prefer */
+        max-width: 100%;
+        /* Prevents span from exceeding the container width */
+        word-wrap: break-word;
+        /* Ensures long words don't cause overflow */
+        white-space: normal;
+}
+
+.greatJupyter{
+    @apply ml-16 mt-3;
+  color: var(--primary-blue-300, #80A2F9);
+    font-family: DM Mono;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    width:50%;
+
+    /* 16.8px */
+} 
+
+.title {
+
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+    /* 52.8px */
+    letter-spacing: -0.96px;
+}
+
+.description{
+  color: var(--neutrals-gray-400, #1D222D);
+  
+    /* Headers/Header 4 | Kanit Regular 24px */
+    font-family: Kanit;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 28.8px */
+    letter-spacing: -0.48px;
+    margin-bottom: 8px;
+}

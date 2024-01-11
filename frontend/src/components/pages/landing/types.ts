@@ -1,6 +1,6 @@
 import { IconType } from 'components/atoms/icons'
 
-export type UseCaseType = {
+export type CardData = {
   title: string
   description: string
   icon: IconType

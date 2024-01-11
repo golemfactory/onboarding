@@ -8,6 +8,7 @@ import { CheckmarkIcon } from './checkmark.icon'
 import { ChipIcon } from './chip.icon'
 import { TerminalIcon } from './terminal.icon'
 import { RightArrowIcon } from './rightArrow.icon'
+import { ChevronDoubleRightIcon } from './chevronDoubleRight'
 
 const icons = {
   x: XIcon,
@@ -19,6 +20,7 @@ const icons = {
   chip: ChipIcon,
   terminal: TerminalIcon,
   rightArrow: RightArrowIcon,
+  chevronDoubleRight: ChevronDoubleRightIcon,
 }
 
 export const Icon = ({ icon, ...props }: { icon: keyof typeof icons }) => {
@@ -38,4 +40,5 @@ export {
   ChipIcon,
   TerminalIcon,
   RightArrowIcon,
+  ChevronDoubleRightIcon,
 }

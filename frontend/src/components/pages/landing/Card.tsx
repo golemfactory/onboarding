@@ -1,16 +1,25 @@
 import { Icon, RightArrowIcon } from 'components/atoms/icons'
 import style from './Card.module.css'
-import { UseCaseType } from './types'
+import { CardData } from './types'
 import { Trans } from 'components/atoms'
-export const UseCaseCard = ({
+export const Card = ({
   icon,
   title,
   description,
   badge,
   exploreLink,
-}: UseCaseType) => {
+  className,
+  descriptionClassName,
+  titleClassName = 'text-3xl',
+  linkClassName,
+}: CardData & {
+  className?: string
+  descriptionClassName?: string
+  titleClassName?: string
+  linkClassName?: string
+}) => {
   return (
-    <div className={style.card}>
+    <div className={`${style.card} ${className}`}>
       <div className={style.top}>
         <Icon icon={icon} />
 
@@ -22,21 +31,32 @@ export const UseCaseCard = ({
           ''
         )}
       </div>
-      <div className={style.title}>
-        <Trans i18nKey={title} ns="landing" />
+      <div className={style.content}>
+        <div className={`${titleClassName} ${style.title}`}>
+          <Trans i18nKey={title} ns="landing" />
+        </div>
+        <div
+          className={`${descriptionClassName || 'text-lg'} ${
+            style.description
+          } `}
+        >
+          <Trans i18nKey={description} ns="landing" />
+        </div>
+        {exploreLink ? (
+          <a
+            href={exploreLink}
+            className={`${style.exploreButton} ${linkClassName}`}
+          >
+            {' '}
+            <Trans i18nKey="explore" ns="landing" />
+            <RightArrowIcon />
+          </a>
+        ) : (
+          ''
+        )}
       </div>
-      <div className={style.description}>
-        <Trans i18nKey={description} ns="landing" />
-      </div>
-      {exploreLink ? (
-        <a href={exploreLink} className={`${style.exploreButton} tertiary`}>
-          {' '}
-          <Trans i18nKey="explore" ns="landing" />
-          <RightArrowIcon />
-        </a>
-      ) : (
-        ''
-      )}
     </div>
   )
 }
+
+48 + 38 + 24
