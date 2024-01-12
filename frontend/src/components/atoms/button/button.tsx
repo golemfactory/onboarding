@@ -6,7 +6,7 @@ type buttonStyleType = 'solid' | 'outline' | 'underline'
 
 const Button = forwardRef<
   HTMLButtonElement,
-  { buttonStyle: buttonStyleType } & ComponentProps<'button'>
+  { buttonStyle: buttonStyleType; useDefault: true } & ComponentProps<'button'>
 >(function Button(
   { children, className = styles.button, buttonStyle, ...rest },
   ref
@@ -14,7 +14,9 @@ const Button = forwardRef<
   return (
     <button
       ref={ref}
-      className={`${className} ${styles[buttonStyle]}`}
+      className={`${rest.useDefault ? styles.button : ''} ${className} ${
+        styles[buttonStyle]
+      } `}
       {...rest}
     >
       {children}

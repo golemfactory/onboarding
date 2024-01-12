@@ -23,6 +23,7 @@ export default defineConfig((configEnv) => {
         assets: resolve(__dirname, 'src', 'assets'),
         settings: resolve(__dirname, 'src', 'settings'),
         themes: resolve(__dirname, 'src', 'themes'),
+        styles: resolve(__dirname, 'src', 'styles'),
       },
     },
     css: {

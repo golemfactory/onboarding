@@ -17,9 +17,14 @@ const Ellipses = () => {
   )
 }
 
-export const LayoutTemplate: FC<LayoutPropsType> = ({ main }) => {
+export const LayoutTemplate: FC<LayoutPropsType> = ({ header, main }) => {
   return (
-    <main>
+    <main
+      style={{
+        width: '100%',
+        position: 'absolute',
+      }}
+    >
       <Grid className="mt-10 ">
         <Ellipses />
         <div className="col-span-12 grid grid-cols-12">
@@ -27,11 +32,7 @@ export const LayoutTemplate: FC<LayoutPropsType> = ({ main }) => {
             <GolemLogoWithDescription />
           </div>
           <div className="col-span-5 xl:col-span-8"></div>
-          <div className="col-span-3 xl:col-span-2">
-            <Button buttonStyle="solid" className="md:py-4 md:px-9 py-2 px-5">
-              <Trans i18nKey="getGLM" ns="landing" />
-            </Button>
-          </div>
+          <div className="col-span-3 xl:col-span-2">{header}</div>
         </div>
         {main}
       </Grid>

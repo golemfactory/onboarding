@@ -2,7 +2,7 @@ import videoSectionStyle from './Video.section.module.css'
 import landingPageStyle from './LandingPage.module.css'
 import { Trans } from 'components/atoms'
 import { Bullet } from 'components/atoms/bullet/Bullet'
-import { AnimatedSection } from './animatedSection'
+import { AnimatedSection } from './AnimatedSection'
 
 const style = {
   ...videoSectionStyle,
