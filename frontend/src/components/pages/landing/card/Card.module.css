@@ -1,0 +1,86 @@
+.card{
+  border-radius: 20px;
+  border: 1px solid #181EA9;
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  border: 1px solid #181EA9;
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);
+  padding: 48px 56px;
+  height: 100%;
+}
+
+.title {
+  color: var(--neutrals-gray-400, #1D222D);
+    /* Headers/Header 3 | Kanit Regular 32px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  /* 38.4px */
+  letter-spacing: -0.64px;
+}
+
+
+.description {
+  color: var(--neutrals-gray-400, #1D222D);
+  /* Headers/Header 8 | Kanit Regular 18px */
+  line-height: 130%;
+  font-weight: 400;
+  /* 23.4px */
+  letter-spacing: -0.18px;
+}
+
+.exploreButton {
+  @apply text-sm;
+  margin-top: auto;
+  display: flex;
+  padding: 9px 4px;
+  align-items: center;
+  gap: 13px;
+  border-radius: 3px 3px 0px 0px;
+  border-bottom: 1px solid var(--primary-blue-500, #181EA9);
+  color: var(--primary-blue-500, #181EA9);
+  line-height: 16px;
+}
+
+.badge {
+  display: flex;
+  padding: 2px 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.80);
+  color : var(--primary-blue-500, #181EA9);
+}
+
+.top { 
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* 230 + 24  + 38 + 48 + 48 */
+
+
+/* 53 + 16 + 87 + 24 + 36 53 + 24 
+53 + 16 
+
+
+48 + 48 + 38 +24  + 205               34 
+48 + 48 + 38 +24  + 216 + gap  */
+
+
+
+
