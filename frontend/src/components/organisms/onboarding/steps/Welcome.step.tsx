@@ -2,38 +2,35 @@
 import { motion } from 'framer-motion'
 import { MouseEventHandler } from 'react'
 import onboardingStyle from '../Onboarding.module.css'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
+import { InfoTooltip } from 'components/organisms/tooltip/InfoTooltip'
 
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
+
+TooltipProvider.registerTooltip({
+  id: 'welcome',
+  tooltip: {
+    sections: ['dupa'],
+  },
+})
+
 const WelcomePresentational = ({
   onConfirm,
 }: {
   onConfirm: MouseEventHandler
 }) => {
   return (
-    <div className={onboardingStyle.step}>
-      <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Welcome to Golem
-      </motion.h1>
-      <motion.p className={onboardingStyle.description} variants={variants}>
-        Golem network is a decentralized sharing economy of computing power.
-      </motion.p>
-      <motion.button
-        className={onboardingStyle.button}
-        variants={variants}
-        onClick={(e) => {
-          onConfirm(e)
-        }}
-      >
-        Get Started
-      </motion.button>
+    <div className="grid grid-cols-12 gap-8 col-span-12">
+      <div className="col-span-12">{/* <InfoTooltip id={'welcome'} /> */}</div>
     </div>
   )
 }
 
 export const Welcome = ({ goToNextStep }: { goToNextStep: () => void }) => {
+  console.log('Welcome render')
   return (
     <WelcomePresentational
       onConfirm={() => {

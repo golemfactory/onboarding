@@ -17,6 +17,18 @@
   letter-spacing: -0.2px;
 }
 
+.smallDescription {
+  color: var(--neutrals-gray-400, #1D222D);
+  /* Headers/Header 6 | Kanit Regular 20px */
+  font-family: Kanit;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  /* 24px */
+  letter-spacing: -0.2px;
+}
+
 .subtitle{
   color: var(--primary-blue-500, #181EA9);
   font-family: Kanit;

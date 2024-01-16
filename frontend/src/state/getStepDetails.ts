@@ -13,9 +13,14 @@ import {
   Transfer,
 } from 'components/organisms/onboarding'
 
-import React from 'react'
+import { ComponentType } from 'react'
 
-const componentByStep: Record<StepType, React.ElementType> = {
+const componentByStep: Record<
+  StepType,
+  ComponentType<{
+    goToNextStep: () => void
+  }>
+> = {
   [Step.WELCOME]: Welcome,
   [Step.CONNECT_WALLET_SUCCESS]: ChooseNetwork,
   [Step.CONNECT_WALLET]: ConnectWallet,
@@ -32,6 +37,10 @@ const componentByStep: Record<StepType, React.ElementType> = {
   [Step.TRANSFER]: Transfer,
 }
 
-export const mapStateToComponent = (state: StepType) => {
-  return componentByStep[state]
+export const getStepDetails = (step: StepType) => {
+  return {
+    //i18n namespace
+    name: step,
+    component: componentByStep[step],
+  }
 }

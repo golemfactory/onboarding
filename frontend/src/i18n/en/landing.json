@@ -24,5 +24,6 @@
   "getTokensTitle" : "Get Tokens", 
   "getTokensDescription" : "You can buy GLM tokens on exchanges like Uniswap, Binance, or KuCoin",
   "topUpTitle" : "Top up the internal Yagna wallet and start using computing power",
-  "topUpDescription" : "Yagna wallet allows requestors to pay for services within the Golem ecosystem and enables providers to receive payments"
+  "topUpDescription" : "Yagna wallet allows requestors to pay for services within the Golem ecosystem and enables providers to receive payments",
+  "getStarted" : "Get started"
 }

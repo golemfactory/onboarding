@@ -1,5 +1,6 @@
 import videoSectionStyle from './Video.section.module.css'
 import landingPageStyle from './LandingPage.module.css'
+import globalStyle from 'styles/global.module.css'
 import { Trans } from 'components/atoms'
 import { Bullet } from 'components/atoms/bullet/Bullet'
 import { AnimatedSection } from './AnimatedSection'
@@ -7,6 +8,7 @@ import { AnimatedSection } from './AnimatedSection'
 const style = {
   ...videoSectionStyle,
   ...landingPageStyle,
+  ...globalStyle,
 }
 
 export const VideoSection = () => {
@@ -16,10 +18,10 @@ export const VideoSection = () => {
         <Bullet />
       </div>
       <div className={style.videoTextContainer}>
-        <div className={style.videoTitle}>
+        <div className={style.title}>
           <Trans i18nKey="videoTitle" ns="landing" />
         </div>
-        <div className={style.videoDescription}>
+        <div className={style.smallDescription}>
           <Trans i18nKey="videoDescription" ns="landing" />
         </div>
       </div>

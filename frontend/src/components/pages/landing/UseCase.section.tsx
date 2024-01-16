@@ -1,9 +1,17 @@
 import { Bullet, Trans } from 'components/atoms'
 import sectionStyle from './UseCase.section.module.css'
 import landingStyle from './LandingPage.module.css'
+import globalStyle from 'styles/global.module.css'
+
 import { Card } from './Card'
 import { CardData } from './types'
 import { AnimatedSection } from './AnimatedSection'
+
+const style = {
+  ...sectionStyle,
+  ...landingStyle,
+  ...globalStyle,
+}
 
 const useCases: CardData[] = [
   {
@@ -28,19 +36,19 @@ const useCases: CardData[] = [
 export const UseCaseSection = () => {
   return (
     <AnimatedSection>
-      <div className={sectionStyle.container}>
-        <div className={sectionStyle.bulletContainer}>
+      <div className={style.container}>
+        <div className={style.bulletContainer}>
           <Bullet />
         </div>
-        <div className={sectionStyle.titleContainer}>
-          <div className={`${landingStyle.title} ml-4 sm:ml-0 text-left`}>
+        <div className={style.titleContainer}>
+          <div className={`${style.title} ml-4 sm:ml-0 text-left`}>
             <Trans i18nKey="useCasesTitle" ns="landing" />
           </div>
         </div>
-        <div className={sectionStyle.separator} />
+        <div className={style.separator} />
         {useCases
           .map((x) => {
-            return { ...x, className: sectionStyle.card }
+            return { ...x, className: style.card }
           })
           .map(Card)}
       </div>

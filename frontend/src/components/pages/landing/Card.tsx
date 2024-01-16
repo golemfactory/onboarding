@@ -1,7 +1,13 @@
 import { Icon, RightArrowIcon } from 'components/atoms/icons'
-import style from './Card.module.css'
+import cardStyle from './Card.module.css'
+import globalStyle from 'styles/global.module.css'
 import { CardData } from './types'
 import { Trans } from 'components/atoms'
+
+const style = {
+  ...globalStyle,
+  ...cardStyle,
+}
 export const Card = ({
   icon,
   title,

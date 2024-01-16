@@ -6,7 +6,10 @@ type buttonStyleType = 'solid' | 'outline' | 'underline'
 
 const Button = forwardRef<
   HTMLButtonElement,
-  { buttonStyle: buttonStyleType; useDefault: true } & ComponentProps<'button'>
+  {
+    buttonStyle: buttonStyleType
+    useDefault: boolean
+  } & ComponentProps<'button'>
 >(function Button(
   { children, className = styles.button, buttonStyle, ...rest },
   ref

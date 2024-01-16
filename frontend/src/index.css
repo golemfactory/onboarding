@@ -16,6 +16,11 @@
 }
 
 @font-face {
+  font-family: 'Kanit-Light';
+  src: url('/fonts/Kanit-Light.ttf') format('truetype');
+}
+
+@font-face {
   font-family: 'DM Mono';
   src: url('/fonts/DMMono-Regular.ttf') format('truetype');
 }

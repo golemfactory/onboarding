@@ -1,13 +1,12 @@
-import { ReactNode } from 'react'
+import { ComponentType, ReactNode } from 'react'
 
-export type StepPropsType = {
-  onConfirm: () => void
-  title: string
-  content: ReactNode | string
-  buttonText: string
+export type StepLayoutPropsType = {
+  name: string
+  Component: ComponentType<unknown>
+  TitleComponent: ComponentType<unknown>
 }
 
-export type LayoutPropsType = {
+export type MainLayoutPropsType = {
   header?: ReactNode
   footer?: ReactNode
   main?: ReactNode

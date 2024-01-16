@@ -1,11 +1,8 @@
 import { FC } from 'react'
-import { LayoutPropsType } from 'types/ui'
+import { MainLayoutPropsType } from 'types/ui'
 
-import style from './Layout.module.css'
 import { GolemLogoWithDescription } from 'components/atoms/icons/GolemLogoWithDescription'
 import { Grid } from 'components/organisms/grid/Grid'
-import { Button } from 'components/atoms/button'
-import { Trans } from 'components/atoms/translation'
 
 const Ellipses = () => {
   return (
@@ -17,7 +14,7 @@ const Ellipses = () => {
   )
 }
 
-export const LayoutTemplate: FC<LayoutPropsType> = ({ header, main }) => {
+export const LayoutTemplate: FC<MainLayoutPropsType> = ({ header, main }) => {
   return (
     <main
       style={{

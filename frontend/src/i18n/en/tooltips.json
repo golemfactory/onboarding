@@ -1,0 +1,11 @@
+{ 
+  "moreInfo" : "More info",  
+  "welcome.title": "Follow our recommendations to select <breakLine /> the right amount of GLM tokens",
+  "welcome.description" : [
+    "Different tasks require varying amounts of computational resources. By choosing the right amount of GLM tokens, you match your token balance to the specific needs of your project.",
+    "To purchase GLM tokens for computing power, you’ll also need to cover the blockchain transaction costs. GLM tokens are specific for computing services, and a different token is needed for transaction fees. This is why we include a small amount of MATIC tokens in our suggestions." ,
+    "When buying tokens, you'll initially acquire MATIC, then convert it to GLM. The specified amount of $ ensures you get enough of both MATIC and GLM for the computing power you need.", 
+    "Not sure yet? Don't worry, this isn't your final decision.The actual purchase of tokens comes in the next steps." 
+  ]
+}
+

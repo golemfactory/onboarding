@@ -10,7 +10,6 @@ export const useUpdateQueryStringValueWithoutReload = function (
     )
 
     if (currentSearchParams.size === 0) {
-      console.log('rerr')
       currentSearchParams = new URLSearchParams(window.location.search)
       reload = true
     }

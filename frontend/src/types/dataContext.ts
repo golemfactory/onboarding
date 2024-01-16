@@ -1,7 +1,6 @@
 import { StepType } from 'state/steps'
 import { BalanceCaseType } from './path'
 import { EthereumAddress, NetworkType, TokenCategory } from './ethereum'
-import { OnboardingStageType } from 'state/stages'
 
 export interface WalletState {
   accounts: unknown[]
@@ -22,9 +21,6 @@ export interface BlockchainContextDataInterface extends BlockchainContextData {
 export type OnboardingContextData = {
   address?: string | null
   balanceCase?: BalanceCaseType
-  glmAdded: boolean
-  skipSteps?: StepType[]
-  stage: OnboardingStageType
   blockchain: BlockchainContextData
   step?: StepType
   yagnaAddress?: string

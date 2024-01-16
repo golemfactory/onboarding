@@ -12,12 +12,10 @@ import { createStateMachineWithContext } from 'state/machine'
 import { LoadingSpinner } from 'components/atoms/loadingSpinner'
 import { Step, StepType } from 'state/steps'
 import { useSetup } from './Setup.provider'
-import { OnboardingStage } from 'state/stages'
 import { useNetwork } from 'hooks/useNetwork'
 import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
-import { useUpdateQueryStringValueWithoutReload } from 'hooks/useUpdateQueryStringWithoutReload'
 
 export const OnboardingContext = createContext<{
   service: unknown
@@ -43,8 +41,7 @@ export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
 }
 
 export const OnboardingProvider = ({ children }: PropsWithChildren) => {
-  //TODO : make own hook for this to avoid calling get for every param
-
+  console.log('OnboardingProvider render')
   const setup = useSetup()
 
   //cleanup local storage
@@ -60,14 +57,10 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
-  const ref = useRef(
+
+  const stateMachineRef = useRef(
     createStateMachineWithContext({
       ...setup,
-      glmAdded: false,
-      stage:
-        initialStep === Step.CONNECT_WALLET
-          ? OnboardingStage.WALLET
-          : OnboardingStage.WELCOME,
       blockchain: {
         chainId: chain?.id,
         address,
@@ -76,13 +69,14 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
     })
   )
 
-  const [step, setStep] = useState<string>(Step.WELCOME)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_step, setStep] = useState<string>(Step.WELCOME)
 
-  const service = useInterpret(ref.current, {}, (state) => {
+  const service = useInterpret(stateMachineRef.current, {}, (state) => {
     setStep(String(state.value))
   })
 
-  useUpdateQueryStringValueWithoutReload('step', step)
+  // useUpdateQueryStringValueWithoutReload('step', step)
 
   //update state machine context so we are sure we keep machine in sync with the blockchain context
   useEffect(() => {
@@ -92,7 +86,7 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
         ? { chainId: chain.id, address, balance }
         : { address, balance },
     })
-  }, [chain, service, balance])
+  }, [chain, service, balance, address])
 
   return (
     <OnboardingContext.Provider value={{ service }}>

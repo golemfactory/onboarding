@@ -1,26 +1,4 @@
-.title {
-  @apply sm:text-6xl text-3xl;
-  color: var(--primary-blue-500, #181EA9);
-  /* Headers/Header 1 | Kanit Regular 60px */
-  font-family: Kanit;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 105%;
-  /* 63px */
-  letter-spacing: -1.8px;
-}
 
-.subtitle {
-  @apply sm:text-2xl text-lg;
-  color: var(--neutrals-gray-300, #404B63);    
-  /* Headers/Header 4 | Kanit Regular 24px */
-  font-family: Kanit;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-  /* 28.8px */
-  letter-spacing: -0.2px;
-}
 
 .centeredContent {
   @apply col-span-12;

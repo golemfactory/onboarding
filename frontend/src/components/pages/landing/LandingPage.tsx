@@ -1,6 +1,8 @@
 import { useTheme } from 'components/providers/ThemeProvider'
 import { GolemCenterLogo } from './GolemCenteredLogo'
-import style from './LandingPage.module.css'
+import landingStyle from './LandingPage.module.css'
+import globalStyle from 'styles/global.module.css'
+
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
 import { Button, Trans } from 'components/atoms'
@@ -10,6 +12,11 @@ import { APISection } from './API.section'
 import { RunSection } from './Run.section'
 import { WhatYouNeedSection } from './WhatYouNeed.section'
 import { useNavigate } from 'react-router-dom'
+
+const style = {
+  ...landingStyle,
+  ...globalStyle,
+}
 
 const SectionSeparator = () => {
   return <div className={style.sectionSeparator} />
@@ -87,7 +94,11 @@ export const LandingPage = () => {
   return (
     <LayoutTemplate
       header={
-        <Button buttonStyle="solid" className="md:py-4 md:px-9 py-2 px-5">
+        <Button
+          buttonStyle="solid"
+          className="md:py-4 md:px-9 py-2 px-5"
+          useDefault={true}
+        >
           <Trans i18nKey="getGLM" ns="landing" />
         </Button>
       }

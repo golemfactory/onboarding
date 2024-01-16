@@ -1,23 +1,5 @@
 
 
-.title {
-  @apply sm:text-6xl text-3.5xl mt-3.5 sm:mt-10;
-  color: var(--primary-blue-500, #181EA9);
-  font-family: Kanit;
-  font-style: normal;
-  font-weight: 400;;
-  /* 63px */  
-}
-
-.description {
-  @apply sm:text-xl text-lg;
-  color: var(--neutrals-gray-400, #1D222D);
-  font-family: Kanit;
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: -0.2px;
-}
-
 .textContainer {
   @apply xl:col-span-6 col-span-11 ml-6 sm:ml-0;
   display: flex;
@@ -29,3 +11,18 @@
 .bulletContainer { 
   @apply col-span-1 ;
 }
+
+.numberCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: solid 2px var(--primary-blue-500, #181EA9);
+  color: var(--primary-blue-500, #181EA9);
+  font-size: 24px;
+  font-family: Kanit;
+  font-weight: 600;
+}
+
