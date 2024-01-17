@@ -2,10 +2,18 @@
   "moreInfo" : "More info",  
   "welcome.title": "Follow our recommendations to select <breakLine /> the right amount of GLM tokens",
   "welcome.description" : [
-    "Different tasks require varying amounts of computational resources. By choosing the right amount of GLM tokens, you match your token balance to the specific needs of your project.",
-    "To purchase GLM tokens for computing power, you’ll also need to cover the blockchain transaction costs. GLM tokens are specific for computing services, and a different token is needed for transaction fees. This is why we include a small amount of MATIC tokens in our suggestions." ,
+    "Different tasks require varying amounts of computational resources. By choosing the right amount of <golemIcon/> GLM tokens, you match your token balance to the specific needs of your project.",
+    "To purchase GLM tokens for computing power, you’ll also need to cover the blockchain transaction costs. GLM tokens are specific for computing services, and a different token is needed for transaction fees. This is why we include a small amount of <maticIcon /> MATIC tokens in our suggestions." ,
     "When buying tokens, you'll initially acquire MATIC, then convert it to GLM. The specified amount of $ ensures you get enough of both MATIC and GLM for the computing power you need.", 
     "Not sure yet? Don't worry, this isn't your final decision.The actual purchase of tokens comes in the next steps." 
-  ]
+  ],
+  "welcome.explainGLM.title" : "<golemIcon />  <tab/> What is GLM token?",
+  "welcome.explainGLM.content" : "GLM is a utility token available on both Polygon and Ethereum  blockchains. GLM is used as a currency in peer-to-peer transactions for renting computing power on Golem Network. <emptyLine/> In other words, You use GLM tokens to pay for computation power on Golem Network.",
+  "welcome.explainMATIC.title" : "<maticIcon />  <tab/> Why do I need to get MATIC token?",  
+  "welcome.explainMATIC.content" : "MATIC is a native token of Polygon blockchain, which we recommend as a default blockchain to settle Golem payments. <emptyLine />  need MATIC to be able to cover Polygon transaction fees and as a result to be able to send GLM payments.,",
+  "welcome.explainFees.title" : "What are the transaction fees?",
+  "welcome.explainFees.content" : "Each transaction on Polygon blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on Polygon blockchain is associated with some fee value. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
+  "welcome.explainOffRamp.title" : "Can I revert my tokens back to traditional currencies?",
+  "welcome.explainOffRamp.content" : "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into MATIC via Uniswap <breakLine /> - Sell all your MATIC for traditional currency of your choice via RAMP <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurysdiction."
 }
 

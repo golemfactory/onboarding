@@ -36,6 +36,12 @@ module.exports = {
         '90p': '90%',
         'golem-grid-desktop': '1232px',
       },
+      height: {
+        'line-1': '1em',
+        'line-1.5': '1.5em',
+        'line-2': '2em',
+        'line-3': '3em',
+      },
       maxWidth: {
         '1/2': '50%',
       },

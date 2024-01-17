@@ -1,5 +1,3 @@
-import { t } from 'i18next'
-
 import {
   PropsWithChildren,
   createContext,
@@ -54,7 +52,7 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
   }
 
   const hide = (id: string) => {
-    setTooltips({ ...tooltips, ...{ [id]: true } })
+    setTooltips({ ...tooltips, ...{ [id]: false } })
   }
 
   const toggle = (id: string) => {
@@ -108,6 +106,7 @@ TooltipProvider.registerTooltip = ({
   id: string
   tooltip: TooltipType
 }) => {
+  console.log('registering tooltip', id)
   tooltipsRegistry[id] = tooltip
 }
 
@@ -116,9 +115,12 @@ export const useTooltip = (id: string) => {
   useEffect(() => {
     context.addTooltip(id)
   })
-
+  const tooltip = context.tooltips.find((t) => t.id === id)
+  // if (!tooltipsRegistry[id] || !tooltip) {
+  //   throw new Error(`tooltip:tooltipNotRegistered ${id}`)
+  // }
   return {
-    ...context.tooltips.find((t) => t.id === id),
+    ...tooltip,
     ...tooltipsRegistry[id],
   }
 }

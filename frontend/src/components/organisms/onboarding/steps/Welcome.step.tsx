@@ -13,7 +13,7 @@ const variants = {
 TooltipProvider.registerTooltip({
   id: 'welcome',
   tooltip: {
-    sections: ['dupa'],
+    sections: ['explainGLM', 'explainMATIC', 'explainFees', 'explainOffRamp'],
   },
 })
 
