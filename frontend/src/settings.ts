@@ -20,4 +20,6 @@ export const settings = {
     [Token.MATIC_POLYGON]: 3,
     [Token.ETH_MAINNET]: 3,
   },
+  hourCost: 0.45,
+  feesPercentage: 0.2,
 }

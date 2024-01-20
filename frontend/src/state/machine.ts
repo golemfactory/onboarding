@@ -1,15 +1,16 @@
 import { createMachine, assign } from 'xstate'
 import { checkAccountBalances } from './childMachines'
 
-import { Step } from './steps'
+import { Step, StepType } from './steps'
 import { Commands } from './commands'
 import type {
   BlockchainContextData,
+  BudgetType,
   OnboardingContextData,
-  OnboardingContextDataInterface,
 } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 import { OnboardingStage, OnboardingStageType } from './stages'
+import { EthereumAddress } from 'types/ethereum'
 
 const move = (stage: OnboardingStageType) =>
   assign({
@@ -25,9 +26,19 @@ const isGLMTracked = () => {
     .isGLMTracked
 }
 
-export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
+//initial step is persisted and passed to machine so
+// it can be recovered after page reload
+export const createStateMachine = (
+  {
+    step,
+    yagnaAddress,
+  }: {
+    step?: StepType
+    yagnaAddress?: EthereumAddress
+  } = { step: Step.WELCOME }
+) => {
   return createMachine<
-    OnboardingContextDataInterface,
+    OnboardingContextData,
     | { type: 'ADD_GLM' }
     | { type: Commands.NEXT }
     | { type: Commands.PREVIOUS }
@@ -40,23 +51,34 @@ export const createStateMachineWithContext = (ctx: OnboardingContextData) => {
         type: Commands.CHAIN_CONTEXT_CHANGED
         payload: BlockchainContextData
       }
+    | {
+        type: Commands.SELECT_BUDGET
+        payload: BudgetType
+      }
   >({
     context: {
-      ...ctx,
+      yagnaAddress,
       blockchain: {
-        address: ctx.blockchain.address,
-        balance: ctx.blockchain.balance,
-        chainId: ctx.blockchain.chainId,
-        //TODO : I would prefer getter here, check why it doesn't work
+        chainId: undefined,
+        balance: {
+          GLM: BigInt(0),
+          NATIVE: BigInt(0),
+        },
         isConnected() {
-          return this.chainId !== undefined
+          return this?.chainId !== undefined
         },
       },
     },
     id: 'onboarding',
-    initial: ctx.step || Step.WELCOME,
-
+    initial: step || Step.WELCOME,
     on: {
+      [Commands.SELECT_BUDGET]: {
+        actions: assign({
+          budget: (_context, event) => {
+            return event.payload
+          },
+        }),
+      },
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
           blockchain: (context, event) => {

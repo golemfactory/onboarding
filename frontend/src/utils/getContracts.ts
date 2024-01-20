@@ -1,4 +1,5 @@
 import {
+  USDC,
   glmMumbai,
   glmPolygon,
   wmaticMumbai,
@@ -11,6 +12,7 @@ import {
   Network,
   assertEthereumAddress,
   NetworkType,
+  EthereumAddress,
 } from 'types/ethereum'
 
 export const getContracts: (chainId: NetworkType) => IContracts = (chainId) => {
@@ -18,7 +20,7 @@ export const getContracts: (chainId: NetworkType) => IContracts = (chainId) => {
 
   const uniswapV2Polygon = '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff'
   const uniswapV2Mumbai = '0xEfC98B469eC61aa065ccd2099521154860590C6c'
-  const uniswapV2Mainnet = '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45'
+  const uniswapV2Mainnet = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
 
   assertEthereumAddress(uniswapV2Polygon)
   assertEthereumAddress(uniswapV2Mumbai)
@@ -32,6 +34,9 @@ export const getContracts: (chainId: NetworkType) => IContracts = (chainId) => {
       GLM: {
         address: glmMumbai.address,
       },
+      USDC: {
+        address: USDC.mumbai.address,
+      },
       wrappedNativeToken: {
         address: wmaticMumbai.address,
       },
@@ -44,6 +49,9 @@ export const getContracts: (chainId: NetworkType) => IContracts = (chainId) => {
       GLM: {
         address: glmPolygon.address,
       },
+      USDC: {
+        address: USDC.polygon.address,
+      },
       wrappedNativeToken: {
         address: wmaticPolygon.address,
       },
@@ -55,6 +63,13 @@ export const getContracts: (chainId: NetworkType) => IContracts = (chainId) => {
       },
       GLM: {
         address: glmMainnet.address,
+      },
+      USDC: {
+        address: USDC.mainnet.address,
+      },
+      wrappedNativeToken: {
+        address:
+          '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2' as EthereumAddress,
       },
       swapPath: [glmMainnet.address],
     },

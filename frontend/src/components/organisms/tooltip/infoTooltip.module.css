@@ -9,6 +9,7 @@
   gap: 40px;
   width: 100%;
   margin-bottom: 10px;
+  z-index: 100;
 }
 
 .title {
@@ -24,20 +25,21 @@
 .description {
   @apply flex flex-col gap-4;
   color: var(--primary-blue-700-hover, #0C0E55);
-  font-family: Kanit-Light;
+  font-family: Kanit;
   font-size: 16px;
-  font-weight: 100;
+  font-weight: 300;
   line-height: 140%;
 }
 
 .sectionDescription {
   @apply flex flex-col gap-4;
   color: var(--primary-blue-700-hover, #0C0E55);
-  font-family: Kanit-Light;
+  font-family: Kanit;
   font-size: 14px;
   font-weight: 100;
   line-height: 140%;
 }
+
 .container {
   display: inline-flex;
   flex-direction: column;
@@ -56,15 +58,15 @@
 
 .xicon {
   position: absolute;
-  top:24px; 
-  right:24px;
+  top: 24px;
+  right: 24px;
   cursor: pointer;
 }
 
 
 .chevronIcon {
-    margin-left: auto;
-    cursor: pointer;
+  margin-left: auto;
+  cursor: pointer;
 }
 
 

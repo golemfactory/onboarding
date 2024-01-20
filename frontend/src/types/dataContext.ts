@@ -1,4 +1,3 @@
-import { StepType } from 'state/steps'
 import { BalanceCaseType } from './path'
 import { EthereumAddress, NetworkType, TokenCategory } from './ethereum'
 
@@ -14,18 +13,26 @@ export type BlockchainContextData = {
   balance: Record<TokenCategory, bigint | undefined>
 }
 
-export interface BlockchainContextDataInterface extends BlockchainContextData {
-  isConnected: () => boolean
+export type BlockchainContextInterface = {
+  isConnected(): boolean
 }
+// export interface blockchainContextInterface =  BlockchainContextData & {
+//   isConnected(): boolean
+// }
 
-export type OnboardingContextData = {
-  address?: string | null
-  balanceCase?: BalanceCaseType
-  blockchain: BlockchainContextData
-  step?: StepType
+export const BudgetOption = {
+  PLAY_AROUND: { value: 22 },
+  COMPUTE: { value: 55 },
+  AMBITIOUS: { value: 110 },
+  CUSTOM: {},
+} as const
+
+export type BudgetType = (typeof BudgetOption)[keyof typeof BudgetOption]
+
+export interface OnboardingContextData {
+  blockchain: BlockchainContextInterface & BlockchainContextData
+  budget?: BudgetType
   yagnaAddress?: string
-}
-
-export interface OnboardingContextDataInterface extends OnboardingContextData {
-  blockchain: BlockchainContextDataInterface
+  address?: string
+  balanceCase?: BalanceCaseType
 }

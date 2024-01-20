@@ -37,8 +37,6 @@ export function assertNetworkType(x: unknown): asserts x is NetworkType {
 
 export type SetupContextData = {
   yagnaAddress?: EthereumAddress
-  balanceCase?: BalanceCaseType
-  skipSteps?: StepType[]
   step?: StepType
   network?: NetworkType
 }
@@ -53,12 +51,7 @@ export function assertProperSetup(
   }
 
   const invalidKey = keys.find(
-    (key) =>
-      key !== 'yagnaAddress' &&
-      key !== 'balanceCase' &&
-      key !== 'skipSteps' &&
-      key !== 'step' &&
-      key !== 'network'
+    (key) => key !== 'yagnaAddress' && key !== 'step' && key !== 'network'
   )
 
   if (invalidKey) {

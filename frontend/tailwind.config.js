@@ -2,6 +2,9 @@ module.exports = {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    fontFamily: {
+      kanit: ['Kanit'],
+    },
     extend: {
       gridColumn: {
         all: 'col-span-4 md:col-span-8 xl:col-span-12',
@@ -9,6 +12,7 @@ module.exports = {
       colors: {
         golemblue: '#0C14D4',
         primary: '#181EA9',
+        'neutral-grey-300': '#404B63',
         'lightblue-50': '#F6F8FC',
         'lightblue-100': '#E8EBF6',
         'lightblue-200': '#C6CCED',
@@ -46,6 +50,28 @@ module.exports = {
         '1/2': '50%',
       },
       fontSize: {
+        h6: [
+          '1.25rem',
+          {
+            /* Headers/Header 6 | Kanit Regular 20px */
+            fontSize: '20px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '120%' /* 24px */,
+            letterSpacing: '-0.2px',
+          },
+        ],
+        h3: [
+          '1.5rem',
+          {
+            fontSize: '32px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '120%',
+            /* 38.4px */
+            letterSpacing: '-0.64px',
+          },
+        ],
         mini: '.65rem',
         '3.5xl': [
           '32px',

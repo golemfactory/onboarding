@@ -105,7 +105,10 @@ export type IContracts = {
     address: EthereumAddress
   }
   //I intentionally do not use ETH to describe native token to avoid confusion
-  wrappedNativeToken?: {
+  wrappedNativeToken: {
+    address: EthereumAddress
+  }
+  USDC: {
     address: EthereumAddress
   }
   swapPath: EthereumAddress[]

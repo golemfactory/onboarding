@@ -1,95 +1,39 @@
-import {
-  FC,
-  PropsWithChildren,
-  ReactNode,
-  createContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-import { useInterpret } from '@xstate/react'
-import { createStateMachineWithContext } from 'state/machine'
-import { LoadingSpinner } from 'components/atoms/loadingSpinner'
-import { Step, StepType } from 'state/steps'
+import { PropsWithChildren, useEffect, useMemo } from 'react'
+import { createActorContext, useMachine } from '@xstate/react'
+
 import { useSetup } from './Setup.provider'
 import { useNetwork } from 'hooks/useNetwork'
 import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
+import { createStateMachine } from 'state/machine'
 
-export const OnboardingContext = createContext<{
-  service: unknown
-}>({
-  service: {} as unknown,
-})
-
-export const AwaitForMetamaskSDK: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [showLoading, setShowLoading] = useState(true)
-  useEffect(() => {
-    setTimeout(() => {
-      setShowLoading(false)
-    }, 2000)
-  }, [])
-
-  if (!showLoading) {
-    return <>{children}</>
-  } else {
-    return <LoadingSpinner />
-  }
-}
+export const OnboardingContext = createActorContext(createStateMachine())
 
 export const OnboardingProvider = ({ children }: PropsWithChildren) => {
-  console.log('OnboardingProvider render')
+  //read setup from url params
   const setup = useSetup()
-
-  //cleanup local storage
-
-  const [initialStep] = useState<StepType>(
-    localStorage.getItem('OnboardingStep') as StepType
-  )
-
-  useEffect(() => {
-    localStorage.setItem('OnboardingStep', '')
-  }, [initialStep])
-
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
-
-  const stateMachineRef = useRef(
-    createStateMachineWithContext({
-      ...setup,
-      blockchain: {
-        chainId: chain?.id,
-        address,
-        balance,
-      },
-    })
-  )
+  //machine sholdnt be recreated on every render so we useMemo
+  const machine = useMemo(() => createStateMachine(setup), [setup])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_step, setStep] = useState<string>(Step.WELCOME)
+  const [_state, send] = useMachine(machine, { devTools: true })
 
-  const service = useInterpret(stateMachineRef.current, {}, (state) => {
-    setStep(String(state.value))
-  })
-
-  // useUpdateQueryStringValueWithoutReload('step', step)
-
-  //update state machine context so we are sure we keep machine in sync with the blockchain context
   useEffect(() => {
-    service.send({
+    console.log('chain changed', balance)
+    send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
       payload: chain
         ? { chainId: chain.id, address, balance }
         : { address, balance },
     })
-  }, [chain, service, balance, address])
+  }, [address, chain?.id, balance.GLM, balance.NATIVE])
 
   return (
-    <OnboardingContext.Provider value={{ service }}>
+    <OnboardingContext.Provider machine={machine}>
       {children}
     </OnboardingContext.Provider>
   )

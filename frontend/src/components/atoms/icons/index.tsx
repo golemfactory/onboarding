@@ -12,9 +12,11 @@ import { ChevronDoubleRightIcon } from './chevronDoubleRight'
 import { GolemSmallIcon } from './golem.small.icon'
 import { ChevronDownIcon } from './chevron.down'
 import { EyeIcon } from './eye.icon'
-import { AdjustmentsIcon } from './adjustment'
-import { AcademicCapIcon } from './academic-cap'
+import { GolemCoinIcon } from './golem.coin.icon'
+import { MaticCoinIcon } from './matic.coin.icon'
+import { RampIcon } from './ramp.icon'
 import { VariableIcon } from './variable.icon'
+
 const icons = {
   x: XIcon,
   matic: MaticIcon,
@@ -29,8 +31,9 @@ const icons = {
   golemSmall: GolemSmallIcon,
   chevronDown: ChevronDownIcon,
   eye: EyeIcon,
-  adjustments: AdjustmentsIcon,
-  academicCap: AcademicCapIcon,
+  golemCoin: GolemCoinIcon,
+  maticCoin: MaticCoinIcon,
+  ramp: RampIcon,
   variable: VariableIcon,
 }
 
@@ -55,7 +58,8 @@ export {
   GolemSmallIcon,
   ChevronDownIcon,
   EyeIcon,
-  AdjustmentsIcon,
-  AcademicCapIcon,
   VariableIcon,
+  GolemCoinIcon,
+  MaticCoinIcon,
+  RampIcon,
 }

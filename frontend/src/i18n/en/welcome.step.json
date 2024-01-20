@@ -1,5 +1,30 @@
 {
   "title": "Welcome on board! <breakLine/> You’re just a few clicks away from getting a new computing power.",
   "subtitle": "Use our recommendations",
-  "description": "Check out the estimates to determine how many tokens you need. <breakLine />  Based on your selection, we'll assist you in acquiring the correct amount of tokens in the next steps.(Estimates may vary depending on prices and hardware quoted by providers and the calculations given are approximate.)"
+  "description": "Check out the estimates to determine how many tokens you need. <breakLine />  Based on your selection, we'll assist you in acquiring the correct amount of tokens in the next steps.(Estimates may vary depending on prices and hardware quoted by providers and the calculations given are approximate.)",
+  "cards" : {
+    "playAround" : {
+      "title": "Play around",
+      "description": "Just enough to learn what Golem has to offer, try out our multiple tools and examples or even start working on your own idea."
+    },
+    "compute" : {
+      "title": "Compute",
+      "description": "Perfect for longer ad hoc computation requests or if you would like to develop and test your app idea on top of Golem"
+    }, 
+    "ambitious" : {
+      "title": "Ambitious",
+      "description": "Amount suitable for more ambitious projects built on top or Golem like long running services"
+    }, 
+    "custom" : {
+      "title": "Custom",
+      "cost" : "You can allocate as much money as you want <breakLine /> in the next steps .",
+      "description": "Ideal if you know how much computing power you need for sure. "
+
+    }
+  },
+  "coversComputing": "Covers computing",
+  "coversFees": "Covers transaction costs",
+  "around" : "Around",
+  "machineDescription" : "of full 48 threads usage for sample computer with AMD Ryzen Threadripper 3960X 24-Core Processor, 128 GB RAM, 600 GB Disk space",  
+  "for" : "for"
 }

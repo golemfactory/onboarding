@@ -161,12 +161,18 @@ export const InfoTooltip = ({
   }
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      style={{ pointerEvents: tooltip.visible ? 'auto' : 'none' }}
+    >
       <motion.div
         variants={variants}
         animate={tooltip.visible ? 'open' : 'closed'}
-        transition={{ duration: 0.3 }}
-        className="absolute top-0 left-0"
+        transition={{
+          duration: 0.3,
+          ease: 'easeInOut',
+        }}
+        className="absolute top-0 left-0 z-40"
       >
         <InfoTooltipPresentational
           isMoreInfoOpen={isMoreInfoOpen}
