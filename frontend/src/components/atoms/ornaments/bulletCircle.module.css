@@ -1,0 +1,39 @@
+.circle {
+  border-radius: 448px;
+  border: 1.5px solid var(--Background-BG-Illustration-stroke, #E5EBFF);
+
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  width: 448px;
+  height: 448px;
+  transform: rotate(-178.426deg);
+  flex-shrink: 0;
+  position: absolute;
+  top: 691px;
+  right: -254px;
+}
+
+.blueDot {
+  fill: var(--Bullet-Bullet-Inside-Fill, linear-gradient(94deg, #181EA9 4.77%, rgba(24, 30, 169, 0.34) 94.7%));
+  stroke-width: 1px;
+  stroke: var(--Bullet-Bullet-Inside-Stroke, #181EA9);
+
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+}
+
+.dotsContainer {
+  display: inline-flex;
+  transform: rotate(-178.426deg);
+  align-items: flex-start;
+  gap: 8px;
+  position: absolute;
+  right: 31px;
+  bottom: 82px;
+}
+
+.internalDot {
+  fill: var(--Bullet-Bullet-Fill, linear-gradient(94deg, #EAEAFF 4.77%, rgba(200, 202, 255, 0.21) 94.7%));
+  stroke-width: 1px;
+  stroke: var(--Bullet-Bullet-Stroke, #181EA9);
+
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+}

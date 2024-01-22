@@ -1,0 +1,52 @@
+.checkbox {
+  @apply mr-4;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  transition: border 0.3s;
+  border: 1px solid var(--neutrals-gray-300, #404B63);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.unchecked {
+  background: var(--white, #FFF);
+  flex-shrink: 0;
+}
+
+
+.error {
+  border-radius: 4px;
+  border: 1px solid var(--danger-red-200, #A71919);
+  background: var(--white, #FFF);
+  flex-shrink: 0;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+
+
+
+
+.checkbox::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("/checkbox.svg") no-repeat center center;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.checkbox:checked::before {
+  opacity: 1;
+}

@@ -1,6 +1,7 @@
 import { getStepDetails } from 'state/getStepDetails'
 import { useTheme } from 'components/providers/ThemeProvider'
 import { useOnboarding } from 'hooks/useOnboarding'
+import style from './onboarding.module.css'
 
 export const OnboardingPage = () => {
   const theme = useTheme()
@@ -8,12 +9,32 @@ export const OnboardingPage = () => {
   const LayoutTemplate = theme.getLayoutTemplate()
   const StepTemplate = theme.getStepTemplate()
 
-  const [state] = useOnboarding()
+  const { state } = useOnboarding()
   //@ts-ignore
   const { name, component } = getStepDetails(state.value)
+
+  console.log('onboarding state', state)
+  const Background = () => {
+    return (
+      <div className={style.container}>
+        <div className={style.ellipse_1}></div>
+        <div className={style.ellipse_2}></div>
+        {/* <BulletCircle /> */}
+      </div>
+    )
+  }
   return (
     <LayoutTemplate
-      main={<StepTemplate name={name} Component={component} />}
+      background={<Background />}
+      main={
+        <StepTemplate
+          name={name}
+          Component={component}
+          checkCompleted={() => {
+            return true
+          }}
+        />
+      }
     ></LayoutTemplate>
   )
 }

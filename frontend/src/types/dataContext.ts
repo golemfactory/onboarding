@@ -16,15 +16,12 @@ export type BlockchainContextData = {
 export type BlockchainContextInterface = {
   isConnected(): boolean
 }
-// export interface blockchainContextInterface =  BlockchainContextData & {
-//   isConnected(): boolean
-// }
 
 export const BudgetOption = {
-  PLAY_AROUND: { value: 22 },
-  COMPUTE: { value: 55 },
-  AMBITIOUS: { value: 110 },
-  CUSTOM: {},
+  PLAY_AROUND: 'playAround',
+  COMPUTE: 'compute',
+  AMBITIOUS: 'ambitious',
+  CUSTOM: 'custom',
 } as const
 
 export type BudgetType = (typeof BudgetOption)[keyof typeof BudgetOption]

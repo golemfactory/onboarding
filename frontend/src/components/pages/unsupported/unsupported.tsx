@@ -54,5 +54,3 @@ export const UnsupportedPage = () => {
     />
   )
 }
-
-console.log('U', UnsupportedPage)

@@ -20,8 +20,8 @@ module.exports = {
         'blue-400': '#5F6ABF',
         'darkblue-500': '#181EA9',
         'darkblue-600': '#0E137C',
-        'darkblue-000': '#0C0E55',
-
+        'darkblue-700': '#0C0E55',
+        'dangerred-200': '#A71919',
         //TODO add whole color palette with names
         'success-50': '#E8F6E8',
         'success-100': '#',
@@ -70,6 +70,32 @@ module.exports = {
             lineHeight: '120%',
             /* 38.4px */
             letterSpacing: '-0.64px',
+          },
+        ],
+        'button-large': [
+          {
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '100%',
+          },
+        ],
+        'b-xl': [
+          '1.375rem',
+          {
+            fontSize: '22px',
+            fontStyle: 'normal',
+            fontWeight: 300,
+            lineHeight: '130%',
+            letterSpacing: '-0.22px',
+          },
+        ],
+        'c-n': [
+          '0.75rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 300,
+            lineHeight: '140%',
           },
         ],
         mini: '.65rem',

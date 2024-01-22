@@ -2,9 +2,20 @@ import style from './RecommendationCard.module.css'
 import { Trans } from 'components/atoms'
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline'
 
-export const CustomRecommendationCard = () => {
+export const CustomRecommendationCard = ({
+  selected,
+  selectBudget,
+}: {
+  selected?: boolean
+  selectBudget: () => void
+}) => {
   return (
-    <div className={style.card}>
+    <div
+      className={`${style.card} ${selected ? style.selected : ''}`}
+      onClick={() => {
+        selectBudget()
+      }}
+    >
       <div className={style.top}>
         <div className={style.head}>
           <div className={style.headLeft}></div>

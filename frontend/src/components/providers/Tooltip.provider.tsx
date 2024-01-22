@@ -106,7 +106,6 @@ TooltipProvider.registerTooltip = ({
   id: string
   tooltip: TooltipType
 }) => {
-  console.log('registering tooltip', id)
   tooltipsRegistry[id] = tooltip
 }
 
@@ -116,9 +115,7 @@ export const useTooltip = (id: string) => {
     context.addTooltip(id)
   })
   const tooltip = context.tooltips.find((t) => t.id === id)
-  // if (!tooltipsRegistry[id] || !tooltip) {
-  //   throw new Error(`tooltip:tooltipNotRegistered ${id}`)
-  // }
+
   return {
     ...tooltip,
     ...tooltipsRegistry[id],

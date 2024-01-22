@@ -1,3 +1,5 @@
+import { ComponentProps } from 'react'
+
 export const RampIcon = (props: ComponentProps<'svg'>) => {
   return (
     <svg
@@ -6,6 +8,7 @@ export const RampIcon = (props: ComponentProps<'svg'>) => {
       height="16"
       viewBox="0 0 69 16"
       fill="none"
+      {...props}
     >
       <g clipPath="url(#clip0_2141_16745)">
         <path

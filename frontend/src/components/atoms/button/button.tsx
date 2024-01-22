@@ -8,16 +8,16 @@ const Button = forwardRef<
   HTMLButtonElement,
   {
     buttonStyle: buttonStyleType
-    useDefault: boolean
+    useDefault?: boolean
   } & ComponentProps<'button'>
 >(function Button(
-  { children, className = styles.button, buttonStyle, ...rest },
+  { children, className = styles.button, buttonStyle, useDefault, ...rest },
   ref
 ) {
   return (
     <button
       ref={ref}
-      className={`${rest.useDefault ? styles.button : ''} ${className} ${
+      className={`${useDefault ? styles.button : ''} ${className} ${
         styles[buttonStyle]
       } `}
       {...rest}

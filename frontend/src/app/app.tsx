@@ -13,7 +13,6 @@ import { OnboardingPage } from 'components/pages'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 
 const Router: FC = () => {
-  console.log('Router')
   const location = useLocation()
 
   const locationArr = location.pathname?.split('/') ?? []

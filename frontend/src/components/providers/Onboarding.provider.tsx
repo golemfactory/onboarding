@@ -23,7 +23,6 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const [_state, send] = useMachine(machine, { devTools: true })
 
   useEffect(() => {
-    console.log('chain changed', balance)
     send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
       payload: chain

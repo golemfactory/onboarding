@@ -1,23 +1,34 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './Step.template.module.css'
 import { StepLayoutPropsType } from 'types/ui'
-import { Bullet, Trans } from 'components/atoms'
+import { Bullet, Button, Trans } from 'components/atoms'
 import {
   InfoTooltip,
   InfoTooltipTrigger,
 } from 'components/organisms/tooltip/InfoTooltip'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { Commands } from 'state/commands'
 
 const style = {
   ...globalStyle,
   ...templateStyle,
 }
 
-export const StepTemplate: FC<StepLayoutPropsType> = ({
+//TODO : divide into two components to separate logic and presentation
+
+export const StepTemplate: FC<StepLayoutPropsType> = function ({
   name,
   Component,
-}: StepLayoutPropsType) => {
+}: StepLayoutPropsType) {
+  const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
+  const [isNextCalled, setIsNextCalled] = useState(false)
+
+  const { send } = useOnboarding()
+  useState(false)
+
   const namespace = `${name}.step`
+
   return (
     <div className={style.container}>
       <div className={style.textContainer}>
@@ -46,7 +57,31 @@ export const StepTemplate: FC<StepLayoutPropsType> = ({
           </div>
         </div>
       </div>
-      <Component />
+      <Component
+        setIsCompleted={setIsReadyForNextStep}
+        isNextCalled={isNextCalled}
+      />
+      <div className="col-span-12 flex justify-end mt-12">
+        <Button
+          buttonStyle="solid"
+          style={{
+            padding: '16px 50px',
+            fontSize: '16px',
+          }}
+          onClick={() => {
+            setIsNextCalled(true)
+            if (isReadyForNextStep) {
+              setIsNextCalled(false)
+              if (isReadyForNextStep) {
+                send(Commands.NEXT)
+              }
+            }
+          }}
+        >
+          {' '}
+          Next
+        </Button>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { Trans as TransComponent } from 'react-i18next'
 import { ComponentProps, PropsWithChildren } from 'react'
-import { GolemIcon, GolemSmallIcon, MaticIcon } from '../icons'
+import { GolemSmallIcon, MaticIcon, RampIcon } from '../icons'
+import { UniswapIcon } from '../icons/uniswap.icon'
 
 export const LinkText = (
   props: PropsWithChildren<{ to: string; title: string }>
@@ -16,13 +17,13 @@ export const LinkText = (
     </a>
   )
 }
-console.log('trans component')
 
 export const Trans = (props: ComponentProps<typeof TransComponent>) => {
   return (
     <TransComponent
       {...props}
       components={{
+        red: <div className="inline text-dangerred-200" />,
         breakLine: <br />,
         golemIcon: (
           <GolemSmallIcon className="inline h-line-1.5 mr-0.5 ml-0.5" />
@@ -34,8 +35,11 @@ export const Trans = (props: ComponentProps<typeof TransComponent>) => {
             <br />
           </>
         ),
-        maticIcon: <MaticIcon className="inline h-line-1.5 mr-0.5 ml-0.5" />,
+        maticIcon: <MaticIcon className="inline h-line-1 mr-0.5 ml-1.5" />,
+        UniswapIcon: <UniswapIcon className="inline" />,
+        RampIcon: <RampIcon className="inline" />,
         ...props.components,
+        Heart: <img src="heart.svg" className="inline h-line-1.5" />,
       }}
     />
   )

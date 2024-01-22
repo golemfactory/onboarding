@@ -1,5 +1,5 @@
 import { Token } from './types'
-
+import { BudgetOption } from './types'
 // Minimal balance is checked during onboarding
 // if user is below the threshold, they are considered to have no balance in that token
 // and forces to acquire some but we don't want to perform a swap for very low amounts
@@ -22,4 +22,10 @@ export const settings = {
   },
   hourCost: 0.45,
   feesPercentage: 0.2,
+  budgetOptions: {
+    [BudgetOption.PLAY_AROUND]: 22,
+    [BudgetOption.COMPUTE]: 55,
+    [BudgetOption.AMBITIOUS]: 110,
+    [BudgetOption.CUSTOM]: Infinity,
+  },
 }

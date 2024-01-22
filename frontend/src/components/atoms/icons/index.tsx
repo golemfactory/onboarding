@@ -16,6 +16,7 @@ import { GolemCoinIcon } from './golem.coin.icon'
 import { MaticCoinIcon } from './matic.coin.icon'
 import { RampIcon } from './ramp.icon'
 import { VariableIcon } from './variable.icon'
+import { CheckboxCheckedIcon } from './checkbox.checked.icon'
 
 const icons = {
   x: XIcon,
@@ -35,6 +36,7 @@ const icons = {
   maticCoin: MaticCoinIcon,
   ramp: RampIcon,
   variable: VariableIcon,
+  checkboxChecked: CheckboxCheckedIcon,
 }
 
 export const Icon = ({ icon, ...props }: { icon: keyof typeof icons }) => {
@@ -62,4 +64,5 @@ export {
   GolemCoinIcon,
   MaticCoinIcon,
   RampIcon,
+  CheckboxCheckedIcon,
 }

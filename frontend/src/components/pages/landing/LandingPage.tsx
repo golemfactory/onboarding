@@ -22,6 +22,16 @@ const SectionSeparator = () => {
   return <div className={style.sectionSeparator} />
 }
 
+const Background = () => {
+  return (
+    <div>
+      <div className={style.ellipse_1}></div>
+      <div className={style.ellipse_2}></div>
+      <div className={style.ellipse_3}></div>
+    </div>
+  )
+}
+
 const LandingPageContent = () => {
   const navigate = useNavigate()
   const [scroll, setScroll] = useState(0)
@@ -103,6 +113,7 @@ export const LandingPage = () => {
         </Button>
       }
       main={<LandingPageContent />}
+      background={<Background />}
     />
   )
 }

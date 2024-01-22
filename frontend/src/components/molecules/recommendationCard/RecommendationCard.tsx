@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from 'react'
+import { ComponentType } from 'react'
 import style from './RecommendationCard.module.css'
 import { Trans } from 'components/atoms'
 
@@ -6,26 +6,29 @@ import { settings } from 'settings'
 import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { GolemCoinIcon, MaticCoinIcon } from 'components/atoms/icons'
 
-function roundToHalf(num) {
-  // Multiply by 2, round to nearest integer, then divide by 2
+function roundToHalf(num: number) {
   return Math.round(num * 2) / 2
 }
 
+import { BudgetOption } from 'types/dataContext'
+
 export const RecommendationCard = ({
-  usageTime,
-  description,
+  id,
   Icon,
-  title,
-  onClick,
+  selectBudget,
   selected,
 }: {
-  usageTime: number
-  description: string
-  Icon: ReactNode
-  title: string
-  onClick: MouseEventHandler
+  id: (typeof BudgetOption)[keyof typeof BudgetOption]
+  Icon: ComponentType<{ className: string }>
+  selectBudget: () => void
   selected?: boolean
 }) => {
+  //i18n
+  const title = `${id}.title`
+  const description = `${id}.description`
+
+  //settings
+  const usageTime = settings.budgetOptions[id]
   const glmCoinValue = 30
   const maticCoinValue = 4
   const { data: rates } = useOnboardingExchangeRates()
@@ -33,7 +36,7 @@ export const RecommendationCard = ({
   const maticCost = roundToHalf(
     usageCost * settings.feesPercentage * (rates?.['Matic'] || 0)
   )
-  const glmCost = roundToHalf(
+  const glmCost = Math.round(
     usageCost * (1 - settings.feesPercentage) * (rates?.['GLM'] || 0)
   )
 
@@ -41,18 +44,26 @@ export const RecommendationCard = ({
   const maticCoinsCount = Math.ceil(maticCost / maticCoinValue)
 
   return (
-    <div className={style.card} onClick={onClick}>
+    <div
+      className={`${style.card} ${selected ? style.selected : ''}`}
+      onClick={() => {
+        selectBudget()
+      }}
+      key={title}
+    >
       <div className={style.top}>
         <div className={style.head}>
           <div className={style.headLeft}>
-            <div className={style.caps10px}>arround</div>
+            <div className={style.caps10px}>
+              <Trans i18nKey="around" ns="welcome.step" />
+            </div>
             <div className={style.time}>
               {usageTime}
               <span>h</span>
             </div>
           </div>
           <div className={style.headRight}>
-            {Icon}
+            <Icon className={`${style.icon}`} />
             <div className={style.title}>
               <Trans i18nKey={`cards.${title}`} ns="welcome.step" />
             </div>
@@ -108,7 +119,7 @@ export const RecommendationCard = ({
                 ≈ {maticCost} MATIC
               </span>
               <span className={style.caps10px}>
-                <Trans i18nKey="coverFees" ns="welcome.step" />
+                <Trans i18nKey="coversFees" ns="welcome.step" />
               </span>
             </div>
           </div>

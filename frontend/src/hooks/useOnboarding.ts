@@ -8,5 +8,8 @@ export const useOnboarding = () => {
       'useOnboarding must be used within a "OnboardingContextProvider"'
     )
   }
-  return [state, send]
+  return {
+    state,
+    send,
+  }
 }

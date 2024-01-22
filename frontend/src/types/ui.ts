@@ -1,13 +1,17 @@
-import { ComponentType, ReactNode } from 'react'
+import { ComponentType, ReactElement, ReactNode } from 'react'
 
 export type StepLayoutPropsType = {
   name: string
-  Component: ComponentType<unknown>
+  Component: ComponentType<{
+    setIsCompleted: (isCompleted: boolean) => void
+    isNextCalled: boolean
+  }>
   TitleComponent: ComponentType<unknown>
 }
 
 export type MainLayoutPropsType = {
-  header?: ReactNode
-  footer?: ReactNode
-  main?: ReactNode
+  header?: ReactElement
+  footer?: ReactElement
+  main: ReactElement
+  background: ReactNode
 }

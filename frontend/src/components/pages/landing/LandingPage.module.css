@@ -1,4 +1,33 @@
+.ellipse_1 {
+  position: absolute;
+  width: 3622px;
+  height: 3222px;
+  top: -1688px;
+  left: -1591px;
+  border-radius: 3622px;
+  opacity: 0.2;
+  background: radial-gradient(35.95% 35.95% at 50% 50%, #181EA9 0%, rgba(24, 30, 169, 0.26) 70.16%, rgba(24, 30, 169, 0.00) 100%);
+}
 
+.ellipse_2 {
+  position: absolute;
+  width: 5656px;
+  height: 5656px;
+  top: -198px;
+  left: -1172px;
+  border-radius: 5656px;
+  background: radial-gradient(35.95% 35.95% at 50% 50%, rgba(24, 30, 169, 0.11) 0%, rgba(24, 30, 169, 0.00) 100%);
+}
+
+.ellipse_3 {
+  position: absolute;
+  width: 4223px;
+  height: 4223px;
+  top: 2522px;
+  left: -1923px;
+  border-radius: 4223px;
+  background: radial-gradient(35.95% 35.95% at 50% 50%, rgba(14, 19, 124, 0.18) 0%, rgba(24, 30, 169, 0.05) 48.44%, rgba(24, 30, 169, 0.00) 100%);
+}
 
 .centeredContent {
   @apply col-span-12;
@@ -11,9 +40,9 @@
   position: relative;
 }
 
-.contentCard { 
-  @apply xl:col-span-4 sm:col-span-6 col-span-4;
-} 
+.contentCard {
+  @apply col-span-4 xl:col-span-4 sm:col-span-6;
+}
 
 @media screen and (max-width: 1280px) and (min-width: 640px) {
   .contentCard {
@@ -24,4 +53,3 @@
 .sectionSeparator {
   @apply xl:h-36 h-10;
 }
-

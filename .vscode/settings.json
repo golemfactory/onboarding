@@ -3,7 +3,9 @@
     "checkmark",
     "commitlint",
     "cond",
+    "dangerred",
     "Dowloaded",
+    "golemblue",
     "heroicons",
     "kanit",
     "linebreak",
@@ -16,6 +18,7 @@
     "vite",
     "Wagmi",
     "WMATIC",
+    "xicon",
     "xstate",
     "yagna"
   ]

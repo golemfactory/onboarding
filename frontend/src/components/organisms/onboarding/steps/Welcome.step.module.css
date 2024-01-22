@@ -1,0 +1,10 @@
+.disclaimer {
+  @apply col-span-12 mt-5;
+  color: var(--neutrals-gray-300, #404B63);
+  font-family: Kanit;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
+
+}

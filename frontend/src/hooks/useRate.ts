@@ -38,7 +38,6 @@ export const useOnboardingExchangeRates = () => {
   const [usdcToMatic, setUsdcToMatic] = useState(0)
   const contracts = getContracts(chain.id)
 
-  console.log(contracts)
   const { data: usdcToMaticWei, isLoading: glmToUsdcLoading } = useContractRead(
     {
       address: contracts.uniswapV2.address,

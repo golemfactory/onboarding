@@ -1,5 +1,4 @@
 // components/welcome/intro.tsx
-import { MouseEventHandler } from 'react'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import {
   EyeIcon,
@@ -10,11 +9,16 @@ import {
   RecommendationCard,
   CustomRecommendationCard,
 } from 'components/molecules'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { BudgetOption } from 'types/dataContext'
+import { Commands } from 'state/commands'
+import { Trans } from 'components/atoms'
+import welcomeStepStyle from './Welcome.step.module.css'
+import { Legal } from 'components/molecules/legal/Legal'
 
-// const variants = {
-//   show: { opacity: 1 },
-//   hidden: { opacity: 0 },
-// }
+const style = {
+  ...welcomeStepStyle,
+}
 
 TooltipProvider.registerTooltip({
   id: 'welcome',
@@ -25,50 +29,68 @@ TooltipProvider.registerTooltip({
 
 const RecommendationCards = [
   {
-    usageTime: 22,
-    description: 'playAround.description',
-    Icon: <EyeIcon className="w-6 h-6 text-primary" />,
-    title: 'playAround.title',
+    id: BudgetOption.PLAY_AROUND,
+    Icon: EyeIcon,
   },
   {
-    usageTime: 55,
-    description: 'compute.description',
-    Icon: <VariableIcon className="w-6 h-6 text-primary" />,
-    title: 'compute.title',
+    id: BudgetOption.COMPUTE,
+    Icon: VariableIcon,
   },
   {
-    usageTime: 110,
-    description: 'ambitious.description',
-    Icon: <AcademicCapIcon className="w-6 h-6 text-primary" />,
-    title: 'ambitious.title',
+    id: BudgetOption.AMBITIOUS,
+    Icon: AcademicCapIcon,
   },
-].map((card) => ({
-  ...card,
-  onClick: () => {
-    console.log('onClick', this)
-  },
-}))
-
+]
 const WelcomePresentational = ({
-  onConfirm,
+  setIsCompleted,
+  shouldCheckLegal,
 }: {
-  onConfirm: MouseEventHandler
+  setIsCompleted: (isCompleted: boolean) => void
+  shouldCheckLegal: boolean
 }) => {
+  const { state, send } = useOnboarding()
+
   return (
     <div className="grid grid-cols-12 col-span-12 gap-3">
-      {RecommendationCards.map(RecommendationCard)}
-      <CustomRecommendationCard />
+      {/* cards */}
+      {RecommendationCards.map((card) => {
+        return {
+          ...card,
+          selectBudget: () => {
+            send({ type: Commands.SELECT_BUDGET, payload: card.id })
+          },
+          selected: state.context.budget === card.id,
+        }
+      }).map(RecommendationCard)}
+      <CustomRecommendationCard
+        selectBudget={() => {
+          send({ type: Commands.SELECT_BUDGET, payload: BudgetOption.CUSTOM })
+        }}
+        selected={state.context.budget === BudgetOption.CUSTOM}
+      />
+
+      <div className={`${style.disclaimer} mb-16`}>
+        <Trans i18nKey="disclaimer" ns="welcome.step" />
+      </div>
+      <Legal
+        setIsCompleted={setIsCompleted}
+        shouldCheckLegal={shouldCheckLegal}
+      />
     </div>
   )
 }
 
-export const Welcome = ({ goToNextStep }: { goToNextStep: () => void }) => {
-  console.log('Welcome render')
+export const Welcome = ({
+  setIsCompleted,
+  isNextCalled,
+}: {
+  setIsCompleted: (isCompleted: boolean) => void
+  isNextCalled: boolean
+}) => {
   return (
     <WelcomePresentational
-      onConfirm={() => {
-        goToNextStep()
-      }}
+      setIsCompleted={setIsCompleted}
+      shouldCheckLegal={isNextCalled}
     />
   )
 }

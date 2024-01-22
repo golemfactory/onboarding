@@ -53,6 +53,7 @@ export const InfoTooltipPresentational = ({
     ns: 'tooltips',
   }) as string[]
 
+  console.log('se', description)
   // Assuming 'items' is your key in the JSON file
   return (
     <div className={`${tooltipStyle.card}`}>
@@ -72,7 +73,7 @@ export const InfoTooltipPresentational = ({
           {description.map((item, idx) => {
             return (
               <div key={idx}>
-                <Trans i18nKey={item} ns="tooltips" />{' '}
+                <Trans i18nKey={item} ns="tooltips" />
               </div>
             )
           })}
