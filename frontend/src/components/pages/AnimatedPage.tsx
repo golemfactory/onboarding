@@ -20,7 +20,7 @@ export const AnimatedPage = (props: PropsWithChildren) => {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className="h-full min-h-screen"
+      className="h-full flex flex-col"
     >
       {props.children}
     </motion.div>

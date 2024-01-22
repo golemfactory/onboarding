@@ -14,19 +14,26 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
 }) => {
   return (
     <div>
-      <Grid className="mt-1">
-        {/* <img src="bgeffects.svg" className="absolute top-0 left-0 w-100" /> */}
-        <div className="col-span-12 grid grid-cols-12">
-          <div className="xl:col-span-2 col-span-4">
-            <GolemLogoWithDescription />
+      <div
+        className="mb-24"
+        style={{
+          minHeight: 'calc(100vh - 96px)',
+        }}
+      >
+        <Grid className="mt-1 ">
+          {/* <img src="bgeffects.svg" className="absolute top-0 left-0 w-100" /> */}
+          <div className="col-span-12 grid grid-cols-12">
+            <div className="xl:col-span-2 col-span-4">
+              <GolemLogoWithDescription />
+            </div>
+            <div className="col-span-5 xl:col-span-8"></div>
+            <div className="col-span-3 xl:col-span-2">{header}</div>
           </div>
-          <div className="col-span-5 xl:col-span-8"></div>
-          <div className="col-span-3 xl:col-span-2">{header}</div>
-        </div>
-        {main}
-      </Grid>
-      <div className="absolute bottom-0 w-full mb-6">
-        <Grid className="mt-1">
+          {main}
+        </Grid>
+      </div>
+      <div>
+        <Grid className="">
           <Footer></Footer>
         </Grid>
       </div>
