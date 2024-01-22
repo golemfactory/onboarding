@@ -11,7 +11,6 @@ import { networks } from 'ethereum/networks'
 import { NetworkType } from 'types/ethereum'
 import onboardingStyle from '../Onboarding.module.css'
 import { Network } from 'ethereum/networks/types'
-import { hexToNumber } from 'viem'
 import { useSwitchNetwork } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { useSetup } from 'hooks/useSetup'
@@ -72,11 +71,7 @@ const ChooseNetworkPresentational = ({
   )
 }
 
-export const ChooseNetwork = ({
-  goToNextStep,
-}: {
-  goToNextStep: () => void
-}) => {
+export const ChooseNetwork = () => {
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(
     Network.POLYGON
   )
@@ -91,12 +86,12 @@ export const ChooseNetwork = ({
   }
 
   const onConfirm = useCallback(async () => {
-    if (chain?.id === selectedNetwork) {
-      goToNextStep()
-      return
-    }
-    await switchNetworkAsync?.(hexToNumber(selectedNetwork))
-    goToNextStep()
+    // if (chain?.id === selectedNetwork) {
+    //   goToNextStep()
+    //   return
+    // }
+    // await switchNetworkAsync?.(hexToNumber(selectedNetwork))
+    // goToNextStep()
   }, [selectedNetwork, chain, switchNetworkAsync])
 
   useEffect(() => {

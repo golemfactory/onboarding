@@ -6,41 +6,45 @@ import {
   ChooseNetwork,
   OnRamp,
   SwapTokens,
-  NotSupported,
   Finish,
   AddGLM,
-  ChooseWallet,
   Transfer,
 } from 'components/organisms/onboarding'
 
 import { ComponentType } from 'react'
 
-const componentByStep: Record<
-  StepType,
-  ComponentType<{
-    goToNextStep: () => void
-  }>
+const componentByStep: Partial<
+  Record<
+    StepType,
+    {
+      component: ComponentType<{
+        setIsCompleted: (isCompleted: boolean) => void
+        isNextCalled: boolean
+      }>
+      placement: 'inside' | 'outside'
+    }
+  >
 > = {
-  [Step.WELCOME]: Welcome,
-  [Step.CONNECT_WALLET_SUCCESS]: ChooseNetwork,
-  [Step.CONNECT_WALLET]: ConnectWallet,
-  [Step.CHOOSE_NETWORK]: ChooseNetwork,
-  [Step.ON_RAMP]: OnRamp,
-  [Step.DETECT_METAMASK]: LoadingSpinner,
-  [Step.CHECK_ACCOUNT_BALANCES]: LoadingSpinner,
-  [Step.SWAP]: SwapTokens,
-  [Step.GASLESS_SWAP]: NotSupported,
-  [Step.FINISH]: Finish,
-  [Step.ADD_GLM]: AddGLM,
-  [Step.CHOOSE_WALLET]: ChooseWallet,
-  [Step.NOT_METAMASK]: NotSupported,
-  [Step.TRANSFER]: Transfer,
+  [Step.WELCOME]: { component: Welcome, placement: 'outside' },
+  [Step.CONNECT_WALLET]: {
+    component: ConnectWallet,
+    placement: 'inside',
+  },
+  [Step.CHOOSE_NETWORK]: { component: ChooseNetwork, placement: 'outside' },
+  [Step.ON_RAMP]: { component: OnRamp, placement: 'outside' },
+  [Step.DETECT_METAMASK]: { component: LoadingSpinner, placement: 'outside' },
+  [Step.SWAP]: { component: SwapTokens, placement: 'outside' },
+  [Step.FINISH]: { component: Finish, placement: 'outside' },
+  [Step.ADD_GLM]: { component: AddGLM, placement: 'outside' },
+  [Step.TRANSFER]: { component: Transfer, placement: 'outside' },
 }
 
 export const getStepDetails = (step: StepType) => {
+  const details = componentByStep[step]
   return {
     //i18n namespace
     name: step,
-    component: componentByStep[step],
+    component: details?.component,
+    placement: details?.placement,
   }
 }

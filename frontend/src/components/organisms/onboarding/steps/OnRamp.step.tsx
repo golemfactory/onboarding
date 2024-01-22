@@ -31,10 +31,8 @@ enum TransactionState {
 }
 
 const OnRampPresentational = ({
-  goToNextStep,
   transactionState,
 }: {
-  goToNextStep: () => void
   transactionState: TransactionState
 }) => {
   return (
@@ -53,7 +51,7 @@ const OnRampPresentational = ({
         className=" mt-4 px-4 py-2 text-white rounded bg-golemblue"
         variants={variants}
         onClick={() => {
-          goToNextStep()
+          // goToNextStep()
         }}
         disabled={transactionState === TransactionState.PENDING}
       >
@@ -71,7 +69,7 @@ const OnRampPresentational = ({
   )
 }
 
-export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
+export const OnRamp = () => {
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const balance = useBalance()
@@ -148,10 +146,5 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
     hideRampBackground()
   }, [address])
 
-  return (
-    <OnRampPresentational
-      goToNextStep={goToNextStep}
-      transactionState={transactionState}
-    />
-  )
+  return <OnRampPresentational transactionState={transactionState} />
 }

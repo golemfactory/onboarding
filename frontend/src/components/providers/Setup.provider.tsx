@@ -21,12 +21,14 @@ const parseSetupParams = (
 
 const useSetupParams = () => {
   const [searchParams] = useSearchParams()
+  console.log('searchParams', searchParams)
   const setup = parseSetupParams(Object.fromEntries(searchParams))
   assertProperSetup(setup)
   return setup
 }
 
 export const SetupProvider = ({ children }: PropsWithChildren) => {
+  console.log('setup provider')
   const setupParams = useSetupParams()
   return (
     <SetupContext.Provider value={setupParams}>

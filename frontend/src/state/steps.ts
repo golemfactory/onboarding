@@ -16,7 +16,6 @@ export const Step = {
   SWAP: 'swap',
   GASLESS_SWAP: 'gasless-swap',
   TRANSFER: 'transfer',
-  CHOOSE_WALLET: 'choose-wallet',
 } as const
 
 export type SkipableStepType = (typeof SkipableStep)[keyof typeof SkipableStep]

@@ -76,7 +76,7 @@ const SwapTokensPresentational = ({
   )
 }
 
-export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
+export const SwapTokens = () => {
   const { chain } = useNetwork()
 
   if (!chain?.id) {
@@ -107,7 +107,6 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   useEffect(() => {
     if (isSuccess && !done) {
       setDone(true)
-      goToNextStep()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])

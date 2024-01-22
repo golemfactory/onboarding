@@ -180,12 +180,15 @@ const Dot = () => {
   )
 }
 
-export const Bullet = () => {
+export const Bullet = ({ useTopStroke = true }: { useTopStroke?: boolean }) => {
   return (
     <div className={style.container}>
       <div className={style.bulletContainer}>
-        <div className={`${style.fadingLine} ${style.topStroke}`}></div>
-
+        {useTopStroke ? (
+          <div className={`${style.fadingLine} ${style.topStroke}`}></div>
+        ) : (
+          <div></div>
+        )}
         <div className={style.dotContainer}>
           <ExternalDot />
           <Dot />

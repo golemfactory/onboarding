@@ -7,6 +7,7 @@ export type StepLayoutPropsType = {
     isNextCalled: boolean
   }>
   TitleComponent: ComponentType<unknown>
+  placement: 'inside' | 'outside'
 }
 
 export type MainLayoutPropsType = {

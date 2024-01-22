@@ -34,7 +34,7 @@ const AddGLMPresentational = ({
   )
 }
 
-export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
+export const AddGLM = () => {
   const [store, setState] = useLocalStorage('onboarding', {})
 
   const { watch, success } = useWatchGLM()
@@ -46,7 +46,6 @@ export const AddGLM = ({ goToNextStep }: { goToNextStep: () => void }) => {
   useEffect(() => {
     if (success) {
       setState({ ...store, addGLM: true })
-      goToNextStep()
     }
   }, [success])
 

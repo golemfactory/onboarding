@@ -11,7 +11,7 @@ export const OnboardingPage = () => {
 
   const { state } = useOnboarding()
   //@ts-ignore
-  const { name, component } = getStepDetails(state.value)
+  const { name, component, placement } = getStepDetails(state.value)
 
   console.log('onboarding state', state)
   const Background = () => {
@@ -29,6 +29,7 @@ export const OnboardingPage = () => {
       main={
         <StepTemplate
           name={name}
+          placement={placement}
           Component={component}
           checkCompleted={() => {
             return true

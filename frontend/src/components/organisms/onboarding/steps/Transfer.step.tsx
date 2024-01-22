@@ -56,8 +56,7 @@ const SliderMatic = ({
     <div>
       <div>
         <p className="flex ">
-          <CheckmarkIcon className="mr-4" /> Transferred{' '}
-          {amount[TokenCategory.NATIVE]} MATIC
+          <CheckmarkIcon /> Transferred {amount[TokenCategory.NATIVE]} MATIC
         </p>
       </div>
     </div>
@@ -104,15 +103,14 @@ const SliderGLM = ({
     <div>
       <div>
         <p className="flex ">
-          <CheckmarkIcon className="mr-4" /> Transferred{' '}
-          {amount[TokenCategory.GLM]} GLM
+          <CheckmarkIcon /> Transferred {amount[TokenCategory.GLM]} GLM
         </p>
       </div>
     </div>
   )
 }
 
-export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
+export const Transfer = () => {
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
   const [isLoading, setIsLoading] = useState(false)
@@ -129,13 +127,16 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
       setIsLoading(true)
     }
     //continue flow when both transactions are successful
-    if (
-      txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
-      txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
-    ) {
-      goToNextStep()
-    }
-  }, [txStatus, goToNextStep])
+    // if (
+    //   txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
+    //   txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
+    // ) {
+    //   goToNextStep()
+    // }
+  }, [
+    txStatus,
+    // goToNextStep
+  ])
 
   const [amount, setAmount] = useState<Amount>({
     [TokenCategory.GLM]: settings.minimalBalance[getGLMToken(chain.id).symbol],

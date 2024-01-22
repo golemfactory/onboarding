@@ -72,7 +72,7 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
         }),
         addTooltip: (id: string) => {
           if (!tooltipsRegistry[id]) {
-            throw new Error(`tooltip:tooltipNotRegistered ${id}`)
+            //throw new Error(`tooltip:tooltipNotRegistered ${id}`)
           }
           const existingTooltip = tooltips[id]
 

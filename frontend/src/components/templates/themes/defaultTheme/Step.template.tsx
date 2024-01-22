@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
-import templateStyle from './Step.template.module.css'
+import templateStyle from './step.template.module.css'
 import { StepLayoutPropsType } from 'types/ui'
 import { Bullet, Button, Trans } from 'components/atoms'
 import {
@@ -20,6 +20,7 @@ const style = {
 export const StepTemplate: FC<StepLayoutPropsType> = function ({
   name,
   Component,
+  placement,
 }: StepLayoutPropsType) {
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
   const [isNextCalled, setIsNextCalled] = useState(false)
@@ -29,6 +30,7 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
 
   const namespace = `${name}.step`
 
+  console.log('step template', placement, name)
   return (
     <div className={style.container}>
       <div className={style.textContainer}>
@@ -37,7 +39,7 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
         </div>
         <div className={style.descriptionContainer}>
           <div className="col-span-1">
-            <Bullet />
+            <Bullet useTopStroke={false} />
           </div>
           <div className="col-span-11 flex flex-col gap-4">
             <div className={style.subtitle}>
@@ -54,13 +56,25 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
                 <Trans i18nKey="description" ns={namespace} />
               </div>
             </div>
+            {placement === 'inside' ? (
+              <Component
+                setIsCompleted={setIsReadyForNextStep}
+                isNextCalled={isNextCalled}
+              />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
-      <Component
-        setIsCompleted={setIsReadyForNextStep}
-        isNextCalled={isNextCalled}
-      />
+      {placement === 'outside' ? (
+        <Component
+          setIsCompleted={setIsReadyForNextStep}
+          isNextCalled={isNextCalled}
+        />
+      ) : (
+        ''
+      )}
       <div className="col-span-12 flex justify-end mt-12">
         <Button
           buttonStyle="solid"
