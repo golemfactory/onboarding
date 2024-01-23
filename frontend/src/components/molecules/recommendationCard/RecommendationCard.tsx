@@ -11,7 +11,7 @@ function roundToHalf(num: number) {
 }
 
 import { BudgetOption } from 'types/dataContext'
-
+import { Network } from 'types/ethereum'
 export const RecommendationCard = ({
   id,
   Icon,
@@ -31,7 +31,7 @@ export const RecommendationCard = ({
   const usageTime = settings.budgetOptions[id]
   const glmCoinValue = 30
   const maticCoinValue = 4
-  const { data: rates } = useOnboardingExchangeRates()
+  const { data: rates } = useOnboardingExchangeRates(Network.POLYGON)
   const usageCost = Math.round(usageTime * settings.hourCost)
   const maticCost = roundToHalf(
     usageCost * settings.feesPercentage * (rates?.['Matic'] || 0)

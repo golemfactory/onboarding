@@ -1,7 +1,7 @@
 //useSwapForToken could be more general token
 // //and maybe even hooks wrapper on uniswap would be useful tool
 
-import { EthereumAddress } from 'types/ethereum'
+import { EthereumAddress, NetworkType } from 'types/ethereum'
 
 import { getContracts } from 'utils/getContracts'
 import { useNetwork } from './useNetwork'
@@ -30,13 +30,12 @@ export const useExchangeRate = ({
   return { data, isLoading }
 }
 
-export const useOnboardingExchangeRates = () => {
+export const useOnboardingExchangeRates = (chainId: NetworkType) => {
   const { chain } = useNetwork()
-  if (!chain) throw new Error('Chain is not defined')
-
   const [usdcToGLM, setUsdcToGLM] = useState(0)
   const [usdcToMatic, setUsdcToMatic] = useState(0)
-  const contracts = getContracts(chain.id)
+  if (!chainId && !chain) throw new Error('Chain is not defined')
+  const contracts = getContracts(chainId || chain?.id)
 
   const { data: usdcToMaticWei, isLoading: glmToUsdcLoading } = useContractRead(
     {

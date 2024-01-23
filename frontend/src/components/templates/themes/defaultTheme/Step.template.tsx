@@ -31,7 +31,7 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
   useState(false)
 
   const namespace = `${name}.step`
-
+  console.log('ba', name)
   return (
     <div className={style.container}>
       <div className={style.textContainer}>
@@ -53,7 +53,7 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
                 <InfoTooltipTrigger id={name} />
               </div>
               <div className="col-span-5 -mr-4 ml-4">
-                {name === 'welcome' ? <InfoTooltip id="welcome" /> : ''}
+                <InfoTooltip id={name} />
               </div>
             </div>
             <div className={style.description}>

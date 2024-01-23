@@ -19,6 +19,9 @@ import { VariableIcon } from './variable.icon'
 import { CheckboxCheckedIcon } from './checkbox.checked.icon'
 import { TrustStackedIcon } from './trust.stacked.icon'
 import { SuccessIcon } from './success.icon'
+import { MetamaskIcon } from './metamask.icon'
+import { TrustWalletIcon } from './trust.icon'
+
 const icons = {
   x: XIcon,
   matic: MaticIcon,
@@ -40,6 +43,8 @@ const icons = {
   checkboxChecked: CheckboxCheckedIcon,
   trustStacked: TrustStackedIcon,
   success: SuccessIcon,
+  metamask: MetamaskIcon,
+  trust: TrustWalletIcon,
 }
 
 export const Icon = ({ icon, ...props }: { icon: keyof typeof icons }) => {
@@ -70,4 +75,6 @@ export {
   CheckboxCheckedIcon,
   TrustStackedIcon,
   SuccessIcon,
+  MetamaskIcon,
+  TrustWalletIcon,
 }

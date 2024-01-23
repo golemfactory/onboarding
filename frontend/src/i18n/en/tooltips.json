@@ -14,6 +14,20 @@
   "welcome.explainFees.title" : "What are the transaction fees?",
   "welcome.explainFees.content" : "Each transaction on Polygon blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on Polygon blockchain is associated with some fee value. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
   "welcome.explainOffRamp.title" : "Can I revert my tokens back to traditional currencies?",
-  "welcome.explainOffRamp.content" : "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into MATIC via Uniswap <breakLine /> - Sell all your MATIC for traditional currency of your choice via RAMP <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurysdiction."
+  "welcome.explainOffRamp.content" : "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into MATIC via Uniswap <breakLine /> - Sell all your MATIC for traditional currency of your choice via RAMP <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurisdiction.",
+
+  "connect-wallet.title" : "Digital wallet is needed to manage your GLM tokens",
+  "connect-wallet.description" : [
+    "Wallet is a digital tool that allows you to store,send, and receive cryptocurrency tokens.",
+    "To begin using Golem tools, you need tokens such as GLM for computing power and MATIC for blockchain transaction fees. Wallet is needed to store and manage these tokens.", 
+    "We recommend only trusted wallets that have millions of users worldwide such as <breakLine /><metamaskIcon /> MetaMask, and <breakLine/> <trustIcon /> TrustWallet "
+  ],
+  "connect-wallet.explainMetamask.title" : "<metamaskIcon /> <tab/> What is MetaMask?",
+  "connect-wallet.explainMetamask.content" : "MetaMask is one the oldest and well known digital wallets for cryptocurrencies. It supports EVM based blockchains such as Polygon and Ethereum. It is available as a browser extension (Chrome, Firefox, Brave, Edge, Opera) or mobile app (iOS and Android).You can learn more on their website: https://metamask.io/",
+  "connect-wallet.explainTrustWallet.title" : "<trustIcon /> <tab /> What is TrustWallet?",
+  "connect-wallet.explainTrustWallet.content" : "TrustWallet is a digital wallet that allows you to store, send, and receive cryptocurrency tokens. It is available as a mobile app. <emptyLine /> TrustWallet is one of the most popular wallets in the world, with over 5 million users. It is also one of the most trusted wallets, with a 4.7 rating on the App Store and a 4.6 rating on the Google Play Store.",
+  "connect-wallet.explainChoose.title" : "How do I choose a right wallet?",
+  "connect-wallet.explainChoose.content" : "Both Metamask and TrustWallet are well established and widely used tools. They have similar interface and capabilities. As a result there is no much difference if you choose one or another. Just be sure that chosen wallet supports your browser (TrustWallet is not available on Firefox )."
 }
+
 

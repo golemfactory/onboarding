@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { StepType } from 'state/steps'
 
 type TooltipContextData = {
   visible: boolean
@@ -56,6 +57,7 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
   }
 
   const toggle = (id: string) => {
+    console.log('toggle', tooltips)
     setTooltips({ ...tooltips, ...{ [id]: !tooltips[id] } })
   }
   return (
@@ -103,7 +105,7 @@ TooltipProvider.registerTooltip = ({
   id,
   tooltip,
 }: {
-  id: string
+  id: StepType
   tooltip: TooltipType
 }) => {
   tooltipsRegistry[id] = tooltip

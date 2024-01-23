@@ -3,6 +3,14 @@ import stepStyle from './ConnectWallet.step.module.css'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 import { queryShadowRootDeep } from 'utils/shadowRoot'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
+
+TooltipProvider.registerTooltip({
+  id: 'connect-wallet',
+  tooltip: {
+    sections: ['explainMetamask', 'explainTrustWallet', 'explainChoose'],
+  },
+})
 
 const adjustWeb3ModalContent = () => {
   const pathToContent = [
@@ -70,137 +78,3 @@ export const ConnectWallet = () => {
     />
   )
 }
-
-// // components/welcome/intro.tsx
-// import { motion } from 'framer-motion'
-// import { MouseEventHandler, useEffect, useState } from 'react'
-// import { useWeb3Modal } from '@web3modal/wagmi/react'
-// import { useAccount } from 'hooks/useAccount'
-// import { Step } from 'state/steps'
-// import onboardingStyle from '../Onboarding.module.css'
-
-// const variants = {
-//   show: { opacity: 1 },
-//   hidden: { opacity: 0 },
-// }
-// const ConnectWalletPresentational = ({
-//   onConfirm,
-// }: {
-//   onConfirm: MouseEventHandler
-// }) => {
-//   return (
-//     <div className={onboardingStyle.step}>
-//       <motion.h1
-//         className="text-4xl font-bold mb-4 text-black"
-//         variants={variants}
-//       >
-//         Wallet connection
-//       </motion.h1>
-//       <motion.p
-//         className="max-w-md text-black my-4 text-xl"
-//         variants={variants}
-//       >
-//         To proceed further, please connect your cryptocurrency wallet.
-//       </motion.p>
-//       <motion.button
-//         className={onboardingStyle.button}
-//         variants={variants}
-//         onClick={(e) => {
-//           onConfirm(e)
-//         }}
-//       >
-//         Connect wallet
-//       </motion.button>
-//     </div>
-//   )
-// }
-
-// export const ConnectWallet = ({
-//   goToNextStep,
-// }: {
-//   goToNextStep: () => void
-// }) => {
-//   const { open } = useWeb3Modal()
-//   const { address } = useAccount()
-
-//   const [done, setDone] = useState(false)
-
-//   useEffect(() => {
-//     if (done && address) {
-//       goToNextStep()
-//     }
-//   }, [done, address])
-
-//   return (
-//     <ConnectWalletPresentational
-//       onConfirm={() => {
-//         setDone(true)
-//         open()
-//         setTimeout(() => {
-//           const x = queryShadowRootDeep([
-//             { selector: 'w3m-modal', useShadowRoot: true },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             { selector: 'wui-card', useShadowRoot: false },
-//             { selector: 'w3m-router', useShadowRoot: true },
-//             { selector: 'div', useShadowRoot: false },
-//             { selector: 'w3m-connect-view', useShadowRoot: true },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             {
-//               selector: 'wui-list-wallet[name="All Wallets"]',
-//               useShadowRoot: false,
-//             },
-//           ])
-//           x.hidden = true
-//           const y = queryShadowRootDeep([
-//             { selector: 'w3m-modal', useShadowRoot: true },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             { selector: 'wui-card', useShadowRoot: false },
-//             { selector: 'w3m-router', useShadowRoot: true },
-//             { selector: 'div', useShadowRoot: false },
-//             { selector: 'w3m-connect-view', useShadowRoot: true },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             {
-//               selector: 'wui-list-wallet[name="WalletConnect"]',
-//               useShadowRoot: false,
-//             },
-//           ])
-//           y.hidden = true
-//           const z = queryShadowRootDeep([
-//             { selector: 'w3m-modal', useShadowRoot: true },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             { selector: 'wui-card', useShadowRoot: false },
-//             { selector: 'w3m-router', useShadowRoot: true },
-//             { selector: 'div', useShadowRoot: false },
-//             {
-//               selector: 'w3m-connect-view',
-//               useShadowRoot: true,
-//             },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             {
-//               selector: 'wui-list-wallet[name="MetaMask"]',
-//               useShadowRoot: false,
-//             },
-//           ])
-
-//           z.style.backgroundColor = 'pink'
-
-//           const w = queryShadowRootDeep([
-//             { selector: 'w3m-modal', useShadowRoot: true },
-//             { selector: 'wui-flex', useShadowRoot: false },
-//             { selector: 'wui-card', useShadowRoot: false },
-//             { selector: 'w3m-router', useShadowRoot: true },
-//             { selector: 'div', useShadowRoot: false },
-//             { selector: 'w3m-connect-view', useShadowRoot: true },
-//             { selector: 'wui-flex', useShoadowRoot: false },
-//             { selector: 'wui-list-wallet[name="MetaMask"]' },
-//           ]).shadowRoot.querySelector('wui-tag')
-
-//           w.textContent = 'JESTEM PIEKNY I RÓŻOWY'
-//           w.style.color = 'blue'
-//         }, 0)
-
-//         localStorage.setItem('OnboardingStep', Step.CONNECT_WALLET)
-//       }}
-//     />
-//   )
-// }

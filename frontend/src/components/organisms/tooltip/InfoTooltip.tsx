@@ -20,7 +20,14 @@ export const InfoTooltipTrigger = ({
   //but you can also pass a custom component as a child to trigger the tooltip
 
   return (
-    <div className="cursor-pointer" onClick={tooltip.toggle}>
+    <div
+      className="cursor-pointer"
+      onClick={() => {
+        console.log('triggering tooltip', id)
+        console.log('tooltip', tooltip)
+        tooltip.toggle()
+      }}
+    >
       {children || <InfoIcon className="h-line-1"></InfoIcon>}
     </div>
   )
@@ -112,7 +119,7 @@ export const InfoTooltipPresentational = ({
           <div>
             <Button
               buttonStyle="underline"
-              className="col-span-2 col-start-2"
+              className="col-span-2 col-start-2 text-sm"
               onClick={toggleMoreInfo}
               useDefault={true}
             >
@@ -131,6 +138,7 @@ export const InfoTooltip = ({
 }: PropsWithChildren<{ id: string }>) => {
   const tooltip = useTooltip(id)
 
+  console.log('tooltip', tooltip)
   type SectionIds = (typeof tooltip.sections)[number]
 
   //while tooltip state control is handled by the provider, sections open/close managment has to happen locally
