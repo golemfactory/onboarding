@@ -1,5 +1,7 @@
 {
-  "title" : "It's time to set up your crypto wallet. <breakLine/> Let us guide you through each step!",
-  "subtitle" : "Set up a crypto wallet ",
-  "description" : "Based on this step, we will tailor the remaining<breakLine/> process to your needs"
+  "title" : "It's time to set up your digital wallet. <breakLine/> Let us guide you through each step!",
+  "subtitle" : "Set up a digital wallet ",
+  "description" : "Based on this step, we will tailor the remaining<breakLine/> process to your needs", 
+  "legal.walletConnect" : "We are using WalletConnect Protocol. See the <a className='text-primary font-semibold' target='_blank' href='https://walletconnect.com/privacy' ><b>Privacy Policy</b></a> and <a target='_blank' href='https://walletconnect.com/terms' className='text-primary font-semibold' ><b> ToS</b></a>", 
+  "connectWallet" : "Connect/Create wallet"
 }

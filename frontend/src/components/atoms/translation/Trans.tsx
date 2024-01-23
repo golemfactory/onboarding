@@ -23,6 +23,8 @@ export const Trans = (props: ComponentProps<typeof TransComponent>) => {
     <TransComponent
       {...props}
       components={{
+        a: <a></a>,
+        b: <b></b>,
         red: <div className="inline text-dangerred-200" />,
         breakLine: <br />,
         golemIcon: (

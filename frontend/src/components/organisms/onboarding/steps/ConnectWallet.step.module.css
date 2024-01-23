@@ -1,0 +1,6 @@
+.button {
+  display: flex;
+  padding: 16px 36px;
+  justify-content: center;
+  align-items: center;
+}

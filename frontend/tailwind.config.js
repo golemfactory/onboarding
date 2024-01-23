@@ -73,6 +73,7 @@ module.exports = {
           },
         ],
         'button-large': [
+          '1rem',
           {
             fontSize: '16px',
             fontStyle: 'normal',
@@ -80,6 +81,15 @@ module.exports = {
             lineHeight: '100%',
           },
         ],
+        'body-medium': [
+          '1rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '140%',
+          },
+        ],
+
         'b-xl': [
           '1.375rem',
           {
