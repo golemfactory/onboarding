@@ -1,5 +1,4 @@
 .title {
-  @apply mt-24;
 
   color: var(--primary-blue-500, #181EA9);
   /* Header 3 - light */

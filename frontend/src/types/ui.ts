@@ -6,7 +6,8 @@ export type StepLayoutPropsType = {
     setIsCompleted: (isCompleted: boolean) => void
     isNextCalled: boolean
   }>
-  TitleComponent: ComponentType<unknown>
+  TitleComponent?: ComponentType<unknown>
+  IconComponent?: ComponentType<unknown>
   placement: 'inside' | 'outside'
 }
 

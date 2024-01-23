@@ -9,6 +9,7 @@ import {
 } from 'components/organisms/tooltip/InfoTooltip'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
+// import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
   ...globalStyle,
@@ -20,6 +21,7 @@ const style = {
 export const StepTemplate: FC<StepLayoutPropsType> = function ({
   name,
   Component,
+  IconComponent,
   placement,
 }: StepLayoutPropsType) {
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
@@ -30,13 +32,16 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
 
   const namespace = `${name}.step`
 
-  console.log('step template', placement, name)
   return (
     <div className={style.container}>
       <div className={style.textContainer}>
-        <div className={style.title}>
-          <Trans i18nKey="title" ns={namespace} />
+        <div className=" col-span-10 mt-24 justify-between grid grid-cols-10">
+          <div className={`${style.title} col-span-4`}>
+            <Trans i18nKey="title" ns={namespace} />
+          </div>
+          {IconComponent ? <IconComponent /> : ''}
         </div>
+
         <div className={style.descriptionContainer}>
           <div className="col-span-1">
             <Bullet useTopStroke={false} />
@@ -75,6 +80,7 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
       ) : (
         ''
       )}
+
       <div className="col-span-12 flex justify-end mt-12">
         <Button
           buttonStyle="solid"

@@ -17,7 +17,8 @@ import { MaticCoinIcon } from './matic.coin.icon'
 import { RampIcon } from './ramp.icon'
 import { VariableIcon } from './variable.icon'
 import { CheckboxCheckedIcon } from './checkbox.checked.icon'
-
+import { TrustStackedIcon } from './trust.stacked.icon'
+import { SuccessIcon } from './success.icon'
 const icons = {
   x: XIcon,
   matic: MaticIcon,
@@ -37,6 +38,8 @@ const icons = {
   ramp: RampIcon,
   variable: VariableIcon,
   checkboxChecked: CheckboxCheckedIcon,
+  trustStacked: TrustStackedIcon,
+  success: SuccessIcon,
 }
 
 export const Icon = ({ icon, ...props }: { icon: keyof typeof icons }) => {
@@ -65,4 +68,6 @@ export {
   MaticCoinIcon,
   RampIcon,
   CheckboxCheckedIcon,
+  TrustStackedIcon,
+  SuccessIcon,
 }
