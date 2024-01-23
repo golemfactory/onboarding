@@ -16,6 +16,9 @@ export const InfoTooltipTrigger = ({
 }: PropsWithChildren<{ id: string }>) => {
   const tooltip = useTooltip(id)
 
+  if (!tooltip) {
+    return <></>
+  }
   //by default, the tooltip will be triggered by clicking on the info icon
   //but you can also pass a custom component as a child to trigger the tooltip
 
@@ -23,9 +26,7 @@ export const InfoTooltipTrigger = ({
     <div
       className="cursor-pointer"
       onClick={() => {
-        console.log('triggering tooltip', id)
-        console.log('tooltip', tooltip)
-        tooltip.toggle()
+        tooltip.toggle?.()
       }}
     >
       {children || <InfoIcon className="h-line-1"></InfoIcon>}
@@ -59,8 +60,6 @@ export const InfoTooltipPresentational = ({
     returnObjects: true,
     ns: 'tooltips',
   }) as string[]
-
-  console.log('se', description)
   // Assuming 'items' is your key in the JSON file
   return (
     <div className={`${tooltipStyle.card}`}>
@@ -138,7 +137,6 @@ export const InfoTooltip = ({
 }: PropsWithChildren<{ id: string }>) => {
   const tooltip = useTooltip(id)
 
-  console.log('tooltip', tooltip)
   type SectionIds = (typeof tooltip.sections)[number]
 
   //while tooltip state control is handled by the provider, sections open/close managment has to happen locally

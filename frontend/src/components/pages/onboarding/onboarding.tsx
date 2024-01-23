@@ -13,7 +13,6 @@ export const OnboardingPage = () => {
   //@ts-ignore
   const { name, component, placement } = getStepDetails(state.value)
 
-  console.log('onboarding state', state)
   const Background = () => {
     return (
       <div className={style.container}>

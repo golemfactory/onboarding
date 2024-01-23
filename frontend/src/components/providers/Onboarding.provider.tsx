@@ -7,17 +7,19 @@ import { Commands } from 'state/commands'
 import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
 import { createStateMachine } from 'state/machine'
+import { useStep } from 'hooks/useStep'
 
 export const OnboardingContext = createActorContext(createStateMachine())
 
 export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   //read setup from url params
   const setup = useSetup()
+  const step = useStep()
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
   //machine sholdnt be recreated on every render so we useMemo
-  const machine = useMemo(() => createStateMachine(setup), [setup])
+  const machine = useMemo(() => createStateMachine({ ...setup, step }), [setup])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_state, send] = useMachine(machine, { devTools: true })

@@ -31,7 +31,6 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
   useState(false)
 
   const namespace = `${name}.step`
-  console.log('ba', name)
   return (
     <div className={style.container}>
       <div className={style.textContainer}>
