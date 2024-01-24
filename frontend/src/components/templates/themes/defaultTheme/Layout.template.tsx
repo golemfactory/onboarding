@@ -7,11 +7,7 @@ import { Grid } from 'components/organisms/grid/Grid'
 import React from 'react'
 import { Footer } from './Footer'
 
-export const LayoutTemplate: FC<MainLayoutPropsType> = ({
-  header,
-  main,
-  background,
-}) => {
+export const LayoutTemplate: FC<MainLayoutPropsType> = ({ header, main }) => {
   return (
     <div>
       <div

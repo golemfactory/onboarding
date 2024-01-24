@@ -8,7 +8,6 @@ export const useRouteControl = () => {
   const { state } = useOnboarding()
   useEffect(() => {
     const path = stepPaths[state.value as keyof typeof stepPaths]
-    console.log('path', path)
     if (path && path !== window.location.pathname) {
       navigate(path)
     }

@@ -66,13 +66,13 @@ const LandingPageContent = () => {
           <div className="text-center mb-8 ">
             <Button
               buttonStyle="solid"
-              className="py-4 px-9"
+              className="py-4 px-9 text-button-large"
               onClick={() => {
                 navigate('/unsupported')
               }}
               useDefault={false}
             >
-              <Trans i18nKey="getGLM" ns="landing" />
+              <Trans i18nKey="getStarted" ns="landing" />
             </Button>
           </div>
         </div>
@@ -101,13 +101,18 @@ const LandingPageContent = () => {
 export const LandingPage = () => {
   const theme = useTheme()
   const LayoutTemplate = theme.getLayoutTemplate()
+  const navigate = useNavigate()
+
   return (
     <LayoutTemplate
       header={
         <Button
           buttonStyle="solid"
-          className="md:py-4 md:px-9 py-2 px-5"
+          className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
           useDefault={true}
+          onClick={() => {
+            navigate('/budget')
+          }}
         >
           <Trans i18nKey="getGLM" ns="landing" />
         </Button>

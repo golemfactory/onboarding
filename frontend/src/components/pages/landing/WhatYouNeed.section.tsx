@@ -44,10 +44,17 @@ export const WhatYouNeedSection = () => {
               </div>
             )
           })}
-          <div className="grid cols-12">
-            <Button buttonStyle="solid" useDefault={false}>
-              <Trans i18nKey="getStarted" ns="landing" />
-            </Button>
+          <div className="grid grid-cols-12">
+            <div className="col-span-1"></div>
+            <div className="col-span-11">
+              <Button
+                className="px-9 py-3"
+                buttonStyle="solid"
+                useDefault={true}
+              >
+                <Trans i18nKey="getStarted" ns="landing" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

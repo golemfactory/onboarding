@@ -83,10 +83,8 @@ export const StepTemplate: FC<StepLayoutPropsType> = function ({
       <div className="col-span-12 flex justify-end mt-12">
         <Button
           buttonStyle="solid"
-          style={{
-            padding: '16px 50px',
-            fontSize: '16px',
-          }}
+          className="py-4 px-9 text-button-large"
+          useDefault={false}
           onClick={() => {
             setIsNextCalled(true)
             if (isReadyForNextStep) {
