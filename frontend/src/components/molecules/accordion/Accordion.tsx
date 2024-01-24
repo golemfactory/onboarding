@@ -3,6 +3,28 @@ import { isEveryKeyUnique } from 'utils/isEveryKeyUnique'
 import { ChevronDownIcon } from 'components/atoms/icons'
 import { AnimatePresence, motion } from 'framer-motion'
 
+function getStyle(className: string, styleName: string): string | null {
+  const styleSheets: StyleSheetList = document.styleSheets
+  let cssRule: CSSStyleRule
+  for (let i = 0; i < styleSheets.length; i++) {
+    try {
+      const rules: CSSRuleList = styleSheets[i].cssRules || styleSheets[i].rules
+
+      for (let j = 0; j < rules.length; j++) {
+        if (rules[j].type === CSSRule.STYLE_RULE) {
+          cssRule = rules[j] as CSSStyleRule
+          if (cssRule.selectorText === '.' + className) {
+            return cssRule.style.getPropertyValue(styleName)
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Cannot read rules from stylesheet', styleSheets[i], e)
+    }
+  }
+  return null
+}
+
 //moved to separate component to allow for exit animation
 const AccordionItem = ({
   isOpen,
@@ -13,13 +35,17 @@ const AccordionItem = ({
   content: ReactElement
   style: string
 }) => {
+  const lineHeight = getStyle(style, 'line-height') // Retrieve line height
+  if (!lineHeight) {
+    throw new Error('Font size not found')
+  }
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
+          initial={{ opacity: 0, lineHeight: 0 }}
+          animate={{ opacity: 1, lineHeight }}
+          exit={{ opacity: 0, lineHeight: 0 }}
           transition={{ duration: 0.3 }}
           className={`${style}`}
         >
@@ -103,7 +129,6 @@ export const Accordion = ({
   return (
     <div className={`${style.container}`}>
       {AccordionItems.map((item) => {
-        console.log(style)
         return (
           <div key={item.key}>
             <AccordionItemHeader

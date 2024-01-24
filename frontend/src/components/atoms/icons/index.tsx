@@ -21,6 +21,7 @@ import { TrustStackedIcon } from './trust.stacked.icon'
 import { SuccessIcon } from './success.icon'
 import { MetamaskIcon } from './metamask.icon'
 import { TrustWalletIcon } from './trust.icon'
+import { EthereumIcon } from './ethereum.icon'
 
 const icons = {
   x: XIcon,
@@ -45,6 +46,7 @@ const icons = {
   success: SuccessIcon,
   metamask: MetamaskIcon,
   trust: TrustWalletIcon,
+  ethereum: EthereumIcon,
 }
 
 export const Icon = ({ icon, ...props }: { icon: keyof typeof icons }) => {
@@ -77,4 +79,5 @@ export {
   SuccessIcon,
   MetamaskIcon,
   TrustWalletIcon,
+  EthereumIcon,
 }

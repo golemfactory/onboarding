@@ -15,10 +15,20 @@ import { useSwitchNetwork } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { useSetup } from 'hooks/useSetup'
 import { hexToNetwork } from 'utils/hexToNetwork'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
 const variants = {
   show: { opacity: 1 },
   hidden: { opacity: 0 },
 }
+
+TooltipProvider.registerTooltip({
+  id: 'chooseNetwork',
+  tooltip: {
+    sections: ['explainEthereum', 'explainPolygon', 'explainCost'],
+    appearance: 'primary',
+  },
+})
+
 const ChooseNetworkPresentational = ({
   onConfirm,
   onNetworkSelection,
@@ -31,43 +41,44 @@ const ChooseNetworkPresentational = ({
   allowNetworkSelection?: boolean
 }) => {
   return (
-    <div className={onboardingStyle.step}>
-      <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Wallet is connected
-      </motion.h1>
-      <motion.p className={onboardingStyle.description} variants={variants}>
-        {allowNetworkSelection
-          ? 'Now you need to choose network'
-          : `Connecting to ${hexToNetwork(selectedNetwork)}`}
-      </motion.p>
-      <motion.div variants={variants}>
-        {allowNetworkSelection && (
-          <div>
-            <select onChange={onNetworkSelection} value={selectedNetwork}>
-              {Object.keys(networks).map((network) => {
-                const networkId = network as keyof typeof networks
-                return (
-                  <option key={networkId} value={networkId}>
-                    {networks[networkId].chainName}
-                  </option>
-                )
-              })}
-            </select>
-            <button
-              className={onboardingStyle.button}
-              style={{
-                borderTopLeftRadius: '0',
-                borderBottomLeftRadius: '0',
-                height: '42px',
-              }}
-              onClick={onConfirm}
-            >
-              Go
-            </button>
-          </div>
-        )}
-      </motion.div>
-    </div>
+    <div>DUPA</div>
+    // <div className={onboardingStyle.step}>
+    //   <motion.h1 className={onboardingStyle.title} variants={variants}>
+    //     Wallet is connected
+    //   </motion.h1>
+    //   <motion.p className={onboardingStyle.description} variants={variants}>
+    //     {allowNetworkSelection
+    //       ? 'Now you need to choose network'
+    //       : `Connecting to ${hexToNetwork(selectedNetwork)}`}
+    //   </motion.p>
+    //   <motion.div variants={variants}>
+    //     {allowNetworkSelection && (
+    //       <div>
+    //         <select onChange={onNetworkSelection} value={selectedNetwork}>
+    //           {Object.keys(networks).map((network) => {
+    //             const networkId = network as keyof typeof networks
+    //             return (
+    //               <option key={networkId} value={networkId}>
+    //                 {networks[networkId].chainName}
+    //               </option>
+    //             )
+    //           })}
+    //         </select>
+    //         <button
+    //           className={onboardingStyle.button}
+    //           style={{
+    //             borderTopLeftRadius: '0',
+    //             borderBottomLeftRadius: '0',
+    //             height: '42px',
+    //           }}
+    //           onClick={onConfirm}
+    //         >
+    //           Go
+    //         </button>
+    //       </div>
+    //     )}
+    //   </motion.div>
+    // </div>
   )
 }
 

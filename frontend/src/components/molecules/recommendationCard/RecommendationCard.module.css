@@ -14,7 +14,6 @@
   box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
   backdrop-filter: blur(2.5px);
   cursor: pointer;
-  z-index: 1;
   transition: z-index 0.5s ease-in-out;
 }
 

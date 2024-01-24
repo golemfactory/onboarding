@@ -1,5 +1,5 @@
 .title {
-
+  @apply col-span-10;
   color: var(--primary-blue-500, #181EA9);
   /* Header 3 - light */
   font-family: Kanit;
@@ -13,7 +13,7 @@
 }
 
 .subtitle {
-  @apply grid grid-cols-11 gap-8;
+  @apply flex gap-8;
   color: var(--primary-blue-500, #181EA9);
   /* Headers/Header 2 | Kanit Regular 48px */
   font-family: Kanit;
@@ -39,18 +39,17 @@
 }
 
 .textContainer {
-  @apply col-span-full grid grid-cols-12 mb-12;
-  display: flex;
+  @apply col-span-12 grid grid-cols-12 mb-12;
   flex-direction: column;
   align-items: flex-start;
   gap: 48px;
 }
 
 .container {
-  @apply col-span-full grid grid-cols-12 gap-8;
+  @apply col-span-12 grid grid-cols-12 gap-8;
   flex-grow: 1;
 }
 
 .descriptionContainer {
-  @apply grid grid-cols-12 gap-8;
+  @apply col-span-12 grid grid-cols-12 gap-8;
 }

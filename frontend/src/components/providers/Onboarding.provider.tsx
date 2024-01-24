@@ -19,12 +19,8 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const { address } = useAccount()
   const balance = useBalance()
   //machine sholdnt be recreated on every render so we useMemo
-  const machine = useMemo(
-    () => createStateMachine({ ...setup, step }),
-    [JSON.stringify(setup)]
-  )
+  const machine = useMemo(() => createStateMachine({ ...setup, step }), [])
 
-  console.log('machine', machine)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_state, send] = useMachine(machine, { devTools: true })
 

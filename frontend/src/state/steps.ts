@@ -7,7 +7,7 @@ export const Step = {
   ...SkipableStep,
   FINISH: 'finish',
   CONNECT_WALLET: 'connect-wallet',
-  CHOOSE_NETWORK: 'choose-network',
+  CHOOSE_NETWORK: 'chooseNetwork',
   ON_RAMP: 'on-ramp',
   CHECK_ACCOUNT_BALANCES: 'check-account-balances',
   SWAP: 'swap',

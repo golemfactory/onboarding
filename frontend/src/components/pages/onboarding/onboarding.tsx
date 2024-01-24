@@ -10,18 +10,21 @@ export const OnboardingPage = () => {
   const StepTemplate = theme.getStepTemplate()
 
   const { state } = useOnboarding()
-  //@ts-ignore
-  const { name, main, placement, ornament } = getStepDetails(state.value)
+  const { name, main, placement, ornament, showNextButton } = getStepDetails(
+    //@ts-ignore
+    state.value
+  )
 
   const Background = () => {
     return (
       <div className={style.container}>
         <div className={style.ellipse_1}></div>
         <div className={style.ellipse_2}></div>
-        {/* <BulletCircle /> */}
       </div>
     )
   }
+
+  console.log('name', name)
   return (
     <LayoutTemplate
       background={<Background />}
@@ -31,6 +34,7 @@ export const OnboardingPage = () => {
           placement={placement}
           main={main}
           ornament={ornament}
+          showNextButton={showNextButton}
           checkCompleted={() => {
             return true
           }}

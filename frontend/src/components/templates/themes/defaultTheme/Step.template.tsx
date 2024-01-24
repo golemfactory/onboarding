@@ -45,20 +45,16 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
             {OrnamentComponent ? <OrnamentComponent /> : ''}
           </div>
         </div>
-
+        <div className="col-span-2"></div>
         <div className={style.descriptionContainer}>
           <div className="col-span-1">
             <Bullet useTopStroke={false} />
           </div>
           <div className="col-span-11 flex flex-col gap-4">
             <div className={style.subtitle}>
-              <div className="col-span-6 flex gap-2">
-                <Trans i18nKey="subtitle" ns={namespace} />
-                <InfoTooltipTrigger id={name} appearance="primary" />
-              </div>
-              <div className="col-span-5 -mr-4 ml-4 z-40">
-                <InfoTooltip id={name} appearance="primary" />
-              </div>
+              <Trans i18nKey="subtitle" ns={namespace} />
+              <InfoTooltipTrigger id={name} appearance="primary" />
+              <InfoTooltip id={name} appearance="primary" />
             </div>
             <div className={style.description}>
               <div className="col-span-10">

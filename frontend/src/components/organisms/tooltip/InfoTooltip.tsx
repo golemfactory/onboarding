@@ -10,7 +10,6 @@ import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { XIcon } from 'components/atoms/icons'
 import { Accordion } from 'components/molecules/accordion/Accordion'
-import { start } from 'repl'
 
 export const InfoTooltipTrigger = ({
   id,
@@ -206,7 +205,6 @@ export const InfoTooltip = ({
   type SectionIds = (typeof tooltip.sections)[number]
 
   //while tooltip state control is handled by the provider, sections open/close managment has to happen locally
-
   const [sections, setSections] = useState(
     tooltip.sections.reduce((acc, section) => {
       return {
@@ -229,8 +227,8 @@ export const InfoTooltip = ({
   const [isMoreInfoOpen, toggleMoreInfo] = useToggle(false)
 
   const variants = {
-    open: { opacity: 1 },
-    closed: { opacity: 0 },
+    open: { opacity: 1, zIndex: 200 },
+    closed: { opacity: 0, zIndex: 200 },
   }
 
   return (
@@ -245,7 +243,7 @@ export const InfoTooltip = ({
           duration: 0.3,
           ease: 'easeInOut',
         }}
-        className="absolute top-0 left-0 z-200"
+        className="absolute top-0 left-0"
       >
         {appearance === 'primary' ? (
           <InfoTooltipPresentationalPrimary

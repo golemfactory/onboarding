@@ -14,6 +14,7 @@ import {
 import { ComponentType } from 'react'
 import { StepRenderDetailsType } from 'types/ui'
 import { TokensOrnament } from 'components/atoms/ornaments/tokens'
+import { WalletIconGreen } from 'components/atoms/ornaments/walletIconGreen'
 
 const componentByStep: Record<
   StepType,
@@ -23,17 +24,25 @@ const componentByStep: Record<
       isNextCalled: boolean
     }>
     placement: 'inside' | 'outside'
-    ornament?: ComponentType<Record<string, never>>
+    ornament?: ComponentType<unknown>
     showNextButton?: boolean
   }
 > = {
-  [Step.WELCOME]: { component: Welcome, placement: 'outside' },
+  [Step.WELCOME]: {
+    component: Welcome,
+    placement: 'outside',
+    showNextButton: true,
+  },
   [Step.CONNECT_WALLET]: {
     component: ConnectWallet,
     placement: 'inside',
     ornament: TokensOrnament,
   },
-  [Step.CHOOSE_NETWORK]: { component: ChooseNetwork, placement: 'outside' },
+  [Step.CHOOSE_NETWORK]: {
+    component: ChooseNetwork,
+    placement: 'inside',
+    ornament: WalletIconGreen,
+  },
   [Step.ON_RAMP]: { component: OnRamp, placement: 'outside' },
   [Step.SWAP]: { component: SwapTokens, placement: 'outside' },
   [Step.FINISH]: { component: Finish, placement: 'outside' },
@@ -48,12 +57,13 @@ const componentByStep: Record<
 
 export const getStepDetails = (step: StepType): StepRenderDetailsType => {
   const details = componentByStep[step]
+  console.log('de', details)
   return {
     //i18n namespace
     name: step,
     main: details.component,
     placement: details.placement,
     ornament: details.ornament,
-    showNextButton: details.showNextButton ?? false,
+    showNextButton: details.showNextButton || false,
   }
 }

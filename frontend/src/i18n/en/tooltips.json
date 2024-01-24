@@ -27,7 +27,34 @@
   "connect-wallet.explainTrustWallet.content" : "TrustWallet is a digital wallet that allows you to store, send, and receive cryptocurrency tokens. It is available as a mobile app. <emptyLine /> TrustWallet is one of the most popular wallets in the world, with over 5 million users. It is also one of the most trusted wallets, with a 4.7 rating on the App Store and a 4.6 rating on the Google Play Store.",
   "connect-wallet.explainChoose.title" : "How do I choose a right wallet?",
   "connect-wallet.explainChoose.content" : "Both Metamask and TrustWallet are well established and widely used tools. They have similar interface and capabilities. As a result there is no much difference if you choose one or another. Just be sure that chosen wallet supports your browser (TrustWallet is not available on Firefox ).",
+
+
+
+  "chooseNetwork.title" : "Blockchain network is what makescrypto transactions possible",
+  "chooseNetwork.description" : [
+    "Think of it as choosing a mobile network for your phone. Just as you need a network to make calls or send messages, you need a blockchain network to send, receive or store your GLM tokens. Different networks have different features.",
+    "We recommend <maticIcon/> Polygon because the transactions are faster and cheaper compared to Ethereum network. .",
+    "The main distinction for Golem users is that <ethereumIcon /> Ethereum, being one of the oldest blockchain networks, experiences high usage, which leads to higher fees and slower network performance."
+  ],
+  "chooseNetwork.explainEthereum.title" : "<ethereumIcon /> <tab/> What is Ethereum?",
+  "chooseNetwork.explainEthereum.content" : "Ethereum is a blockchain network that allows developers to build decentralized applications. It is the most popular blockchain for smart contracts. <emptyLine /> Ethereum is the native blockchain of GLM token. However, it is not the only blockchain that can be used to settle payments on Golem Network.",
+  "chooseNetwork.explainPolygon.title" : "<maticIcon /> <tab/> What is Polygon?",
+  "chooseNetwork.explainPolygon.content" : "Polygon is a blockchain network that allows developers to build decentralized applications. It is the most popular blockchain for smart contracts. <emptyLine /> Polygon is the native blockchain of MATIC token. However, it is not the only blockchain that can be used to settle payments on Golem Network.",
+  "chooseNetwork.explainCost.title" : "How do I choose a right blockchain?",
+  "chooseNetwork.explainCost.content" : "Both Ethereum and Polygon are well established and widely used blockchains. They have similar interface and capabilities. As a result there is no much difference if you choose one or another. Just be sure that chosen blockchain is supported by your wallet (Polygon is not supported by TrustWallet).",
+
+
+
+
+
+
+
+
+
   "matic.description" : ["MATIC tokens are used to cover transaction fees on Polygon, our preferred blockchain network.<emptyLine />When buying GLM and MATIC tokens, you'll first purchase MATIC, then convert some of them into GLM. With the specified amount of $, you can obtain enough MATIC and GLM to utilize the desired computing power.<emptyLine /> Don't worry about the specifics just yet; we're here to guide you through each step.,"]
+
+
+
 }
 
 

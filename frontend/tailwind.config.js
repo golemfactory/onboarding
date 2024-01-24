@@ -24,7 +24,7 @@ module.exports = {
         'dangerred-200': '#A71919',
         //TODO add whole color palette with names
         'success-50': '#E8F6E8',
-        'success-100': '#',
+        'success-100': '#5BC281',
         'success-200': '#367946',
         // golemblue: '#0c14d4',
         // primary: '#181ea9',

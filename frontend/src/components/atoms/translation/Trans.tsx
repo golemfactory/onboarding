@@ -1,6 +1,7 @@
 import { Trans as TransComponent } from 'react-i18next'
 import { ComponentProps, PropsWithChildren } from 'react'
 import {
+  EthereumIcon,
   GolemSmallIcon,
   MaticIcon,
   MetamaskIcon,
@@ -42,6 +43,9 @@ export const Trans = (props: ComponentProps<typeof TransComponent>) => {
             <br />
             <br />
           </>
+        ),
+        ethereumIcon: (
+          <EthereumIcon className="inline h-line-1.5 ml-1.5 mr-0.5" />
         ),
         metamaskIcon: <MetamaskIcon className="inline h-line-1.5 p-1" />,
         trustIcon: <TrustWalletIcon className="inline h-line-1.5 pr-1" />,

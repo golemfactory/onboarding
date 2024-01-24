@@ -5,6 +5,11 @@ import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { queryShadowRootDeep } from 'utils/shadowRoot'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 
+import { useEffect } from 'react'
+import { useAccount } from 'hooks/useAccount'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { Commands } from 'state/commands'
+
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
@@ -68,6 +73,14 @@ const ConnectWalletPresentational = ({
 
 export const ConnectWallet = () => {
   const { open } = useWeb3Modal()
+  const { address } = useAccount()
+  const { send } = useOnboarding()
+  useEffect(() => {
+    if (address) {
+      send({ type: Commands.NEXT })
+    }
+  }, [address])
+
   return (
     <ConnectWalletPresentational
       openWeb3Modal={() => {
