@@ -9,6 +9,7 @@ TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
     sections: ['explainMetamask', 'explainTrustWallet', 'explainChoose'],
+    appearance: 'primary',
   },
 })
 

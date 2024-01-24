@@ -24,6 +24,15 @@ TooltipProvider.registerTooltip({
   id: 'welcome',
   tooltip: {
     sections: ['explainGLM', 'explainMATIC', 'explainFees', 'explainOffRamp'],
+    appearance: 'primary',
+  },
+})
+
+TooltipProvider.registerTooltip({
+  id: 'matic',
+  tooltip: {
+    sections: ['explain'],
+    appearance: 'secondary',
   },
 })
 

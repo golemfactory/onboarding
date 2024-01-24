@@ -72,6 +72,14 @@ module.exports = {
             letterSpacing: '-0.64px',
           },
         ],
+        'caption-normal': [
+          '12px',
+          {
+            fontStyle: 'normal',
+            fontWeight: '300',
+            lineHeight: '140%',
+          },
+        ],
         'button-large': [
           '1rem',
           {

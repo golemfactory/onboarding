@@ -1,14 +1,15 @@
 import { ComponentType, ReactElement, ReactNode } from 'react'
 
-export type StepLayoutPropsType = {
+export type StepRenderDetailsType = {
   name: string
-  Component: ComponentType<{
+  main: ComponentType<{
     setIsCompleted: (isCompleted: boolean) => void
     isNextCalled: boolean
   }>
-  TitleComponent?: ComponentType<unknown>
-  IconComponent?: ComponentType<unknown>
+  title?: ComponentType<Record<string, never>>
+  ornament?: ComponentType<Record<string, never>>
   placement: 'inside' | 'outside'
+  showNextButton?: boolean
 }
 
 export type MainLayoutPropsType = {

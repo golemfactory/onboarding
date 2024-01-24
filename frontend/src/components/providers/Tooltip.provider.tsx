@@ -3,9 +3,9 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react'
-import { StepType } from 'state/steps'
 
 type TooltipContextData = {
   visible: boolean
@@ -13,9 +13,11 @@ type TooltipContextData = {
   show: () => void
   hide: () => void
   toggle: () => void
+  startHide: () => void
+  cancelHide: () => void
 }
 
-type TooltipType = { sections: string[] }
+type TooltipType = { sections: string[]; appearance: 'primary' | 'secondary' }
 
 const tooltipsRegistry: Record<string, TooltipType> = {}
 
@@ -38,6 +40,12 @@ export const TooltipContext = createContext<{
       toggle: () => {
         return null
       },
+      startHide: () => {
+        return null
+      },
+      cancelHide: () => {
+        return null
+      },
     }
   },
   removeTooltip: () => {
@@ -48,6 +56,7 @@ export const TooltipContext = createContext<{
 export const TooltipProvider = ({ children }: PropsWithChildren) => {
   const [tooltips, setTooltips] = useState<Record<string, boolean>>({})
 
+  const timeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
   const show = (id: string) => {
     setTooltips({ ...tooltips, ...{ [id]: true } })
   }
@@ -57,8 +66,17 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
   }
 
   const toggle = (id: string) => {
-    console.log('toggle', tooltips)
     setTooltips({ ...tooltips, ...{ [id]: !tooltips[id] } })
+  }
+
+  const startHide = (id: string) => {
+    timeouts.current[id] = setTimeout(() => {
+      return hide(id)
+    }, 500)
+  }
+
+  const cancelHide = (id: string) => {
+    clearTimeout(timeouts.current[id])
   }
   return (
     <TooltipContext.Provider
@@ -70,6 +88,8 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
             show: () => show(tooltipId),
             hide: () => hide(tooltipId),
             toggle: () => toggle(tooltipId),
+            startHide: () => startHide(tooltipId),
+            cancelHide: () => cancelHide(tooltipId),
           }
         }),
         addTooltip: (id: string) => {
@@ -87,6 +107,8 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
             show: () => show(id),
             hide: () => hide(id),
             toggle: () => toggle(id),
+            startHide: () => startHide(id),
+            cancelHide: () => cancelHide(id),
           }
         },
         removeTooltip: (id: string) => {
@@ -105,21 +127,25 @@ TooltipProvider.registerTooltip = ({
   id,
   tooltip,
 }: {
-  id: StepType
+  id: string
   tooltip: TooltipType
 }) => {
   tooltipsRegistry[id] = tooltip
 }
 
-export const useTooltip = (id: string) => {
+export const useTooltip = (name: string, id?: string) => {
+  if (!id) {
+    id = name
+  }
   const context = useContext(TooltipContext)
   useEffect(() => {
+    //@ts-ignore
     context.addTooltip(id)
   })
   const tooltip = context.tooltips.find((t) => t.id === id)
 
   return {
     ...tooltip,
-    ...tooltipsRegistry[id],
+    ...tooltipsRegistry[name],
   }
 }

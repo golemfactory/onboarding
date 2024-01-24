@@ -1,4 +1,4 @@
-import { getStepDetails } from 'state/getStepDetails'
+import { getStepDetails } from './getStepRenderDetails'
 import { useTheme } from 'components/providers/ThemeProvider'
 import { useOnboarding } from 'hooks/useOnboarding'
 import style from './onboarding.module.css'
@@ -11,7 +11,7 @@ export const OnboardingPage = () => {
 
   const { state } = useOnboarding()
   //@ts-ignore
-  const { name, component, placement } = getStepDetails(state.value)
+  const { name, main, placement, ornament } = getStepDetails(state.value)
 
   const Background = () => {
     return (
@@ -29,7 +29,8 @@ export const OnboardingPage = () => {
         <StepTemplate
           name={name}
           placement={placement}
-          Component={component}
+          main={main}
+          ornament={ornament}
           checkCompleted={() => {
             return true
           }}

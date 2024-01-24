@@ -12,6 +12,10 @@ function roundToHalf(num: number) {
 
 import { BudgetOption } from 'types/dataContext'
 import { Network } from 'types/ethereum'
+import {
+  InfoTooltip,
+  InfoTooltipTrigger,
+} from 'components/organisms/tooltip/InfoTooltip'
 export const RecommendationCard = ({
   id,
   Icon,
@@ -118,8 +122,14 @@ export const RecommendationCard = ({
               <span className="text-h6 text-primary font-kanit">
                 ≈ {maticCost} MATIC
               </span>
-              <span className={style.caps10px}>
-                <Trans i18nKey="coversFees" ns="welcome.step" />
+              <span className={`${style.caps10px} flex gap-2 z-40`}>
+                <Trans i18nKey="coversFees" ns="welcome.step" />{' '}
+                <InfoTooltipTrigger
+                  id="matic"
+                  appearance="secondary"
+                  name={id}
+                />
+                <InfoTooltip id="matic" appearance="secondary" name={id} />
               </span>
             </div>
           </div>
