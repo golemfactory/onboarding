@@ -4,7 +4,6 @@ import globalStyle from 'styles/global.module.css'
 import { Button, Trans } from 'components/atoms'
 import { Bullet } from 'components/atoms/bullet/Bullet'
 import { AnimatedSection } from './AnimatedSection'
-import { N } from 'ethers'
 
 const style = {
   ...sectionStyle,
@@ -12,7 +11,7 @@ const style = {
   ...globalStyle,
 }
 
-const NumberCircle = ({ number }) => {
+const NumberCircle = ({ number }: { number: number }) => {
   return <div className={`${style.numberCircle} col-span-1`}>{number}</div>
 }
 
