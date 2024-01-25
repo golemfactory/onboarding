@@ -40,6 +40,9 @@ module.exports = {
         '90p': '90%',
         'golem-grid-desktop': '1232px',
       },
+      borderWidth: {
+        1: '1px',
+      },
       height: {
         'line-1': '1em',
         'line-1.5': '1.5em',
@@ -88,6 +91,22 @@ module.exports = {
             lineHeight: '100%',
           },
         ],
+        'body-small': [
+          '0.9rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '140%',
+          },
+        ],
+        'body-normal': [
+          '1rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 300,
+            lineHeight: '140%',
+          },
+        ],
         'body-medium': [
           '1rem',
           {
@@ -96,8 +115,7 @@ module.exports = {
             lineHeight: '140%',
           },
         ],
-
-        'b-xl': [
+        'body-extra-large': [
           '1.375rem',
           {
             fontSize: '22px',
@@ -126,9 +144,6 @@ module.exports = {
       },
       spacing: {
         'golem-logo': '5.76rem',
-      },
-      border: {
-        1: '1px',
       },
       scale: {
         10: '0.10',

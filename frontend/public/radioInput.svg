@@ -1,0 +1,7 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Form Fields/Radio input">
+<rect x="0.500488" y="0.5" width="19" height="19" rx="9.5" fill="white"/>
+<rect x="0.500488" y="0.5" width="19" height="19" rx="9.5" stroke="#C4D2F8"/>
+<circle id="Selected indicator" cx="10.0005" cy="10" r="4" fill="#181EA9" stroke="#181EA9" stroke-width="2"/>
+</g>
+</svg>

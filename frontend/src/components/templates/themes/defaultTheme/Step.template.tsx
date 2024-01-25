@@ -37,7 +37,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
 
   return (
     <div className={style.container}>
-      <RightDot />
+      <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />
       <div className={style.textContainer}>
         <div className=" col-span-10 mt-24 justify-between grid grid-cols-10">
           <div className={`${style.title} col-span-4`}>

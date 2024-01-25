@@ -39,7 +39,7 @@ export const Legal: FC<{
     <div className="col-span-12 flex flex-col gap-3 text-darkblue-700">
       <Checkbox
         label={() => (
-          <div className="text-b-xl">
+          <div className="text-body-extra-large">
             <Trans i18nKey="legal.thirdParty" ns="welcome.step" />
           </div>
         )}
@@ -53,7 +53,7 @@ export const Legal: FC<{
       />
       <Checkbox
         label={() => (
-          <div className="text-b-xl ">
+          <div className="text-body-extra-large">
             <Trans i18nKey="legal.termsAndConditions" ns="welcome.step" />
           </div>
         )}

@@ -24,7 +24,6 @@ export const OnboardingPage = () => {
     )
   }
 
-  console.log('name', name)
   return (
     <LayoutTemplate
       background={<Background />}

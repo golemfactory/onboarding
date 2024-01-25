@@ -1,0 +1,22 @@
+.radio {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: border 100ms;
+}
+
+.radio:not(:checked) {
+  @apply border-lightblue-200 border-1;
+  border-radius: 11px;
+
+background: var(--white, #FFF);
+}
+
+.radio:checked {
+  background-image: url('radioInput.svg');
+} 
+
+.radio:not(:checked):hover {
+  @apply border-blue-400 border-1;
+}

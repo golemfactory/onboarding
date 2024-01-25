@@ -63,7 +63,7 @@ body, html {
 body {
       /* Set the background image */
     background-image: url('bgeffects.svg');
-
+    overflow-x: hidden;
     background-size: 120%;
     background-position-y: -100px;
     /* Contain the background size within the bounds of the body element */

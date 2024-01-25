@@ -1,25 +1,16 @@
-import { motion } from 'framer-motion'
-import {
-  MouseEventHandler,
-  ChangeEventHandler,
-  ChangeEvent,
-  useState,
-  useEffect,
-  useCallback,
-} from 'react'
-import { networks } from 'ethereum/networks'
+import { MouseEventHandler, useState, useEffect, useCallback } from 'react'
 import { NetworkType } from 'types/ethereum'
-import onboardingStyle from '../Onboarding.module.css'
 import { Network } from 'ethereum/networks/types'
 import { useSwitchNetwork } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { useSetup } from 'hooks/useSetup'
-import { hexToNetwork } from 'utils/hexToNetwork'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
-const variants = {
-  show: { opacity: 1 },
-  hidden: { opacity: 0 },
-}
+import { RadioGroup } from 'components/molecules/radioGroup/RadioGroup'
+import { EthereumIcon, MaticIcon } from 'components/atoms/icons'
+import { Button, Trans } from 'components/atoms'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { Commands } from 'state/commands'
+import { hexToNumber } from 'viem/utils'
 
 TooltipProvider.registerTooltip({
   id: 'chooseNetwork',
@@ -33,52 +24,65 @@ const ChooseNetworkPresentational = ({
   onConfirm,
   onNetworkSelection,
   selectedNetwork,
-  allowNetworkSelection = true,
 }: {
   onConfirm: MouseEventHandler
-  onNetworkSelection: ChangeEventHandler<HTMLSelectElement>
+  onNetworkSelection: (network: NetworkType) => void
   selectedNetwork: NetworkType
-  allowNetworkSelection?: boolean
 }) => {
   return (
-    <div>DUPA</div>
-    // <div className={onboardingStyle.step}>
-    //   <motion.h1 className={onboardingStyle.title} variants={variants}>
-    //     Wallet is connected
-    //   </motion.h1>
-    //   <motion.p className={onboardingStyle.description} variants={variants}>
-    //     {allowNetworkSelection
-    //       ? 'Now you need to choose network'
-    //       : `Connecting to ${hexToNetwork(selectedNetwork)}`}
-    //   </motion.p>
-    //   <motion.div variants={variants}>
-    //     {allowNetworkSelection && (
-    //       <div>
-    //         <select onChange={onNetworkSelection} value={selectedNetwork}>
-    //           {Object.keys(networks).map((network) => {
-    //             const networkId = network as keyof typeof networks
-    //             return (
-    //               <option key={networkId} value={networkId}>
-    //                 {networks[networkId].chainName}
-    //               </option>
-    //             )
-    //           })}
-    //         </select>
-    //         <button
-    //           className={onboardingStyle.button}
-    //           style={{
-    //             borderTopLeftRadius: '0',
-    //             borderBottomLeftRadius: '0',
-    //             height: '42px',
-    //           }}
-    //           onClick={onConfirm}
-    //         >
-    //           Go
-    //         </button>
-    //       </div>
-    //     )}
-    //   </motion.div>
-    // </div>
+    <div className="flex flex-col">
+      <RadioGroup<NetworkType>
+        onSelect={({ itemId }) => {
+          onNetworkSelection(itemId)
+        }}
+        className="mt-4"
+        items={[
+          {
+            label: (
+              <div className="inline-flex flex-col items-start relative">
+                <div className="text-body-extra-large flex">
+                  Polygon <MaticIcon className="h-line-1 mt-1 ml-2" />{' '}
+                </div>
+                <div className="text-body-normal">
+                  <Trans
+                    i18nKey="polygon.description"
+                    ns="chooseNetwork.step"
+                  />
+                </div>
+                <span className="absolute -right-8 -top-2 inline-flex items-center rounded-full bg-success-50 px-2 py-1 text-body-small text-success-200">
+                  <Trans
+                    i18nKey="polygon.recommended"
+                    ns="chooseNetwork.step"
+                  />
+                </span>
+              </div>
+            ),
+            id: Network.POLYGON,
+            checked: selectedNetwork === Network.POLYGON,
+          },
+          {
+            label: (
+              <div className="inline-flex flex-col items-start relative">
+                <div className="text-body-extra-large flex">
+                  Ethereum <EthereumIcon className="h-line-1 mt-1 ml-2" />{' '}
+                </div>
+              </div>
+            ),
+            id: Network.ETHEREUM,
+            checked: selectedNetwork === Network.ETHEREUM,
+          },
+        ]}
+      ></RadioGroup>
+      <div>
+        <Button
+          buttonStyle="solid"
+          className="mt-8 px-9 py-4 text-button-large"
+          onClick={onConfirm}
+        >
+          <Trans i18nKey="confirmNetwork" ns="chooseNetwork.step" />
+        </Button>
+      </div>
+    </div>
   )
 }
 
@@ -86,24 +90,18 @@ export const ChooseNetwork = () => {
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkType>(
     Network.POLYGON
   )
-
+  const { send } = useOnboarding()
   const { network: selectedNetworkFromParams } = useSetup()
-
   const { chain } = useNetwork()
   const { switchNetworkAsync } = useSwitchNetwork()
 
-  const onNetworkSelection = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedNetwork(e.target.value as NetworkType)
-  }
-
   const onConfirm = useCallback(async () => {
-    // if (chain?.id === selectedNetwork) {
-    //   goToNextStep()
-    //   return
-    // }
-    // await switchNetworkAsync?.(hexToNumber(selectedNetwork))
-    // goToNextStep()
-  }, [selectedNetwork, chain, switchNetworkAsync])
+    if (chain?.id === selectedNetwork) {
+      send(Commands.NEXT)
+      return
+    }
+    await switchNetworkAsync?.(hexToNumber(selectedNetwork))
+  }, [selectedNetwork, chain?.id])
 
   useEffect(() => {
     if (selectedNetworkFromParams) {
@@ -117,9 +115,8 @@ export const ChooseNetwork = () => {
       onConfirm={() => {
         onConfirm()
       }}
-      onNetworkSelection={onNetworkSelection}
+      onNetworkSelection={setSelectedNetwork}
       selectedNetwork={selectedNetwork}
-      allowNetworkSelection={!selectedNetworkFromParams}
     />
   )
 }

@@ -57,7 +57,6 @@ const componentByStep: Record<
 
 export const getStepDetails = (step: StepType): StepRenderDetailsType => {
   const details = componentByStep[step]
-  console.log('de', details)
   return {
     //i18n namespace
     name: step,
