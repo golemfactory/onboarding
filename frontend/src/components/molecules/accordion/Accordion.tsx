@@ -6,12 +6,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 function getStyle(className: string, styleName: string): string | null {
   const styleSheets: StyleSheetList = document.styleSheets
   let cssRule: CSSStyleRule
-  for (let i = 0; i < styleSheets.length; i++) {
+  for (let i = 0; i < styleSheets.length; i += 1) {
     try {
-      const rules: CSSRuleList = styleSheets[i].cssRules || styleSheets[i].rules
-
-      for (let j = 0; j < rules.length; j++) {
-        if (rules[j].type === CSSRule.STYLE_RULE) {
+      const rules: CSSRuleList = styleSheets[i].cssRules
+      for (let j = 0; j < rules.length; j += 1) {
+        if (rules[j] instanceof CSSStyleRule) {
           cssRule = rules[j] as CSSStyleRule
           if (cssRule.selectorText === '.' + className) {
             return cssRule.style.getPropertyValue(styleName)

@@ -9,6 +9,7 @@ import {
 } from 'components/organisms/tooltip/InfoTooltip'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
+import { RightDot } from 'components/atoms/ornaments/rightDot'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
@@ -36,6 +37,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
 
   return (
     <div className={style.container}>
+      <RightDot />
       <div className={style.textContainer}>
         <div className=" col-span-10 mt-24 justify-between grid grid-cols-10">
           <div className={`${style.title} col-span-4`}>

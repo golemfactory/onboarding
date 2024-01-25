@@ -62,9 +62,8 @@ module.exports = {
           },
         ],
         h3: [
-          '1.5rem',
+          '2rem',
           {
-            fontSize: '32px',
             fontStyle: 'normal',
             fontWeight: 400,
             lineHeight: '120%',
