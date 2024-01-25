@@ -1,14 +1,28 @@
 import { PropsWithChildren } from 'react'
 import { motion } from 'framer-motion'
 
+const duration = 0.6
 const pageVariants = {
-  initial: { opacity: 0, x: '-100vw' },
-  in: { opacity: 1, x: 0 },
-  out: { opacity: 0, x: '100vw' },
+  initial: {
+    opacity: 0,
+    x: '100vw',
+    transition: {
+      duration,
+    },
+  },
+  in: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration,
+      delay: duration,
+    },
+  },
+  out: { opacity: 0, x: '-100vw', transition: { duration } },
 }
 
 const pageTransition = {
-  duration: 1,
+  duration: 10,
   type: 'ease',
 }
 

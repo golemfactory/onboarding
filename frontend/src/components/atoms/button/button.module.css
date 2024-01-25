@@ -45,19 +45,16 @@
 }
 
 .solid:hover{
-  border-radius: 3px;
   background: var(--primary-blue-700-hover, #0C0E55);
 
   /* shadow/sm */
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 }
 
 .solid:active{
-  border-radius: 3px;
-  background: var(--primary-blue-500, #181EA9);
+    background: var(--primary-blue-500, #181EA9);
+    @apply focus:ring-1 focus:ring-offset-2 focus:ring-primary;
 
   /* shadow/sm/focus:ring-2/focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-500 */
-  box-shadow: 0px 0px 0px 3px #181EA9, 0px 0px 0px 2px #FFF, 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 }
 
 .solid:disabled{
@@ -72,6 +69,7 @@
   border-radius: 3px 3px 0px 0px;
   border-bottom: 1px solid var(--primary-blue-500, #181EA9);
   background: var(--white, #FFF);
+  margin-bottom: 3px;
 }
 
 .underline:hover{
@@ -79,18 +77,20 @@
   border-bottom: 4px solid var(--primary-blue-700-hover, #0C0E55);
   background: var(--Default-Neutral-White, #FFF);
   /* /shadow/md */
-  padding-bottom: 6px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);
+  margin-bottom: 0px;
 }
 
 .underline:active{
   border-radius: 3px;
-  border: 1px solid var(--primary-blue-500, #181EA9);
-  background: var(--Default-Neutral-White, #FFF);
+  border-bottom: 0px solid var(--primary-blue-500, #181EA9);
+    box-shadow: 
+        0 0 0 1px black,  /* 1px black frame */
+        0 0 0 3px white,  /* 3px white gap (1px black + 3px white) */
+        0 0 0 4px #181EA9;    
+  margin-bottom: 4px;
+      }
 
-  /* shadow/sm/focus:ring-2/focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-500 */
-  box-shadow: 0px 0px 0px 3px #181EA9, 0px 0px 0px 2px #FFF, 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-}
 
 .underline:disabled{
   border-radius: 3px 3px 0px 0px;

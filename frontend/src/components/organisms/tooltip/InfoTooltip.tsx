@@ -6,10 +6,16 @@ import { useToggle } from 'usehooks-ts'
 
 import tooltipStyle from './infoTooltip.module.css'
 import { Button, Trans } from 'components/atoms'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { XIcon } from 'components/atoms/icons'
 import { Accordion } from 'components/molecules/accordion/Accordion'
+
+const variants = {
+  open: { opacity: 1 },
+  closed: { opacity: 0 },
+  initial: { opacity: 0 },
+}
 
 export const InfoTooltipTrigger = ({
   id,
@@ -86,6 +92,9 @@ export const InfoTooltipPresentationalPrimary = ({
         className={`${tooltipStyle.xicon}`}
         onClick={() => {
           tooltip.hide?.()
+          if (isMoreInfoOpen) {
+            toggleMoreInfo()
+          }
         }}
       >
         <XIcon />
@@ -111,40 +120,54 @@ export const InfoTooltipPresentationalPrimary = ({
             </div>
           )
         })}
-        {isMoreInfoOpen ? (
-          <div className="flex flex-col gap-2">
-            <Accordion
-              items={tooltip.sections.map((section) => {
-                return {
-                  title: (
-                    <Trans i18nKey={`${id}.${section}.title`} ns="tooltips" />
-                  ),
-                  content: (
-                    <Trans i18nKey={`${id}.${section}.content`} ns="tooltips" />
-                  ),
-                  key: section,
-                }
-              })}
-              style={{
-                container: 'flex flex-col gap-2',
-                title: `${tooltipStyle.sectionTitle} flex flex-row justify-left items-center mb-3`,
-                content: `${tooltipStyle.sectionDescription}`,
-                icon: `${tooltipStyle.chevronIcon}`,
-              }}
-            />
-          </div>
-        ) : (
-          <div>
+        <AnimatePresence>
+          <motion.div variants={variants}>
             <Button
               buttonStyle="underline"
-              className="col-span-2 col-start-2 text-sm"
+              className="col-span-2 col-start-2 text-sm px-1 py-1.5"
               onClick={toggleMoreInfo}
               useDefault={true}
             >
               <Trans i18nKey="moreInfo" ns="tooltips" />
             </Button>
-          </div>
-        )}
+          </motion.div>
+        </AnimatePresence>
+        <AnimatePresence>
+          {isMoreInfoOpen ? (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col gap-2"
+            >
+              <Accordion
+                items={tooltip.sections.map((section) => {
+                  return {
+                    title: (
+                      <Trans i18nKey={`${id}.${section}.title`} ns="tooltips" />
+                    ),
+                    content: (
+                      <Trans
+                        i18nKey={`${id}.${section}.content`}
+                        ns="tooltips"
+                      />
+                    ),
+                    key: section,
+                  }
+                })}
+                style={{
+                  container: 'flex flex-col gap-2',
+                  title: `${tooltipStyle.sectionTitle} flex flex-row justify-left items-center mb-3`,
+                  content: `${tooltipStyle.sectionDescription}`,
+                  icon: `${tooltipStyle.chevronIcon}`,
+                }}
+              />
+            </motion.div>
+          ) : (
+            ''
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )
@@ -226,11 +249,6 @@ export const InfoTooltip = ({
   }
   const [isMoreInfoOpen, toggleMoreInfo] = useToggle(false)
 
-  const variants = {
-    open: { opacity: 1, zIndex: 200 },
-    closed: { opacity: 0, zIndex: 200 },
-  }
-
   return (
     <div
       className="relative"
@@ -244,6 +262,7 @@ export const InfoTooltip = ({
           ease: 'easeInOut',
         }}
         className="absolute top-0 left-0"
+        style={{ zIndex: 200 }}
       >
         {appearance === 'primary' ? (
           <InfoTooltipPresentationalPrimary

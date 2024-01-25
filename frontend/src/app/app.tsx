@@ -21,39 +21,43 @@ import { useRouteControl } from 'hooks/useRouteControl'
 const Onboarding = () => {
   const location = useLocation()
   const locationArr = location.pathname?.split('/') ?? []
+
+  console.log(locationArr)
   useRouteControl()
   return (
-    <Routes location={location} key={locationArr[1]}>
-      <Route
-        path="/"
-        element={
-          <AnimatedPage>
-            <LandingPage />
-          </AnimatedPage>
-        }
-      />
-      <Route
-        path="/unsupported"
-        element={
-          <AnimatedPage>
-            <UnsupportedPage />
-          </AnimatedPage>
-        }
-      />
-      {Object.values(stepPaths).map((step) => {
-        return (
-          <Route
-            key={step}
-            path={`/${step}`}
-            element={
-              <AnimatedPage>
-                <OnboardingPage />
-              </AnimatedPage>
-            }
-          ></Route>
-        )
-      })}
-    </Routes>
+    <AnimatePresence>
+      <Routes location={location} key={locationArr[1]}>
+        <Route
+          path="/"
+          element={
+            <AnimatedPage>
+              <LandingPage />
+            </AnimatedPage>
+          }
+        />
+        <Route
+          path="/unsupported"
+          element={
+            <AnimatedPage>
+              <UnsupportedPage />
+            </AnimatedPage>
+          }
+        />
+        {Object.values(stepPaths).map((step) => {
+          return (
+            <Route
+              key={step}
+              path={`/${step}`}
+              element={
+                <AnimatedPage>
+                  <OnboardingPage />
+                </AnimatedPage>
+              }
+            ></Route>
+          )
+        })}
+      </Routes>
+    </AnimatePresence>
   )
 }
 
@@ -63,11 +67,9 @@ const Router: FC = () => {
       <TooltipProvider>
         <ThemeProvider>
           <BlockchainProvider>
-            <AnimatePresence>
-              <OnboardingProvider>
-                <Onboarding />
-              </OnboardingProvider>
-            </AnimatePresence>
+            <OnboardingProvider>
+              <Onboarding />
+            </OnboardingProvider>
           </BlockchainProvider>
         </ThemeProvider>
       </TooltipProvider>
