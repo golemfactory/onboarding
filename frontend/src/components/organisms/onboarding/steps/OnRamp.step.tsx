@@ -15,7 +15,17 @@ import { useBalance } from 'hooks/useBalance'
 import { getTokenByCategory } from 'utils/getTokenByNetwrok'
 import { TokenCategory } from 'types/ethereum'
 import { extractBaseURL } from 'utils/extractBaseURL'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
+import { Trans } from 'components/atoms'
 // import onboardingStyle from '../Onboarding.module.css'
+
+TooltipProvider.registerTooltip({
+  id: 'onRamp',
+  tooltip: {
+    sections: ['explainEthereum', 'explainPolygon', 'explainCost'],
+    appearance: 'primary',
+  },
+})
 
 const log = debug('onboarding:steps:onramp')
 
@@ -28,6 +38,15 @@ enum TransactionState {
   READY,
   PENDING,
   COMPLETED,
+}
+
+export const OnRampTitleComponent = () => {
+  const { chain } = useNetwork()
+  return (
+    <>
+      <Trans i18nKey="title" ns="onRamp.step" values={{ chain: chain?.name }} />
+    </>
+  )
 }
 
 const OnRampPresentational = ({

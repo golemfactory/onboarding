@@ -1,0 +1,5 @@
+{
+  "title" : "Great! Your selected network is {{chain}}",
+  "subtitle" : "To buy GLM, you need to get some MATIC tokens first. MATIC is needed to pay for the transaction cost on Polygon network.",
+  "description" : ""
+}

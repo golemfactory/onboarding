@@ -46,13 +46,15 @@
 
 
 
+  "matic.description" : ["MATIC tokens are used to cover transaction fees on Polygon, our preferred blockchain network.<emptyLine />When buying GLM and MATIC tokens, you'll first purchase MATIC, then convert some of them into GLM. With the specified amount of $, you can obtain enough MATIC and GLM to utilize the desired computing power.<emptyLine /> Don't worry about the specifics just yet; we're here to guide you through each step.,"],
 
 
-
-
-
-  "matic.description" : ["MATIC tokens are used to cover transaction fees on Polygon, our preferred blockchain network.<emptyLine />When buying GLM and MATIC tokens, you'll first purchase MATIC, then convert some of them into GLM. With the specified amount of $, you can obtain enough MATIC and GLM to utilize the desired computing power.<emptyLine /> Don't worry about the specifics just yet; we're here to guide you through each step.,"]
-
+  "onRamp.title" : "MATIC tokens will cover the transaction costs when you are acquiring GLM tokens",
+  "onRamp.description" : [
+    "Transaction fees compensate the network for the work required to process and validate transactions.", 
+    "When you acquire GLM tokens on the<maticIcon/> Polygon network, you need to pay the transaction fees in <maticCoinIcon /> MATIC, because it's the native currency of Polygon blockchain.It's like having the right currency to pay for a service in a specific country.",
+    "This is a standard practice in many blockchain networks, where you pay for transactions in the network's native currency."
+  ]
 
 
 }

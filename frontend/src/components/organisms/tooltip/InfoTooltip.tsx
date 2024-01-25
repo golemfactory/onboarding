@@ -252,7 +252,10 @@ export const InfoTooltip = ({
   return (
     <div
       className="relative"
-      style={{ pointerEvents: tooltip.visible ? 'auto' : 'none' }}
+      style={{
+        pointerEvents: tooltip.visible ? 'auto' : 'none',
+        width: appearance === 'primary' ? '450px' : 'auto',
+      }}
     >
       <motion.div
         variants={variants}

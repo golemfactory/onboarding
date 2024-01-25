@@ -7,6 +7,7 @@ export type StepRenderDetailsType = {
     isNextCalled: boolean
   }>
   title?: ComponentType<Record<string, never>>
+  subtitle?: ComponentType<Record<string, never>>
   ornament?: ComponentType<Record<string, never>>
   placement: 'inside' | 'outside'
   showNextButton?: boolean

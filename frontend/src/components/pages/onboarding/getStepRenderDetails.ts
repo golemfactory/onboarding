@@ -9,6 +9,7 @@ import {
   Finish,
   AddGLM,
   Transfer,
+  OnRampTitleComponent,
 } from 'components/organisms/onboarding'
 
 import { ComponentType } from 'react'
@@ -26,6 +27,7 @@ const componentByStep: Record<
     placement: 'inside' | 'outside'
     ornament?: ComponentType<unknown>
     showNextButton?: boolean
+    title?: ComponentType<Record<string, never>>
   }
 > = {
   [Step.WELCOME]: {
@@ -43,7 +45,11 @@ const componentByStep: Record<
     placement: 'inside',
     ornament: WalletIconGreen,
   },
-  [Step.ON_RAMP]: { component: OnRamp, placement: 'outside' },
+  [Step.ON_RAMP]: {
+    component: OnRamp,
+    placement: 'outsides',
+    title: OnRampTitleComponent,
+  },
   [Step.SWAP]: { component: SwapTokens, placement: 'outside' },
   [Step.FINISH]: { component: Finish, placement: 'outside' },
   [Step.ADD_GLM]: { component: AddGLM, placement: 'outside' },
@@ -64,5 +70,6 @@ export const getStepDetails = (step: StepType): StepRenderDetailsType => {
     placement: details.placement,
     ornament: details.ornament,
     showNextButton: details.showNextButton || false,
+    title: details.title,
   }
 }

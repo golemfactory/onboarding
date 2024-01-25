@@ -10,10 +10,6 @@ export const OnboardingPage = () => {
   const StepTemplate = theme.getStepTemplate()
 
   const { state } = useOnboarding()
-  const { name, main, placement, ornament, showNextButton } = getStepDetails(
-    //@ts-ignore
-    state.value
-  )
 
   const Background = () => {
     return (
@@ -29,11 +25,8 @@ export const OnboardingPage = () => {
       background={<Background />}
       main={
         <StepTemplate
-          name={name}
-          placement={placement}
-          main={main}
-          ornament={ornament}
-          showNextButton={showNextButton}
+          //@ts-ignore
+          {...getStepDetails(state.value)}
           checkCompleted={() => {
             return true
           }}

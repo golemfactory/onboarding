@@ -8,7 +8,7 @@ export const Step = {
   FINISH: 'finish',
   CONNECT_WALLET: 'connect-wallet',
   CHOOSE_NETWORK: 'chooseNetwork',
-  ON_RAMP: 'on-ramp',
+  ON_RAMP: 'onRamp',
   CHECK_ACCOUNT_BALANCES: 'check-account-balances',
   SWAP: 'swap',
   GASLESS_SWAP: 'gasless-swap',

@@ -28,20 +28,28 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
     placement,
     name,
     showNextButton,
+    title: TitleComponent = () => {
+      return <Trans i18nKey="title" ns={`${name}.step`} />
+    },
+    subtitle: SubtitleComponent = () => {
+      return <Trans i18nKey="subtitle" ns={`${name}.step`} />
+    },
   } = stepRenderDetails
 
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
   const namespace = `${name}.step`
+  console
 
+  console.log('stepRenderDetails', stepRenderDetails)
   return (
     <div className={style.container}>
       <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />
       <div className={style.textContainer}>
         <div className=" col-span-10 mt-24 justify-between grid grid-cols-10">
           <div className={`${style.title} col-span-4`}>
-            <Trans i18nKey="title" ns={namespace} />
+            <TitleComponent />
           </div>
           <div className="col-span-3 col-start-7 relative">
             {OrnamentComponent ? <OrnamentComponent /> : ''}
@@ -53,11 +61,16 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
             <Bullet useTopStroke={false} />
           </div>
           <div className="col-span-11 flex flex-col gap-4">
-            <div className={style.subtitle}>
-              <Trans i18nKey="subtitle" ns={namespace} />
-              <InfoTooltipTrigger id={name} appearance="primary" />
+            <div className="flex flex-wrap justify-end">
+              <div className={style.subtitle}>
+                <SubtitleComponent />
+              </div>
+              <div className={style.tooltipTriggerContainer}>
+                <InfoTooltipTrigger id={name} appearance="primary" />
+              </div>
               <InfoTooltip id={name} appearance="primary" />
             </div>
+
             <div className={style.description}>
               <div className="col-span-10">
                 <Trans i18nKey="description" ns={namespace} />
