@@ -54,9 +54,13 @@
     "Transaction fees compensate the network for the work required to process and validate transactions.", 
     "When you acquire GLM tokens on the<maticIcon/> Polygon network, you need to pay the transaction fees in <maticCoinIcon /> MATIC, because it's the native currency of Polygon blockchain.It's like having the right currency to pay for a service in a specific country.",
     "This is a standard practice in many blockchain networks, where you pay for transactions in the network's native currency."
-  ]
-
-
+  ], 
+  "onRamp.explainMatic.title" : "<maticCoinIcon/> What is MATIC token?",
+  "onRamp.explainMatic.content" : "MATIC is a native token of Polygon blockchain just like ETH is a native token of Ethereum blockchain.",
+  "onRamp.whyMatic.title" : "Why do I need to get MATIC?",
+  "onRamp.whyMatic.content" : "MATIC is used to cover transaction fees on Polygon blockchain. Without it it would be impossible to send a transaction.",
+  "onRamp.explainTransaction.title" : "How the transaction is made?",
+  "onRamp.explainTransaction.content" : "Transaction is a digital message, which states what are you want to do on the blockchain. For instance You can send your funds to another wallet or maybe interact with some decentralized application. <emptyLine /> Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
+  "onRamp.explainNative.title" : "What is native token?",
+  "onRamp.explainNative.content" : "Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask."
 }
-
-

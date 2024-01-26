@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { XIcon } from 'components/atoms/icons'
 import { Accordion } from 'components/molecules/accordion/Accordion'
+import { getStyle } from 'utils/getStyle'
 
 const variants = {
   open: { opacity: 1 },
@@ -85,7 +86,10 @@ export const InfoTooltipPresentationalPrimary = ({
     returnObjects: true,
     ns: 'tooltips',
   }) as string[]
-  // Assuming 'items' is your key in the JSON file
+
+  const lineHeight = getStyle(tooltipStyle.title, 'line-height')
+  console.log(lineHeight)
+
   return (
     <div className={`${tooltipStyle.card}`}>
       <div
@@ -136,9 +140,32 @@ export const InfoTooltipPresentationalPrimary = ({
           {isMoreInfoOpen ? (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              animate={{
+                opacity: 1,
+                height: 'auto',
+                transition: {
+                  opacity: {
+                    delay: 0.3, // Starts opacity animation after height animation
+                    duration: 0.3,
+                  },
+                  height: {
+                    duration: 0.3,
+                  },
+                },
+              }}
+              exit={{
+                opacity: 0,
+                height: 0,
+                transition: {
+                  opacity: {
+                    duration: 0.3,
+                  },
+                  height: {
+                    duration: 0.3,
+                    delay: 0.3,
+                  },
+                },
+              }}
               className="flex flex-col gap-2"
             >
               <Accordion

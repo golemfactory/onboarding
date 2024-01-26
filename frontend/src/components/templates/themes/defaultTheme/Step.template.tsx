@@ -61,14 +61,16 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
             <Bullet useTopStroke={false} />
           </div>
           <div className="col-span-11 flex flex-col gap-4">
-            <div className="flex flex-wrap justify-end">
+            <div className="flex flex-wrap justify-between">
               <div className={style.subtitle}>
                 <SubtitleComponent />
               </div>
               <div className={style.tooltipTriggerContainer}>
                 <InfoTooltipTrigger id={name} appearance="primary" />
               </div>
-              <InfoTooltip id={name} appearance="primary" />
+              <div className="ml-auto">
+                <InfoTooltip id={name} appearance="primary" />
+              </div>
             </div>
 
             <div className={style.description}>

@@ -22,7 +22,12 @@ import { Trans } from 'components/atoms'
 TooltipProvider.registerTooltip({
   id: 'onRamp',
   tooltip: {
-    sections: ['explainEthereum', 'explainPolygon', 'explainCost'],
+    sections: [
+      'explainMatic',
+      'whyMatic',
+      'explainTransaction',
+      'explainNative',
+    ],
     appearance: 'primary',
   },
 })
