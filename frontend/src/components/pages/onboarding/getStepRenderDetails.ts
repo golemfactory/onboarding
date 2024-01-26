@@ -47,7 +47,7 @@ const componentByStep: Record<
   },
   [Step.ON_RAMP]: {
     component: OnRamp,
-    placement: 'outsides',
+    placement: 'outside',
     title: OnRampTitleComponent,
   },
   [Step.SWAP]: { component: SwapTokens, placement: 'outside' },

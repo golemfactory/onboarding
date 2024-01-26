@@ -1,0 +1,14 @@
+{
+  "Matic" : {
+    "title" : "Get Matic tokens",
+    "description" : "Exchange your traditional currency (like USD or EUR) to get some MATIC tokens."
+  },
+  "GLM" : {
+    "title" : "Convert MATIC to GLM",
+    "description" : "Now you're all set to get GLM tokens. Just convert your MATIC to GLM, we’ll guide you along the way"
+  },
+  "yagna" : {
+    "title" : "Transfer tokens to Yagna ",
+    "description" : "The final step.You have GLM and MATIC, but to utilize them for computing power, you need to transfer your tokens to Yagna - Golem's Client with wallet functionality."
+  }
+}

@@ -68,6 +68,7 @@ export const createStateMachine = (
           return this?.chainId !== undefined
         },
       },
+      stage: OnboardingStage.GLM,
     },
     id: 'onboarding',
     initial: step || Step.WELCOME,

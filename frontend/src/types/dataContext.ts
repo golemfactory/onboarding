@@ -1,6 +1,6 @@
 import { BalanceCaseType } from './path'
 import { EthereumAddress, NetworkType, TokenCategory } from './ethereum'
-
+import { OnboardingStage } from '../state/stages'
 export interface WalletState {
   accounts: unknown[]
   balance: Record<TokenCategory, bigint>
@@ -32,4 +32,5 @@ export interface OnboardingContextData {
   yagnaAddress?: string
   address?: string
   balanceCase?: BalanceCaseType
+  stage: (typeof OnboardingStage)[keyof typeof OnboardingStage]
 }

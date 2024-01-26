@@ -11,6 +11,7 @@ export type StepRenderDetailsType = {
   ornament?: ComponentType<Record<string, never>>
   placement: 'inside' | 'outside'
   showNextButton?: boolean
+  checkCompleted?: () => boolean
 }
 
 export type MainLayoutPropsType = {
@@ -18,4 +19,8 @@ export type MainLayoutPropsType = {
   footer?: ReactElement
   main: ReactElement
   background: ReactNode
+}
+
+export type StepWithProgressPropsType = {
+  main: ReactElement
 }

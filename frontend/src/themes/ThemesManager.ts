@@ -1,27 +1,38 @@
 import { FC } from 'react'
-import { StepPropsType, LayoutPropsType } from 'types/ui'
+import {
+  StepRenderDetailsType,
+  MainLayoutPropsType,
+  StepWithProgressPropsType,
+} from 'types/ui'
 
 type ThemeConfigurationType = {
   tailwindConfig: string
-  stepTemplate: FC<StepPropsType>
-  layoutTemplate: FC<LayoutPropsType>
+  stepTemplate: FC<StepRenderDetailsType>
+  layoutTemplate: FC<MainLayoutPropsType>
+  stepWithProgressTemplate: FC<StepWithProgressPropsType>
 }
 
 export class Theme {
-  private stepTemplate: FC<StepPropsType>
-  private layoutTemplate: FC<LayoutPropsType>
+  private stepTemplate: FC<StepRenderDetailsType>
+  private layoutTemplate: FC<MainLayoutPropsType>
+  private stepWithProgressTemplate: FC<StepWithProgressPropsType>
 
   public constructor(configuration: ThemeConfigurationType) {
     this.stepTemplate = configuration.stepTemplate
     this.layoutTemplate = configuration.layoutTemplate
+    this.stepWithProgressTemplate = configuration.stepWithProgressTemplate
   }
 
-  public getStepTemplate(): FC<StepPropsType> {
+  public getStepTemplate() {
     return this.stepTemplate
   }
 
-  public getLayoutTemplate(): FC<LayoutPropsType> {
+  public getLayoutTemplate() {
     return this.layoutTemplate
+  }
+
+  public getStepWithProgressTemplate() {
+    return this.stepWithProgressTemplate
   }
 }
 

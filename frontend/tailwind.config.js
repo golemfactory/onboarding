@@ -13,9 +13,11 @@ module.exports = {
         golemblue: '#0C14D4',
         primary: '#181EA9',
         'neutral-grey-300': '#404B63',
+        'neutral-grey-200': '#A2A3B9',
         'lightblue-50': '#F6F8FC',
         'lightblue-100': '#E8EBF6',
         'lightblue-200': '#C6CCED',
+        'lightblue-border': 'A4A6DD',
         'blue-300': '#A4ADDE',
         'blue-400': '#5F6ABF',
         'darkblue-500': '#181EA9',
@@ -42,6 +44,7 @@ module.exports = {
       },
       borderWidth: {
         1: '1px',
+        1.5: '1.5px',
       },
       height: {
         'line-1': '1em',
@@ -72,6 +75,16 @@ module.exports = {
             lineHeight: '120%',
             /* 38.4px */
             letterSpacing: '-0.64px',
+          },
+        ],
+        h4: [
+          '1.5rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '120%',
+            /* 38.4px */
+            letterSpacing: '-0.48px',
           },
         ],
         'caption-normal': [
@@ -123,6 +136,15 @@ module.exports = {
             fontWeight: 300,
             lineHeight: '130%',
             letterSpacing: '-0.22px',
+          },
+        ],
+        //TODO refactor from c-n to caption-normal and so on
+        'c-xs': [
+          '0.6rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '140%',
           },
         ],
         'c-n': [

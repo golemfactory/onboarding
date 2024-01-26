@@ -8,6 +8,8 @@ import unsupportedEn from './en/unsupported.json'
 import tooltipsEn from './en/tooltips.json'
 import chooseNetworkEn from './en/chooseNetwork.step.json'
 import onRampEn from './en/onRamp.step.json'
+import progressEn from './en/progressBar.json'
+import layoutEn from './en/layout.json'
 
 i18next.use(initReactI18next).init({
   lng: 'en',
@@ -21,6 +23,8 @@ i18next.use(initReactI18next).init({
       tooltips: tooltipsEn,
       'connect-wallet.step': connectWalletEn,
       'onRamp.step': onRampEn,
+      progress: progressEn,
+      layout: layoutEn,
     },
     es: {
       landing: landingEs,

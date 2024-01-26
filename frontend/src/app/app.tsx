@@ -21,8 +21,6 @@ import { useRouteControl } from 'hooks/useRouteControl'
 const Onboarding = () => {
   const location = useLocation()
   const locationArr = location.pathname?.split('/') ?? []
-
-  console.log(locationArr)
   useRouteControl()
   return (
     <AnimatePresence>
