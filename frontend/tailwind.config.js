@@ -56,6 +56,17 @@ module.exports = {
         '1/2': '50%',
       },
       fontSize: {
+        h7: [
+          '1.125rem',
+          {
+            /* Headers/Header 7 | Kanit Regular 18px */
+            fontSize: '18px',
+            fontStyle: 'normal',
+            fontWeight: 600,
+            lineHeight: '130%' /* 24px */,
+            letterSpacing: '-0.18px',
+          },
+        ],
         h6: [
           '1.25rem',
           {

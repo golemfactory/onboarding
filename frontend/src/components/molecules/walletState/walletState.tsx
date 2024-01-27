@@ -1,10 +1,17 @@
 import { WalletProvider, WalletProviderType } from 'hooks/useWallet'
 import { EthereumAddress } from 'types/ethereum'
 import { match } from 'ts-pattern'
-import { MetamaskIcon, TrustWalletIcon } from 'components/atoms/icons'
+import {
+  GolemCoinIcon,
+  MaticCoinIcon,
+  MetamaskIcon,
+  TrustWalletIcon,
+} from 'components/atoms/icons'
 import { Trans } from 'components/atoms'
 
 import style from './walletState.module.css'
+import { useBalance } from 'hooks/useBalance'
+import { formatBalance } from 'utils/formatBalance'
 
 export const AccountCategory = {
   BROWSER_WALLET: 'browserWallet',
@@ -23,9 +30,10 @@ export const WalletState = ({
   address: EthereumAddress
   provider?: WalletProviderType
 }) => {
-  console.log(category, provider)
+  const balance = useBalance(address)
+
   return (
-    <div className="flex pl-8 flex-col items-start gap-8">
+    <div className="flex pl-8 flex-col items-start gap-8 pb-8">
       <div className="flex items-center gap-4">
         {match([category, provider])
           .with(
@@ -58,6 +66,28 @@ export const WalletState = ({
           <div className="text-h6 ">
             <Trans i18nKey={category} ns="layout" />
           </div>
+        </div>
+      </div>
+      <div></div>
+      <div className="flex flex-col gap-3 text-body-normal">
+        <div className="capitalize">
+          <Trans i18nKey="currentBalance" ns="layout" />
+        </div>
+        <div className="flex gap-16">
+          <div
+            className={`flex gap-1 items-center ${style.tokenIconContainer}`}
+          >
+            <GolemCoinIcon className="h-6 inline" /> GLM
+          </div>
+          <div className="text-h7">{formatBalance(balance.GLM)}</div>
+        </div>
+        <div className=" flex gap-16">
+          <div
+            className={`flex gap-1 items-center ${style.tokenIconContainer}`}
+          >
+            <MaticCoinIcon className="h-6 inline" /> MATIC
+          </div>
+          <div className="text-h7">{formatBalance(balance.NATIVE)}</div>
         </div>
       </div>
     </div>

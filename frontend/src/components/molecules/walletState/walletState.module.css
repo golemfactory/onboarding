@@ -5,3 +5,10 @@
   line-height: 130%; 
   font-style:normal;
 }
+
+/* for some reason tails min-w-  utility doesnt work 
+TODO : check why 
+*/
+.tokenIconContainer {
+  min-width: 80px
+}
