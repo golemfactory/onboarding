@@ -112,7 +112,6 @@ export const InfoTooltipPresentationalPrimary = ({
             )
           })}
         </div>
-        {/* <div onClick={toggleMoreInfo}>dupa</div> */}
         {Object.keys(sections).map((sectionId) => {
           return (
             <div key={`section_${sectionId}`} className="flex flex-col gap-2">

@@ -30,12 +30,13 @@ export const useExchangeRate = ({
   return { data, isLoading }
 }
 
-export const useOnboardingExchangeRates = (chainId: NetworkType) => {
+export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
   const { chain } = useNetwork()
   const [usdcToGLM, setUsdcToGLM] = useState(0)
   const [usdcToMatic, setUsdcToMatic] = useState(0)
-  if (!chainId && !chain) throw new Error('Chain is not defined')
-  const contracts = getContracts(chainId || chain?.id)
+  chainId = chainId || chain?.id
+  if (!chainId) throw new Error('Chain is not defined')
+  const contracts = getContracts(chainId)
 
   const { data: usdcToMaticWei, isLoading: glmToUsdcLoading } = useContractRead(
     {

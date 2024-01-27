@@ -2,6 +2,7 @@
   "walletAddress" : "Wallet Address",
   "browserWallet" : "Founds on your external wallet",
   "yagnaWallet" : "Founds on your Yagna wallet",
-  "currentBalance" : "Current balance"
+  "currentBalance" : "Current balance",
+  "exchangeRecommended" : "We recommend you to exchange"
 
 }

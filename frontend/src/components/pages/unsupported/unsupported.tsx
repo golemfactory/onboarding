@@ -39,7 +39,7 @@ export const UnsupportedPage = () => {
             <div className="grid grid-cols-4">
               <Button
                 buttonStyle="outline"
-                className="col-span-2 col-start-2"
+                className="col-span-2 col-start-2 px-8 py-3 text-primary !bg-transparent"
                 onClick={() => {
                   navigate('/')
                 }}

@@ -3,10 +3,11 @@ import { checkAccountBalances } from './childMachines'
 
 import { Step, StepType } from './steps'
 import { Commands } from './commands'
-import type {
-  BlockchainContextData,
-  BudgetType,
-  OnboardingContextData,
+import {
+  BudgetOption,
+  type BlockchainContextData,
+  type BudgetType,
+  type OnboardingContextData,
 } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 import { OnboardingStage, OnboardingStageType } from './stages'
@@ -68,7 +69,8 @@ export const createStateMachine = (
           return this?.chainId !== undefined
         },
       },
-      stage: OnboardingStage.GLM,
+      stage: OnboardingStage.MATIC,
+      budget: BudgetOption.COMPUTE,
     },
     id: 'onboarding',
     initial: step || Step.WELCOME,

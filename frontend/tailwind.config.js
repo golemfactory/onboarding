@@ -78,6 +78,16 @@ module.exports = {
             letterSpacing: '-0.2px',
           },
         ],
+        h2: [
+          '3rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '110%',
+            /* 38.4px */
+            letterSpacing: '-0.96px',
+          },
+        ],
         h3: [
           '2rem',
           {

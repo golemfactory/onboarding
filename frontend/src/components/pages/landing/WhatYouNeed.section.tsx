@@ -4,6 +4,7 @@ import globalStyle from 'styles/global.module.css'
 import { Button, Trans } from 'components/atoms'
 import { Bullet } from 'components/atoms/bullet/Bullet'
 import { AnimatedSection } from './AnimatedSection'
+import { useIsDesktop } from 'hooks/useIsDesktop'
 
 const style = {
   ...sectionStyle,
@@ -12,14 +13,20 @@ const style = {
 }
 
 const NumberCircle = ({ number }: { number: number }) => {
-  return <div className={`${style.numberCircle} col-span-1`}>{number}</div>
+  return (
+    <div className={`${style.numberCircle} col-span-12 xs:col-span-1`}>
+      {number}
+    </div>
+  )
 }
 
 const needs = ['setupCrypto', 'getTokens', 'topUp']
 
 export const WhatYouNeedSection = () => {
+  const isDesktop = useIsDesktop()
   return (
     <AnimatedSection>
+      <div className={style.separator} />
       <div className={style.bulletContainer}>
         <Bullet />
       </div>
@@ -46,16 +53,23 @@ export const WhatYouNeedSection = () => {
           <div className="grid grid-cols-12">
             <div className="col-span-1"></div>
             <div className="col-span-11">
-              <Button
-                className="px-9 py-3"
-                buttonStyle="solid"
-                useDefault={true}
-              >
-                <Trans i18nKey="getStarted" ns="landing" />
-              </Button>
+              {isDesktop ? (
+                <Button
+                  className="px-9 py-3"
+                  buttonStyle="solid"
+                  useDefault={true}
+                >
+                  <Trans i18nKey="getStarted" ns="landing" />
+                </Button>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>
+      </div>
+      <div className={style.ornamentContainer}>
+        <img src="wallet2.png" alt="ornament" />
       </div>
     </AnimatedSection>
   )

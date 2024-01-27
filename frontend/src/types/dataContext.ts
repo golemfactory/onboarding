@@ -28,7 +28,7 @@ export type BudgetType = (typeof BudgetOption)[keyof typeof BudgetOption]
 
 export interface OnboardingContextData {
   blockchain: BlockchainContextInterface & BlockchainContextData
-  budget?: BudgetType
+  budget: BudgetType
   yagnaAddress?: string
   address?: string
   balanceCase?: BalanceCaseType

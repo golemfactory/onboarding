@@ -5,10 +5,7 @@ import {
   VariableIcon,
   AcademicCapIcon,
 } from '@heroicons/react/24/outline'
-import {
-  RecommendationCard,
-  CustomRecommendationCard,
-} from 'components/molecules'
+import { BudgetCard, CustomRecommendationCard } from 'components/molecules'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { BudgetOption } from 'types/dataContext'
 import { Commands } from 'state/commands'
@@ -70,7 +67,7 @@ const WelcomePresentational = ({
           },
           selected: state.context.budget === card.id,
         }
-      }).map(RecommendationCard)}
+      }).map(BudgetCard)}
       <CustomRecommendationCard
         selectBudget={() => {
           send({ type: Commands.SELECT_BUDGET, payload: BudgetOption.CUSTOM })

@@ -1,6 +1,6 @@
 // components/welcome/intro.tsx
-import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   RampInstantSDK,
   RampInstantEventTypes,
@@ -16,7 +16,7 @@ import { getTokenByCategory } from 'utils/getTokenByNetwrok'
 import { TokenCategory } from 'types/ethereum'
 import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
-import { Trans } from 'components/atoms'
+import { Button, Trans } from 'components/atoms'
 import { useTheme } from 'components/providers/ThemeProvider'
 // import onboardingStyle from '../Onboarding.module.css'
 
@@ -35,11 +35,6 @@ TooltipProvider.registerTooltip({
 
 const log = debug('onboarding:steps:onramp')
 
-const variants = {
-  show: { opacity: 1 },
-  hidden: { opacity: 0 },
-}
-
 enum TransactionState {
   READY,
   PENDING,
@@ -55,14 +50,77 @@ export const OnRampTitleComponent = () => {
   )
 }
 
-const OnRampPresentational = ({
-  transactionState,
+const StartOnRampButton = ({
+  onClick,
+  showRamp,
 }: {
-  transactionState: TransactionState
+  showRamp: boolean
+  onClick: (show: boolean) => void
+}) => {
+  return (
+    <AnimatePresence>
+      <motion.div
+        variants={{
+          open: { opacity: 1 },
+          closed: { opacity: 0 },
+          initial: { opacity: 0 },
+        }}
+        initial="initial"
+        animate={showRamp ? 'closed' : 'open'}
+        exit="closed"
+        transition={{ duration: 4.2 }}
+        className="w-full flex flex-col col-span-2 gap-4"
+      >
+        <div className="flex w-full justify-center text-h4 text-primary">
+          <Trans i18nKey="getMatic" ns="onRamp.step" />
+        </div>
+        <div className="flex w-full justify-center">
+          <Button
+            buttonStyle="solid"
+            className="px-9 py-4 text-button-large"
+            onClick={() => {
+              onClick(true)
+            }}
+          >
+            <Trans i18nKey="start" ns="onRamp.step" />
+          </Button>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
+const OnRampPresentational = ({
+  showRamp,
+  setShowRamp,
+}: {
+  showRamp: boolean
+  setShowRamp: (show: boolean) => void
 }) => {
   const theme = useTheme()
   const StepWithProgress = theme.getStepWithProgressTemplate()
-  return <StepWithProgress main={<></>}></StepWithProgress>
+
+  return (
+    <>
+      <StepWithProgress
+        content={
+          showRamp ? (
+            <div
+              id="rampContainer"
+              style={{
+                width: '895px',
+                height: '590px',
+              }}
+            >
+              {' '}
+            </div>
+          ) : (
+            <StartOnRampButton onClick={setShowRamp} showRamp={showRamp} />
+          )
+        }
+      ></StepWithProgress>
+    </>
+  )
   // return (
   //   <div className="text-center">
   //     <motion.h1
@@ -100,9 +158,10 @@ const OnRampPresentational = ({
 export const OnRamp = () => {
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
-  const balance = useBalance()
   const { chain } = useNetwork()
   const [done, setDone] = useState(false)
+  const [showRamp, setShowRamp] = useState(false)
+  const balance = useBalance(address)
 
   const [transactionState, setTransactionState] = useState(
     TransactionState.READY
@@ -114,65 +173,69 @@ export const OnRamp = () => {
     throw new Error('Chain not found')
   }
 
-  // useEffect(() => {
-  //   if (
-  //     balance.NATIVE &&
-  //     parseFloat(formatEther({ wei: balance.NATIVE, precision: 4 })) >
-  //       settings.minimalBalance[
-  //         getTokenByCategory(chain?.id, TokenCategory.NATIVE)
-  //       ]
-  //   ) {
-  //     setTransactionState(TransactionState.COMPLETED)
-  //     // maybe we should better render there a button that redirects to next step
-  //     // instead of automatically redirect
+  useEffect(() => {
+    if (
+      parseFloat(formatEther({ wei: balance.NATIVE, precision: 4 })) >
+      settings.minimalBalance[
+        getTokenByCategory(chain?.id, TokenCategory.NATIVE)
+      ]
+    ) {
+      setTransactionState(TransactionState.COMPLETED)
+      // maybe we should better render there a button that redirects to next step
+      // instead of automatically redirect
 
-  //     try {
-  //       widgetRef.current?.close()
-  //       widgetRef.current?.close()
-  //     } catch (err) {
-  //       debug(err)
-  //     }
-  //   }
-  // }, [balance, chain?.id])
+      try {
+        widgetRef.current?.close()
+        widgetRef.current?.close()
+      } catch (err) {
+        debug(err)
+      }
+    }
+  }, [balance, chain?.id])
 
-  // useEffect(() => {
-  //   if (address && !done) {
-  //     try {
-  //       widgetRef.current = new RampInstantSDK({
-  //         hostAppName: 'onboarding',
-  //         hostLogoUrl: `${extractBaseURL(window.location.href)}logo.svg`,
-  //         hostApiKey: import.meta.env.VITE_RAMP_KEY,
-  //         url: import.meta.env.VITE_RAMP_API_URL,
-  //         swapAsset: 'MATIC_MATIC',
-  //         fiatValue: '10',
-  //         fiatCurrency: 'EUR',
-  //         userAddress: address,
-  //         defaultFlow: 'ONRAMP',
-  //       })
-  //       console.log('twice', done)
+  useLayoutEffect(() => {
+    if (address && !done && showRamp) {
+      try {
+        setDone(true)
 
-  //       setTimeout(() => {
-  //         if (!done) {
-  //           widgetRef.current?.show()
-  //           setDone(true)
-  //         }
-  //       }, 500)
-  //       widgetRef.current.on(
-  //         RampInstantEventTypes.PURCHASE_CREATED,
-  //         (event) => {
-  //           log('purchase created', event)
-  //           setTransactionState(TransactionState.PENDING)
-  //         }
-  //       )
-  //     } catch (err) {}
+        widgetRef.current = new RampInstantSDK({
+          hostAppName: 'onboarding',
+          hostLogoUrl: `${extractBaseURL(window.location.href)}logo.svg`,
+          hostApiKey: import.meta.env.VITE_RAMP_KEY,
+          url: import.meta.env.VITE_RAMP_API_URL,
+          swapAsset: 'MATIC_MATIC',
+          fiatValue: '10',
+          fiatCurrency: 'USD',
+          userAddress: address,
+          defaultFlow: 'ONRAMP',
+          variant: 'embedded-desktop',
+          //@ts-ignore
+          containerNode: document.getElementById('rampContainer'),
+        })
+        setTimeout(() => {
+          widgetRef.current?.show()
+        }, 500)
+        widgetRef.current.on('*', (a) => {
+          log('event', a)
+        })
+        widgetRef.current.on(
+          RampInstantEventTypes.PURCHASE_CREATED,
+          (event) => {
+            log('purchase created', event)
+            setTransactionState(TransactionState.PENDING)
+          }
+        )
+      } catch (err) {
+        console.error(err)
+      }
 
-  //     //Unfortunately there is no even on purchase failed and purchase success :(
+      //Unfortunately there is no even on purchase failed and purchase success :(
 
-  //     log('setting done')
-  //   }
+      log('setting done')
+    }
 
-  //   hideRampBackground()
-  // }, [address])
+    hideRampBackground()
+  }, [address, done, showRamp])
 
-  return <OnRampPresentational transactionState={transactionState} />
+  return <OnRampPresentational showRamp={showRamp} setShowRamp={setShowRamp} />
 }

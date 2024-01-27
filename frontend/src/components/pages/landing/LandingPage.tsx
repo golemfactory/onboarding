@@ -12,6 +12,8 @@ import { APISection } from './API.section'
 import { RunSection } from './Run.section'
 import { WhatYouNeedSection } from './WhatYouNeed.section'
 import { useNavigate } from 'react-router-dom'
+import { useIsDesktop } from 'hooks/useIsDesktop'
+import { isDesktop } from 'utils/isDesktop'
 
 const style = {
   ...landingStyle,
@@ -48,6 +50,7 @@ const LandingPageContent = () => {
     }
   }, [])
 
+  const isDesktop = useIsDesktop()
   return (
     <>
       <div className={style.centeredContent}>
@@ -68,7 +71,7 @@ const LandingPageContent = () => {
               buttonStyle="solid"
               className="py-4 px-9 text-button-large"
               onClick={() => {
-                navigate('/unsupported')
+                navigate(isDesktop ? '/budget' : '/unsupported')
               }}
               useDefault={false}
             >
@@ -102,7 +105,7 @@ export const LandingPage = () => {
   const theme = useTheme()
   const LayoutTemplate = theme.getLayoutTemplate()
   const navigate = useNavigate()
-
+  const isDesktop = useIsDesktop()
   return (
     <LayoutTemplate
       header={
@@ -111,7 +114,7 @@ export const LandingPage = () => {
           className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
           useDefault={true}
           onClick={() => {
-            navigate('/budget')
+            navigate(isDesktop ? '/budget' : '/unsupported')
           }}
         >
           <Trans i18nKey="getGLM" ns="landing" />

@@ -1,6 +1,8 @@
 .container {
-    width: calc(780/1920*100vw);
-    height: calc(780/1920*100vw);  
+    width: 40vw;
+    height: 40vw;
+    min-height: 230px;
+    min-width: 230px;
   border-radius:calc(780/1920*100vw);
     border: 10px solid #181EA9;
   

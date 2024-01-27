@@ -8,6 +8,8 @@ import { useAccount } from 'hooks/useAccount'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { useWallet } from 'hooks/useWallet'
 import style from './StepWithProgress.module.css'
+import { RecommendationCard } from 'components/molecules/recommendationCard/RecommendationCard'
+import { ComponentType, ReactElement, useMemo } from 'react'
 const ProgressBar = () => {
   const { state } = useOnboarding()
   return (
@@ -18,7 +20,7 @@ const ProgressBar = () => {
   )
 }
 
-export const StepWithProgress = () => {
+export const StepWithProgress = ({ content }: { content: ReactElement }) => {
   const walletProvider = useWallet()
   const { address } = useAccount()
   const { yagnaAddress } = useSetup()
@@ -33,7 +35,7 @@ export const StepWithProgress = () => {
   return (
     <div className="col-span-12 grid grid-cols-12 gap-4 rounded-xl bg-white backdrop-filter backdrop-blur-md ">
       <ProgressBar />
-      <div className="col-span-9 grid grid-cols-2 gap-8 items-center">
+      <div className="col-span-9 grid grid-cols-2 gap-x-8 items-center">
         <div
           className={`${style.card} col-span-1 mt-6 border-1 border-lightblue-100 rounded-xl pt-8 mb-auto`}
         >
@@ -42,6 +44,9 @@ export const StepWithProgress = () => {
             provider={walletProvider}
             address={address}
           />
+          <hr></hr>
+
+          <RecommendationCard />
         </div>
         <div
           className={`col-span-1 mt-6 border-1 border-lightblue-100 rounded-xl pt-8 mb-auto`}
@@ -51,6 +56,7 @@ export const StepWithProgress = () => {
             address={yagnaAddress}
           />
         </div>
+        {content}
       </div>
     </div>
   )

@@ -61,12 +61,11 @@ body, html {
 }
 
 body {
-      /* Set the background image */
     background-image: url('bgeffects.svg');
     overflow-x: hidden;
-    background-size: 120%;
-    background-position-y: -100px;
-    /* Contain the background size within the bounds of the body element */
-
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* or 'scroll' depending on the desired effect */
+    background-position: center center; /* adjust as needed */
+    min-height: 100vh; /* minimum height to viewport height */
 }
-

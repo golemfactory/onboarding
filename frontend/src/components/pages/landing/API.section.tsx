@@ -27,7 +27,11 @@ export const APISection = () => {
             <Trans i18nKey="apiSectionSubtitle" ns="landing" />
           </div>
           <div className="text-left mb-8 ">
-            <Button buttonStyle="outline" useDefault={true}>
+            <Button
+              buttonStyle="outline"
+              useDefault={false}
+              className="px-6 py-3 !bg-transparent"
+            >
               <Trans i18nKey="readMore" ns="landing" />
             </Button>
           </div>

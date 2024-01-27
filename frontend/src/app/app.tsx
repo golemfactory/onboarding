@@ -25,14 +25,7 @@ const Onboarding = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={locationArr[1]}>
-        <Route
-          path="/"
-          element={
-            <AnimatedPage>
-              <LandingPage />
-            </AnimatedPage>
-          }
-        />
+        <Route path="/" element={<LandingPage />} />
         <Route
           path="/unsupported"
           element={

@@ -11,18 +11,8 @@ export const OnboardingPage = () => {
 
   const { state } = useOnboarding()
 
-  const Background = () => {
-    return (
-      <div className={style.container}>
-        <div className={style.ellipse_1}></div>
-        <div className={style.ellipse_2}></div>
-      </div>
-    )
-  }
-
   return (
     <LayoutTemplate
-      background={<Background />}
       main={
         <StepTemplate
           //@ts-ignore

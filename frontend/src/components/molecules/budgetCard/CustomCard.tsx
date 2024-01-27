@@ -1,4 +1,4 @@
-import style from './RecommendationCard.module.css'
+import style from './BudgetCard.module.css'
 import { Trans } from 'components/atoms'
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline'
 

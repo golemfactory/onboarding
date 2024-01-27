@@ -1,7 +1,10 @@
 
+.separator {
+  @apply col-span-12 mt-32 xl:mt-16;
 
+}
 .textContainer {
-  @apply xl:col-span-6 col-span-11 ml-6 sm:ml-0;
+  @apply xl:col-span-6 col-span-11 ml-6 sm:ml-0 mt-14 md:mt-10 xl:mt-0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,3 +29,7 @@
   font-weight: 600;
 }
 
+.ornamentContainer{
+  @apply col-span-12 xl:col-span-5 mt-32 mt-0 xl:mt-32;
+  ;
+}

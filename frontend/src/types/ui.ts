@@ -18,9 +18,8 @@ export type MainLayoutPropsType = {
   header?: ReactElement
   footer?: ReactElement
   main: ReactElement
-  background: ReactNode
 }
 
 export type StepWithProgressPropsType = {
-  main: ReactElement
+  content: ReactElement
 }
