@@ -1,7 +1,7 @@
 import { Trans } from 'components/atoms'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 import { LeftDotsOrnament } from 'components/atoms/ornaments/leftDots'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const defaultAnimationProps = {
   initial: { opacity: 0 },

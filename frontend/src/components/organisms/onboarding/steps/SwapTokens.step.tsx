@@ -19,6 +19,8 @@ import { formatEther } from 'utils/formatEther'
 import { parseUnits } from 'viem'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
+import { IconInput } from 'components/atoms/iconInput/IconInput'
+import { MaticCoinIcon, MaticIcon } from 'components/atoms/icons'
 
 TooltipProvider.registerTooltip({
   id: 'swap',
@@ -53,7 +55,9 @@ const SwapTokensPresentational = ({
   }
 
   return (
-    <div>dupa</div>
+    <div>
+      <IconInput icon={MaticCoinIcon} label="MATIC" />
+    </div>
     // <div className={onboardingStyle.step}>
     //   <motion.h1 className={onboardingStyle.title} variants={variants}>
     //     Swap tokens
