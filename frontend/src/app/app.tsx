@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 
@@ -15,7 +15,6 @@ import {
 } from 'components/providers'
 import { OnboardingPage } from 'components/pages'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
-import { stepPaths } from 'state/steps'
 import { useRouteControl } from 'hooks/useRouteControl'
 
 const Onboarding = () => {
@@ -34,15 +33,8 @@ const Onboarding = () => {
             </AnimatedPage>
           }
         />
-        {Object.values(stepPaths).map((step) => {
-          return (
-            <Route
-              key={step}
-              path={`/${step}`}
-              element={<OnboardingPage />}
-            ></Route>
-          )
-        })}
+
+        <Route path={`onboarding/*`} element={<OnboardingPage />}></Route>
       </Routes>
     </AnimatePresence>
   )

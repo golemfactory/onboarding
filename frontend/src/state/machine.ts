@@ -85,7 +85,6 @@ export const createStateMachine = (
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
           blockchain: (context, event) => {
-            console.log('dupa ')
             return {
               ...context.blockchain,
               chainId: event.payload.chainId,
@@ -201,7 +200,11 @@ export const createStateMachine = (
 
       [Step.ON_RAMP]: {
         on: {
-          [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
+          //IMPORTANT : TODO : should to check account balances
+          [Commands.NEXT]: {
+            target: Step.SWAP,
+            actions: move(OnboardingStage.GLM),
+          },
         },
       },
       [Step.GASLESS_SWAP]: {
@@ -211,7 +214,10 @@ export const createStateMachine = (
       },
       [Step.SWAP]: {
         on: {
-          [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
+          [Commands.NEXT]: {
+            target: Step.ON_RAMP,
+            actions: move(OnboardingStage.MATIC),
+          },
         },
       },
       [Step.FINISH]: {

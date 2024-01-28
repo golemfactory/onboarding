@@ -53,7 +53,7 @@ const SwapTokensPresentational = ({
   }
 
   return (
-    <StepWithProgress content={<div>dupa</div>}></StepWithProgress>
+    <div>dupa</div>
     // <div className={onboardingStyle.step}>
     //   <motion.h1 className={onboardingStyle.title} variants={variants}>
     //     Swap tokens
@@ -87,7 +87,8 @@ const SwapTokensPresentational = ({
   )
 }
 
-export const SwapTokens = () => {
+export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
+  window.gtns = goToNextStep
   const { chain } = useNetwork()
 
   if (!chain?.id) {

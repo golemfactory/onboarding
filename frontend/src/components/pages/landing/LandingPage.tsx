@@ -109,7 +109,8 @@ export const LandingPage = () => {
           <Trans i18nKey="getGLM" ns="landing" />
         </Button>
       }
-      main={<LandingPageContent />}
-    />
+    >
+      <LandingPageContent />
+    </LayoutTemplate>
   )
 }

@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement, ReactNode } from 'react'
+import { ComponentType, PropsWithChildren, ReactElement } from 'react'
 
 export type StepRenderDetailsType = {
   name: string
@@ -13,13 +13,13 @@ export type StepRenderDetailsType = {
   placement: 'inside' | 'outside'
   showNextButton?: boolean
   checkCompleted?: () => boolean
+  layout: ComponentType<PropsWithChildren<unknown>>
 }
 
-export type MainLayoutPropsType = {
+export type MainLayoutPropsType = PropsWithChildren<{
   header?: ReactElement
   footer?: ReactElement
-  main: ReactElement
-}
+}>
 
 export type StepWithProgressPropsType = {
   content: ReactElement

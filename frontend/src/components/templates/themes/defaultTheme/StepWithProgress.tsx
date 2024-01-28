@@ -9,7 +9,8 @@ import { useOnboarding } from 'hooks/useOnboarding'
 import { useWallet } from 'hooks/useWallet'
 import style from './StepWithProgress.module.css'
 import { RecommendationCard } from 'components/molecules/recommendationCard/RecommendationCard'
-import { ComponentType, ReactElement, useMemo } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 const ProgressBar = () => {
   const { state } = useOnboarding()
   return (
@@ -20,7 +21,7 @@ const ProgressBar = () => {
   )
 }
 
-export const StepWithProgress = ({ content }: { content: ReactElement }) => {
+export const StepWithProgress = ({ children }: PropsWithChildren) => {
   const walletProvider = useWallet()
   const { address } = useAccount()
   const { yagnaAddress } = useSetup()
@@ -31,7 +32,6 @@ export const StepWithProgress = ({ content }: { content: ReactElement }) => {
   if (!yagnaAddress) {
     throw new Error('Yagna address is not defined')
   }
-
   return (
     <div className="col-span-12 grid grid-cols-12 gap-4 rounded-xl bg-white backdrop-filter backdrop-blur-md ">
       <ProgressBar />
@@ -56,7 +56,7 @@ export const StepWithProgress = ({ content }: { content: ReactElement }) => {
             address={yagnaAddress}
           />
         </div>
-        {content}
+        {children}
       </div>
     </div>
   )

@@ -1,3 +1,5 @@
+import { AnimatePresence, motion } from 'framer-motion'
+
 const Dot = ({ opacity, fill }: { fill: string; opacity: number }) => {
   return (
     <svg
@@ -65,21 +67,38 @@ const Dot = ({ opacity, fill }: { fill: string; opacity: number }) => {
     </svg>
   )
 }
-
-export const LeftDotsOrnament = ({ fill }: { fill: string }) => {
+export const LeftDotsOrnament = ({
+  fill,
+  isOpen,
+}: {
+  fill: string
+  isOpen: true
+}) => {
   const opacityArr = [1, 1, 1, 1, 1, 1, 1, 0.8, 0.6, 0.4, 0.2, 0.05, 0]
 
   return (
-    <div className="flex flex-col gap-2 items-center mt-4">
-      {opacityArr.map((opacity, idx) => {
-        return (
-          <Dot
-            fill={fill}
-            key={`opacity_${opacity}_${idx}`}
-            opacity={opacity}
-          />
-        )
-      })}
-    </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, gap: 0 }}
+          animate={{ opacity: 1, gap: '8px' }}
+          exit={{ opacity: 0, gap: 0 }}
+          transition={{
+            duration: 0.5,
+          }}
+          className="flex flex-col items-center mt-4"
+        >
+          {opacityArr.map((opacity, idx) => {
+            return (
+              <Dot
+                fill={fill}
+                key={`opacity_${opacity}_${idx}`}
+                opacity={opacity}
+              />
+            )
+          })}
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }

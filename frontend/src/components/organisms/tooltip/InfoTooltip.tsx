@@ -248,8 +248,7 @@ export const InfoTooltip = ({
   const tooltip = useTooltip(id, name)
 
   type SectionIds = (typeof tooltip.sections)[number]
-
-  //while tooltip state control is handled by the provider, sections open/close managment has to happen locally
+  //while tooltip state control  is handled by the provider, sections open/close managment has to happen locally
   const [sections, setSections] = useState(
     tooltip.sections.reduce((acc, section) => {
       return {
@@ -282,6 +281,7 @@ export const InfoTooltip = ({
       <motion.div
         variants={variants}
         animate={tooltip.visible ? 'open' : 'closed'}
+        initial="closed"
         transition={{
           duration: 0.3,
           ease: 'easeInOut',

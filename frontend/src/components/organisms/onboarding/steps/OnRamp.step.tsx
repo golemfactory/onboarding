@@ -17,7 +17,6 @@ import { TokenCategory } from 'types/ethereum'
 import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
-import { useTheme } from 'components/providers/ThemeProvider'
 import { useOnboarding } from 'hooks/useOnboarding'
 // import onboardingStyle from '../Onboarding.module.css'
 
@@ -98,28 +97,21 @@ const OnRampPresentational = ({
   showRamp: boolean
   setShowRamp: (show: boolean) => void
 }) => {
-  const theme = useTheme()
-  const StepWithProgress = theme.getStepWithProgressTemplate()
-
   return (
     <>
-      <StepWithProgress
-        content={
-          showRamp ? (
-            <div
-              id="rampContainer"
-              style={{
-                width: '895px',
-                height: '590px',
-              }}
-            >
-              {' '}
-            </div>
-          ) : (
-            <StartOnRampButton onClick={setShowRamp} showRamp={showRamp} />
-          )
-        }
-      ></StepWithProgress>
+      {showRamp ? (
+        <div
+          id="rampContainer"
+          style={{
+            width: '895px',
+            height: '590px',
+          }}
+        >
+          {' '}
+        </div>
+      ) : (
+        <StartOnRampButton onClick={setShowRamp} showRamp={showRamp} />
+      )}
     </>
   )
   // return (
@@ -172,10 +164,6 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
   )
 
   //TODO use Option/Maybe for handling all those missing values
-
-  useEffect(() => {
-    console.log('chain', transactionState)
-  }, [transactionState])
 
   if (!chain) {
     throw new Error('Chain not found')

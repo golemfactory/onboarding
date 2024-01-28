@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './step.template.module.css'
 import { StepRenderDetailsType } from 'types/ui'
@@ -10,6 +10,7 @@ import {
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { RightDot } from 'components/atoms/ornaments/rightDot'
+import { motion } from 'framer-motion'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
@@ -23,7 +24,8 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
   stepRenderDetails: StepRenderDetailsType
 ) {
   const {
-    main: Component,
+    layout: LayoutComponent,
+    main: MainComponent,
     ornament: OrnamentComponent,
     placement,
     name,
@@ -35,12 +37,10 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
       return <Trans i18nKey="subtitle" ns={`${name}.step`} />
     },
   } = stepRenderDetails
-
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
   const namespace = `${name}.step`
-
   return (
     <div className={style.container}>
       <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />
@@ -77,13 +77,15 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
               </div>
             </div>
             {placement === 'inside' ? (
-              <Component
-                setIsCompleted={setIsReadyForNextStep}
-                isNextCalled={isNextCalled}
-                goToNextStep={() => {
-                  send(Commands.NEXT)
-                }}
-              />
+              <LayoutComponent>
+                <MainComponent
+                  setIsCompleted={setIsReadyForNextStep}
+                  isNextCalled={isNextCalled}
+                  goToNextStep={() => {
+                    send(Commands.NEXT)
+                  }}
+                />
+              </LayoutComponent>
             ) : (
               ''
             )}
@@ -91,13 +93,15 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
         </div>
       </div>
       {placement === 'outside' ? (
-        <Component
-          setIsCompleted={setIsReadyForNextStep}
-          isNextCalled={isNextCalled}
-          goToNextStep={() => {
-            send(Commands.NEXT)
-          }}
-        />
+        <LayoutComponent>
+          <MainComponent
+            setIsCompleted={setIsReadyForNextStep}
+            isNextCalled={isNextCalled}
+            goToNextStep={() => {
+              send(Commands.NEXT)
+            }}
+          />
+        </LayoutComponent>
       ) : (
         ''
       )}

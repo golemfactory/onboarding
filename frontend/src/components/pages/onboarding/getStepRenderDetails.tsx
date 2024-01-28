@@ -12,10 +12,11 @@ import {
   OnRampTitleComponent,
 } from 'components/organisms/onboarding'
 
-import { ComponentType } from 'react'
+import { ComponentType, PropsWithChildren } from 'react'
 import { StepRenderDetailsType } from 'types/ui'
 import { TokensOrnament } from 'components/atoms/ornaments/tokens'
 import { WalletIconGreen } from 'components/atoms/ornaments/walletIconGreen'
+import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
 
 const componentByStep: Record<
   StepType,
@@ -25,6 +26,7 @@ const componentByStep: Record<
       isNextCalled: boolean
       goToNextStep: () => void
     }>
+    layout?: ComponentType<PropsWithChildren<unknown>>
     placement: 'inside' | 'outside'
     ornament?: ComponentType<unknown>
     showNextButton?: boolean
@@ -50,8 +52,13 @@ const componentByStep: Record<
     component: OnRamp,
     placement: 'outside',
     title: OnRampTitleComponent,
+    layout: StepWithProgress,
   },
-  [Step.SWAP]: { component: SwapTokens, placement: 'outside' },
+  [Step.SWAP]: {
+    component: SwapTokens,
+    placement: 'outside',
+    layout: StepWithProgress,
+  },
   [Step.FINISH]: { component: Finish, placement: 'outside' },
   [Step.ADD_GLM]: { component: AddGLM, placement: 'outside' },
   [Step.TRANSFER]: { component: Transfer, placement: 'outside' },
@@ -62,6 +69,9 @@ const componentByStep: Record<
   [Step.GASLESS_SWAP]: { component: LoadingSpinner, placement: 'inside' },
 }
 
+const DefaultLayout = ({ children }: PropsWithChildren<unknown>) => {
+  return <>{children}</>
+}
 export const getStepDetails = (step: StepType): StepRenderDetailsType => {
   const details = componentByStep[step]
   return {
@@ -72,5 +82,6 @@ export const getStepDetails = (step: StepType): StepRenderDetailsType => {
     ornament: details.ornament,
     showNextButton: details.showNextButton || false,
     title: details.title,
+    layout: details.layout || DefaultLayout,
   }
 }

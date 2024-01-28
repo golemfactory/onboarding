@@ -1,7 +1,9 @@
 import { getStepDetails } from './getStepRenderDetails'
 import { useTheme } from 'components/providers/ThemeProvider'
 import { useOnboarding } from 'hooks/useOnboarding'
-import style from './onboarding.module.css'
+import { useEffect, useState } from 'react'
+
+import { motion } from 'framer-motion'
 
 export const OnboardingPage = () => {
   const theme = useTheme()
@@ -11,22 +13,15 @@ export const OnboardingPage = () => {
 
   const { state } = useOnboarding()
 
-  console.log('state', state)
+  console.log('rerender onboarding page')
   return (
-    <LayoutTemplate
-      main={
-        state.value === 'check-account-balances' ? (
-          <></>
-        ) : (
-          <StepTemplate
-            //@ts-ignore
-            {...getStepDetails(state.value)}
-            checkCompleted={() => {
-              return true
-            }}
-          />
-        )
-      }
-    ></LayoutTemplate>
+    <>
+      <LayoutTemplate>
+        <StepTemplate
+          //@ts-ignore
+          {...getStepDetails(state.value)}
+        />
+      </LayoutTemplate>
+    </>
   )
 }

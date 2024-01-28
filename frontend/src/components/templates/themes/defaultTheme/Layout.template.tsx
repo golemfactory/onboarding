@@ -7,7 +7,10 @@ import React from 'react'
 import { Footer } from './Footer'
 import { GolemLogo } from 'components/atoms/icons/GolemLogo'
 
-export const LayoutTemplate: FC<MainLayoutPropsType> = ({ header, main }) => {
+export const LayoutTemplate: FC<MainLayoutPropsType> = ({
+  header,
+  children,
+}) => {
   return (
     <div>
       <div
@@ -24,7 +27,7 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({ header, main }) => {
             <div className="col-span-5 xl:col-span-8"></div>
             <div className="col-span-3 xl:col-span-2">{header}</div>
           </div>
-          {main}
+          {children}
         </Grid>
       </div>
       <div>
