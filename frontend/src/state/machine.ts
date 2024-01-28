@@ -85,6 +85,7 @@ export const createStateMachine = (
       [Commands.CHAIN_CONTEXT_CHANGED]: {
         actions: assign({
           blockchain: (context, event) => {
+            console.log('dupa ')
             return {
               ...context.blockchain,
               chainId: event.payload.chainId,

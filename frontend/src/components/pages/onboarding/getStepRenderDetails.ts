@@ -23,6 +23,7 @@ const componentByStep: Record<
     component: ComponentType<{
       setIsCompleted: (isCompleted: boolean) => void
       isNextCalled: boolean
+      goToNextStep: () => void
     }>
     placement: 'inside' | 'outside'
     ornament?: ComponentType<unknown>

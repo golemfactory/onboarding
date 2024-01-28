@@ -18,6 +18,7 @@ import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
 import { useTheme } from 'components/providers/ThemeProvider'
+import { useOnboarding } from 'hooks/useOnboarding'
 // import onboardingStyle from '../Onboarding.module.css'
 
 TooltipProvider.registerTooltip({
@@ -155,7 +156,7 @@ const OnRampPresentational = ({
   // )
 }
 
-export const OnRamp = () => {
+export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const { chain } = useNetwork()
@@ -163,6 +164,9 @@ export const OnRamp = () => {
   const [showRamp, setShowRamp] = useState(false)
   const balance = useBalance(address)
 
+  const onboarding = useOnboarding()
+  window.onboarding = onboarding
+  window.gtns = goToNextStep
   const [transactionState, setTransactionState] = useState(
     TransactionState.READY
   )

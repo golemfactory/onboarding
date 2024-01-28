@@ -17,6 +17,8 @@ export const checkAccountBalances = async (
 ): Promise<BalanceCaseType | undefined> => {
   //to make sure loader is not blinking
 
+  console.log('context', context)
+
   delay(1000)
 
   if (context.balanceCase) {

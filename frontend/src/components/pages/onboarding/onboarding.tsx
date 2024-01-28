@@ -11,16 +11,21 @@ export const OnboardingPage = () => {
 
   const { state } = useOnboarding()
 
+  console.log('state', state)
   return (
     <LayoutTemplate
       main={
-        <StepTemplate
-          //@ts-ignore
-          {...getStepDetails(state.value)}
-          checkCompleted={() => {
-            return true
-          }}
-        />
+        state.value === 'check-account-balances' ? (
+          <></>
+        ) : (
+          <StepTemplate
+            //@ts-ignore
+            {...getStepDetails(state.value)}
+            checkCompleted={() => {
+              return true
+            }}
+          />
+        )
       }
     ></LayoutTemplate>
   )

@@ -39,11 +39,7 @@ const Onboarding = () => {
             <Route
               key={step}
               path={`/${step}`}
-              element={
-                <AnimatedPage>
-                  <OnboardingPage />
-                </AnimatedPage>
-              }
+              element={<OnboardingPage />}
             ></Route>
           )
         })}

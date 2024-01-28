@@ -80,6 +80,9 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
               <Component
                 setIsCompleted={setIsReadyForNextStep}
                 isNextCalled={isNextCalled}
+                goToNextStep={() => {
+                  send(Commands.NEXT)
+                }}
               />
             ) : (
               ''
@@ -91,6 +94,9 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
         <Component
           setIsCompleted={setIsReadyForNextStep}
           isNextCalled={isNextCalled}
+          goToNextStep={() => {
+            send(Commands.NEXT)
+          }}
         />
       ) : (
         ''
@@ -106,9 +112,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
               setIsNextCalled(true)
               if (isReadyForNextStep) {
                 setIsNextCalled(false)
-                if (isReadyForNextStep) {
-                  send(Commands.NEXT)
-                }
+                send(Commands.NEXT)
               }
             }}
           >

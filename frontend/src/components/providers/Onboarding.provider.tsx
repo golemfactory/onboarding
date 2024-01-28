@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useMemo } from 'react'
-import { createActorContext, useMachine } from '@xstate/react'
+import { createActorContext } from '@xstate/react'
 
 import { useSetup } from './Setup.provider'
 import { useNetwork } from 'hooks/useNetwork'
@@ -8,21 +8,15 @@ import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
 import { createStateMachine } from 'state/machine'
 import { useStep } from 'hooks/useStep'
+import { useOnboarding } from 'hooks/useOnboarding'
 
 export const OnboardingContext = createActorContext(createStateMachine())
 
-export const OnboardingProvider = ({ children }: PropsWithChildren) => {
-  //read setup from url params
-  const setup = useSetup()
-  const step = useStep()
+const ChainObserver = () => {
+  const { send } = useOnboarding()
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
-  //machine sholdnt be recreated on every render so we useMemo
-  const machine = useMemo(() => createStateMachine({ ...setup, step }), [])
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_state, send] = useMachine(machine, { devTools: true })
 
   useEffect(() => {
     send({
@@ -33,8 +27,22 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
     })
   }, [address, chain?.id, balance.GLM, balance.NATIVE])
 
+  return <></>
+}
+
+export const OnboardingProvider = ({ children }: PropsWithChildren) => {
+  //read setup from url params
+  const setup = useSetup()
+  const step = useStep()
+
+  //machine sholdnt be recreated on every render so we useMemo
+  const machine = useMemo(() => createStateMachine({ ...setup, step }), [])
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   return (
     <OnboardingContext.Provider machine={machine}>
+      <ChainObserver />
       {children}
     </OnboardingContext.Provider>
   )

@@ -5,6 +5,7 @@ export type StepRenderDetailsType = {
   main: ComponentType<{
     setIsCompleted: (isCompleted: boolean) => void
     isNextCalled: boolean
+    goToNextStep: () => void
   }>
   title?: ComponentType<Record<string, never>>
   subtitle?: ComponentType<Record<string, never>>
