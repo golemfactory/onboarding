@@ -13,7 +13,6 @@ import { RunSection } from './Run.section'
 import { WhatYouNeedSection } from './WhatYouNeed.section'
 import { useNavigate } from 'react-router-dom'
 import { useIsDesktop } from 'hooks/useIsDesktop'
-import { isDesktop } from 'utils/isDesktop'
 
 const style = {
   ...landingStyle,
@@ -22,16 +21,6 @@ const style = {
 
 const SectionSeparator = () => {
   return <div className={style.sectionSeparator} />
-}
-
-const Background = () => {
-  return (
-    <div>
-      <div className={style.ellipse_1}></div>
-      <div className={style.ellipse_2}></div>
-      <div className={style.ellipse_3}></div>
-    </div>
-  )
 }
 
 const LandingPageContent = () => {
@@ -121,7 +110,6 @@ export const LandingPage = () => {
         </Button>
       }
       main={<LandingPageContent />}
-      background={<Background />}
     />
   )
 }

@@ -62,5 +62,19 @@
   "onRamp.explainTransaction.title" : "How the transaction is made?",
   "onRamp.explainTransaction.content" : "Transaction is a digital message, which states what are you want to do on the blockchain. For instance You can send your funds to another wallet or maybe interact with some decentralized application. <emptyLine /> Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
   "onRamp.explainNative.title" : "What is native token?",
-  "onRamp.explainNative.content" : "Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask."
+  "onRamp.explainNative.content" : "Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
+
+
+  "swap.title" : "GLM tokens are essential to pay for Golem services ",
+  "swap.description" : [
+    "To acquire GLM tokens, just convert some of your freshly obtained MATIC tokens.",
+    "As MATIC, the native currency of Polygon, is used to cover transaction fees (including the costs of converting MATIC to GLM), it's important not to convert all your MATIC.",
+    "That’s why you should always keep a small amount  of MATIC to handle these costs. "
+  ],
+  "swap.explainGLMAmount.title" : "How I can calculate how much GLM tokens do I need?", 
+  "swap.explainGLMAmount.content" : "Golem Network is a living ecosystem where market forces can move prices up and down. That is why We can only provide you educated recommendations. However, you can try to assess amount of needed GLM by checking  <a? href='https://stats.golem.network/'> Golem Network Stats: </a?",
+  "swap.explainRecommendation.title" : "How the recommendations are calculated?",
+  "swap.explainRecommendation.content" : "Recommendations are calculated based on our internal experiences with Golem Network. As a rule of thumb we recommend to swap around 80% of your MATIC into GLM."
+
 }
+

@@ -10,6 +10,7 @@ import chooseNetworkEn from './en/chooseNetwork.step.json'
 import onRampEn from './en/onRamp.step.json'
 import progressEn from './en/progressBar.json'
 import layoutEn from './en/layout.json'
+import swapEn from './en/swap.step.json'
 
 i18next.use(initReactI18next).init({
   lng: 'en',
@@ -18,13 +19,14 @@ i18next.use(initReactI18next).init({
     en: {
       landing: landingEn,
       unsupported: unsupportedEn,
-      'chooseNetwork.step': chooseNetworkEn,
-      'welcome.step': welcomeEn,
-      tooltips: tooltipsEn,
-      'connect-wallet.step': connectWalletEn,
-      'onRamp.step': onRampEn,
       progress: progressEn,
       layout: layoutEn,
+      tooltips: tooltipsEn,
+      'chooseNetwork.step': chooseNetworkEn,
+      'welcome.step': welcomeEn,
+      'connect-wallet.step': connectWalletEn,
+      'onRamp.step': onRampEn,
+      'swap.step': swapEn,
     },
     es: {
       landing: landingEs,

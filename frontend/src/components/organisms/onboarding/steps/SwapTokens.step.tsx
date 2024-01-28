@@ -17,6 +17,16 @@ import { useBalance } from 'hooks/useBalance'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
 import { formatEther } from 'utils/formatEther'
 import { parseUnits } from 'viem'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
+import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
+
+TooltipProvider.registerTooltip({
+  id: 'swap',
+  tooltip: {
+    sections: ['explainGLMAmount', 'explainRecommendation'],
+    appearance: 'primary',
+  },
+})
 
 const SwapTokensPresentational = ({
   onSwapButtonClick,
@@ -43,36 +53,37 @@ const SwapTokensPresentational = ({
   }
 
   return (
-    <div className={onboardingStyle.step}>
-      <motion.h1 className={onboardingStyle.title} variants={variants}>
-        Swap tokens
-      </motion.h1>
-      <motion.div className={onboardingStyle.description} variants={variants}>
-        You have only native tokens in your wallet. You need to swap them to
-        have GLM
-        <Slider {...sliderProps} />
-      </motion.div>
-      <motion.div className={onboardingStyle.description} variants={variants}>
-        You will receive {glmOut} GLM
-      </motion.div>
-      <motion.button
-        className={buttonStyle.primaryButton}
-        variants={variants}
-        onClick={handleSwapButtonClick}
-        disabled={isLoading}
-      >
-        <div></div>
-        {isLoading ? (
-          <div className="flex justify-center items-center ">
-            <div className="relative">
-              <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
-            </div>
-          </div>
-        ) : (
-          'Swap'
-        )}
-      </motion.button>
-    </div>
+    <StepWithProgress content={<div>dupa</div>}></StepWithProgress>
+    // <div className={onboardingStyle.step}>
+    //   <motion.h1 className={onboardingStyle.title} variants={variants}>
+    //     Swap tokens
+    //   </motion.h1>
+    //   <motion.div className={onboardingStyle.description} variants={variants}>
+    //     You have only native tokens in your wallet. You need to swap them to
+    //     have GLM
+    //     <Slider {...sliderProps} />
+    //   </motion.div>
+    //   <motion.div className={onboardingStyle.description} variants={variants}>
+    //     You will receive {glmOut} GLM
+    //   </motion.div>
+    //   <motion.button
+    //     className={buttonStyle.primaryButton}
+    //     variants={variants}
+    //     onClick={handleSwapButtonClick}
+    //     disabled={isLoading}
+    //   >
+    //     <div></div>
+    //     {isLoading ? (
+    //       <div className="flex justify-center items-center ">
+    //         <div className="relative">
+    //           <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
+    //         </div>
+    //       </div>
+    //     ) : (
+    //       'Swap'
+    //     )}
+    //   </motion.button>
+    // </div>
   )
 }
 
@@ -125,14 +136,12 @@ export const SwapTokens = () => {
   }
 
   return (
-    <div>
-      <SwapTokensPresentational
-        sliderProps={sliderProps}
-        onSwapButtonClick={async () => {
-          swap?.()
-        }}
-        amountOut={amountOut?.[1]}
-      />
-    </div>
+    <SwapTokensPresentational
+      sliderProps={sliderProps}
+      onSwapButtonClick={async () => {
+        swap?.()
+      }}
+      amountOut={amountOut?.[1]}
+    />
   )
 }

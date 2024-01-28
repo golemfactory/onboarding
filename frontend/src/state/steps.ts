@@ -11,6 +11,7 @@ export const Step = {
   ON_RAMP: 'onRamp',
   CHECK_ACCOUNT_BALANCES: 'check-account-balances',
   SWAP: 'swap',
+  //not supported yet
   GASLESS_SWAP: 'gasless-swap',
   TRANSFER: 'transfer',
 } as const

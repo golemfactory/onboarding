@@ -169,6 +169,10 @@ export const OnRamp = () => {
 
   //TODO use Option/Maybe for handling all those missing values
 
+  useEffect(() => {
+    console.log('chain', transactionState)
+  }, [transactionState])
+
   if (!chain) {
     throw new Error('Chain not found')
   }
@@ -209,6 +213,7 @@ export const OnRamp = () => {
           userAddress: address,
           defaultFlow: 'ONRAMP',
           variant: 'embedded-desktop',
+          //well ramp is internally inconsistent...
           //@ts-ignore
           containerNode: document.getElementById('rampContainer'),
         })
