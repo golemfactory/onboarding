@@ -21,6 +21,8 @@ import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
 import { IconInput } from 'components/atoms/iconInput/IconInput'
 import { MaticCoinIcon, MaticIcon } from 'components/atoms/icons'
+import { Wallet } from 'ethers'
+import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
 
 TooltipProvider.registerTooltip({
   id: 'swap',
@@ -57,6 +59,7 @@ const SwapTokensPresentational = ({
   return (
     <div>
       <IconInput icon={MaticCoinIcon} label="MATIC" />
+      <WalletsConnector />
     </div>
     // <div className={onboardingStyle.step}>
     //   <motion.h1 className={onboardingStyle.title} variants={variants}>
