@@ -23,6 +23,7 @@ import { IconInput } from 'components/atoms/iconInput/IconInput'
 import { MaticCoinIcon, MaticIcon } from 'components/atoms/icons'
 import { Wallet } from 'ethers'
 import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
+import { LoadingSpinner } from 'components/atoms/spinner/spinner'
 
 TooltipProvider.registerTooltip({
   id: 'swap',
@@ -60,6 +61,7 @@ const SwapTokensPresentational = ({
     <div>
       <IconInput icon={MaticCoinIcon} label="MATIC" />
       <WalletsConnector />
+      <LoadingSpinner />
     </div>
     // <div className={onboardingStyle.step}>
     //   <motion.h1 className={onboardingStyle.title} variants={variants}>
