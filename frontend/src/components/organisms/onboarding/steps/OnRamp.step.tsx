@@ -92,10 +92,12 @@ const StartOnRampButton = ({
 
 const OnRampPresentational = ({
   showRamp,
-  setShowRamp,
+  onClick,
+  width,
 }: {
+  width: number
   showRamp: boolean
-  setShowRamp: (show: boolean) => void
+  onClick: (show: boolean) => void
 }) => {
   return (
     <>
@@ -103,14 +105,14 @@ const OnRampPresentational = ({
         <div
           id="rampContainer"
           style={{
-            width: '895px',
+            width: `${width}px`,
             height: '590px',
           }}
         >
           {' '}
         </div>
       ) : (
-        <StartOnRampButton onClick={setShowRamp} showRamp={showRamp} />
+        <StartOnRampButton onClick={onClick} showRamp={showRamp} />
       )}
     </>
   )
@@ -148,14 +150,22 @@ const OnRampPresentational = ({
   // )
 }
 
-export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
+export const OnRamp = ({
+  goToNextStep,
+  setPlacement,
+  placement,
+}: {
+  goToNextStep: () => void
+  setPlacement: (x: 'inside' | 'outside') => void
+  placement: 'inside' | 'outside'
+}) => {
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const { chain } = useNetwork()
   const [done, setDone] = useState(false)
-  const [showRamp, setShowRamp] = useState(false)
+  const [showRamp, setShowRamp] = useState(placement === 'inside')
   const balance = useBalance(address)
-
+  const [width, setWidth] = useState(895)
   const onboarding = useOnboarding()
   window.onboarding = onboarding
   window.gtns = goToNextStep
@@ -209,16 +219,21 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
           //@ts-ignore
           containerNode: document.getElementById('rampContainer'),
         })
+        window.widgetRef = widgetRef
         setTimeout(() => {
           widgetRef.current?.show()
+          // document.getElementById('rampContainer')?.style.width = '400px'
         }, 500)
+        // setTimeout(() => {
+        //   setWidth(400)
+        // }, 6000)
         widgetRef.current.on('*', (a) => {
-          log('event', a)
+          log('event')
         })
         widgetRef.current.on(
           RampInstantEventTypes.PURCHASE_CREATED,
           (event) => {
-            log('purchase created', event)
+            log('purchase created')
             setTransactionState(TransactionState.PENDING)
           }
         )
@@ -234,5 +249,15 @@ export const OnRamp = ({ goToNextStep }: { goToNextStep: () => void }) => {
     hideRampBackground()
   }, [address, done, showRamp])
 
-  return <OnRampPresentational showRamp={showRamp} setShowRamp={setShowRamp} />
+  return (
+    <OnRampPresentational
+      showRamp={showRamp}
+      width={width}
+      onClick={() => {
+        setPlacement('inside')
+
+        setShowRamp(true)
+      }}
+    />
+  )
 }

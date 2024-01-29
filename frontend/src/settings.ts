@@ -16,9 +16,9 @@ export const settings = {
     [Token.GLM_MAINNET]: 10,
   },
   minimalSwap: {
-    [Token.MATIC_MUMBAI]: 3,
-    [Token.MATIC_POLYGON]: 3,
-    [Token.ETH_MAINNET]: 3,
+    [Token.MATIC_MUMBAI]: 2,
+    [Token.MATIC_POLYGON]: 2,
+    [Token.ETH_MAINNET]: 2,
   },
   hourCost: 0.45,
   feesPercentage: 0.2,

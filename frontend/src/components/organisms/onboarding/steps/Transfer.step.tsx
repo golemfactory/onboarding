@@ -1,17 +1,14 @@
-import { NetworkType, TokenCategory, TxStatus } from 'types/ethereum'
-import { ThemesManager } from '../../../../themes/ThemesManager'
+import { TokenCategory, TxStatus } from 'types/ethereum'
 import { settings } from 'settings'
 import { getGLMToken } from 'utils/getGLMToken'
 import { getNativeToken } from 'utils/getNativeToken'
-import { ChangeEvent, useEffect, useState } from 'react'
-import { Slider } from 'components/atoms/slider/slider'
-import { formatEther } from 'ethers'
+
 import { useSupplyYagnaWallet } from 'hooks/useSupplyYagnaWallet'
-import { CheckmarkIcon } from 'components/atoms/icons'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
-import { formatBalance } from 'utils/formatBalance'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Button, Trans } from 'components/atoms'
 
 TooltipProvider.registerTooltip({
   id: 'transfer',
@@ -26,95 +23,95 @@ type Amount = {
   [TokenCategory.NATIVE]: number
 }
 
-const SliderMatic = ({
-  amount,
-  setAmount,
-  balance,
-  status,
+const StartButton = ({
+  onClick,
+  show,
 }: {
-  amount: Amount
-  setAmount: (newAmount: Amount) => void
-  balance: bigint | number
-  status: TxStatus
-  chainId: NetworkType
+  show: boolean
+  onClick: (show: boolean) => void
 }) => {
-  const sliderMaticProps = {
-    min: 0,
-    step: 0.01,
-    max: parseFloat(formatEther(balance)).toFixed(2),
-    label: '',
-    value: amount[TokenCategory.NATIVE],
-    displayValue: (v: number) => `Transfer ${v} Matic`,
-    onChange: (e: ChangeEvent<HTMLInputElement>) => {
-      const value = parseFloat(e.currentTarget.value)
-      setAmount({ ...amount, [TokenCategory.NATIVE]: value })
-    },
-  }
-  return status === TxStatus.READY ? (
-    <Slider {...sliderMaticProps} />
-  ) : status === TxStatus.PENDING ? (
-    <div className="flex">
-      <div className="relative flex items-center">
-        <div className="animate-spin mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
-        <div className="ml-2">{`Transferring ${
-          amount[TokenCategory.NATIVE]
-        } Matic`}</div>
-      </div>
-    </div>
-  ) : (
-    <div>
-      <div>
-        <p className="flex ">
-          <CheckmarkIcon /> Transferred {amount[TokenCategory.NATIVE]} MATIC
-        </p>
-      </div>
-    </div>
+  return (
+    <AnimatePresence>
+      <motion.div
+        variants={{
+          open: { opacity: 1 },
+          closed: { opacity: 0 },
+          initial: { opacity: 0 },
+        }}
+        initial="initial"
+        animate={show ? 'closed' : 'open'}
+        exit="closed"
+        transition={{ duration: 4 }}
+        className="w-full flex flex-col col-span-2 gap-4 mt-8"
+      >
+        <div className="flex w-full justify-center text-h4 text-primary">
+          <Trans i18nKey="transferLabel" ns="transfer.step" />
+        </div>
+        <div className="flex w-full justify-center">
+          <Button
+            buttonStyle="solid"
+            className="px-9 py-4 text-button-large"
+            onClick={() => {
+              onClick(true)
+            }}
+          >
+            <Trans i18nKey="startButton" ns="transfer.step" />
+          </Button>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 
-const SliderGLM = ({
-  amount,
-  setAmount,
-  balance,
-  status,
+const TransferPresentational = ({
+  showContent,
+  setShowContent,
 }: {
-  amount: Amount
-  setAmount: (newAmount: Amount) => void
-  balance: bigint | number
-  status: TxStatus
-  chainId: NetworkType
+  showContent: boolean
+  setShowContent: (show: boolean) => void
 }) => {
-  const sliderMaticProps = {
-    min: 0,
-    step: 0.01,
-    max: formatBalance(BigInt(balance) || 0n),
-    label: '',
-    value: amount[TokenCategory.GLM],
-    displayValue: (v: number) => `Transfer ${v} GLM`,
-    onChange: (e: ChangeEvent<HTMLInputElement>) => {
-      const value = parseFloat(e.currentTarget.value)
-      setAmount({ ...amount, [TokenCategory.GLM]: value })
-    },
-  }
-
-  return status === TxStatus.READY ? (
-    <Slider {...sliderMaticProps} />
-  ) : status === TxStatus.PENDING ? (
-    <div className="flex mb-4 ">
-      <div className="relative flex items-center">
-        <div className="animate-spin mr-2 mt-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-golemblue"></div>
-        <div className="ml-2">{`Transferring ${
-          amount[TokenCategory.GLM]
-        } GLM`}</div>
-      </div>
-    </div>
-  ) : (
-    <div>
-      <div>
-        <p className="flex ">
-          <CheckmarkIcon /> Transferred {amount[TokenCategory.GLM]} GLM
-        </p>
-      </div>
+  return (
+    <div className="col-span-11">
+      <AnimatePresence>
+        {showContent && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.01, height: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.01 }}
+            transition={{ duration: 1, delay: 1 }}
+            key={'label'}
+          >
+            DUDUDUDU
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {!showContent && (
+          <motion.div
+            key={'startButton'}
+            initial={{ opacity: 0, scale: 0.01 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.01 }}
+            transition={{ duration: 1 }}
+            // className="w-full flex flex-col col-span-2 gap-4 mt-8"
+          >
+            <div className="flex w-full justify-center text-h4 text-primary">
+              <Trans i18nKey="transferLabel" ns="transfer.step" />
+            </div>
+            <div className="flex w-full justify-center">
+              <Button
+                buttonStyle="solid"
+                className="px-9 py-4 text-button-large"
+                onClick={() => {
+                  setShowContent(true)
+                }}
+              >
+                <Trans i18nKey="startButton" ns="transfer.step" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -124,6 +121,8 @@ export const Transfer = () => {
   const { send, txStatus } = useSupplyYagnaWallet()
   const [isLoading, setIsLoading] = useState(false)
   const { chain } = useNetwork()
+
+  const [showContent, setShowContent] = useState(false)
   if (!chain?.id) {
     throw new Error('Chain not found')
   }
@@ -152,9 +151,10 @@ export const Transfer = () => {
     [TokenCategory.NATIVE]: settings.minimalBalance[getNativeToken(chain.id)],
   })
 
-  const StepTemplate = ThemesManager.getInstance()
-    .getActiveTheme()
-    .getStepTemplate()
-
-  return <div>YAGNa</div>
+  return (
+    <TransferPresentational
+      showContent={showContent}
+      setShowContent={setShowContent}
+    />
+  )
 }

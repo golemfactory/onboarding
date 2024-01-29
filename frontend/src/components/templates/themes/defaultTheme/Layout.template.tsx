@@ -1,12 +1,8 @@
 import { FC } from 'react'
 import { MainLayoutPropsType } from 'types/ui'
-
 import { Grid } from 'components/organisms/grid/Grid'
-
-import React from 'react'
 import { Footer } from './Footer'
 import { GolemLogo } from 'components/atoms/icons/GolemLogo'
-import ThreeDotsWave from 'components/atoms/spinner/spinner'
 
 export const LayoutTemplate: FC<MainLayoutPropsType> = ({
   header,

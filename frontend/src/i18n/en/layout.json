@@ -4,5 +4,8 @@
   "yagnaWallet" : "Founds on your Yagna wallet",
   "currentBalance" : "Current balance",
   "exchangeRecommended" : "We recommend you to exchange",
-  "confirmBlockchainTransaction" : "Confirm the transaction in your digital wallet <walletIcon />"
+  "confirmBlockchainTransaction" : "Confirm the transaction in your digital wallet <walletIcon />",
+  "swapRecommended" : "We recommend you to convert",
+  "swapRecommendedDescription" : "Our recommendation includes keeping a small reserve <breakLine /> of MATIC tokens to handle any upcoming transaction costs"
+
 }

@@ -6,6 +6,9 @@ module.exports = {
       kanit: ['Kanit'],
     },
     extend: {
+      gridTemplateColumns: {
+        515: 'repeat(5, 1fr) 70px repeat(5, 1fr)',
+      },
       gridColumn: {
         all: 'col-span-4 md:col-span-8 xl:col-span-12',
       },
@@ -123,6 +126,14 @@ module.exports = {
             fontStyle: 'normal',
             fontWeight: 400,
             lineHeight: '100%',
+          },
+        ],
+        'body-small-light': [
+          '0.9rem',
+          {
+            fontStyle: 'normal',
+            fontWeight: 300,
+            lineHeight: '140%',
           },
         ],
         'body-small': [

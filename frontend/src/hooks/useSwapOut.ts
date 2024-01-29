@@ -13,6 +13,7 @@ export const useSwapOut = () => {
   )
   const [amountIn, setAmountIn] = useState<bigint>(0n)
 
+  console.log('a', amountIn)
   useEffect(() => {
     if (chain?.id) {
       setPath(getContracts(chain.id).swapPath)

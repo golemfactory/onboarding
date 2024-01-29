@@ -21,12 +21,10 @@ import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepW
 const componentByStep: Record<
   StepType,
   {
-    component: ComponentType<{
-      setIsCompleted: (isCompleted: boolean) => void
-      isNextCalled: boolean
-      goToNextStep: () => void
-    }>
-    layout?: ComponentType<PropsWithChildren<unknown>>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    component: ComponentType<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    layout?: ComponentType<any>
     placement: 'inside' | 'outside'
     ornament?: ComponentType<unknown>
     showNextButton?: boolean
@@ -86,6 +84,6 @@ export const getStepDetails = (step: StepType): StepRenderDetailsType => {
     ornament: details.ornament,
     showNextButton: details.showNextButton || false,
     title: details.title,
-    layout: details.layout || DefaultLayout,
+    layout: StepWithProgress || DefaultLayout,
   }
 }

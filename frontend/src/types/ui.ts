@@ -3,9 +3,11 @@ import { ComponentType, PropsWithChildren, ReactElement } from 'react'
 export type StepRenderDetailsType = {
   name: string
   main: ComponentType<{
-    setIsCompleted: (isCompleted: boolean) => void
-    isNextCalled: boolean
-    goToNextStep: () => void
+    setIsCompleted?: (isCompleted: boolean) => void
+    isNextCalled?: boolean
+    goToNextStep?: () => void
+    setPlacement?: (placement: 'inside' | 'outside') => void
+    placement?: 'inside' | 'outside'
   }>
   title?: ComponentType<Record<string, never>>
   subtitle?: ComponentType<Record<string, never>>
@@ -13,7 +15,7 @@ export type StepRenderDetailsType = {
   placement: 'inside' | 'outside'
   showNextButton?: boolean
   checkCompleted?: () => boolean
-  layout: ComponentType<PropsWithChildren<unknown>>
+  layout: ComponentType<PropsWithChildren>
 }
 
 export type MainLayoutPropsType = PropsWithChildren<{

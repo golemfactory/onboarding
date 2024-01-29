@@ -73,3 +73,7 @@ body {
 .contents {
   display: contents;
 }
+
+input:focus {
+    outline: none;
+}

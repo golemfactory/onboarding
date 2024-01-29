@@ -16,7 +16,7 @@ import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
 import { formatEther } from 'utils/formatEther'
-import { parseUnits } from 'viem'
+import { parseEther, parseUnits } from 'viem'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
 import { IconInput } from 'components/atoms/iconInput/IconInput'
@@ -24,6 +24,11 @@ import { MaticCoinIcon, MaticIcon } from 'components/atoms/icons'
 import { Wallet } from 'ethers'
 import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
 import { LoadingSpinner } from 'components/atoms/spinner/spinner'
+import { StartButton } from 'components/molecules/stepStartButton/StepStartButton'
+import { RecommendationCardSwap } from 'components/molecules/recommendationCard/RecommendationCard'
+import { use } from 'i18next'
+import { Button, Trans } from 'components/atoms'
+import { ExchangeRate } from 'components/molecules/exchangeRate/exchangeRate'
 
 TooltipProvider.registerTooltip({
   id: 'swap',
@@ -35,16 +40,31 @@ TooltipProvider.registerTooltip({
 
 const SwapTokensPresentational = ({
   onSwapButtonClick,
-  sliderProps,
+  setPlacement,
   amountOut,
+  showContent,
+  setShowContent,
+  placement,
+  setAmount,
+  amountIn,
+  isError,
 }: {
   onSwapButtonClick: () => void
   sliderProps: ISliderProps
   amountOut: bigint
+  showContent: boolean
+  setPlacement: (p: 'inside' | 'outside') => void
+  setShowContent: (showContent: boolean) => void
+  placement: 'inside' | 'outside'
+  setAmount: (amount: number) => void
+  amountIn: number
+  isError: boolean
 }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const [glmOut, setGlmOut] = useState('')
+
+  const [isAmountValid, setIsAmountValid] = useState(true)
 
   useEffect(() => {
     if (amountOut) {
@@ -52,62 +72,98 @@ const SwapTokensPresentational = ({
       setGlmOut(newAmount)
     }
   }, [amountOut])
+
   const handleSwapButtonClick = async () => {
     setIsLoading(true)
     await onSwapButtonClick()
   }
-
+  console.log('isError', isError)
+  useEffect(() => {
+    if (placement === 'inside') {
+      setShowContent(true)
+    }
+  }, [placement])
   return (
     <div>
-      {/* <IconInput icon={MaticCoinIcon} label="MATIC" />
-      <WalletsConnector />
-      <LoadingSpinner /> */}
+      {!showContent && (
+        <StartButton
+          onClick={() => {
+            setPlacement('inside')
+          }}
+          step="swap"
+        />
+      )}
+
+      {showContent && (
+        <div className="flex flex-col gap-6 pb-8">
+          <RecommendationCardSwap />
+
+          <div className="text-h4 text-primary pl-8 pr-8">
+            <div className="grid grid-cols-4 pr-10">
+              <div className="col-span-3 flex flex-col">
+                <Trans i18nKey="swapAmount" ns="swap.step" />
+                <IconInput
+                  icon={MaticCoinIcon}
+                  label="MATIC"
+                  placeholder={`${amountIn}`}
+                  isError={isError}
+                  onChange={(e) => {
+                    const value = parseFloat(e.currentTarget.value)
+                    console.log('value', value)
+                    setAmount(value || 0)
+                  }}
+                />
+                <ExchangeRate
+                  amountIn={amountIn}
+                  amountOut={Number(
+                    formatEther({ wei: amountOut, precision: 2 })
+                  )}
+                />
+                <div>
+                  <Button
+                    buttonStyle="solid"
+                    className="mt-10 text-white px-9 py-4 text-button-large"
+                    disabled={isError}
+                    onClick={handleSwapButtonClick}
+                  >
+                    <Trans i18nKey="swapButtonText" ns="swap.step" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-    // <div className={onboardingStyle.step}>
-    //   <motion.h1 className={onboardingStyle.title} variants={variants}>
-    //     Swap tokens
-    //   </motion.h1>
-    //   <motion.div className={onboardingStyle.description} variants={variants}>
-    //     You have only native tokens in your wallet. You need to swap them to
-    //     have GLM
-    //     <Slider {...sliderProps} />
-    //   </motion.div>
-    //   <motion.div className={onboardingStyle.description} variants={variants}>
-    //     You will receive {glmOut} GLM
-    //   </motion.div>
-    //   <motion.button
-    //     className={buttonStyle.primaryButton}
-    //     variants={variants}
-    //     onClick={handleSwapButtonClick}
-    //     disabled={isLoading}
-    //   >
-    //     <div></div>
-    //     {isLoading ? (
-    //       <div className="flex justify-center items-center ">
-    //         <div className="relative">
-    //           <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
-    //         </div>
-    //       </div>
-    //     ) : (
-    //       'Swap'
-    //     )}
-    //   </motion.button>
-    // </div>
   )
 }
 
-export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
+export const SwapTokens = ({
+  goToNextStep,
+  setPlacement,
+  placement,
+}: {
+  goToNextStep: () => void
+  setPlacement: (p: 'inside' | 'outside') => void
+  placement: 'inside' | 'outside'
+}) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   window.gtns = goToNextStep
   const { chain } = useNetwork()
 
   if (!chain?.id) {
     throw new Error('Chain id is not defined')
   }
-  const balance = useBalance()
+
+  const [amountOut, setAmountOut] = useState<bigint>(0n)
+
+  const [showContent, setShowContent] = useState(false)
 
   const nativeToken = getNativeToken(chain.id)
 
   const minimalAmount = settings.minimalSwap[nativeToken]
+
   const [amount, setAmount] = useState(minimalAmount)
 
   // debounce to prevent too many preparations
@@ -115,13 +171,23 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
 
   const [done, setDone] = useState(false)
 
-  const { data: amountOut, setAmountIn } = useSwapOut()
+  const { data: amountsOut, setAmountIn, isError, isLoading } = useSwapOut()
+
+  useEffect(() => {
+    if (!isError && !isLoading) {
+      setAmountOut(amountsOut?.[1] || 0n)
+    }
+  }, [isError, isLoading, amountsOut])
 
   useEffect(() => {
     setAmountIn(parseUnits(debouncedAmount.toString(), 18))
   }, [debouncedAmount, setAmountIn])
 
-  const { swap, isSuccess } = useSwapEthForGlm({
+  const {
+    swap,
+    isSuccess,
+    isError: isSwapError,
+  } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
 
@@ -132,26 +198,32 @@ export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
-  const sliderProps = {
-    min: 0,
-    step: 0.01,
-    max: parseFloat(formatEther({ wei: balance.NATIVE || 0n })),
-    label: '',
-    value: amount,
-    displayValue: (v: number) => `Swap ${v} Matic`,
-    onChange: (e: ChangeEvent<HTMLInputElement>) => {
-      const value = parseFloat(e.currentTarget.value)
-      setAmount(value)
-    },
-  }
+  // const sliderProps = {
+  //   min: 0,
+  //   step: 0.01,
+  //   max: parseFloat(formatEther({ wei: balance.NATIVE || 0n })),
+  //   label: '',
+  //   value: amount,
+  //   displayValue: (v: number) => `Swap ${v} Matic`,
+  //   onChange: (e: ChangeEvent<HTMLInputElement>) => {
+  //     const value = parseFloat(e.currentTarget.value)
+  //     setAmount(value)
+  //   },
+  // }
 
   return (
     <SwapTokensPresentational
-      sliderProps={sliderProps}
       onSwapButtonClick={async () => {
         swap?.()
       }}
-      amountOut={amountOut?.[1]}
+      amountOut={amountOut}
+      showContent={showContent}
+      setShowContent={setShowContent}
+      setPlacement={setPlacement}
+      placement={placement}
+      setAmount={setAmount}
+      amountIn={amount}
+      isError={isSwapError}
     />
   )
 }

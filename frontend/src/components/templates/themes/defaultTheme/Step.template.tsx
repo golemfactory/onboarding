@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './step.template.module.css'
 import { StepRenderDetailsType } from 'types/ui'
@@ -10,7 +10,6 @@ import {
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { RightDot } from 'components/atoms/ornaments/rightDot'
-import { motion } from 'framer-motion'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
