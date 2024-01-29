@@ -23,6 +23,4 @@ export type MainLayoutPropsType = PropsWithChildren<{
   footer?: ReactElement
 }>
 
-export type StepWithProgressPropsType = {
-  content: ReactElement
-}
+export type StepWithProgressPropsType = PropsWithChildren<unknown>

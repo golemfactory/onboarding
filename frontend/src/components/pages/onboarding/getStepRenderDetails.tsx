@@ -13,10 +13,10 @@ import {
 } from 'components/organisms/onboarding'
 
 import { ComponentType, PropsWithChildren } from 'react'
-import { StepRenderDetailsType } from 'types/ui'
 import { TokensOrnament } from 'components/atoms/ornaments/tokens'
 import { WalletIconGreen } from 'components/atoms/ornaments/walletIconGreen'
 import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
+import { StepTemplate } from 'components/templates/themes/defaultTheme/Step.template'
 
 const componentByStep: Record<
   StepType,
@@ -29,6 +29,8 @@ const componentByStep: Record<
     ornament?: ComponentType<unknown>
     showNextButton?: boolean
     title?: ComponentType<Record<string, never>>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    parentLayout?: ComponentType<any>
   }
 > = {
   [Step.WELCOME]: {
@@ -57,7 +59,13 @@ const componentByStep: Record<
     placement: 'outside',
     layout: StepWithProgress,
   },
-  [Step.FINISH]: { component: Finish, placement: 'outside' },
+  [Step.FINISH]: {
+    component: Finish,
+    placement: 'outside',
+    parentLayout: ({ main: Main }: { main: ComponentType }) => {
+      return <Main />
+    },
+  },
   [Step.ADD_GLM]: { component: AddGLM, placement: 'outside' },
   [Step.TRANSFER]: {
     component: Transfer,
@@ -74,9 +82,10 @@ const componentByStep: Record<
 const DefaultLayout = ({ children }: PropsWithChildren<unknown>) => {
   return <>{children}</>
 }
-export const getStepDetails = (step: StepType): StepRenderDetailsType => {
+export const getStepDetails = (step: StepType) => {
   const details = componentByStep[step]
-  return {
+  const ParentTemplate = details.parentLayout || StepTemplate
+  const props = {
     //i18n namespace
     name: step,
     main: details.component,
@@ -86,4 +95,6 @@ export const getStepDetails = (step: StepType): StepRenderDetailsType => {
     title: details.title,
     layout: StepWithProgress || DefaultLayout,
   }
+
+  return <ParentTemplate {...props} />
 }

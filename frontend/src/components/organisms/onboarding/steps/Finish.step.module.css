@@ -1,0 +1,24 @@
+.fadingLine {
+    @apply mt-16 mb-16;
+    width: 800px;
+    height: 0px;
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(to right, transparent, #455298, transparent) 1;
+}
+
+.card { 
+  @apply rounded-xl pt-8 mb-auto bg-lightblue-100;
+  box-shadow: -3px -8px 33px 0px rgba(24, 30, 169, 0.04) inset;
+    transition: width 3s ease-in-out;
+    z-index: 100;
+    
+}
+.wrapper {
+  @apply rounded-xl; 
+  background: linear-gradient(to right, 
+              rgba(47, 75, 235, 0.2), 
+              rgba(148, 153, 184, 0.1));
+  
+  padding: 1px; 
+
+}

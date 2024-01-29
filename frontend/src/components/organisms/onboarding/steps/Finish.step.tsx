@@ -1,62 +1,83 @@
-// components/welcome/intro.tsx
-import { motion } from 'framer-motion'
-import { GolemIcon, MaticIcon } from 'components/atoms/icons'
-import { useBalance } from 'hooks/useBalance'
-import { formatBalance } from 'utils/formatBalance'
+'utils/formatBalance'
 import { useSetup } from 'components/providers'
-const variants = {
-  show: { opacity: 1 },
-  hidden: { opacity: 0 },
-}
+import { CheckCircleIcon } from '@heroicons/react/24/solid'
+import { Trans } from 'components/atoms'
+
+import style from './Finish.step.module.css'
+import {
+  AccountCategory,
+  WalletState,
+} from 'components/molecules/walletState/walletState'
+import { useWallet } from 'hooks/useWallet'
+import { EthereumAddress } from 'types/ethereum'
+import { useAccount } from 'hooks/useAccount'
+
 const FinishPresentational = ({
-  balance,
+  walletProvider,
+  address,
+  yagnaAddress,
 }: {
-  balance: ReturnType<typeof useBalance>
+  yagnaAddress: EthereumAddress
+  address: EthereumAddress
+  walletProvider: ReturnType<typeof useWallet>
 }) => {
   return (
-    <div className="text-center">
-      <motion.h1
-        className="text-4xl font-bold mb-4 text-black"
-        variants={variants}
-      >
-        All good
-      </motion.h1>
-      <motion.div className="text-black my-4 text-xl" variants={variants}>
-        <h2> You are ready to use Golem. </h2>
-        <h2> Your Yagna wallet balance is:</h2>
-        <br />
-        <div className="ml-12">
-          <div className="flex">
-            <div
-              style={{ width: '30px', height: '30px' }}
-              className="border-2 border-golemblue p-1 rounded-full mr-2"
-            >
-              <GolemIcon style={{ maxHeight: '30px' }} />{' '}
-            </div>
-            <div className="text-lg">
-              {formatBalance(balance.GLM)} <br />
-            </div>
-          </div>
-
-          <div className="flex mt-2">
-            <div
-              style={{ width: '30px', height: '30px' }}
-              className="border-2 border-golemblue p-1 rounded-full mr-2"
-            >
-              <MaticIcon style={{ maxHeight: '30px' }} />{' '}
-            </div>
-            <div className="text-lg">
-              {formatBalance(balance.NATIVE)} <br />
-            </div>
+    <div className="justify-center flex flex-col text-center gap-3">
+      <CheckCircleIcon className=" h-10 text-success-100" />
+      <div className="text-h1">
+        <Trans i18nKey="congratulations" ns="finish.step" />
+      </div>
+      <div className="text-h4">
+        <Trans i18nKey="successMessage" ns="finish.step" />
+      </div>
+      <div className="flex justify-center">
+        <div className={style.fadingLine}></div>
+      </div>
+      <div className="text-h4 mb-16">
+        <Trans i18nKey="walletsSummary" ns="finish.step" />
+      </div>
+      <div className="grid grid-cols-12 gap-4">
+        <div className={`col-span-4 col-start-3 ${style.wrapper}`}>
+          <div className={`${style.card} `}>
+            <WalletState
+              category={AccountCategory.BROWSER_WALLET}
+              provider={walletProvider}
+              address={address}
+            />
           </div>
         </div>
-      </motion.div>
+        <div className={`col-span-4  ${style.wrapper}`}>
+          <div className={`bg-lightblue-200 ${style.card} `}>
+            <WalletState
+              category={AccountCategory.YAGNA}
+              address={yagnaAddress}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
 export const Finish = () => {
+  const walletProvider = useWallet()
+  const { address } = useAccount()
   const { yagnaAddress } = useSetup()
-  const balance = useBalance(yagnaAddress)
-  return <FinishPresentational balance={balance} />
+
+  if (!address) {
+    throw new Error('Address is not defined')
+  }
+  if (!yagnaAddress) {
+    throw new Error('Yagna address is not defined')
+  }
+
+  return (
+    <div className="col-span-12 text-primary">
+      <FinishPresentational
+        walletProvider={walletProvider}
+        address={address}
+        yagnaAddress={yagnaAddress}
+      />
+    </div>
+  )
 }

@@ -1,32 +1,18 @@
 // components/welcome/intro.tsx
-import { motion } from 'framer-motion'
 import { useDebounce } from 'usehooks-ts'
 import { settings } from 'settings'
 import { getNativeToken } from 'utils/getNativeToken'
-import onboardingStyle from '../Onboarding.module.css'
 import { useSwapOut } from 'hooks/useSwapOut'
-import buttonStyle from 'components/atoms/button/button.module.css'
-const variants = {
-  show: { opacity: 1 },
-  hidden: { opacity: 0 },
-}
-import { ChangeEvent, useEffect, useState } from 'react'
-import { Slider, ISliderProps } from 'components/atoms/slider/slider'
+import { useEffect, useState } from 'react'
 import { useNetwork } from 'hooks/useNetwork'
-import { useBalance } from 'hooks/useBalance'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
 import { formatEther } from 'utils/formatEther'
-import { parseEther, parseUnits } from 'viem'
+import { parseUnits } from 'viem'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
-import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
 import { IconInput } from 'components/atoms/iconInput/IconInput'
-import { MaticCoinIcon, MaticIcon } from 'components/atoms/icons'
-import { Wallet } from 'ethers'
-import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
-import { LoadingSpinner } from 'components/atoms/spinner/spinner'
+import { MaticCoinIcon } from 'components/atoms/icons'
 import { StartButton } from 'components/molecules/stepStartButton/StepStartButton'
 import { RecommendationCardSwap } from 'components/molecules/recommendationCard/RecommendationCard'
-import { use } from 'i18next'
 import { Button, Trans } from 'components/atoms'
 import { ExchangeRate } from 'components/molecules/exchangeRate/exchangeRate'
 
@@ -50,34 +36,21 @@ const SwapTokensPresentational = ({
   isError,
 }: {
   onSwapButtonClick: () => void
-  sliderProps: ISliderProps
   amountOut: bigint
   showContent: boolean
   setPlacement: (p: 'inside' | 'outside') => void
-  setShowContent: (showContent: boolean) => void
+  setShowContent: (value: boolean) => void
   placement: 'inside' | 'outside'
   setAmount: (amount: number) => void
   amountIn: number
   isError: boolean
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const [glmOut, setGlmOut] = useState('')
-
-  const [isAmountValid, setIsAmountValid] = useState(true)
-
-  useEffect(() => {
-    if (amountOut) {
-      const newAmount = formatEther({ wei: amountOut || 0n, precision: 4 })
-      setGlmOut(newAmount)
-    }
-  }, [amountOut])
+  // const [isLoading, setIsLoading] = useState(false)
 
   const handleSwapButtonClick = async () => {
-    setIsLoading(true)
+    // setIsLoading(true)
     await onSwapButtonClick()
   }
-  console.log('isError', isError)
   useEffect(() => {
     if (placement === 'inside') {
       setShowContent(true)
@@ -197,19 +170,6 @@ export const SwapTokens = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
-
-  // const sliderProps = {
-  //   min: 0,
-  //   step: 0.01,
-  //   max: parseFloat(formatEther({ wei: balance.NATIVE || 0n })),
-  //   label: '',
-  //   value: amount,
-  //   displayValue: (v: number) => `Swap ${v} Matic`,
-  //   onChange: (e: ChangeEvent<HTMLInputElement>) => {
-  //     const value = parseFloat(e.currentTarget.value)
-  //     setAmount(value)
-  //   },
-  // }
 
   return (
     <SwapTokensPresentational
