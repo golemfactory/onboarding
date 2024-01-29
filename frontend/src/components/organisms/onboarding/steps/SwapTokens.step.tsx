@@ -59,9 +59,9 @@ const SwapTokensPresentational = ({
 
   return (
     <div>
-      <IconInput icon={MaticCoinIcon} label="MATIC" />
+      {/* <IconInput icon={MaticCoinIcon} label="MATIC" />
       <WalletsConnector />
-      <LoadingSpinner />
+      <LoadingSpinner /> */}
     </div>
     // <div className={onboardingStyle.step}>
     //   <motion.h1 className={onboardingStyle.title} variants={variants}>

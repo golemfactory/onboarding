@@ -11,6 +11,15 @@ import { CheckmarkIcon } from 'components/atoms/icons'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { formatBalance } from 'utils/formatBalance'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
+
+TooltipProvider.registerTooltip({
+  id: 'transfer',
+  tooltip: {
+    sections: [],
+    appearance: 'primary',
+  },
+})
 
 type Amount = {
   [TokenCategory.GLM]: number
@@ -147,44 +156,5 @@ export const Transfer = () => {
     .getActiveTheme()
     .getStepTemplate()
 
-  return (
-    <StepTemplate
-      onConfirm={() => {
-        send(amount)
-      }}
-      title={'Yagna wallet transfer'}
-      buttonText={
-        isLoading ? (
-          <div className="flex justify-center items-center ">
-            <div className="relative">
-              <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
-            </div>
-          </div>
-        ) : (
-          'Transfer'
-        )
-      }
-      content={
-        <>
-          <br></br>
-          <div>Transfer tokens to your Yagna wallet</div>
-          <br></br>
-          <SliderGLM
-            chainId={chain.id}
-            amount={amount}
-            setAmount={setAmount}
-            balance={balance.GLM}
-            status={txStatus[TokenCategory.GLM]}
-          />
-          <SliderMatic
-            chainId={chain.id}
-            amount={amount}
-            setAmount={setAmount}
-            balance={balance.NATIVE}
-            status={txStatus[TokenCategory.NATIVE]}
-          />
-        </>
-      }
-    />
-  )
+  return <div>YAGNa</div>
 }

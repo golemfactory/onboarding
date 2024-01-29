@@ -69,3 +69,7 @@ body {
     background-position: center center; /* adjust as needed */
     min-height: 100vh; /* minimum height to viewport height */
 }
+
+.contents {
+  display: contents;
+}

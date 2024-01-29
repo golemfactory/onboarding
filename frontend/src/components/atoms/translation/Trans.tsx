@@ -10,6 +10,7 @@ import {
   TrustWalletIcon,
 } from '../icons'
 import { UniswapIcon } from '../icons/uniswap.icon'
+import { WalletIcon } from 'components/molecules/walletIcon/WalletIcon'
 
 export const LinkText = (
   props: PropsWithChildren<{ to: string; title: string }>
@@ -58,6 +59,7 @@ export const Trans = (props: ComponentProps<typeof TransComponent>) => {
         RampIcon: <RampIcon className="inline" />,
         ...props.components,
         Heart: <img src="heart.svg" className="inline h-line-1.5" />,
+        walletIcon: <WalletIcon />,
       }}
     />
   )

@@ -11,6 +11,7 @@ import onRampEn from './en/onRamp.step.json'
 import progressEn from './en/progressBar.json'
 import layoutEn from './en/layout.json'
 import swapEn from './en/swap.step.json'
+import transferEn from './en/transfer.step.json'
 
 i18next.use(initReactI18next).init({
   lng: 'en',
@@ -27,6 +28,7 @@ i18next.use(initReactI18next).init({
       'connect-wallet.step': connectWalletEn,
       'onRamp.step': onRampEn,
       'swap.step': swapEn,
+      'transfer.step': transferEn,
     },
     es: {
       landing: landingEs,

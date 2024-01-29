@@ -3,6 +3,6 @@
   "browserWallet" : "Founds on your external wallet",
   "yagnaWallet" : "Founds on your Yagna wallet",
   "currentBalance" : "Current balance",
-  "exchangeRecommended" : "We recommend you to exchange"
-
+  "exchangeRecommended" : "We recommend you to exchange",
+  "confirmBlockchainTransaction" : "Confirm the transaction in your digital wallet <walletIcon />"
 }

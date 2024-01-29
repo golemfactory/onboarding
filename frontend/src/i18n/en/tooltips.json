@@ -69,12 +69,18 @@
   "swap.description" : [
     "To acquire GLM tokens, just convert some of your freshly obtained MATIC tokens.",
     "As MATIC, the native currency of Polygon, is used to cover transaction fees (including the costs of converting MATIC to GLM), it's important not to convert all your MATIC.",
-    "That’s why you should always keep a small amount  of MATIC to handle these costs. "
+    "That’s why you should always keep a small amount of MATIC to handle these costs. "
   ],
   "swap.explainGLMAmount.title" : "How I can calculate how much GLM tokens do I need?", 
-  "swap.explainGLMAmount.content" : "Golem Network is a living ecosystem where market forces can move prices up and down. That is why We can only provide you educated recommendations. However, you can try to assess amount of needed GLM by checking  <a? href='https://stats.golem.network/'> Golem Network Stats: </a?",
+  "swap.explainGLMAmount.content" : "Golem Network is a living ecosystem where market forces can move prices up and down. That is why We can only provide you educated recommendations. However, you can try to assess amount of needed GLM by checking  <a className='contents text-primary underline' href='https://stats.golem.network/' target='_blank'> Golem Network Stats: </a>",
   "swap.explainRecommendation.title" : "How the recommendations are calculated?",
-  "swap.explainRecommendation.content" : "Recommendations are calculated based on our internal experiences with Golem Network. As a rule of thumb we recommend to swap around 80% of your MATIC into GLM."
+  "swap.explainRecommendation.content" : "Recommendations are calculated based on our internal experiences with Golem Network. As a rule of thumb we recommend to swap around 80% of your MATIC into GLM.",
+
+  "transfer.title" : "Yagna is a Golem Client, which has an internal wallet enabling payments on the Golem Network", 
+  "transfer.description" : [
+    "Internal Yagna wallet allows requestors to pay for services within the Golem ecosystem and enables providers to receive payments.",
+    "While transferring funds to Yagna might seem like an additional step compared to using external wallets like MetaMask, this process guarantees that <b>all transactions  are automatic, efficient, and fully compatible with the Golem network's ecosystem</b>"
+  ]
 
 }
 

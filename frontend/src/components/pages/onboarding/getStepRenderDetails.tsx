@@ -61,7 +61,11 @@ const componentByStep: Record<
   },
   [Step.FINISH]: { component: Finish, placement: 'outside' },
   [Step.ADD_GLM]: { component: AddGLM, placement: 'outside' },
-  [Step.TRANSFER]: { component: Transfer, placement: 'outside' },
+  [Step.TRANSFER]: {
+    component: Transfer,
+    placement: 'outside',
+    layout: StepWithProgress,
+  },
   [Step.CHECK_ACCOUNT_BALANCES]: {
     component: LoadingSpinner,
     placement: 'inside',

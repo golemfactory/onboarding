@@ -215,8 +215,8 @@ export const createStateMachine = (
       [Step.SWAP]: {
         on: {
           [Commands.NEXT]: {
-            target: Step.ON_RAMP,
-            actions: move(OnboardingStage.MATIC),
+            target: Step.TRANSFER,
+            actions: move(OnboardingStage.YAGNA),
           },
         },
       },
