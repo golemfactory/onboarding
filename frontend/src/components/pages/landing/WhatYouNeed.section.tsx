@@ -5,6 +5,7 @@ import { Button, Trans } from 'components/atoms'
 import { Bullet } from 'components/atoms/bullet/Bullet'
 import { AnimatedSection } from './AnimatedSection'
 import { useIsDesktop } from 'hooks/useIsDesktop'
+import { useNavigate } from 'react-router-dom'
 
 const style = {
   ...sectionStyle,
@@ -23,6 +24,7 @@ const NumberCircle = ({ number }: { number: number }) => {
 const needs = ['setupCrypto', 'getTokens', 'topUp']
 
 export const WhatYouNeedSection = () => {
+  const navigate = useNavigate()
   const isDesktop = useIsDesktop()
   return (
     <AnimatedSection>
@@ -58,6 +60,10 @@ export const WhatYouNeedSection = () => {
                   className="px-9 py-3"
                   buttonStyle="solid"
                   useDefault={true}
+                  onClick={() => {
+                    console.log('clicked')
+                    navigate(isDesktop ? '/onboarding/budget' : '/unsupported')
+                  }}
                 >
                   <Trans i18nKey="getStarted" ns="landing" />
                 </Button>

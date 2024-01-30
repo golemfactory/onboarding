@@ -47,7 +47,7 @@ const underlyingCardData: CardData = {
   title: 'runCardTitle',
   description: `runCardDescription`,
   icon: 'chevronDoubleRight',
-  exploreLink: 'TODO',
+  exploreLink: 'https://github.com/golemfactory/golem-kernel-python',
 }
 
 const Progress = [

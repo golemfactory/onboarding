@@ -51,6 +51,8 @@ export const Card = ({
         {exploreLink ? (
           <a
             href={exploreLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`${style.exploreButton} ${linkClassName}`}
           >
             {' '}

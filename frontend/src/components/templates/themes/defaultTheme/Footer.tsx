@@ -6,7 +6,16 @@ export const Footer = () => {
         <div>Made with</div>
         <img src="heart.svg" />
         <div className="text-primary inline">
-          in <strong>Golem Factory</strong>{' '}
+          in{' '}
+          <strong>
+            <a
+              href="https://www.golem.network/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Golem Factory
+            </a>
+          </strong>{' '}
         </div>
       </div>
     </div>

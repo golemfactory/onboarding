@@ -60,7 +60,7 @@ const LandingPageContent = () => {
               buttonStyle="solid"
               className="py-4 px-9 text-button-large"
               onClick={() => {
-                navigate(isDesktop ? '/budget' : '/unsupported')
+                navigate(isDesktop ? '/onboarding/budget' : '/unsupported')
               }}
               useDefault={false}
             >

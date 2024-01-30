@@ -26,10 +26,7 @@ export const VideoSection = () => {
         </div>
       </div>
       <video className={style.video} controls>
-        <source
-          src="https://www.youtube.com/watch?v=FZb_w5JXvJ8"
-          type="video/mp4"
-        />
+        <source src="https://downloads.dev.golem.network/golem-cut.mov" />
         Your browser does not support the video tag.
       </video>
     </AnimatedSection>

@@ -18,13 +18,13 @@ const useCases: CardData[] = [
     title: 'deployCaseTitle',
     description: 'deployCaseDescription',
     icon: 'terminal',
-    exploreLink: 'TODO',
+    exploreLink: 'https://docs.golem.network/docs/creators/dapps',
   },
   {
     title: 'distributionCaseTitle',
     description: 'distributionCaseDescription',
     icon: 'arrows',
-    exploreLink: 'TODO',
+    exploreLink: 'https://docs.golem.network/docs/creators/ray',
   },
   {
     title: 'AICaseTitle',

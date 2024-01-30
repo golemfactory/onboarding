@@ -14,7 +14,7 @@
   "InternalAlfa" : "Internal Alfa", 
   "apiSectionTitle" : "Develop, test and run",
   "apiSectionSubtitle" : "Golem applications with help of our JS and Python API",
-  "readMore" : "Read more", 
+  "readMore" : "<a href='https://docs.golem.network/docs/creators' target='_blank'> Read more</a>", 
   "runCardTitle" : "Run",
   "runCardDescription" : "your JupyterLab Python Notebooks <breakLine/> on more powerful hardware with help <breakLine/> of <strong>Jupyter on Golem </strong>",
   "getGLM" : "Get GLM Tokens ",  

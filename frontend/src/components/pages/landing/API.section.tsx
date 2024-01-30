@@ -1,8 +1,7 @@
-import { Trans } from 'react-i18next'
 import sectionStyle from './API.section.module.css'
 import landingStyle from './LandingPage.module.css'
 import globalStyle from 'styles/global.module.css'
-import { Button } from 'components/atoms'
+import { Button, Trans } from 'components/atoms'
 import { GlobeIcon } from 'components/atoms/icons/globe.icon'
 import { AnimatedSection } from './AnimatedSection'
 
@@ -30,7 +29,7 @@ export const APISection = () => {
             <Button
               buttonStyle="outline"
               useDefault={false}
-              className="px-6 py-3 !bg-transparent"
+              className="px-6 py-3 !bg-transparent text-primary"
             >
               <Trans i18nKey="readMore" ns="landing" />
             </Button>
