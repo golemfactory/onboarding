@@ -58,7 +58,7 @@ const WelcomePresentational = ({
 
   return (
     <>
-      <div className="grid xl:grid-cols-12 grid-cols-6 grid-rows-2 col-span-12 gap-3 ">
+      <div className="grid xl:grid-cols-12 grid-cols-6 col-span-12 gap-3 ">
         {/* cards */}
         {RecommendationCards.map((card) => {
           return {
