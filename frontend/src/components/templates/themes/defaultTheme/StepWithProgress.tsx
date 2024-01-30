@@ -53,7 +53,7 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
         } mr-4 auto-rows-max`}
       >
         <div
-          className={`${style.card} col-span-5 mt-6 border-1 border-lightblue-100 rounded-xl pt-8 mb-auto`}
+          className={`${style.card} col-span-5 mt-6 mb-10 border-1 border-lightblue-100 rounded-xl pt-8 mb-auto`}
         >
           <WalletState
             category={AccountCategory.BROWSER_WALLET}
@@ -64,12 +64,18 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
             <>
               {Children.map(children, (child) => {
                 if (isValidElement(child)) {
-                  return cloneElement(child, {
-                    //@ts-ignore
-                    setPlacement: setChildrenPlacement,
-                    //@ts-ignore
-                    placement: childrenPlacement,
-                  })
+                  return (
+                    <>
+                      <div className="border-1 border-lightblue-100"></div>
+
+                      {cloneElement(child, {
+                        //@ts-ignore
+                        setPlacement: setChildrenPlacement,
+                        //@ts-ignore
+                        placement: childrenPlacement,
+                      })}
+                    </>
+                  )
                 }
               })}
             </>

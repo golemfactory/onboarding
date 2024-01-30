@@ -15,6 +15,7 @@ import { StartButton } from 'components/molecules/stepStartButton/StepStartButto
 import { RecommendationCardSwap } from 'components/molecules/recommendationCard/RecommendationCard'
 import { Button, Trans } from 'components/atoms'
 import { ExchangeRate } from 'components/molecules/exchangeRate/exchangeRate'
+import { AwaitTransaction } from 'components/molecules/awaitTransaction/AwaitTransaction'
 
 TooltipProvider.registerTooltip({
   id: 'swap',
@@ -25,37 +26,26 @@ TooltipProvider.registerTooltip({
 })
 
 const SwapTokensPresentational = ({
-  onSwapButtonClick,
+  handleSwapButtonClick,
   setPlacement,
   amountOut,
   showContent,
-  setShowContent,
-  placement,
   setAmount,
   amountIn,
   isError,
+  isWaitingForConfirmation,
 }: {
-  onSwapButtonClick: () => void
+  handleSwapButtonClick: () => void
   amountOut: bigint
   showContent: boolean
   setPlacement: (p: 'inside' | 'outside') => void
-  setShowContent: (value: boolean) => void
-  placement: 'inside' | 'outside'
   setAmount: (amount: number) => void
   amountIn: number
   isError: boolean
+  isWaitingForConfirmation: boolean
 }) => {
   // const [isLoading, setIsLoading] = useState(false)
 
-  const handleSwapButtonClick = async () => {
-    // setIsLoading(true)
-    await onSwapButtonClick()
-  }
-  useEffect(() => {
-    if (placement === 'inside') {
-      setShowContent(true)
-    }
-  }, [placement])
   return (
     <div>
       {!showContent && (
@@ -68,43 +58,49 @@ const SwapTokensPresentational = ({
       )}
 
       {showContent && (
-        <div className="flex flex-col gap-6 pb-8">
-          <RecommendationCardSwap />
+        <div className="flex flex-col gap-6 pb-8 pt-8">
+          {isWaitingForConfirmation ? (
+            <AwaitTransaction />
+          ) : (
+            <>
+              <RecommendationCardSwap />
 
-          <div className="text-h4 text-primary pl-8 pr-8">
-            <div className="grid grid-cols-4 pr-10">
-              <div className="col-span-3 flex flex-col">
-                <Trans i18nKey="swapAmount" ns="swap.step" />
-                <IconInput
-                  icon={MaticCoinIcon}
-                  label="MATIC"
-                  placeholder={`${amountIn}`}
-                  isError={isError}
-                  onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value)
-                    console.log('value', value)
-                    setAmount(value || 0)
-                  }}
-                />
-                <ExchangeRate
-                  amountIn={amountIn}
-                  amountOut={Number(
-                    formatEther({ wei: amountOut, precision: 2 })
-                  )}
-                />
-                <div>
-                  <Button
-                    buttonStyle="solid"
-                    className="mt-10 text-white px-9 py-4 text-button-large"
-                    disabled={isError}
-                    onClick={handleSwapButtonClick}
-                  >
-                    <Trans i18nKey="swapButtonText" ns="swap.step" />
-                  </Button>
+              <div className="text-h4 text-primary pl-8 pr-8">
+                <div className="grid grid-cols-4 pr-10">
+                  <div className="col-span-3 flex flex-col">
+                    <Trans i18nKey="swapAmount" ns="swap.step" />
+                    <IconInput
+                      icon={MaticCoinIcon}
+                      label="MATIC"
+                      placeholder={`${amountIn}`}
+                      isError={isError}
+                      onChange={(e) => {
+                        const value = parseFloat(e.currentTarget.value)
+                        console.log('value', value)
+                        setAmount(value || 0)
+                      }}
+                    />
+                    <ExchangeRate
+                      amountIn={amountIn}
+                      amountOut={Number(
+                        formatEther({ wei: amountOut, precision: 2 })
+                      )}
+                    />
+                    <div>
+                      <Button
+                        buttonStyle="solid"
+                        className="mt-10 text-white px-9 py-4 text-button-large"
+                        disabled={isError}
+                        onClick={handleSwapButtonClick}
+                      >
+                        <Trans i18nKey="swapButtonText" ns="swap.step" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
       )}
     </div>
@@ -129,6 +125,9 @@ export const SwapTokens = ({
     throw new Error('Chain id is not defined')
   }
 
+  const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
+    useState(false)
+
   const [amountOut, setAmountOut] = useState<bigint>(0n)
 
   const [showContent, setShowContent] = useState(false)
@@ -142,9 +141,13 @@ export const SwapTokens = ({
   // debounce to prevent too many preparations
   const debouncedAmount = useDebounce<number>(amount, 500)
 
-  const [done, setDone] = useState(false)
-
   const { data: amountsOut, setAmountIn, isError, isLoading } = useSwapOut()
+
+  useEffect(() => {
+    if (placement === 'inside') {
+      setShowContent(true)
+    }
+  }, [placement])
 
   useEffect(() => {
     if (!isError && !isLoading) {
@@ -158,32 +161,33 @@ export const SwapTokens = ({
 
   const {
     swap,
-    isSuccess,
+    isSuccess: isSwapSuccess,
     isError: isSwapError,
   } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
 
   useEffect(() => {
-    if (isSuccess && !done) {
-      setDone(true)
+    if (isSwapSuccess) {
+      goToNextStep()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess])
+  }, [isSwapSuccess, goToNextStep])
+  const handleSwapButtonClick = async () => {
+    // setIsLoading(true)
+    await swap?.()
+    setIsWaitingForConfirmation(true)
+  }
 
   return (
     <SwapTokensPresentational
-      onSwapButtonClick={async () => {
-        swap?.()
-      }}
+      handleSwapButtonClick={handleSwapButtonClick}
       amountOut={amountOut}
       showContent={showContent}
-      setShowContent={setShowContent}
       setPlacement={setPlacement}
-      placement={placement}
       setAmount={setAmount}
       amountIn={amount}
       isError={isSwapError}
+      isWaitingForConfirmation={isWaitingForConfirmation}
     />
   )
 }

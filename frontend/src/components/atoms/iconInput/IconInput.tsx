@@ -4,7 +4,9 @@ import { ComponentProps, ComponentType, forwardRef } from 'react'
 export const IconInput = forwardRef<
   HTMLInputElement,
   {
-    icon: ComponentType<ComponentProps<'svg'>>
+    icon:
+      | ComponentType<ComponentProps<'svg'>>
+      | ComponentType<ComponentProps<'img'>>
     label: string
     isError?: boolean
   } & ComponentProps<'input'>

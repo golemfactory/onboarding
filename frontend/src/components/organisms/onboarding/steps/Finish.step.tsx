@@ -11,6 +11,7 @@ import {
 import { useWallet } from 'hooks/useWallet'
 import { EthereumAddress } from 'types/ethereum'
 import { useAccount } from 'hooks/useAccount'
+import { RightDot } from 'components/atoms/ornaments/rightDot'
 
 const FinishPresentational = ({
   walletProvider,
@@ -22,36 +23,39 @@ const FinishPresentational = ({
   walletProvider: ReturnType<typeof useWallet>
 }) => {
   return (
-    <div className="justify-center flex flex-col text-center gap-3">
-      <CheckCircleIcon className=" h-10 text-success-100" />
-      <div className="text-h1">
-        <Trans i18nKey="congratulations" ns="finish.step" />
-      </div>
-      <div className="text-h4">
-        <Trans i18nKey="successMessage" ns="finish.step" />
-      </div>
-      <div className="flex justify-center">
-        <div className={style.fadingLine}></div>
-      </div>
-      <div className="text-h4 mb-16">
-        <Trans i18nKey="walletsSummary" ns="finish.step" />
-      </div>
-      <div className="grid grid-cols-12 gap-4">
-        <div className={`col-span-4 col-start-3 ${style.wrapper}`}>
-          <div className={`${style.card} `}>
-            <WalletState
-              category={AccountCategory.BROWSER_WALLET}
-              provider={walletProvider}
-              address={address}
-            />
-          </div>
+    <div>
+      <RightDot top={'400px'} />
+      <div className="justify-center flex flex-col text-center gap-3">
+        <CheckCircleIcon className=" h-10 text-success-100" />
+        <div className="text-h1">
+          <Trans i18nKey="congratulations" ns="finish.step" />
         </div>
-        <div className={`col-span-4  ${style.wrapper}`}>
-          <div className={`bg-lightblue-200 ${style.card} `}>
-            <WalletState
-              category={AccountCategory.YAGNA}
-              address={yagnaAddress}
-            />
+        <div className="text-h4">
+          <Trans i18nKey="successMessage" ns="finish.step" />
+        </div>
+        <div className="flex justify-center">
+          <div className={style.fadingLine}></div>
+        </div>
+        <div className="text-h4 mb-16">
+          <Trans i18nKey="walletsSummary" ns="finish.step" />
+        </div>
+        <div className="grid grid-cols-12 gap-4">
+          <div className={`col-span-4 col-start-3 ${style.wrapper}`}>
+            <div className={`${style.card} `}>
+              <WalletState
+                category={AccountCategory.BROWSER_WALLET}
+                provider={walletProvider}
+                address={address}
+              />
+            </div>
+          </div>
+          <div className={`col-span-4  ${style.wrapper}`}>
+            <div className={`bg-lightblue-200 ${style.card} `}>
+              <WalletState
+                category={AccountCategory.YAGNA}
+                address={yagnaAddress}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -3,7 +3,6 @@ import { EthereumAddress } from 'types/ethereum'
 import { match } from 'ts-pattern'
 import {
   GolemCoinIcon,
-  MaticCoinIcon,
   MetamaskIcon,
   TrustWalletIcon,
 } from 'components/atoms/icons'
@@ -12,6 +11,7 @@ import { Trans } from 'components/atoms'
 import style from './walletState.module.css'
 import { useBalance } from 'hooks/useBalance'
 import { formatBalance } from 'utils/formatBalance'
+import { MaticCoinSolidIcon } from 'components/atoms/icons/matic.icon'
 
 export const AccountCategory = {
   BROWSER_WALLET: 'browserWallet',
@@ -85,7 +85,7 @@ export const WalletState = ({
           <div
             className={`flex gap-1 items-center ${style.tokenIconContainer}`}
           >
-            <MaticCoinIcon className="h-6 inline" /> MATIC
+            <MaticCoinSolidIcon className="h-6 inline" /> MATIC
           </div>
           <div className="text-h7">{formatBalance(balance.NATIVE)}</div>
         </div>

@@ -93,7 +93,7 @@ export const getStepDetails = (step: StepType) => {
     ornament: details.ornament,
     showNextButton: details.showNextButton || false,
     title: details.title,
-    layout: StepWithProgress || DefaultLayout,
+    layout: details.layout || DefaultLayout,
   }
 
   return <ParentTemplate {...props} />

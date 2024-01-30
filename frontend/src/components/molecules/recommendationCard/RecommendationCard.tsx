@@ -5,6 +5,9 @@ import { useOnboarding } from 'hooks/useOnboarding'
 import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { useBalance } from 'hooks/useBalance'
 import { formatEther } from 'viem'
+import { useNetwork } from 'hooks/useNetwork'
+import { getTokenByCategory } from 'utils/getTokenByNetwrok'
+import { TokenCategory } from 'types/ethereum'
 
 export const RecommendationCardPresentationalOnRamp = ({
   fiat,
@@ -89,6 +92,75 @@ export const RecommendationCardSwap = () => {
     <RecommendationCardPresentationalSwap
       native={nativeToSwap}
       glm={expectedValue}
+    />
+  )
+}
+
+const RecommendationCardPresentationalTransfer = ({
+  amounts,
+  nativeToken,
+}: {
+  amounts: {
+    GLM: number
+    NATIVE: number
+  }
+  nativeToken: string
+}) => {
+  return (
+    <div
+      className={`${style.card} text-white py-4 px-6 mx-8 my-6 flex flex-col gap-1`}
+    >
+      <div className="text-body-normal ">
+        <Trans i18nKey="transferRecommended" ns="layout" />
+      </div>
+      <div className="flex gap-10 items-center justify-end">
+        <div className="text-h2 flex gap-2 items-baseline pr-7">
+          {amounts.GLM}
+          <div className="text-h3 inline"> GLM</div>
+        </div>
+        <div className="text-c-n">
+          <Trans i18nKey="GLMDescription" ns="layout" />
+        </div>
+      </div>
+
+      <div className="flex gap-10 items-center">
+        <div className="text-h2 flex items-baseline gap-2">
+          {amounts.NATIVE}
+          <div className="text-h3 inline"> {nativeToken}</div>
+        </div>
+        <div className="text-c-n">
+          <Trans i18nKey="NativeDescription" ns="layout" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const RecommendationCardTransfer = () => {
+  const { chain } = useNetwork()
+  //TODO move checking of chain to hook
+  if (!chain) {
+    return null
+  }
+
+  const nativeToken = getTokenByCategory(chain.id, TokenCategory.NATIVE).split(
+    '_'
+  )[0]
+
+  const amounts = {
+    GLM: settings.minimalBalance[
+      getTokenByCategory(chain.id, TokenCategory.GLM)
+    ],
+    NATIVE:
+      settings.minimalBalance[
+        getTokenByCategory(chain.id, TokenCategory.NATIVE)
+      ],
+  }
+
+  return (
+    <RecommendationCardPresentationalTransfer
+      amounts={amounts}
+      nativeToken={nativeToken}
     />
   )
 }

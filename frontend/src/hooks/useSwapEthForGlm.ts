@@ -37,16 +37,21 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
 
   log('swap transaction hash ', data?.hash)
 
-  const { isSuccess, isError: isErrorTransaction } = useWaitForTransaction({
+  const {
+    isSuccess,
+    isError: isErrorTransaction,
+    isLoading,
+  } = useWaitForTransaction({
     hash: data?.hash,
   })
 
-  log('swap status ', isSuccess, isErrorPrepare, isErrorTransaction)
+  log('swap status ', isLoading, isSuccess, isErrorPrepare, isErrorTransaction)
 
   return {
     swap: write,
     data,
     isError: isErrorPrepare || isErrorTransaction,
     isSuccess,
+    isLoading,
   }
 }

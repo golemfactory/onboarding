@@ -59,7 +59,7 @@ export const Trans = (props: ComponentProps<typeof TransComponent>) => {
         RampIcon: <RampIcon className="inline" />,
         ...props.components,
         Heart: <img src="heart.svg" className="inline h-line-1.5" />,
-        walletIcon: <WalletIcon />,
+        walletIcon: <WalletIcon className="w-6 inline" />,
       }}
     />
   )
