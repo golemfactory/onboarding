@@ -4,5 +4,5 @@
   "description" : "",
   "polygon.description" : "the cheapest and fastest transactions",
   "polygon.recommended" : "Recommended",
-  "polygon.confirmNetwork" : "Confirm network"
+  "confirmNetwork" : "Confirm network"
 }

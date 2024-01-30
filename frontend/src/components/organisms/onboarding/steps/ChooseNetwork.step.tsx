@@ -15,7 +15,7 @@ import { hexToNumber } from 'viem/utils'
 TooltipProvider.registerTooltip({
   id: 'chooseNetwork',
   tooltip: {
-    sections: ['explainEthereum', 'explainPolygon', 'explainCost'],
+    sections: ['explainPolygon', 'explainEthereum', 'explainCost'],
     appearance: 'primary',
   },
 })

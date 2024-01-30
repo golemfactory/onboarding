@@ -30,18 +30,18 @@
 
 
 
-  "chooseNetwork.title" : "Blockchain network is what makescrypto transactions possible",
+  "chooseNetwork.title" : "Blockchain network is what makes crypto transactions possible",
   "chooseNetwork.description" : [
     "Think of it as choosing a mobile network for your phone. Just as you need a network to make calls or send messages, you need a blockchain network to send, receive or store your GLM tokens. Different networks have different features.",
     "We recommend <maticIcon/> Polygon because the transactions are faster and cheaper compared to Ethereum network. .",
     "The main distinction for Golem users is that <ethereumIcon /> Ethereum, being one of the oldest blockchain networks, experiences high usage, which leads to higher fees and slower network performance."
   ],
   "chooseNetwork.explainEthereum.title" : "<ethereumIcon /> <tab/> What is Ethereum?",
-  "chooseNetwork.explainEthereum.content" : "Ethereum is a blockchain network that allows developers to build decentralized applications. It is the most popular blockchain for smart contracts. <emptyLine /> Ethereum is the native blockchain of GLM token. However, it is not the only blockchain that can be used to settle payments on Golem Network.",
+  "chooseNetwork.explainEthereum.content" : "Ethereum is a Blockchain network launched in July 2015. It was the first Blockchain with extensive smart contract functionality. As a result Etherum become a birthplace of many innovative projects such as Golem Network itself. Ethereum's undoubted success made it heavily used and consequently exposed scaling problems visible as a high transaction costs. Originally GLM token was only available on Ethereum network and that is why Golem still supports Ethereum as one of its payment networks.",
   "chooseNetwork.explainPolygon.title" : "<maticIcon /> <tab/> What is Polygon?",
-  "chooseNetwork.explainPolygon.content" : "Polygon is a blockchain network that allows developers to build decentralized applications. It is the most popular blockchain for smart contracts. <emptyLine /> Polygon is the native blockchain of MATIC token. However, it is not the only blockchain that can be used to settle payments on Golem Network.",
-  "chooseNetwork.explainCost.title" : "How do I choose a right blockchain?",
-  "chooseNetwork.explainCost.content" : "Both Ethereum and Polygon are well established and widely used blockchains. They have similar interface and capabilities. As a result there is no much difference if you choose one or another. Just be sure that chosen blockchain is supported by your wallet (Polygon is not supported by TrustWallet).",
+  "chooseNetwork.explainPolygon.content" : "Polygon is a Blockchain network, originally launched as Matic in June 2020. As a Ethereum side chain It was created to ease Ethereum scaling problems, which manifested with high transaction costs. Polygon utilizes EVM (Ethereum Virtual Machine), which makes it compatible with Ethereum Blockchain. GLM token is available on Polygon network.",
+  "chooseNetwork.explainCost.title" : "What is a transaction cost?",
+  "chooseNetwork.explainCost.content" : "Transaction cost are also known as transaction fees. Each transaction on Polygon blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on Polygon blockchain is associated with some fee. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
 
 
 
