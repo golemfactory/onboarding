@@ -25,5 +25,5 @@ export const useIsDesktop = () => {
     'Windows Phone',
   ]
 
-  return mobileIndicators.some((m) => window.navigator.userAgent.includes(m))
+  return !mobileIndicators.some((m) => window.navigator.userAgent.includes(m))
 }

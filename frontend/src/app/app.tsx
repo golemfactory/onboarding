@@ -24,7 +24,14 @@ const Onboarding = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={locationArr[1]}>
-        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/"
+          element={
+            <AnimatedPage>
+              <LandingPage />
+            </AnimatedPage>
+          }
+        />
         <Route
           path="/unsupported"
           element={
@@ -33,8 +40,14 @@ const Onboarding = () => {
             </AnimatedPage>
           }
         />
-
-        <Route path={`onboarding/*`} element={<OnboardingPage />}></Route>
+        <Route
+          path={`onboarding/*`}
+          element={
+            <AnimatedPage>
+              <OnboardingPage />
+            </AnimatedPage>
+          }
+        ></Route>
       </Routes>
     </AnimatePresence>
   )

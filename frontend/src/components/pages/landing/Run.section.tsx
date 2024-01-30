@@ -4,7 +4,6 @@ import { CardData } from './types'
 import { AnimatedSection } from './AnimatedSection'
 export const CommandLine = (command: string, idx: number) => {
   //Match <color='red'> </color> tags
-  console.log(command)
   const regex = /<color='(.*?)'>(.*?)<\/color>/g
   let match
   const elements = []
