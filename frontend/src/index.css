@@ -65,6 +65,7 @@ body {
     overflow-x: hidden;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed; /* or 'scroll' depending on the desired effect */
     background-position: center center; /* adjust as needed */
     min-height: 100vh; /* minimum height to viewport height */
 }

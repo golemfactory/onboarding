@@ -57,24 +57,25 @@ const WelcomePresentational = ({
   const { state, send } = useOnboarding()
 
   return (
-    <div className="grid grid-cols-12 col-span-12 gap-3">
-      {/* cards */}
-      {RecommendationCards.map((card) => {
-        return {
-          ...card,
-          selectBudget: () => {
-            send({ type: Commands.SELECT_BUDGET, payload: card.id })
-          },
-          selected: state.context.budget === card.id,
-        }
-      }).map(BudgetCard)}
-      <CustomRecommendationCard
-        selectBudget={() => {
-          send({ type: Commands.SELECT_BUDGET, payload: BudgetOption.CUSTOM })
-        }}
-        selected={state.context.budget === BudgetOption.CUSTOM}
-      />
-
+    <>
+      <div className="grid xl:grid-cols-12 grid-cols-6 grid-rows-2 col-span-12 gap-3 ">
+        {/* cards */}
+        {RecommendationCards.map((card) => {
+          return {
+            ...card,
+            selectBudget: () => {
+              send({ type: Commands.SELECT_BUDGET, payload: card.id })
+            },
+            selected: state.context.budget === card.id,
+          }
+        }).map(BudgetCard)}
+        <CustomRecommendationCard
+          selectBudget={() => {
+            send({ type: Commands.SELECT_BUDGET, payload: BudgetOption.CUSTOM })
+          }}
+          selected={state.context.budget === BudgetOption.CUSTOM}
+        />
+      </div>
       <div className={`${style.disclaimer} mb-16`}>
         <Trans i18nKey="disclaimer" ns="welcome.step" />
       </div>
@@ -82,7 +83,7 @@ const WelcomePresentational = ({
         setIsCompleted={setIsCompleted}
         shouldCheckLegal={shouldCheckLegal}
       />
-    </div>
+    </>
   )
 }
 
