@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { useNetwork } from 'hooks/useNetwork'
 import { useSwapEthForGlm } from 'hooks/useSwapEthForGlm'
 import { formatEther } from 'utils/formatEther'
-import { parseUnits } from 'viem'
+import { parseEther, parseUnits } from 'viem'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { IconInput } from 'components/atoms/iconInput/IconInput'
 import { MaticCoinIcon } from 'components/atoms/icons'
@@ -16,6 +16,8 @@ import { RecommendationCardSwap } from 'components/molecules/recommendationCard/
 import { Button, Trans } from 'components/atoms'
 import { ExchangeRate } from 'components/molecules/exchangeRate/exchangeRate'
 import { AwaitTransaction } from 'components/molecules/awaitTransaction/AwaitTransaction'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { Commands } from 'state/commands'
 
 TooltipProvider.registerTooltip({
   id: 'swap',
@@ -128,6 +130,8 @@ export const SwapTokens = ({
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
     useState(false)
 
+  const { send } = useOnboarding()
+
   const [amountOut, setAmountOut] = useState<bigint>(0n)
 
   const [showContent, setShowContent] = useState(false)
@@ -169,6 +173,16 @@ export const SwapTokens = ({
 
   useEffect(() => {
     if (isSwapSuccess) {
+      console.log('swap success', amountOut)
+      send({
+        type: Commands.BUY_GLM,
+        payload: Number(
+          formatEther({
+            wei: amountOut,
+            precision: 2,
+          })
+        ),
+      })
       goToNextStep()
     }
   }, [isSwapSuccess, goToNextStep])

@@ -11,7 +11,13 @@ export const useSupplyYagnaWallet = () => {
   const { yagnaAddress } = useSetup()
 
   if (!yagnaAddress) {
-    throw new Error('Yagna address is not set')
+    return {
+      send: () => void 0,
+      txStatus: {
+        [TokenCategory.GLM]: 'idle',
+        [TokenCategory.NATIVE]: 'idle',
+      },
+    }
   }
 
   const send = async (amount: {

@@ -9,12 +9,10 @@ import { hideRampBackground } from 'utils/hideRampBackground'
 import { debug } from 'debug'
 import { useAccount } from 'hooks/useAccount'
 import { useNetwork } from 'hooks/useNetwork'
-import { useBalance } from 'hooks/useBalance'
 import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
 import { useOnboarding } from 'hooks/useOnboarding'
-import { set } from 'lodash'
 // import onboardingStyle from '../Onboarding.module.css'
 
 TooltipProvider.registerTooltip({
@@ -192,9 +190,9 @@ export const OnRamp = ({
     <OnRampPresentational
       showRamp={showRamp}
       onClick={() => {
-        setPlacement('inside')
+        // setPlacement('inside')
         setShowRamp(true)
-        hideYagnaWalletCard()
+        // hideYagnaWalletCard()
       }}
     />
   )

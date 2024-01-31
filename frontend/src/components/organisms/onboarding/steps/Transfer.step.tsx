@@ -23,6 +23,7 @@ import { use } from 'i18next'
 import { set } from 'lodash'
 import { MaticCoinSolidIcon } from 'components/atoms/icons/matic.icon'
 import { formatEther } from 'viem'
+import { useSetup } from 'components/providers'
 
 TooltipProvider.registerTooltip({
   id: 'transfer',
@@ -35,6 +36,38 @@ TooltipProvider.registerTooltip({
 type Amount = {
   [TokenCategory.GLM]: number
   [TokenCategory.NATIVE]: number
+}
+
+const NoYagnaPresentational = ({
+  goToNextStep,
+}: {
+  goToNextStep: () => void
+}) => {
+  return (
+    <div className="col-span-11 flex flex-col items-center">
+      <div className="text-h4 text-primary">
+        <Trans i18nKey="yagnaTransferTitle" ns="transfer.step" />
+      </div>
+      <div className="text-body-normal font-normal text-neutral-grey-300 px-24 text-center mt-4">
+        <Trans i18nKey="yagnaTransferDescription" ns="transfer.step" />
+      </div>
+      <div className="flex gap-4">
+        <Button
+          buttonStyle="outline"
+          className="mt-10 px-9 py-4 text-button-large text-primary"
+        >
+          <Trans i18nKey="configureYagnaButton" ns="transfer.step" />
+        </Button>
+        <Button
+          buttonStyle="solid"
+          className="mt-10 text-white px-9 py-4 text-button-large "
+          onClick={goToNextStep}
+        >
+          <Trans i18nKey="skipButton" ns="transfer.step" />
+        </Button>
+      </div>
+    </div>
+  )
 }
 
 const TransferPresentational = ({
@@ -141,6 +174,7 @@ export const Transfer = ({
 }) => {
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
+  const { yagnaAddress } = useSetup()
   const [isLoading, setIsLoading] = useState(false)
   const { chain } = useNetwork()
 
@@ -212,17 +246,23 @@ export const Transfer = ({
   }, [placement])
 
   return (
-    <TransferPresentational
-      showContent={showContent}
-      placement={placement}
-      setPlacement={setPlacement}
-      setAmount={setAmount}
-      amount={amount}
-      nativeToken={nativeToken}
-      error={error}
-      send={() => {
-        send(amount)
-      }}
-    />
+    <>
+      {!!yagnaAddress ? (
+        <TransferPresentational
+          showContent={showContent}
+          placement={placement}
+          setPlacement={setPlacement}
+          setAmount={setAmount}
+          amount={amount}
+          nativeToken={nativeToken}
+          error={error}
+          send={() => {
+            send(amount)
+          }}
+        />
+      ) : (
+        <NoYagnaPresentational goToNextStep={goToNextStep} />
+      )}{' '}
+    </>
   )
 }

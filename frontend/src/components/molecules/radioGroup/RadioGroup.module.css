@@ -14,7 +14,7 @@ background: var(--white, #FFF);
 }
 
 .radio:checked {
-  background-image: url('radioInput.svg');
+  background-image: url('../radioInput.svg');
 } 
 
 .radio:not(:checked):hover {

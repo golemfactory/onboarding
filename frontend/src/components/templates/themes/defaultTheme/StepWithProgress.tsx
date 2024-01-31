@@ -55,9 +55,7 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
         <div
           className={`${style.card} ${
             showYagna ? 'col-span-5' : 'col-span-10 '
-          } mt-6 ${
-            childrenPlacement === 'inside' ? 'mb-10' : 'mb-10'
-          } mr-4 border-1 flex flex-col border-lightblue-100 duration-1000 rounded-xl pt-8 transition-all`}
+          } mt-6 mb-10 mr-4 border-1 flex flex-col border-lightblue-100 duration-1000 rounded-xl pt-8 transition-all`}
         >
           <div
             className={`transition-all duration-500 ${
@@ -96,9 +94,7 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
                           placement: childrenPlacement,
                           hideYagnaWalletCard: () => {
                             //only without yagna context
-                            if (!yagnaAddress) {
-                              setShowYagna(false)
-                            }
+                            // setShowYagna(false)
                           },
                         })}
                       </>
@@ -141,7 +137,7 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
               // animate={{ opacity: 1 }}
               // exit={{ opacity: 0 }}
               // transition={{ ease: 'easeInOut', duration: 0.5 }}
-              className="col-span-11 flex mt-8 justify-center"
+              className={`col-span-11 flex justify-center mb-10 border-1 border-lightblue-100  rounded-xl py-12 ${style.card}`}
             >
               {Children.map(children, (child) => {
                 if (isValidElement(child)) {
@@ -153,9 +149,7 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
                     hideYagnaWalletCard: () => {
                       console.log('hide yagna')
                       //only without yagna context
-                      if (!yagnaAddress) {
-                        setShowYagna(false)
-                      }
+                      // setShowYagna(false)
                     },
                   })
                 }

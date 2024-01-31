@@ -33,4 +33,6 @@ export interface OnboardingContextData {
   address?: string
   balanceCase?: BalanceCaseType
   stage: (typeof OnboardingStage)[keyof typeof OnboardingStage]
+  boughtNative: number
+  boughtGLM: number
 }

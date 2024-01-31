@@ -56,6 +56,14 @@ export const createStateMachine = (
         type: Commands.SELECT_BUDGET
         payload: BudgetType
       }
+    | {
+        type: Commands.BUY_NATIVE
+        payload: number
+      }
+    | {
+        type: Commands.BUY_GLM
+        payload: number
+      }
   >({
     context: {
       yagnaAddress,
@@ -71,10 +79,26 @@ export const createStateMachine = (
       },
       stage: OnboardingStage.MATIC,
       budget: BudgetOption.COMPUTE,
+      boughtNative: 0,
+      boughtGLM: 0,
     },
     id: 'onboarding',
     initial: step || Step.WELCOME,
     on: {
+      [Commands.BUY_NATIVE]: {
+        actions: assign({
+          boughtNative: (context, event) => {
+            return event.payload
+          },
+        }),
+      },
+      [Commands.BUY_GLM]: {
+        actions: assign({
+          boughtGLM: (context, event) => {
+            return event.payload
+          },
+        }),
+      },
       [Commands.SELECT_BUDGET]: {
         actions: assign({
           budget: (_context, event) => {

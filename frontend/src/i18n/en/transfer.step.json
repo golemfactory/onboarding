@@ -5,5 +5,9 @@
   "startButtonLabel" : "Transfer tokens to Yagna",
   "startButtonText" : "Let's start",
   "transferAmount" : "Select how many MATIC and GLM tokens you want to transfer to Yagna",
-  "transferButtonText" : "Transfer to Yagna"
+  "transferButtonText" : "Transfer to Yagna",
+  "yagnaTransferTitle" : "Transfer tokens to Yagna",
+  "yagnaTransferDescription" : "It looks like you don't have a Yagna configured. <breakLine /> You can take a few moments now to learn how to set it up, or move on and do it later. ",
+  "configureYagnaButton" : "Configure Yagna",
+  "skipButton" : "Skip this step"
 }
