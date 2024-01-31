@@ -20,21 +20,33 @@
 
 .card {
   /* @apply xl:col-span-4 col-span-12; */
+
   border-radius: 20px;
   border: 1px solid var(--primary-blue-500, #181EA9);
   background: #F6F8FC;
   box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
   backdrop-filter: blur(2.5px);
-  /* width: 100%;
+
+}
+
+.cardUnderlying {
+  @apply col-span-12 mb-48 md:mb-16;
+  border-radius: 20px;
+  border: 1px solid #181EA9;
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);  width:100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  
   gap: 24px;
   border: 1px solid #181EA9;
   background: #F6F8FC;
   box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
   backdrop-filter: blur(2.5px);
-  padding: 48px 56px; */
+  padding: 48px 56px;
+  height: 100%;
 }
 
 .codeContainer {

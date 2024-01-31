@@ -1,7 +1,13 @@
 import sectionStyle from './Run.section.module.css'
-import { Card } from './Card'
-import { CardData } from './types'
+
 import { AnimatedSection } from './AnimatedSection'
+
+import { Card, CardDataType } from 'components/molecules/useCaseCard/Card'
+import {
+  ChevronDoubleDownIcon,
+  ChevronDoubleRightIcon,
+} from '@heroicons/react/24/outline'
+
 export const CommandLine = (command: string, idx: number) => {
   //Match <color='red'> </color> tags
   const regex = /<color='(.*?)'>(.*?)<\/color>/g
@@ -42,11 +48,13 @@ const CommandBox = ({ command }: { command: string }) => {
   )
 }
 
-const underlyingCardData: CardData = {
+const underlyingCardData: CardDataType = {
   title: 'runCardTitle',
   description: `runCardDescription`,
-  icon: 'chevronDoubleRight',
+  icon: ChevronDoubleRightIcon,
   exploreLink: 'https://github.com/golemfactory/golem-kernel-python',
+  namespace: 'landing',
+  appearance: 'landing',
 }
 
 const Progress = [
@@ -126,10 +134,15 @@ export const RunSection = () => {
       <div className={sectionStyle.container}>
         <Card
           {...underlyingCardData}
-          className="col-span-12 mb-48 md:mb-1"
-          descriptionClassName={`${sectionStyle.description}`}
-          titleClassName={`${sectionStyle.title}`}
-          linkClassName="mb-8"
+          style={{
+            cardLanding: sectionStyle.cardUnderlying,
+            descriptionLanding: sectionStyle.description,
+            iconLanding: 'h-9 text-primary',
+          }}
+          // className="col-span-12 mb-48 md:mb-1"
+          // descriptionClassName={`${sectionStyle.description}`}
+          // titleClassName={`${sectionStyle.title}`}
+          // linkClassName="mb-8"
         />
         <div
           className={`${sectionStyle.overlayContainer} ${sectionStyle.card}`}

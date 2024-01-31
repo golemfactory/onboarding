@@ -105,12 +105,16 @@ const CardFinish = ({
 }
 
 export const Card = (props: CardDataType) => {
+  const style = {
+    ...defaultStyle,
+    ...props.style,
+  }
   return (
     <>
       {props.appearance === 'landing' ? (
-        <CardLanding {...props} style={defaultStyle} />
+        <CardLanding {...props} style={style} />
       ) : (
-        <CardFinish {...props} style={defaultStyle} />
+        <CardFinish {...props} style={style} />
       )}
     </>
   )
