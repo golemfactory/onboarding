@@ -32,16 +32,20 @@ export const BudgetCard = ({
   const description = `${id}.description`
 
   //settings
-  const usageTime = settings.budgetOptions[id]
+  const usageCostInUSD = settings.budgetOptions[id]
   const glmCoinValue = 30
   const maticCoinValue = 4
   const { data: rates } = useOnboardingExchangeRates(Network.POLYGON)
-  const usageCost = Math.round(usageTime * settings.hourCost)
+  const usageTime = Math.round(
+    (usageCostInUSD * (1 - settings.feesPercentage) * rates.GLM * 1) /
+      settings.hourCost
+  )
+
   const maticCost = roundToHalf(
-    usageCost * settings.feesPercentage * (rates?.['Matic'] || 0)
+    usageCostInUSD * settings.feesPercentage * (rates?.['Matic'] || 0)
   )
   const glmCost = Math.round(
-    usageCost * (1 - settings.feesPercentage) * (rates?.['GLM'] || 0)
+    usageCostInUSD * (1 - settings.feesPercentage) * (rates?.['GLM'] || 0)
   )
 
   const golemCoinsCount = Math.ceil(glmCost / glmCoinValue)
@@ -81,7 +85,7 @@ export const BudgetCard = ({
       <div className={style.bottom}>
         <div className={style.cost}>
           <div className="text-h3 text-primary font-kanit">
-            <Trans i18nKey="for" ns="welcome.step" /> {`${usageCost}$`}
+            <Trans i18nKey="for" ns="welcome.step" /> {`${usageCostInUSD}$`}
           </div>
 
           <div className="flex gap-2 ">

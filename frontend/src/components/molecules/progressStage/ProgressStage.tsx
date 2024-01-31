@@ -83,7 +83,7 @@ export const ProgressStage = ({
         <div className="text-h4">
           <Trans i18nKey={`${stage}.title`} ns="progress" />
         </div>
-        <div className="text-body-normal ">
+        <div className="text-body-normal font-normal">
           <Trans i18nKey={`${stage}.description`} ns="progress" />
         </div>
       </div>

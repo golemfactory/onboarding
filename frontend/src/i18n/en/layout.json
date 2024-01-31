@@ -10,5 +10,6 @@
   "transferRecommended" : "We recommend you to transfer",
   "GLMDescription" : "enough for your computations needs",
   "NativeDescription" : "enough to cover transaction costs", 
-  "awaitingTransaction" : "Confirm the transaction in your digital wallet <walletIcon />"
+  "awaitingTransaction" : "Confirm the transaction in your digital wallet <walletIcon />",
+    "noYagna" : "To begin fully using Golem services, the last step is to transfer your funds from external wallet to the Yagna - Golem's Client with wallet functionality. Don't worry you'll always have the option to do it later." 
 }

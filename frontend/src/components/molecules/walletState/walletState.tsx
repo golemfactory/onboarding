@@ -27,14 +27,18 @@ export const WalletState = ({
   provider,
 }: {
   category: AccountCategoryType
-  address: EthereumAddress
+  address?: EthereumAddress
   provider?: WalletProviderType
 }) => {
   const balance = useBalance(address)
-
+  const isNoYagnaCase = category === AccountCategory.YAGNA && !address
   return (
-    <div className="flex pl-8 flex-col items-start gap-8 pb-8">
-      <div className="flex items-center gap-4">
+    <div className={`flex pl-8 flex-col items-start gap-8`}>
+      <div
+        className={`flex items-center gap-4 ${
+          isNoYagnaCase ? 'opacity-30' : 'opacity-100'
+        }`}
+      >
         {match([category, provider])
           .with(
             [AccountCategory.BROWSER_WALLET, WalletProvider.METAMASK],
@@ -60,37 +64,44 @@ export const WalletState = ({
 
         <div className="flex flex-col justify-center items-start gap-1">
           <div className="text-neutral-grey-300 text-c-xs whitespace-nowrap">
-            <Trans i18nKey="walletAddress" ns="layout" /> {address.slice(0, 6)}
-            ...{address.slice(-4)}
+            <Trans i18nKey="walletAddress" ns="layout" />{' '}
+            {address ? address.slice(0, 6) + address.slice(-4) : 'unknown'}
           </div>
           <div className="text-h6 ">
             <Trans i18nKey={category} ns="layout" />
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-3 text-body-normal">
-        <div
-          className={`${style.currentBalance} text-left text-darkblue-700 uppercase`}
-        >
-          <Trans i18nKey="currentBalance" ns="layout" />
+
+      {isNoYagnaCase ? (
+        <div className="flex flex-col gap-3 text-body-normal pr-10 pb-2 font-normal">
+          <Trans i18nKey="noYagna" ns="layout" />
         </div>
-        <div className="flex gap-16">
+      ) : (
+        <div className="flex flex-col gap-3 text-body-normal pb-8">
           <div
-            className={`flex gap-1 items-center ${style.tokenIconContainer}`}
+            className={`${style.currentBalance} text-left text-darkblue-700 uppercase`}
           >
-            <GolemCoinIcon className="h-6 inline" /> GLM
+            <Trans i18nKey="currentBalance" ns="layout" />
           </div>
-          <div className="text-h7">{formatBalance(balance.GLM)}</div>
-        </div>
-        <div className=" flex gap-16">
-          <div
-            className={`flex gap-1 items-center ${style.tokenIconContainer}`}
-          >
-            <MaticCoinSolidIcon className="h-6 inline" /> MATIC
+          <div className="flex gap-16">
+            <div
+              className={`flex gap-1 items-center ${style.tokenIconContainer}`}
+            >
+              <GolemCoinIcon className="h-6 inline" /> GLM
+            </div>
+            <div className="text-h7">{formatBalance(balance.GLM)}</div>
           </div>
-          <div className="text-h7">{formatBalance(balance.NATIVE)}</div>
+          <div className=" flex gap-16">
+            <div
+              className={`flex gap-1 items-center ${style.tokenIconContainer}`}
+            >
+              <MaticCoinSolidIcon className="h-6 inline" /> MATIC
+            </div>
+            <div className="text-h7">{formatBalance(balance.NATIVE)}</div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

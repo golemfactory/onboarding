@@ -1,6 +1,6 @@
 // components/welcome/intro.tsx
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   RampInstantSDK,
   RampInstantEventTypes,
@@ -8,16 +8,13 @@ import {
 import { hideRampBackground } from 'utils/hideRampBackground'
 import { debug } from 'debug'
 import { useAccount } from 'hooks/useAccount'
-import { formatEther } from 'utils/formatEther'
-import { settings } from 'settings'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
-import { getTokenByCategory } from 'utils/getTokenByNetwrok'
-import { TokenCategory } from 'types/ethereum'
 import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
 import { useOnboarding } from 'hooks/useOnboarding'
+import { set } from 'lodash'
 // import onboardingStyle from '../Onboarding.module.css'
 
 TooltipProvider.registerTooltip({
@@ -93,9 +90,7 @@ const StartOnRampButton = ({
 const OnRampPresentational = ({
   showRamp,
   onClick,
-  width,
 }: {
-  width: number
   showRamp: boolean
   onClick: (show: boolean) => void
 }) => {
@@ -105,7 +100,7 @@ const OnRampPresentational = ({
         <div
           id="rampContainer"
           style={{
-            width: `400px`,
+            width: `895px`,
             height: '667px',
           }}
         >
@@ -116,58 +111,26 @@ const OnRampPresentational = ({
       )}
     </>
   )
-  // return (
-  //   <div className="text-center">
-  //     <motion.h1
-  //       className="text-4xl font-bold mb-4 text-gray-800"
-  //       variants={variants}
-  //     >
-  //       Change fiat to crypto
-  //     </motion.h1>
-  //     <motion.p
-  //       className="max-w-md text-gray-600 my-4 text-lg"
-  //       variants={variants}
-  //     ></motion.p>
-  //     <motion.button
-  //       className=" mt-4 px-4 py-2 text-white rounded bg-golemblue"
-  //       variants={variants}
-  //       onClick={() => {
-  //         // goToNextStep()
-  //       }}
-  //       disabled={transactionState === TransactionState.PENDING}
-  //     >
-  //       {transactionState === TransactionState.PENDING ? (
-  //         <div className="flex justify-center items-center ">
-  //           <div className="relative">
-  //             <div className="animate-spin ml-2 mr-2 h-6 w-6 rounded-full border-t-4 border-b-4 border-white"></div>
-  //           </div>
-  //         </div>
-  //       ) : (
-  //         'Next'
-  //       )}
-  //     </motion.button>
-  //   </div>
-  // )
 }
 
 export const OnRamp = ({
   goToNextStep,
   setPlacement,
   placement,
+  hideYagnaWalletCard,
 }: {
   goToNextStep: () => void
   setPlacement: (x: 'inside' | 'outside') => void
   placement: 'inside' | 'outside'
+  hideYagnaWalletCard: () => void
 }) => {
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const { chain } = useNetwork()
   const [done, setDone] = useState(false)
   const [showRamp, setShowRamp] = useState(placement === 'inside')
-  const balance = useBalance(address)
-  const [width, setWidth] = useState(895)
+
   const onboarding = useOnboarding()
-  window.onboarding = onboarding
   window.gtns = goToNextStep
   const [transactionState, setTransactionState] = useState(
     TransactionState.READY
@@ -181,6 +144,8 @@ export const OnRamp = ({
 
   useEffect(() => {
     if (address && !done && showRamp) {
+      setDone(() => true)
+      console.log("I'm here")
       try {
         widgetRef.current = new RampInstantSDK({
           hostAppName: 'onboarding',
@@ -192,30 +157,25 @@ export const OnRamp = ({
           fiatCurrency: 'USD',
           userAddress: address,
           defaultFlow: 'ONRAMP',
-          variant: 'embedded-mobile',
+          variant: 'embedded-desktop',
           //well ramp is internally inconsistent...
           //@ts-ignore
           containerNode: document.getElementById('rampContainer'),
         })
+
         setTimeout(() => {
-          if (!done) {
-            setDone(true)
-            console.log('showing')
+          // widgetRef.current?.show()
+          const hasChild =
+            document?.getElementById('rampContainer')?.children.length
+          if (!hasChild) {
             widgetRef.current?.show()
           }
-          // document.getElementById('rampContainer')?.style.width = '400px'
         }, 500)
-        // setTimeout(() => {
-        //   setWidth(400)
-        // }, 6000)
 
-        widgetRef.current.on(
-          RampInstantEventTypes.PURCHASE_CREATED,
-          (event) => {
-            log('purchase created')
-            setTransactionState(TransactionState.PENDING)
-          }
-        )
+        widgetRef.current.on(RampInstantEventTypes.PURCHASE_CREATED, () => {
+          log('purchase created')
+          setTransactionState(TransactionState.PENDING)
+        })
       } catch (err) {
         console.error(err)
       }
@@ -231,11 +191,10 @@ export const OnRamp = ({
   return (
     <OnRampPresentational
       showRamp={showRamp}
-      width={width}
       onClick={() => {
         setPlacement('inside')
-
         setShowRamp(true)
+        hideYagnaWalletCard()
       }}
     />
   )

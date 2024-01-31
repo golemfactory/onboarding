@@ -20,12 +20,12 @@ export const settings = {
     [Token.MATIC_POLYGON]: 2,
     [Token.ETH_MAINNET]: 2,
   },
-  hourCost: 0.45,
+  hourCost: 1.33,
   feesPercentage: 0.2,
   budgetOptions: {
-    [BudgetOption.PLAY_AROUND]: 22,
-    [BudgetOption.COMPUTE]: 55,
-    [BudgetOption.AMBITIOUS]: 110,
+    [BudgetOption.PLAY_AROUND]: 10,
+    [BudgetOption.COMPUTE]: 25,
+    [BudgetOption.AMBITIOUS]: 50,
     [BudgetOption.CUSTOM]: Infinity,
   },
 }
