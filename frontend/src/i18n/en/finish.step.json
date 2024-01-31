@@ -1,5 +1,18 @@
 {
   "congratulations": "Congratulations",
   "successMessage" : "Your Yagna wallet is now funded and you’re ready to pay for the computing power.",
-  "walletSummary" : "This is the summary of your wallets"
+  "walletsSummary" : "This is the summary of your wallets",
+  "developCaseTitle" : "Develop, test and run",
+  "developCaseDescription" : "Golem applications with help of our JS and Python API",
+  "deployCaseTitle" : "Deploy",
+  "deployCaseDescription" : "your dockerized application/services on top of the decentralized Golem Network with dapp-runner our no-code deployment tool",
+  "distributeCaseTitle" : "Distribute and scale",
+  "distributeCaseDescription" : "our Python workloads with Ray on Golem solution combining benefits of Golem decentralized resources with parallelization power of Ray framework",
+  "runCaseTitle" : "Run",
+  "runCaseDescription" : "your JupyterLab Python Notebooks on more powerful hardware with the help of Jupyter on Golem",
+  "budgetSummaryTitle" : "You have bought GLM for about ",
+  "budgetSummaryDescription" : "of estimated work for provider’s example computer with AMD Ryzen 9 5900X 12-Core Processor, 28 GB RAM, 66 GB Disk space ",
+  "nextStepTitle" : "What to do next?",
+  "nextStepDescription" : "To begin using various Golem services, the last step is to transfer your funds from MetaMask external wallet to the Yagna wallet when configuring one of the programs listed below.",
+  "community" : "Join our community and discover more about Golem"
 }

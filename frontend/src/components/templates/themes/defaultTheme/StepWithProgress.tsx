@@ -16,6 +16,7 @@ import {
   useState,
 } from 'react'
 import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
+import { AnimatePresence, motion } from 'framer-motion'
 const ProgressBar = () => {
   const { state } = useOnboarding()
   return (
@@ -60,26 +61,31 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
             provider={walletProvider}
             address={address}
           />
-          {childrenPlacement === 'inside' && (
-            <>
-              {Children.map(children, (child) => {
-                if (isValidElement(child)) {
-                  return (
-                    <>
-                      <div className="border-1 border-lightblue-100"></div>
-
-                      {cloneElement(child, {
-                        //@ts-ignore
-                        setPlacement: setChildrenPlacement,
-                        //@ts-ignore
-                        placement: childrenPlacement,
-                      })}
-                    </>
-                  )
-                }
-              })}
-            </>
-          )}
+          <AnimatePresence>
+            {childrenPlacement === 'inside' && (
+              <motion.div
+              // initial={{ opacity: 0 }}
+              // animate={{ opacity: 1 }}
+              // exit={{ opacity: 0 }}
+              // transition={{ ease: 'easeInOut', duration: 0.5 }}
+              >
+                {Children.map(children, (child) => {
+                  if (isValidElement(child)) {
+                    return (
+                      <>
+                        {cloneElement(child, {
+                          //@ts-ignore
+                          setPlacement: setChildrenPlacement,
+                          //@ts-ignore
+                          placement: childrenPlacement,
+                        })}
+                      </>
+                    )
+                  }
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <hr></hr>
         </div>
@@ -99,20 +105,28 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
             address={yagnaAddress}
           />
         </div>
-        {childrenPlacement === 'outside' && (
-          <div className="col-span-11 flex mt-8 justify-center">
-            {Children.map(children, (child) => {
-              if (isValidElement(child)) {
-                return cloneElement(child, {
-                  //@ts-ignore
-                  setPlacement: setChildrenPlacement,
-                  //@ts-ignore
-                  placement: childrenPlacement,
-                })
-              }
-            })}
-          </div>
-        )}
+        <AnimatePresence>
+          {childrenPlacement === 'outside' && (
+            <motion.div
+              // initial={{ opacity: 0 }}
+              // animate={{ opacity: 1 }}
+              // exit={{ opacity: 0 }}
+              // transition={{ ease: 'easeInOut', duration: 0.5 }}
+              className="col-span-11 flex mt-8 justify-center"
+            >
+              {Children.map(children, (child) => {
+                if (isValidElement(child)) {
+                  return cloneElement(child, {
+                    //@ts-ignore
+                    setPlacement: setChildrenPlacement,
+                    //@ts-ignore
+                    placement: childrenPlacement,
+                  })
+                }
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

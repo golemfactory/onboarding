@@ -1,4 +1,5 @@
-.card{
+.cardLanding{
+  @apply xl:col-span-4 col-span-12;
   border-radius: 20px;
   border: 1px solid #181EA9;
   background: #F6F8FC;
@@ -7,6 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  
   gap: 24px;
   border: 1px solid #181EA9;
   background: #F6F8FC;
@@ -16,7 +18,27 @@
   height: 100%;
 }
 
-.title {
+.cardFinish{
+  @apply xl:col-span-3;
+  border-radius: 20px;
+  border: 1px solid #181EA9;
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  border: 1px solid #181EA9;
+  background: #F6F8FC;
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);
+  padding: 32px;
+  height: 100%;
+}
+
+.titleLanding{
+  @apply text-3xl;
 color: var(--neutrals-gray-400, #1D222D);
   /* Headers/Header 3 | Kanit Regular 32px */
   font-family: Kanit;
@@ -29,7 +51,8 @@ color: var(--neutrals-gray-400, #1D222D);
 }
 
 
-.description {
+
+.descriptionLanding {
 color: var(--neutrals-gray-400, #1D222D);
   /* Headers/Header 8 | Kanit Regular 18px */
   font-family: Kanit;
@@ -41,7 +64,12 @@ color: var(--neutrals-gray-400, #1D222D);
   letter-spacing: -0.18px;
 }
 
-.exploreButton {
+.descriptionFinish {
+  @apply text-neutral-grey-300 text-body-normal;
+  text-align: left
+}
+
+.exploreButtonLanding {
   @apply text-sm;
   margin-top: auto;
   display: flex;
@@ -54,7 +82,17 @@ color: var(--neutrals-gray-400, #1D222D);
   line-height: 16px;
 }
 
-.badge {
+.exploreButtonFinish{
+  @apply px-9 py-4 text-button-large;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border-radius: 3px 3px 0px 0px;
+  border-bottom: 1px solid var(--primary-blue-500, #181EA9);
+}
+
+.badgeLanding {
   display: flex;
   padding: 2px 12px;
   justify-content: center;
@@ -64,28 +102,35 @@ color: var(--neutrals-gray-400, #1D222D);
   color : var(--primary-blue-500, #181EA9);
 }
 
-.top { 
+.topLanding { 
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-.content {
+
+.topFinish { 
+  @apply text-neutral-grey-300 gap-3 text-h7;
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.contentLanding {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
 }
 
-/* 230 + 24  + 38 + 48 + 48 */
+.contentFinish {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  height: 100%;
+}
 
-
-/* 53 + 16 + 87 + 24 + 36 53 + 24 
-53 + 16 
-
-
-48 + 48 + 38 +24  + 205               34 
-48 + 48 + 38 +24  + 216 + gap  */
-
-
-
-
+.iconFinish{ 
+  @apply w-6 h-6 text-primary
+}

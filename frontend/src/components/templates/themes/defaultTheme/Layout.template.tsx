@@ -29,7 +29,9 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
       </div>
       <div>
         <Grid className="">
-          <Footer></Footer>
+          <div className="col-span-12 grid grid-cols-12">
+            <Footer></Footer>
+          </div>
         </Grid>
       </div>
     </div>

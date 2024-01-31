@@ -28,19 +28,19 @@ export const ProgressStage = ({
         completed: {
           minHeight: '125px',
           transition: {
-            duration: 0.5,
+            duration: 5,
           },
         },
         current: {
           minHeight: '215px',
           transition: {
-            duration: 0.5,
+            duration: 5,
           },
         },
         future: {
           minHeight: '125px',
           transition: {
-            duration: 0.5,
+            duration: 5,
           },
         },
       }}

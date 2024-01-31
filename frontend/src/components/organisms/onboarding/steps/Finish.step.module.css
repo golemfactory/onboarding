@@ -22,3 +22,44 @@
   padding: 1px; 
 
 }
+
+.budgetCard {
+  @apply p-6 text-white flex flex-col justify-between gap-2;
+  background-color: black4;
+  background: radial-gradient(35.95% 35.95% at 50% 50%, #181EA9 0%, #0C0E55 40.16%, rgb(203, 56, 7) 100%);
+  overflow: hidden;
+  background-size: 715% 693%;
+  background-position: calc(50% + -120px) calc(50% + 0px);
+  border-radius: 6px;
+  height:100%
+  
+}
+
+.communityButton{
+  border-radius: 15px;
+  background: rgba(246, 248, 252, 0.80);
+  box-shadow: -8px -3px 33px 0px rgba(24, 30, 169, 0.04) inset;
+  backdrop-filter: blur(2.5px);
+  display: flex;
+  padding: 16px 32px;
+  align-items: center;
+  gap: 24px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.communityButton:hover{
+  box-shadow: -8px -3px 20px 0px rgba(24, 30, 169, 0.3) inset;
+}
+
+.buttonWrapper {
+  border-radius: 15px;
+  background: linear-gradient(to right, 
+                rgba(148, 153, 184, 0.1) 0%, 
+                  rgba(47, 75, 235, 0.2) 0%, 
+                  rgba(148, 153, 184, 0.1) 100%);
+
+  
+  padding: 1px; 
+
+}

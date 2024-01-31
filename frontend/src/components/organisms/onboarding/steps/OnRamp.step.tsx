@@ -105,8 +105,8 @@ const OnRampPresentational = ({
         <div
           id="rampContainer"
           style={{
-            width: `${width}px`,
-            height: '590px',
+            width: `400px`,
+            height: '667px',
           }}
         >
           {' '}
@@ -180,30 +180,8 @@ export const OnRamp = ({
   }
 
   useEffect(() => {
-    if (
-      parseFloat(formatEther({ wei: balance.NATIVE, precision: 4 })) >
-      settings.minimalBalance[
-        getTokenByCategory(chain?.id, TokenCategory.NATIVE)
-      ]
-    ) {
-      setTransactionState(TransactionState.COMPLETED)
-      // maybe we should better render there a button that redirects to next step
-      // instead of automatically redirect
-
-      try {
-        widgetRef.current?.close()
-        widgetRef.current?.close()
-      } catch (err) {
-        debug(err)
-      }
-    }
-  }, [balance, chain?.id])
-
-  useLayoutEffect(() => {
     if (address && !done && showRamp) {
       try {
-        setDone(true)
-
         widgetRef.current = new RampInstantSDK({
           hostAppName: 'onboarding',
           hostLogoUrl: `${extractBaseURL(window.location.href)}logo.svg`,
@@ -214,22 +192,23 @@ export const OnRamp = ({
           fiatCurrency: 'USD',
           userAddress: address,
           defaultFlow: 'ONRAMP',
-          variant: 'embedded-desktop',
+          variant: 'embedded-mobile',
           //well ramp is internally inconsistent...
           //@ts-ignore
           containerNode: document.getElementById('rampContainer'),
         })
-        window.widgetRef = widgetRef
         setTimeout(() => {
-          widgetRef.current?.show()
+          if (!done) {
+            setDone(true)
+            console.log('showing')
+            widgetRef.current?.show()
+          }
           // document.getElementById('rampContainer')?.style.width = '400px'
         }, 500)
         // setTimeout(() => {
         //   setWidth(400)
         // }, 6000)
-        widgetRef.current.on('*', (a) => {
-          log('event')
-        })
+
         widgetRef.current.on(
           RampInstantEventTypes.PURCHASE_CREATED,
           (event) => {

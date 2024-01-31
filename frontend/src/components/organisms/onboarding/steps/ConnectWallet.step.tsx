@@ -42,10 +42,15 @@ const adjustWeb3ModalContent = () => {
     }
     allWallets.hidden = true
   }
-
-  ;['All Wallets', 'WalletConnect', 'Browser Wallet', 'Coinbase'].forEach(
-    hideWallet
-  )
+  setTimeout(() => {
+    ;['All Wallets', 'WalletConnect', 'Coinbase', 'Browser Wallet'].forEach(
+      (w) => {
+        try {
+          hideWallet(w)
+        } catch (err) {}
+      }
+    )
+  }, 0)
 }
 
 const ConnectWalletPresentational = ({

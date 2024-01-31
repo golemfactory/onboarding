@@ -145,7 +145,9 @@ export const SwapTokens = ({
 
   useEffect(() => {
     if (placement === 'inside') {
-      setShowContent(true)
+      setTimeout(() => {
+        setShowContent(true)
+      }, 1000)
     }
   }, [placement])
 

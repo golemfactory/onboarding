@@ -12,6 +12,7 @@ import progressEn from './en/progressBar.json'
 import layoutEn from './en/layout.json'
 import swapEn from './en/swap.step.json'
 import transferEn from './en/transfer.step.json'
+import finishSetpEn from './en/finish.step.json'
 
 i18next.use(initReactI18next).init({
   lng: 'en',
@@ -29,6 +30,7 @@ i18next.use(initReactI18next).init({
       'onRamp.step': onRampEn,
       'swap.step': swapEn,
       'transfer.step': transferEn,
+      'finish.step': finishSetpEn,
     },
     es: {
       landing: landingEs,

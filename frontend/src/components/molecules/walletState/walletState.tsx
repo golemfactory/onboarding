@@ -68,9 +68,10 @@ export const WalletState = ({
           </div>
         </div>
       </div>
-      <div></div>
       <div className="flex flex-col gap-3 text-body-normal">
-        <div className="capitalize">
+        <div
+          className={`${style.currentBalance} text-left text-darkblue-700 uppercase`}
+        >
           <Trans i18nKey="currentBalance" ns="layout" />
         </div>
         <div className="flex gap-16">

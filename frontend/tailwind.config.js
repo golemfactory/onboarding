@@ -208,6 +208,7 @@ module.exports = {
       },
       spacing: {
         'golem-logo': '5.76rem',
+        30: '120px',
       },
       scale: {
         10: '0.10',

@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import { motion } from 'framer-motion'
 import { ComponentProps, ComponentType } from 'react'
 import style from './walletsConnector.module.css'
+
 const Circle = ({
   size,
   icon,

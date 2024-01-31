@@ -22,7 +22,3 @@
   @apply col-span-12;
   margin-top: 56px;
 }
-
-.card {
-  @apply xl:col-span-4 col-span-12;
-}

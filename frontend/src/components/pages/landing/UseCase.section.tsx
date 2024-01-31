@@ -3,9 +3,13 @@ import sectionStyle from './UseCase.section.module.css'
 import landingStyle from './LandingPage.module.css'
 import globalStyle from 'styles/global.module.css'
 
-import { Card } from './Card'
-import { CardData } from './types'
+import { Card, CardDataType } from 'components/molecules/useCaseCard/Card'
 import { AnimatedSection } from './AnimatedSection'
+import {
+  ArrowsExpandIcon,
+  ChipIcon,
+  TerminalIcon,
+} from 'components/atoms/icons'
 
 const style = {
   ...sectionStyle,
@@ -13,24 +17,30 @@ const style = {
   ...globalStyle,
 }
 
-const useCases: CardData[] = [
+const useCases: CardDataType[] = [
   {
     title: 'deployCaseTitle',
     description: 'deployCaseDescription',
-    icon: 'terminal',
+    icon: TerminalIcon,
     exploreLink: 'https://docs.golem.network/docs/creators/dapps',
+    namespace: 'landing',
+    appearance: 'landing',
   },
   {
     title: 'distributionCaseTitle',
     description: 'distributionCaseDescription',
-    icon: 'arrows',
+    icon: ArrowsExpandIcon,
     exploreLink: 'https://docs.golem.network/docs/creators/ray',
+    namespace: 'landing',
+    appearance: 'landing',
   },
   {
     title: 'AICaseTitle',
     description: 'AICaseDescription',
-    icon: 'chip',
+    icon: ChipIcon,
     badge: 'InternalAlfa',
+    namespace: 'landing',
+    appearance: 'landing',
   },
 ]
 export const UseCaseSection = () => {
@@ -46,11 +56,7 @@ export const UseCaseSection = () => {
           </div>
         </div>
         <div className={style.separator} />
-        {useCases
-          .map((x) => {
-            return { ...x, className: style.card }
-          })
-          .map(Card)}
+        {useCases.map(Card)}
       </div>
     </AnimatedSection>
   )

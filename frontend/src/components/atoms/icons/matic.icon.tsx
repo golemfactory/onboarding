@@ -23,7 +23,7 @@ export const MaticIcon = (props: ComponentProps<'svg'>) => {
 export const MaticCoinSolidIcon = (props: ComponentProps<'img'>) => {
   return (
     <img
-      src="maticCoinSolid.png"
+      src="maticCoinSolid.svg"
       alt="matic coin"
       width="24"
       height="24"

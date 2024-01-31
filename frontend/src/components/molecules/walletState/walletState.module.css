@@ -12,3 +12,11 @@ TODO : check why
 .tokenIconContainer {
   min-width: 80px
 }
+
+.currentBalance {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 14px */
+  text-transform: uppercase;
+}
