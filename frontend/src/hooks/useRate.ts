@@ -47,6 +47,7 @@ export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
         Math.pow(10, 6),
         [contracts.USDC.address, contracts.wrappedNativeToken.address],
       ],
+      chainId: 137,
     }
   )
 
@@ -58,6 +59,7 @@ export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
       Math.pow(10, 18),
       [contracts.wrappedNativeToken.address, contracts.GLM.address],
     ],
+    chainId: 137,
   })
 
   useEffect(() => {
