@@ -10,3 +10,11 @@ export const getNativeToken = (chainId: NetworkType): NativeTokenType => {
       return Token.ETH_MAINNET
   }
 }
+
+export const getTokenName = (token: NativeTokenType) => {
+  return {
+    [Token.MATIC_POLYGON]: 'Matic',
+    [Token.MATIC_MUMBAI]: 'Matic',
+    [Token.ETH_MAINNET]: 'Eth',
+  }[token]
+}

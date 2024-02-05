@@ -12,6 +12,7 @@ import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
 import { useBalance } from 'hooks/useBalance'
+import { RecommendationCardOnRamp } from 'components/molecules/recommendationCard/RecommendationCard'
 
 const log = debug('onboarding:steps:onramp')
 
@@ -93,14 +94,21 @@ const OnRampPresentational = ({
   return (
     <>
       {showRamp ? (
-        <div
-          id="rampContainer"
-          style={{
-            width: `895px`,
-            height: '667px',
-          }}
-        >
-          {' '}
+        <div className="flex flex-col">
+          <div className="grid grid-cols-2">
+            <div className="col-span-1">
+              <RecommendationCardOnRamp />
+            </div>
+          </div>
+          <div
+            id="rampContainer"
+            style={{
+              width: `895px`,
+              height: '667px',
+            }}
+          >
+            {' '}
+          </div>
         </div>
       ) : (
         <StartOnRampButton onClick={onClick} showRamp={showRamp} />
