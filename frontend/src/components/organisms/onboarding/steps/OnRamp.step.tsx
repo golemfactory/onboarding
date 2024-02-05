@@ -95,8 +95,8 @@ const OnRampPresentational = ({
     <>
       {showRamp ? (
         <div className="flex flex-col">
-          <div className="grid grid-cols-2">
-            <div className="col-span-1">
+          <div className="grid grid-cols-4">
+            <div className="col-span-2 col-start-2">
               <RecommendationCardOnRamp />
             </div>
           </div>

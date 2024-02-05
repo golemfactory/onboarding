@@ -8,9 +8,9 @@ import { useAccount } from 'hooks/useAccount'
 import { useBalance } from 'hooks/useBalance'
 import { createStateMachine } from 'state/machine'
 import { useStep } from 'hooks/useStep'
-import { useOnboarding } from 'hooks/useOnboarding'
+import { useOnboarding, useOnboardingSnapshot } from 'hooks/useOnboarding'
 
-export const OnboardingContext = createActorContext(createStateMachine())
+export const OnboardingContext = createActorContext(createStateMachine({}))
 
 const ChainObserver = () => {
   const { send } = useOnboarding()
@@ -35,8 +35,13 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const setup = useSetup()
   const step = useStep()
 
+  const persistedSnapshot = useOnboardingSnapshot()
+
   //machine sholdnt be recreated on every render so we useMemo
-  const machine = useMemo(() => createStateMachine({ ...setup, step }), [])
+  const machine = useMemo(
+    () => createStateMachine({ ...setup, ...persistedSnapshot, step }),
+    []
+  )
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 

@@ -26,6 +26,15 @@ export const BudgetOption = {
 
 export type BudgetType = (typeof BudgetOption)[keyof typeof BudgetOption]
 
+export function assertBudgetType(
+  value: string | null
+): asserts value is BudgetType {
+  if (!Object.values(BudgetOption).includes(value as BudgetType)) {
+    console.log('Invalid Budget Type', value)
+    throw new Error('Invalid Budget Type')
+  }
+}
+
 export interface OnboardingContextData {
   blockchain: BlockchainContextInterface & BlockchainContextData
   budget: BudgetType

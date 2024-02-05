@@ -8,7 +8,6 @@ import { formatEther } from 'viem'
 import { useNetwork } from 'hooks/useNetwork'
 import { getTokenByCategory } from 'utils/getTokenByNetwrok'
 import { NativeTokenType, TokenCategory } from 'types/ethereum'
-import { hrtime } from 'process'
 import { getNativeToken, getTokenName } from 'utils/getNativeToken'
 
 export const RecommendationCardPresentationalOnRamp = ({
@@ -48,6 +47,7 @@ export const RecommendationCardOnRamp = () => {
   if (!chain) {
     throw new Error('No chain')
   }
+
   const fiat = settings.budgetOptions[state.context.budget]
   const precision = chain?.id === '0x1' ? 1000 : 2
   const nativeToken = getNativeToken(chain.id)

@@ -10,7 +10,7 @@ import {
   type OnboardingContextData,
 } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
-import { OnboardingStage, OnboardingStageType } from './stages'
+import { OnboardingStage, OnboardingStageType, stepToStage } from './stages'
 import { EthereumAddress } from 'types/ethereum'
 
 const move = (stage: OnboardingStageType) =>
@@ -29,15 +29,20 @@ const isGLMTracked = () => {
 
 //initial step is persisted and passed to machine so
 // it can be recovered after page reload
-export const createStateMachine = (
-  {
-    step,
-    yagnaAddress,
-  }: {
-    step?: StepType
-    yagnaAddress?: EthereumAddress
-  } = { step: Step.WELCOME }
-) => {
+export const createStateMachine = ({
+  step = Step.WELCOME,
+  yagnaAddress,
+  budget = BudgetOption.COMPUTE,
+  boughtGLM = 0,
+  boughtNative = 0,
+}: {
+  boughtGLM?: number
+  boughtNative?: number
+  budget?: BudgetType
+  step?: StepType
+  yagnaAddress?: EthereumAddress
+}) => {
+  console.log('boughtGLM', budget)
   return createMachine<
     OnboardingContextData,
     | { type: 'ADD_GLM' }
@@ -67,6 +72,9 @@ export const createStateMachine = (
   >({
     context: {
       yagnaAddress,
+      budget: budget || BudgetOption.COMPUTE,
+      boughtNative,
+      boughtGLM,
       blockchain: {
         chainId: undefined,
         balance: {
@@ -77,10 +85,7 @@ export const createStateMachine = (
           return this?.chainId !== undefined
         },
       },
-      stage: OnboardingStage.MATIC,
-      budget: BudgetOption.COMPUTE,
-      boughtNative: 0,
-      boughtGLM: 0,
+      stage: stepToStage(step),
     },
     id: 'onboarding',
     initial: step || Step.WELCOME,
