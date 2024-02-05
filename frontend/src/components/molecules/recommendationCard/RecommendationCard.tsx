@@ -100,7 +100,7 @@ export const RecommendationCardSwap = () => {
     Number(formatEther(balance.NATIVE)) * settings.feesPercentage
   )
 
-  const expectedValue = Math.round((nativeToSwap * rates.GLM) / rates.Matic)
+  const expectedValue = Math.round((nativeToSwap * rates.GLM) / rates.Native)
   // const { state } = useOnboarding()
 
   // const fiat = Math.round(

@@ -13,6 +13,9 @@ import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
 import { useBalance } from 'hooks/useBalance'
 import { RecommendationCardOnRamp } from 'components/molecules/recommendationCard/RecommendationCard'
+import { BudgetOption } from 'types/dataContext'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { settings } from 'settings'
 
 const log = debug('onboarding:steps:onramp')
 
@@ -86,9 +89,11 @@ const StartOnRampButton = ({
 
 const OnRampPresentational = ({
   showRamp,
+  showRecommendation,
   onClick,
 }: {
   showRamp: boolean
+  showRecommendation: boolean
   onClick: (show: boolean) => void
 }) => {
   return (
@@ -97,7 +102,7 @@ const OnRampPresentational = ({
         <div className="flex flex-col">
           <div className="grid grid-cols-4">
             <div className="col-span-2 col-start-2">
-              <RecommendationCardOnRamp />
+              {showRecommendation ? <RecommendationCardOnRamp /> : ''}
             </div>
           </div>
           <div
@@ -131,6 +136,10 @@ export const OnRamp = ({
   const [showRamp, setShowRamp] = useState(placement === 'inside')
   const balance = useBalance()
   const initialBalance = useRef(balance.NATIVE)
+  const { state } = useOnboarding()
+
+  const showRecommendation = state.context.budget !== BudgetOption.CUSTOM
+  const recommendedAmount = settings.budgetOptions[state.context.budget]
 
   const [transactionState, setTransactionState] = useState(
     TransactionState.READY
@@ -161,7 +170,7 @@ export const OnRamp = ({
           hostApiKey: import.meta.env.VITE_RAMP_KEY,
           url: import.meta.env.VITE_RAMP_API_URL,
           swapAsset: 'MATIC_MATIC',
-          fiatValue: '10',
+          fiatValue: recommendedAmount.toString(),
           fiatCurrency: 'USD',
           userAddress: address,
           defaultFlow: 'ONRAMP',
@@ -192,6 +201,7 @@ export const OnRamp = ({
   return (
     <OnRampPresentational
       showRamp={showRamp}
+      showRecommendation={showRecommendation}
       onClick={() => {
         // setPlacement('inside')
         setShowRamp(true)
