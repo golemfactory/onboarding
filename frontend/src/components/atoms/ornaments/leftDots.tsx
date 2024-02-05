@@ -84,7 +84,7 @@ export const LeftDotsOrnament = ({
           animate={{ opacity: 1, gap: '8px' }}
           exit={{ opacity: 0, gap: 0 }}
           transition={{
-            duration: 0.5,
+            duration: 1,
           }}
           className="flex flex-col items-center mt-4"
         >

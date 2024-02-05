@@ -40,6 +40,11 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
   const namespace = `${name}.step`
+
+  window.gtns = () => {
+    send(Commands.NEXT)
+  }
+
   return (
     <div className={style.container}>
       <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />

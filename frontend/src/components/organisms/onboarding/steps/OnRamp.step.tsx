@@ -5,15 +5,15 @@ import {
   RampInstantSDK,
   RampInstantEventTypes,
 } from '@ramp-network/ramp-instant-sdk'
-import { hideRampBackground } from 'utils/hideRampBackground'
 import { debug } from 'debug'
 import { useAccount } from 'hooks/useAccount'
 import { useNetwork } from 'hooks/useNetwork'
 import { extractBaseURL } from 'utils/extractBaseURL'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
-import { useOnboarding } from 'hooks/useOnboarding'
-// import onboardingStyle from '../Onboarding.module.css'
+import { useBalance } from 'hooks/useBalance'
+
+const log = debug('onboarding:steps:onramp')
 
 TooltipProvider.registerTooltip({
   id: 'onRamp',
@@ -27,8 +27,6 @@ TooltipProvider.registerTooltip({
     appearance: 'primary',
   },
 })
-
-const log = debug('onboarding:steps:onramp')
 
 enum TransactionState {
   READY,
@@ -113,37 +111,41 @@ const OnRampPresentational = ({
 
 export const OnRamp = ({
   goToNextStep,
-  setPlacement,
   placement,
-  hideYagnaWalletCard,
 }: {
   goToNextStep: () => void
   setPlacement: (x: 'inside' | 'outside') => void
   placement: 'inside' | 'outside'
-  hideYagnaWalletCard: () => void
 }) => {
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const { chain } = useNetwork()
-  const [done, setDone] = useState(false)
   const [showRamp, setShowRamp] = useState(placement === 'inside')
+  const balance = useBalance()
+  const initialBalance = useRef(balance.NATIVE)
 
-  const onboarding = useOnboarding()
-  window.gtns = goToNextStep
   const [transactionState, setTransactionState] = useState(
     TransactionState.READY
   )
-
   //TODO use Option/Maybe for handling all those missing values
 
   if (!chain) {
     throw new Error('Chain not found')
   }
 
+  //we observe balance and once user gets tra
   useEffect(() => {
-    if (address && !done && showRamp) {
-      setDone(() => true)
-      console.log("I'm here")
+    if (
+      transactionState === TransactionState.PENDING &&
+      balance.NATIVE > initialBalance.current
+    ) {
+      log('going to next step')
+      goToNextStep()
+    }
+  }, [balance, chain?.id])
+
+  useEffect(() => {
+    if (showRamp) {
       try {
         widgetRef.current = new RampInstantSDK({
           hostAppName: 'onboarding',
@@ -161,30 +163,23 @@ export const OnRamp = ({
           containerNode: document.getElementById('rampContainer'),
         })
 
-        setTimeout(() => {
-          // widgetRef.current?.show()
-          const hasChild =
-            document?.getElementById('rampContainer')?.children.length
-          if (!hasChild) {
-            widgetRef.current?.show()
-          }
-        }, 500)
+        //check if there is no widget rendered already
+        const hasChild =
+          document?.getElementById('rampContainer')?.children.length
+        if (!hasChild) {
+          widgetRef.current.show()
 
-        widgetRef.current.on(RampInstantEventTypes.PURCHASE_CREATED, () => {
-          log('purchase created')
-          setTransactionState(TransactionState.PENDING)
-        })
+          widgetRef.current.on(RampInstantEventTypes.PURCHASE_CREATED, () => {
+            setTransactionState(TransactionState.PENDING)
+          })
+        }
       } catch (err) {
         console.error(err)
       }
 
       //Unfortunately there is no even on purchase failed and purchase success :(
-
-      log('setting done')
     }
-
-    hideRampBackground()
-  }, [address, done, showRamp])
+  }, [showRamp])
 
   return (
     <OnRampPresentational
