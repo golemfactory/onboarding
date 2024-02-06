@@ -103,7 +103,7 @@ export const LandingPage = () => {
           className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
           useDefault={true}
           onClick={() => {
-            navigate(isDesktop ? '/budget' : '/unsupported')
+            navigate(isDesktop ? '/onboarding/budget' : '/unsupported')
           }}
         >
           <Trans i18nKey="getGLM" ns="landing" />
