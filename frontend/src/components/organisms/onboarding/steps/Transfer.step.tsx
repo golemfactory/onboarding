@@ -7,20 +7,13 @@ import { useSupplyYagnaWallet } from 'hooks/useSupplyYagnaWallet'
 import { useNetwork } from 'hooks/useNetwork'
 import { useBalance } from 'hooks/useBalance'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Button, Trans } from 'components/atoms'
 import { useEffect, useState } from 'react'
 import { RecommendationCardTransfer } from 'components/molecules/recommendationCard/RecommendationCard'
 import { StartButton } from 'components/molecules/stepStartButton/StepStartButton'
 import { IconInput } from 'components/atoms/iconInput/IconInput'
-import {
-  EthereumIcon,
-  GolemCoinIcon,
-  MaticCoinIcon,
-} from 'components/atoms/icons'
-import { EtherSymbol } from 'ethers'
-import { use } from 'i18next'
-import { set } from 'lodash'
+import { EthereumIcon, GolemCoinIcon } from 'components/atoms/icons'
+
 import { MaticCoinSolidIcon } from 'components/atoms/icons/matic.icon'
 import { formatEther } from 'viem'
 import { useSetup } from 'components/providers'
@@ -191,12 +184,12 @@ export const Transfer = ({
       setIsLoading(true)
     }
     //continue flow when both transactions are successful
-    // if (
-    //   txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
-    //   txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
-    // ) {
-    //   goToNextStep()
-    // }
+    if (
+      txStatus[TokenCategory.GLM] === TxStatus.SUCCESS &&
+      txStatus[TokenCategory.NATIVE] === TxStatus.SUCCESS
+    ) {
+      goToNextStep()
+    }
   }, [
     txStatus,
     // goToNextStep

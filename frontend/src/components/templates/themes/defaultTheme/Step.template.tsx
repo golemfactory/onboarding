@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './step.template.module.css'
 import { StepRenderDetailsType } from 'types/ui'
-import { Bullet, Button, Trans } from 'components/atoms'
+import { Bullet, Button } from 'components/atoms'
 import {
   InfoTooltip,
   InfoTooltipTrigger,
@@ -12,7 +12,6 @@ import { Commands } from 'state/commands'
 import { RightDot } from 'components/atoms/ornaments/rightDot'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
-import { set } from 'lodash'
 import { useNetwork } from 'wagmi'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
@@ -81,7 +80,25 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
             />
           </motion.div>
           <div className="col-span-3 col-start-7 relative">
-            {OrnamentComponent ? <OrnamentComponent /> : ''}
+            <AnimatePresence>
+              {OrnamentComponent && componentPlacement !== '' ? (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                  transition={{
+                    duration: 2,
+                  }}
+                >
+                  <OrnamentComponent />
+                </motion.div>
+              ) : (
+                ''
+              )}
+            </AnimatePresence>
           </div>
         </div>
         <div className="col-span-2"></div>
