@@ -24,7 +24,7 @@ const useCases: CardDataType[] = [
     title: 'developCaseTitle',
     description: 'developCaseDescription',
     icon: CodeBracketIcon,
-    exploreLink: 'https://docs.golem.network/docs/creators/dapps',
+    exploreLink: 'https://docs.golem.network/docs/creators',
     namespace: 'finish.step',
     appearance: 'finish',
     buttonText: 'Develop',
@@ -54,7 +54,7 @@ const useCases: CardDataType[] = [
     badge: 'InternalAlfa',
     namespace: 'finish.step',
     appearance: 'finish',
-    exploreLink: 'https://docs.golem.network/docs/creators/ray',
+    exploreLink: 'https://github.com/golemfactory/golem-kernel-python',
     buttonText: 'Run',
   },
 ]
@@ -187,24 +187,39 @@ const FinishPresentationalNoYagna = ({
           <Trans i18nKey="community" ns="finish.step" />
         </div>
         <div className="flex justify-center gap-8">
-          <div className={style.buttonWrapper}>
+          <a
+            href="https://chat.golem.network/"
+            target="_blank"
+            rel="noreferrer"
+            className={style.buttonWrapper}
+          >
             <div className={style.communityButton}>
               <img className="h-6" src="discord.svg"></img>
               Join our Discord Group
             </div>
-          </div>
-          <div className={style.buttonWrapper}>
+          </a>
+          <a
+            href="https://www.youtube.com/@GolemNetwork"
+            target="_blank"
+            rel="noreferrer"
+            className={style.buttonWrapper}
+          >
             <div className={style.communityButton}>
               <img className="h-6" src="youtube.svg"></img>
               Check our YouTube
             </div>
-          </div>
-          <div className={style.buttonWrapper}>
+          </a>
+          <a
+            className={style.buttonWrapper}
+            href="https://docs.golem.network/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <div className={style.communityButton}>
-              <img className="h-6" src="golem-docs-logo.svg"></img>
+              <img className="h-6 inline" src="golem-docs-logo.svg"></img>
               Go to our Docs Website
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>

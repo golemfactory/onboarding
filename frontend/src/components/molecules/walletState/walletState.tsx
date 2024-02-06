@@ -65,7 +65,9 @@ export const WalletState = ({
         <div className="flex flex-col justify-center items-start gap-1">
           <div className="text-neutral-grey-300 text-c-xs whitespace-nowrap">
             <Trans i18nKey="walletAddress" ns="layout" />{' '}
-            {address ? address.slice(0, 6) + address.slice(-4) : 'unknown'}
+            {address
+              ? address.slice(0, 6) + '...' + address.slice(-4)
+              : 'unknown'}
           </div>
           <div className="text-h6 ">
             <Trans i18nKey={category} ns="layout" />

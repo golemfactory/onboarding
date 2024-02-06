@@ -93,6 +93,9 @@ const CardFinish = ({
           <Button
             buttonStyle="solid"
             className={`${style.exploreButtonFinish}`}
+            onClick={() => {
+              window.open(exploreLink, '_blank')
+            }}
           >
             {buttonText}
           </Button>

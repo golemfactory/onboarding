@@ -46,6 +46,12 @@ const NoYagnaPresentational = ({
       </div>
       <div className="flex gap-4">
         <Button
+          onClick={() => {
+            window.open(
+              'https://docs.golem.network/docs/providers/provider-installation',
+              '_blank'
+            )
+          }}
           buttonStyle="outline"
           className="mt-10 px-9 py-4 text-button-large text-primary"
         >
@@ -98,7 +104,7 @@ const TransferPresentational = ({
       {showContent && (
         <div className="flex flex-col gap-6 pb-8">
           <RecommendationCardTransfer />
-          <div className="text-h4 text-primary pl-8 pr-8">
+          <div className="text-h4 text-primary pl-8 pr-8 mb-8">
             <div className="grid grid-cols-4 pr-10">
               <div className="col-span-3 flex flex-col">
                 <Trans i18nKey="transferAmount" ns="transfer.step" />
