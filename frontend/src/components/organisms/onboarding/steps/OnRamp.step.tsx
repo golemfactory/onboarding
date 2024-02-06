@@ -16,6 +16,7 @@ import { RecommendationCardOnRamp } from 'components/molecules/recommendationCar
 import { BudgetOption } from 'types/dataContext'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { settings } from 'settings'
+import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
 
 const log = debug('onboarding:steps:onramp')
 
@@ -38,11 +39,16 @@ enum TransactionState {
   COMPLETED,
 }
 
-export const OnRampTitleComponent = () => {
+export const OnRampTitleComponent = (visibility: 'hidden' | 'visible') => {
   const { chain } = useNetwork()
   return (
     <>
-      <Trans i18nKey="title" ns="onRamp.step" values={{ chain: chain?.name }} />
+      <AnimatedText
+        visibility={visibility}
+        i18nKey="title"
+        ns="onRamp.step"
+        values={{ chain: chain?.name }}
+      />
     </>
   )
 }

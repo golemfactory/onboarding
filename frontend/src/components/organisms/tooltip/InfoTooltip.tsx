@@ -37,7 +37,7 @@ export const InfoTooltipTrigger = ({
 
   return (
     <div
-      className="cursor-pointer"
+      className="cursor-pointer transition-all"
       onClick={() => {
         appearance === 'primary' ? tooltip.toggle?.() : ''
       }}

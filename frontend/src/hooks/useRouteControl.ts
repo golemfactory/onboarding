@@ -16,7 +16,11 @@ export const useRouteControl = () => {
     const isStepPath = Object.values(stepPaths).includes(path)
 
     if (isStepPath && path !== stepPath) {
-      navigate('/onboarding' + stepPath + (query ? '?' + query : ''))
+      if (stepPath === '/finish') {
+        navigate(stepPath + (query ? '?' + query : ''))
+      } else {
+        navigate('/onboarding' + stepPath + (query ? '?' + query : ''))
+      }
     }
   }, [state.value]) // Depend on the current state and navigate function
 }

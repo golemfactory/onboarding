@@ -1,6 +1,7 @@
 import { Checkbox } from 'components/atoms/checkbox'
 import { FC, useEffect, useState } from 'react'
 import { Trans } from 'components/atoms'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export const Legal: FC<{
   setIsCompleted: (isCompleted: boolean) => void
@@ -13,7 +14,7 @@ export const Legal: FC<{
   shouldCheckLegal: boolean
 }) => {
   const [showError, setShowError] = useState(false)
-
+  const [showMore, setShowMore] = useState(false)
   const [checked, setIsChecked] = useState({
     thirdParty: false,
     termsAndConditions: false,
@@ -36,11 +37,29 @@ export const Legal: FC<{
   ])
 
   return (
-    <div className="col-span-12 flex flex-col gap-3 text-darkblue-700">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+      className="col-span-10 flex flex-col gap-3 text-darkblue-700"
+    >
       <Checkbox
         label={() => (
           <div className="text-body-extra-large">
-            <Trans i18nKey="legal.thirdParty" ns="welcome.step" />
+            <Trans
+              i18nKey="legal.thirdParty"
+              ns="welcome.step"
+              values={{
+                onClick: () => {
+                  setShowMore(!showMore)
+                },
+              }}
+            />
           </div>
         )}
         error={showError && !checked.thirdParty}
@@ -51,6 +70,29 @@ export const Legal: FC<{
           })
         }}
       />
+      <AnimatePresence>
+        {showMore && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              lineHeight: 0,
+            }}
+            animate={{
+              opacity: 1,
+              lineHeight: '22.4px',
+            }}
+            exit={{
+              lineHeight: 0,
+              opacity: 0,
+              height: 0,
+            }}
+            className="ml-8 text-body-normal"
+          >
+            <Trans i18nKey="legal.thirdParty.more" ns="welcome.step" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Checkbox
         label={() => (
           <div className="text-body-extra-large">
@@ -73,6 +115,6 @@ export const Legal: FC<{
       ) : (
         ''
       )}
-    </div>
+    </motion.div>
   )
 }

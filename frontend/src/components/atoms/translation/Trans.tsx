@@ -1,5 +1,5 @@
 import { Trans as TransComponent } from 'react-i18next'
-import { ComponentProps, PropsWithChildren } from 'react'
+import { ComponentProps } from 'react'
 import {
   EthereumIcon,
   GolemSmallIcon,
@@ -12,26 +12,17 @@ import {
 import { UniswapIcon } from '../icons/uniswap.icon'
 import { WalletIcon } from 'components/molecules/walletIcon/WalletIcon'
 
-export const LinkText = (
-  props: PropsWithChildren<{ to: string; title: string }>
-) => {
-  return (
-    <a
-      href={props.to || '#'}
-      target="_blank"
-      title={props.title || ''}
-      rel="noreferrer"
-    >
-      {props.children}
-    </a>
-  )
-}
-
-export const Trans = (props: ComponentProps<typeof TransComponent>) => {
+export const Trans = ({
+  components,
+  ...rest
+}: ComponentProps<typeof TransComponent>) => {
   return (
     <TransComponent
-      {...props}
+      {...rest}
       components={{
+        ...components,
+        //@ts-ignore
+        span: <span onClick={rest?.values?.onClick}></span>,
         a: <a></a>,
         b: <b></b>,
         red: <div className="inline text-dangerred-200" />,
@@ -55,11 +46,13 @@ export const Trans = (props: ComponentProps<typeof TransComponent>) => {
         maticCoinIcon: (
           <MaticCoinIcon className="inline h-line-1 mr-0.5 ml-1" />
         ),
-        UniswapIcon: <UniswapIcon className="inline" />,
+        UniswapIcon: <UniswapIcon className="inline w-6" />,
         RampIcon: <RampIcon className="inline" />,
-        ...props.components,
         Heart: <img src="heart.svg" className="inline h-line-1.5" />,
         walletIcon: <WalletIcon className="w-6 inline" />,
+        walletConnectIcon: (
+          <img src="walletconnect.png" className="inline w-6" />
+        ),
       }}
     />
   )

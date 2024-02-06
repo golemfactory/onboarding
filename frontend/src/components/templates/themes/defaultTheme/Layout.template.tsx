@@ -20,7 +20,7 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
       >
         <Grid className="mt-1 ">
           <div className="col-span-12 grid grid-cols-12">
-            <div className="xl:col-span-2 col-span-4 mt-8">
+            <div className="xl:col-span-2 col-span-4">
               <GolemLogo
                 style={{
                   cursor: 'pointer',

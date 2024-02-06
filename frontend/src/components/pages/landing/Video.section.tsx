@@ -25,7 +25,7 @@ export const VideoSection = () => {
           <Trans i18nKey="videoDescription" ns="landing" />
         </div>
       </div>
-      <video className={style.video} controls>
+      <video className={style.video} controls poster="poster.jpg">
         <source src="https://downloads.dev.golem.network/golem-cut.mov" />
         Your browser does not support the video tag.
       </video>

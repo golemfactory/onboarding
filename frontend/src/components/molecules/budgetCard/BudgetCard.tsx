@@ -16,6 +16,7 @@ import {
   InfoTooltip,
   InfoTooltipTrigger,
 } from 'components/organisms/tooltip/InfoTooltip'
+import { motion } from 'framer-motion'
 export const BudgetCard = ({
   id,
   Icon,
@@ -53,7 +54,7 @@ export const BudgetCard = ({
   const maticCoinsCount = Math.ceil(maticCost / maticCoinValue)
 
   return (
-    <div
+    <motion.div
       className={`${style.card} ${selected ? style.selected : ''}`}
       onClick={() => {
         selectBudget()
@@ -144,6 +145,6 @@ export const BudgetCard = ({
           <Trans i18nKey={`cards.${description}`} ns="welcome.step" />
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

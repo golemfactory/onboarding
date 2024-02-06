@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './step.template.module.css'
 import { StepRenderDetailsType } from 'types/ui'
-import { Bullet, Button, Trans } from 'components/atoms'
+import { Bullet, Button } from 'components/atoms'
 import {
   InfoTooltip,
   InfoTooltipTrigger,
@@ -10,6 +10,9 @@ import {
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { RightDot } from 'components/atoms/ornaments/rightDot'
+import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
+import { useNetwork } from 'wagmi'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
@@ -23,23 +26,36 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
   stepRenderDetails: StepRenderDetailsType
 ) {
   const {
-    layout: LayoutComponent,
     main: MainComponent,
+    layout: LayoutComponent,
     ornament: OrnamentComponent,
     placement,
     name,
     showNextButton,
-    title: TitleComponent = () => {
-      return <Trans i18nKey="title" ns={`${name}.step`} />
-    },
-    subtitle: SubtitleComponent = () => {
-      return <Trans i18nKey="subtitle" ns={`${name}.step`} />
-    },
   } = stepRenderDetails
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
-  const namespace = `${name}.step`
+  const [namespace, setNamespace] = useState(`${name}.step`)
+  const { chain } = useNetwork()
+  const [textVisible, setTextVisible] = useState(true)
+  const [componentPlacement, setComponentPlacement] = useState('')
+  useEffect(() => {
+    setComponentPlacement('')
+    setTimeout(() => {
+      setComponentPlacement(placement)
+    }, 1000)
+  }, [placement])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  useEffect(() => {
+    setTextVisible(!textVisible)
+    setTimeout(() => {
+      setTextVisible(textVisible)
+      setNamespace(`${name}.step`)
+      // setMainComponent(stepRenderDetails.main)
+    }, 1000)
+  }, [name])
 
   window.gtns = () => {
     send(Commands.NEXT)
@@ -49,12 +65,40 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
     <div className={style.container}>
       <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />
       <div className={style.textContainer}>
-        <div className=" col-span-10 mt-24 justify-between grid grid-cols-10">
-          <div className={`${style.title} col-span-4`}>
-            <TitleComponent />
-          </div>
+        <div className=" col-span-10 mt-12 justify-between grid grid-cols-10">
+          <motion.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className={`${style.title} col-span-4`}
+          >
+            <AnimatedText
+              i18nKey="title"
+              ns={namespace}
+              visibility={textVisible ? 'visible' : 'hidden'}
+              values={{ chain: chain?.name }}
+            />
+          </motion.div>
           <div className="col-span-3 col-start-7 relative">
-            {OrnamentComponent ? <OrnamentComponent /> : ''}
+            <AnimatePresence>
+              {OrnamentComponent && componentPlacement !== '' ? (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                  transition={{
+                    duration: 2,
+                  }}
+                >
+                  <OrnamentComponent />
+                </motion.div>
+              ) : (
+                ''
+              )}
+            </AnimatePresence>
           </div>
         </div>
         <div className="col-span-2"></div>
@@ -65,11 +109,30 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
           <div className="col-span-11 flex flex-col gap-4">
             <div className="flex flex-wrap justify-between">
               <div className={style.subtitle}>
-                <SubtitleComponent />
+                <AnimatedText
+                  i18nKey="subtitle"
+                  ns={namespace}
+                  visibility={textVisible ? 'visible' : 'hidden'}
+                />{' '}
               </div>
-              <div className={style.tooltipTriggerContainer}>
+              <motion.div
+                variants={{
+                  visible: {
+                    opacity: 1,
+                  },
+                  hidden: {
+                    opacity: 0,
+                  },
+                }}
+                transition={{
+                  duration: 1,
+                }}
+                initial="hidden"
+                animate={textVisible ? 'visible' : 'hidden'}
+                className={style.tooltipTriggerContainer}
+              >
                 <InfoTooltipTrigger id={name} appearance="primary" />
-              </div>
+              </motion.div>
               <div className="ml-auto">
                 <InfoTooltip id={name} appearance="primary" />
               </div>
@@ -77,40 +140,48 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
 
             <div className={style.description}>
               <div className="col-span-10">
-                <Trans i18nKey="description" ns={namespace} />
+                <AnimatedText
+                  i18nKey="description"
+                  ns={namespace}
+                  visibility={textVisible ? 'visible' : 'hidden'}
+                />{' '}
               </div>
             </div>
-            {placement === 'inside' ? (
-              <LayoutComponent>
-                <MainComponent
-                  setIsCompleted={setIsReadyForNextStep}
-                  isNextCalled={isNextCalled}
-                  goToNextStep={() => {
-                    send(Commands.NEXT)
-                  }}
-                />
-              </LayoutComponent>
-            ) : (
-              ''
-            )}
+            <AnimatePresence>
+              {componentPlacement === 'inside' ? (
+                <LayoutComponent>
+                  <MainComponent
+                    setIsCompleted={setIsReadyForNextStep}
+                    isNextCalled={isNextCalled}
+                    goToNextStep={() => {
+                      send(Commands.NEXT)
+                    }}
+                  />
+                </LayoutComponent>
+              ) : (
+                ''
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
-      {placement === 'outside' ? (
-        <LayoutComponent>
-          <MainComponent
-            setIsCompleted={setIsReadyForNextStep}
-            isNextCalled={isNextCalled}
-            goToNextStep={() => {
-              send(Commands.NEXT)
-            }}
-          />
-        </LayoutComponent>
-      ) : (
-        ''
-      )}
+      <AnimatePresence>
+        {componentPlacement === 'outside' ? (
+          <LayoutComponent>
+            <MainComponent
+              setIsCompleted={setIsReadyForNextStep}
+              isNextCalled={isNextCalled}
+              goToNextStep={() => {
+                send(Commands.NEXT)
+              }}
+            />
+          </LayoutComponent>
+        ) : (
+          ''
+        )}
+      </AnimatePresence>
 
-      <div className="col-span-12 flex justify-end mt-12">
+      <div className="col-span-12 flex justify-end mt-4">
         {showNextButton ? (
           <Button
             buttonStyle="solid"

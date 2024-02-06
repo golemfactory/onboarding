@@ -75,6 +75,7 @@ html {
     background-repeat: no-repeat;
     background-attachment: fixed; /* To keep the background fixed during scroll */
     min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
