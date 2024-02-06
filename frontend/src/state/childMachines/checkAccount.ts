@@ -1,26 +1,13 @@
-import { ethers } from 'ethers'
-import { OnboardingContextDataInterface } from 'types/dataContext'
+import { OnboardingContextData } from 'types/dataContext'
 import { BalanceCase, BalanceCaseType } from 'types/path'
 import { settings } from '../../settings'
 import { TokenCategory } from 'types/ethereum'
-import { getTokenByCategory } from 'utils/getTokenByNetwrok'
-
-const balanceToNumber = (balance: bigint | undefined) =>
-  Number(ethers.formatEther(balance || 0n))
-
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
+import { getTokenByCategory } from 'utils/getTokenByNetwork'
 
 export const checkAccountBalances = async (
-  context: OnboardingContextDataInterface
+  context: OnboardingContextData
 ): Promise<BalanceCaseType | undefined> => {
   //to make sure loader is not blinking
-
-  console.log('context', context)
-
-  delay(1000)
-
   if (context.balanceCase) {
     return context.balanceCase
   }
@@ -31,17 +18,21 @@ export const checkAccountBalances = async (
 
   const isBelowThresholdGLM =
     !context.blockchain.balance.GLM ||
-    balanceToNumber(context.blockchain.balance.GLM) <
-      settings.minimalBalance[
-        getTokenByCategory(context.blockchain.chainId, TokenCategory.GLM)
-      ]
+    context.blockchain.balance.GLM <
+      BigInt(
+        settings.minimalBalance[
+          getTokenByCategory(context.blockchain.chainId, TokenCategory.GLM)
+        ]
+      )
 
   const isBelowThresholdNative =
     !context.blockchain.balance.NATIVE ||
-    balanceToNumber(context.blockchain.balance.NATIVE) <
-      settings.minimalBalance[
-        getTokenByCategory(context.blockchain.chainId, TokenCategory.NATIVE)
-      ]
+    context.blockchain.balance.NATIVE <
+      BigInt(
+        settings.minimalBalance[
+          getTokenByCategory(context.blockchain.chainId, TokenCategory.NATIVE)
+        ]
+      )
 
   if (isBelowThresholdGLM && isBelowThresholdNative) {
     return BalanceCase.NO_GLM_NO_MATIC

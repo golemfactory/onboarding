@@ -6,19 +6,23 @@ import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { useBalance } from 'hooks/useBalance'
 import { formatEther } from 'viem'
 import { useNetwork } from 'hooks/useNetwork'
-import { getTokenByCategory } from 'utils/getTokenByNetwrok'
-import { TokenCategory } from 'types/ethereum'
+import { getTokenByCategory } from 'utils/getTokenByNetwork'
+import { NativeTokenType, TokenCategory } from 'types/ethereum'
+import { getNativeToken, getTokenName } from 'utils/getNativeToken'
 
 export const RecommendationCardPresentationalOnRamp = ({
   fiat,
   token,
 }: {
   fiat: number
-  token: number
+  token: {
+    value: number
+    symbol: NativeTokenType
+  }
 }) => {
   return (
     <div
-      className={`${style.card} text-white py-4 pl-6 mx-8 my-6 flex flex-col gap-1`}
+      className={`${style.card} text-white py-4 pl-6 mx-8 flex flex-col gap-1`}
     >
       <div className="text-body-normal ">
         <Trans i18nKey="exchangeRecommended" ns="layout" />
@@ -28,7 +32,9 @@ export const RecommendationCardPresentationalOnRamp = ({
           {fiat}
           <div className="text-h3 inline"> $</div>
         </div>
-        <div className="text-body-medium">≈ {token} Matic </div>
+        <div className="text-body-medium">
+          ≈ {token.value} {getTokenName(token.symbol)}
+        </div>
       </div>
     </div>
   )
@@ -37,12 +43,25 @@ export const RecommendationCardPresentationalOnRamp = ({
 export const RecommendationCardOnRamp = () => {
   const { data } = useOnboardingExchangeRates()
   const { state } = useOnboarding()
+  const { chain } = useNetwork()
+  if (!chain) {
+    throw new Error('No chain')
+  }
 
-  const fiat = Math.round(
-    settings.budgetOptions[state.context.budget] * settings.hourCost
+  const fiat = settings.budgetOptions[state.context.budget]
+  const precision = chain?.id === '0x1' ? 1000 : 2
+  const nativeToken = getNativeToken(chain.id)
+  const token =
+    Math.round(fiat * (data?.['Native'] || 0) * precision) / precision
+  return (
+    <RecommendationCardPresentationalOnRamp
+      fiat={fiat}
+      token={{
+        value: token,
+        symbol: nativeToken,
+      }}
+    />
   )
-  const token = Math.round((fiat / (data?.['Matic'] || 0)) * 2) / 2
-  return <RecommendationCardPresentationalOnRamp fiat={fiat} token={token} />
 }
 
 export const RecommendationCardPresentationalSwap = ({
@@ -81,7 +100,7 @@ export const RecommendationCardSwap = () => {
     Number(formatEther(balance.NATIVE)) * settings.feesPercentage
   )
 
-  const expectedValue = Math.round((nativeToSwap * rates.GLM) / rates.Matic)
+  const expectedValue = Math.round((nativeToSwap * rates.GLM) / rates.Native)
   // const { state } = useOnboarding()
 
   // const fiat = Math.round(

@@ -32,8 +32,6 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
     placement,
     name,
     showNextButton,
-    title,
-    subtitle,
   } = stepRenderDetails
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
   const [isNextCalled, setIsNextCalled] = useState(false)
@@ -49,6 +47,10 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
       setNamespace(`${name}.step`)
     }, 1000)
   }, [name])
+
+  window.gtns = () => {
+    send(Commands.NEXT)
+  }
 
   return (
     <div className={style.container}>

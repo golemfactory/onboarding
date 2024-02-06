@@ -8,6 +8,7 @@ export const OnboardingPage = () => {
   const LayoutTemplate = theme.getLayoutTemplate()
   const { state } = useOnboarding()
   const StepComponent = getStepDetails(state.value as StepType)
+
   return (
     <>
       <LayoutTemplate>{StepComponent}</LayoutTemplate>

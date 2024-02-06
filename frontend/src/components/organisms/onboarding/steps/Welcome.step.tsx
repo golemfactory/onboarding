@@ -33,7 +33,7 @@ TooltipProvider.registerTooltip({
   },
 })
 
-const RecommendationCards = [
+const BudgetCards = [
   {
     id: BudgetOption.PLAY_AROUND,
     Icon: EyeIcon,
@@ -63,7 +63,7 @@ const WelcomePresentational = ({
     <>
       <div className="grid xl:grid-cols-12 grid-cols-6 col-span-12 gap-3 ">
         {/* cards */}
-        {RecommendationCards.map((card) => {
+        {BudgetCards.map((card) => {
           return {
             ...card,
             selectBudget: () => {

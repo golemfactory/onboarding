@@ -8,6 +8,7 @@ import { useNetwork } from './useNetwork'
 import { useContractRead } from 'wagmi'
 import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
 import { useEffect, useState } from 'react'
+import { fromHex } from 'viem'
 
 export const useExchangeRate = ({
   tokenIn,
@@ -33,23 +34,23 @@ export const useExchangeRate = ({
 export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
   const { chain } = useNetwork()
   const [usdcToGLM, setUsdcToGLM] = useState(0)
-  const [usdcToMatic, setUsdcToMatic] = useState(0)
+  const [usdcToNative, setUsdcToNative] = useState(0)
   chainId = chainId || chain?.id
   if (!chainId) throw new Error('Chain is not defined')
   const contracts = getContracts(chainId)
 
-  const { data: usdcToMaticWei, isLoading: glmToUsdcLoading } = useContractRead(
-    {
+  const { data: usdcToNativeWei, isLoading: glmToUsdcLoading } =
+    useContractRead({
       address: contracts.uniswapV2.address,
       abi: uniswapV2Abi,
       functionName: 'getAmountsOut',
       args: [
+        //as usdc has 6 decimals
         Math.pow(10, 6),
         [contracts.USDC.address, contracts.wrappedNativeToken.address],
       ],
-      chainId: 137,
-    }
-  )
+      chainId: fromHex(chainId, 'number'),
+    })
 
   const { data: maticToGLMWei, isLoading: usdcToGlmLoading } = useContractRead({
     address: contracts.uniswapV2.address,
@@ -59,29 +60,31 @@ export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
       Math.pow(10, 18),
       [contracts.wrappedNativeToken.address, contracts.GLM.address],
     ],
-    chainId: 137,
+    chainId: fromHex(chainId, 'number'),
   })
 
   useEffect(() => {
     //@ts-ignore
-    if (usdcToMaticWei?.[1] > 0 && maticToGLMWei?.[1] > 1) {
-      setUsdcToMatic(
+    if (usdcToNativeWei?.[1] > 0 && maticToGLMWei?.[1] > 1) {
+      console.log('usdcToNativeWei', usdcToNativeWei)
+      setUsdcToNative(
         //@ts-ignore
-        Number(usdcToMaticWei[1] / BigInt(Math.pow(10, 15))) / 1000
+        Number(usdcToNativeWei[1] / BigInt(Math.pow(10, 11))) / 10000000
       )
       //@ts-ignore
       setUsdcToGLM(
         Number(
           //@ts-ignore
-          ((usdcToMaticWei[1] / BigInt(Math.pow(10, 15))) * maticToGLMWei[1]) /
+          ((usdcToNativeWei[1] / BigInt(Math.pow(10, 15))) * maticToGLMWei[1]) /
             BigInt(Math.pow(10, 15))
         ) / 1000000
       )
     }
-  }, [usdcToMaticWei, maticToGLMWei])
+    //@ts-ignore
+  }, [usdcToNativeWei?.[1], maticToGLMWei?.[1]])
 
   return {
-    data: { GLM: usdcToGLM, Matic: usdcToMatic },
+    data: { GLM: usdcToGLM, Native: usdcToNative },
     isLoading: glmToUsdcLoading || usdcToGlmLoading,
   }
 }

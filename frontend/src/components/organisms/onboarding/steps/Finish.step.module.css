@@ -44,12 +44,16 @@
   padding: 16px 32px;
   align-items: center;
   gap: 24px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
 
 .communityButton:hover{
   box-shadow: -8px -3px 20px 0px rgba(24, 30, 169, 0.3) inset;
+}
+
+.communityButton:active{
+  box-shadow: -8px -3px 40px 0px rgba(24, 30, 169, 0.4) inset;
 }
 
 .buttonWrapper {

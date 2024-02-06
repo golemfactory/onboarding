@@ -36,13 +36,14 @@ export const BudgetCard = ({
   const glmCoinValue = 30
   const maticCoinValue = 4
   const { data: rates } = useOnboardingExchangeRates(Network.POLYGON)
+
   const usageTime = Math.round(
     (usageCostInUSD * (1 - settings.feesPercentage) * rates.GLM * 1) /
       settings.hourCost
   )
 
   const maticCost = roundToHalf(
-    usageCostInUSD * settings.feesPercentage * (rates?.['Matic'] || 0)
+    usageCostInUSD * settings.feesPercentage * (rates?.['Native'] || 0)
   )
   const glmCost = Math.round(
     usageCostInUSD * (1 - settings.feesPercentage) * (rates?.['GLM'] || 0)
