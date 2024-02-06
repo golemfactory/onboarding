@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './step.template.module.css'
 import { StepRenderDetailsType } from 'types/ui'
@@ -10,6 +10,9 @@ import {
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { RightDot } from 'components/atoms/ornaments/rightDot'
+import { motion } from 'framer-motion'
+import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
+import { set } from 'lodash'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
@@ -29,25 +32,41 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
     placement,
     name,
     showNextButton,
-    title: TitleComponent = () => {
-      return <Trans i18nKey="title" ns={`${name}.step`} />
-    },
-    subtitle: SubtitleComponent = () => {
-      return <Trans i18nKey="subtitle" ns={`${name}.step`} />
-    },
+    title,
+    subtitle,
   } = stepRenderDetails
   const [isReadyForNextStep, setIsReadyForNextStep] = useState(true)
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
-  const namespace = `${name}.step`
+  const [namespace, setNamespace] = useState(`${name}.step`)
+
+  const [textVisible, setTextVisible] = useState(true)
+
+  useEffect(() => {
+    setTextVisible(!textVisible)
+    setTimeout(() => {
+      setTextVisible(textVisible)
+      setNamespace(`${name}.step`)
+    }, 1000)
+  }, [name])
+
   return (
     <div className={style.container}>
       <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />
       <div className={style.textContainer}>
         <div className=" col-span-10 mt-24 justify-between grid grid-cols-10">
-          <div className={`${style.title} col-span-4`}>
-            <TitleComponent />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className={`${style.title} col-span-4`}
+          >
+            <AnimatedText
+              i18nKey="title"
+              ns={namespace}
+              visibility={textVisible ? 'visible' : 'hidden'}
+            />
+          </motion.div>
           <div className="col-span-3 col-start-7 relative">
             {OrnamentComponent ? <OrnamentComponent /> : ''}
           </div>
@@ -60,11 +79,30 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
           <div className="col-span-11 flex flex-col gap-4">
             <div className="flex flex-wrap justify-between">
               <div className={style.subtitle}>
-                <SubtitleComponent />
+                <AnimatedText
+                  i18nKey="subtitle"
+                  ns={namespace}
+                  visibility={textVisible ? 'visible' : 'hidden'}
+                />{' '}
               </div>
-              <div className={style.tooltipTriggerContainer}>
+              <motion.div
+                variants={{
+                  visible: {
+                    opacity: 1,
+                  },
+                  hidden: {
+                    opacity: 0,
+                  },
+                }}
+                transition={{
+                  duration: 1,
+                }}
+                initial="hidden"
+                animate={textVisible ? 'visible' : 'hidden'}
+                className={style.tooltipTriggerContainer}
+              >
                 <InfoTooltipTrigger id={name} appearance="primary" />
-              </div>
+              </motion.div>
               <div className="ml-auto">
                 <InfoTooltip id={name} appearance="primary" />
               </div>
@@ -72,7 +110,11 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
 
             <div className={style.description}>
               <div className="col-span-10">
-                <Trans i18nKey="description" ns={namespace} />
+                <AnimatedText
+                  i18nKey="description"
+                  ns={namespace}
+                  visibility={textVisible ? 'visible' : 'hidden'}
+                />{' '}
               </div>
             </div>
             {placement === 'inside' ? (

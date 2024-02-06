@@ -50,11 +50,14 @@ const RecommendationCards = [
 const WelcomePresentational = ({
   setIsCompleted,
   shouldCheckLegal,
+  goToNextStep,
 }: {
   setIsCompleted: (isCompleted: boolean) => void
   shouldCheckLegal: boolean
+  goToNextStep: () => void
 }) => {
   const { state, send } = useOnboarding()
+  window.gtns = goToNextStep
 
   return (
     <>
@@ -88,14 +91,17 @@ const WelcomePresentational = ({
 }
 
 export const Welcome = ({
+  goToNextStep,
   setIsCompleted,
   isNextCalled,
 }: {
+  goToNextStep: () => void
   setIsCompleted: (isCompleted: boolean) => void
   isNextCalled: boolean
 }) => {
   return (
     <WelcomePresentational
+      goToNextStep={goToNextStep}
       setIsCompleted={setIsCompleted}
       shouldCheckLegal={isNextCalled}
     />

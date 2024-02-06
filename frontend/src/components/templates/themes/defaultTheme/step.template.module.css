@@ -56,4 +56,5 @@
 .tooltipTriggerContainer {
   font-size: 48px;
   margin-left:auto;
+  transition: all;
 }

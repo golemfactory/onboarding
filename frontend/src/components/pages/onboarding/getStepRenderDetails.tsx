@@ -17,6 +17,7 @@ import { TokensOrnament } from 'components/atoms/ornaments/tokens'
 import { WalletIconGreen } from 'components/atoms/ornaments/walletIconGreen'
 import { StepWithProgress } from 'components/templates/themes/defaultTheme/StepWithProgress'
 import { StepTemplate } from 'components/templates/themes/defaultTheme/Step.template'
+import { motion } from 'framer-motion'
 
 const componentByStep: Record<
   StepType,
@@ -41,7 +42,20 @@ const componentByStep: Record<
   [Step.CONNECT_WALLET]: {
     component: ConnectWallet,
     placement: 'inside',
-    ornament: TokensOrnament,
+    ornament: () => {
+      return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            delay: 1,
+            duration: 2,
+          }}
+        >
+          <TokensOrnament />
+        </motion.div>
+      )
+    },
   },
   [Step.CHOOSE_NETWORK]: {
     component: ChooseNetwork,

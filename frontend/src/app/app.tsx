@@ -16,6 +16,8 @@ import {
 import { OnboardingPage } from 'components/pages'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { useRouteControl } from 'hooks/useRouteControl'
+import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
+import { Playground } from 'components/pages/playground/Playground'
 
 const Onboarding = () => {
   const location = useLocation()
@@ -48,6 +50,7 @@ const Onboarding = () => {
             </AnimatedPage>
           }
         ></Route>
+        <Route path="/playground" element={<Playground />} />
       </Routes>
     </AnimatePresence>
   )
