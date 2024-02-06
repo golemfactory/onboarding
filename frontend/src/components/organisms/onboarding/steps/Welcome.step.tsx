@@ -12,6 +12,7 @@ import { Commands } from 'state/commands'
 import { Trans } from 'components/atoms'
 import welcomeStepStyle from './Welcome.step.module.css'
 import { Legal } from 'components/molecules/legal/Legal'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const style = {
   ...welcomeStepStyle,
@@ -61,7 +62,17 @@ const WelcomePresentational = ({
 
   return (
     <>
-      <div className="grid xl:grid-cols-12 grid-cols-6 col-span-12 gap-3 ">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="grid xl:grid-cols-12 grid-cols-6 col-span-12 gap-3 "
+      >
         {/* cards */}
         {BudgetCards.map((card) => {
           return {
@@ -78,10 +89,20 @@ const WelcomePresentational = ({
           }}
           selected={state.context.budget === BudgetOption.CUSTOM}
         />
-      </div>
-      <div className={`${style.disclaimer} mb-16`}>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className={`${style.disclaimer} `}
+      >
         <Trans i18nKey="disclaimer" ns="welcome.step" />
-      </div>
+      </motion.div>
       <Legal
         setIsCompleted={setIsCompleted}
         shouldCheckLegal={shouldCheckLegal}

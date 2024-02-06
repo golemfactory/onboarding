@@ -38,7 +38,7 @@
 }
 
 .textContainer {
-  @apply col-span-12 grid grid-cols-12 mb-12;
+  @apply col-span-12 grid grid-cols-12 mb-4;
   flex-direction: column;
   align-items: flex-start;
   gap: 48px;

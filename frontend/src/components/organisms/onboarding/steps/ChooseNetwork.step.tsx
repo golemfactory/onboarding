@@ -11,6 +11,7 @@ import { Button, Trans } from 'components/atoms'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { hexToNumber } from 'viem/utils'
+import { motion } from 'framer-motion'
 
 TooltipProvider.registerTooltip({
   id: 'chooseNetwork',
@@ -30,7 +31,22 @@ const ChooseNetworkPresentational = ({
   selectedNetwork: NetworkType
 }) => {
   return (
-    <div className="flex flex-col">
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: 1,
+          duration: 1,
+        },
+      }}
+      exit={{
+        opacity: 0,
+      }}
+      className="flex flex-col"
+    >
       <RadioGroup<NetworkType>
         onSelect={({ itemId }) => {
           onNetworkSelection(itemId)
@@ -82,7 +98,7 @@ const ChooseNetworkPresentational = ({
           <Trans i18nKey="confirmNetwork" ns="chooseNetwork.step" />
         </Button>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

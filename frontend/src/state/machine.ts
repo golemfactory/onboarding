@@ -233,6 +233,7 @@ export const createStateMachine = ({
       },
 
       [Step.ON_RAMP]: {
+        entry: move(OnboardingStage.MATIC),
         on: {
           //IMPORTANT : TODO : should to check account balances
           [Commands.NEXT]: {

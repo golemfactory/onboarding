@@ -50,6 +50,14 @@ const Onboarding = () => {
             </AnimatedPage>
           }
         ></Route>
+        <Route
+          path={'/finish'}
+          element={
+            <AnimatedPage>
+              <OnboardingPage />
+            </AnimatedPage>
+          }
+        ></Route>
         <Route path="/playground" element={<Playground />} />
       </Routes>
     </AnimatePresence>

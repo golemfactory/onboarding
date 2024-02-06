@@ -43,7 +43,9 @@ export const useOnboarding = () => {
 //TODO : it doesnt need to be a hook
 
 export const useOnboardingSnapshot = () => {
-  const budgetItem = JSON.parse(localStorage.getItem('onboarding-budget') || '')
+  const budgetItem = JSON.parse(
+    localStorage.getItem('onboarding-budget') || '""'
+  )
   console.log('budgetItem', budgetItem)
   if (budgetItem) {
     assertBudgetType(budgetItem)

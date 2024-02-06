@@ -45,7 +45,17 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
   }
 
   return (
-    <div className="col-span-12 grid grid-cols-12 gap-4 rounded-xl bg-white backdrop-filter backdrop-blur-md transition-all">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+      className="col-span-12 grid grid-cols-12 gap-4 rounded-xl bg-white backdrop-filter backdrop-blur-md transition-all"
+    >
       <ProgressBar />
       <div
         className={`col-span-9 grid ${
@@ -158,6 +168,6 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -1,6 +1,7 @@
 import { Checkbox } from 'components/atoms/checkbox'
 import { FC, useEffect, useState } from 'react'
 import { Trans } from 'components/atoms'
+import { motion } from 'framer-motion'
 
 export const Legal: FC<{
   setIsCompleted: (isCompleted: boolean) => void
@@ -36,7 +37,17 @@ export const Legal: FC<{
   ])
 
   return (
-    <div className="col-span-12 flex flex-col gap-3 text-darkblue-700">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+      className="col-span-12 flex flex-col gap-3 text-darkblue-700"
+    >
       <Checkbox
         label={() => (
           <div className="text-body-extra-large">
@@ -73,6 +84,6 @@ export const Legal: FC<{
       ) : (
         ''
       )}
-    </div>
+    </motion.div>
   )
 }
