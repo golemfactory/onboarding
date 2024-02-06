@@ -21,7 +21,11 @@ import { useSetup } from 'components/providers'
 TooltipProvider.registerTooltip({
   id: 'transfer',
   tooltip: {
-    sections: [],
+    sections: [
+      'explainHowYagnaWorks',
+      'explainHowToGetYagna',
+      'explainHowToTransfer',
+    ],
     appearance: 'primary',
   },
 })

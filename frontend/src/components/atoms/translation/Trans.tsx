@@ -31,7 +31,9 @@ export const Trans = ({
         ...components,
         //@ts-ignore
         span: <span onClick={rest?.values?.onClick}></span>,
-        a: <a></a>,
+        a: <a className="font-medium underline"></a>,
+        ul: <ul className="list-disc list-inside"></ul>,
+        li: <li className="mb-2"></li>,
         b: <b></b>,
         red: <div className="inline text-dangerred-200" />,
         breakLine: <br />,
@@ -61,13 +63,7 @@ export const Trans = ({
         walletConnectIcon: (
           <img src="walletconnect.png" className="inline w-6" />
         ),
-        yagnaTooltip: (
-          <InfoTooltipTrigger
-            id="yagna"
-            appearance="secondary"
-            className="inline"
-          />
-        ),
+        yagnaTooltip: <InfoTooltipTrigger id="yagna" appearance="secondary" />,
       }}
     />
   )

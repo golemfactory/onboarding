@@ -37,7 +37,7 @@ export const InfoTooltipTrigger = ({
 
   return (
     <div
-      className="cursor-pointer transition-all inline"
+      className="cursor-pointer transition-all inline-block align-middle"
       onClick={() => {
         appearance === 'primary' ? tooltip.toggle?.() : ''
       }}
@@ -52,7 +52,7 @@ export const InfoTooltipTrigger = ({
         {
           primary: <InfoIcon className="h-line-1"></InfoIcon>,
           secondary: (
-            <InformationCircleIcon className="h-line-1.5 inline text-primary -mt-1"></InformationCircleIcon>
+            <InformationCircleIcon className="h-6 text-primary -mt-1"></InformationCircleIcon>
           ),
         }[appearance]}
     </div>

@@ -65,7 +65,6 @@ const componentByStep: Record<
   [Step.ON_RAMP]: {
     component: OnRamp,
     placement: 'outside',
-    title: OnRampTitleComponent,
     layout: StepWithProgress,
   },
   [Step.SWAP]: {

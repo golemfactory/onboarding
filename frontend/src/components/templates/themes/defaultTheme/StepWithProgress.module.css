@@ -2,3 +2,67 @@
   box-shadow: -3px -8px 33px 0px rgba(24, 30, 169, 0.04) inset;
     transition: width 3s ease-in-out;
 }
+
+.greyOut{
+
+}
+
+.transparent{
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0.3;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+  }
+  90% {
+    opacity: 0;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+  }
+
+  /* to make sure it doesnt cover  */
+  100% {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.transparent::before{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  background-color: #000;
+  opacity: 0;
+  z-index: 1;
+  border-radius: 10px;
+  animation: fadeOut 0.7s ease-out; 
+  animation-fill-mode: forwards;
+}
+
+.greyOut::before{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  background-color: #000;
+  opacity: 0.3;
+  z-index: 1;
+  border-radius: 10px;
+    animation: fadeIn 0.7s ease-out; 
+}

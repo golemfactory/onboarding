@@ -80,7 +80,13 @@
   "transfer.description" : [
     "Internal Yagna wallet allows requestors to pay for services within the Golem ecosystem and enables providers to receive payments.",
     "While transferring funds to Yagna might seem like an additional step compared to using external wallets like MetaMask, this process guarantees that <b>all transactions are automatic, efficient, and fully compatible with the Golem network's ecosystem</b>"
-  ]
-  
+  ],
+
+  "transfer.explainHowYagnaWorks.title" : "How Yagna wallet works?",
+  "transfer.explainHowYagnaWorks.content" : "Technically Yagna wallet works exactly the same as any other wallet. It holds private keys, sign transactions and check balances. <emptyLine/> The major difference is that Yagna wallet is integrated into Yagna Client, which enables it to automatically send and recive payments for services offered on Golem Network.",
+  "transfer.explainHowToGetYagna.title" : "How can I access Yagna wallet?",
+  "transfer.explainHowToGetYagna.content" : "Yagna wallet is accessible via Yagna CLI (Command Line Interface). You will find all information on Golem docs page: <a href='https://docs.golem.network/' target='_blank' > https://docs.golem.network/ </a>",
+  "transfer.explainHowToTransfer.title" : "Can I transfer found from Yagna back to my external wallet?",
+  "transfer.explainHowToTransfer.content" : "The best option to control funds stored in Yagna Wallet in the external wallet is by transferring it. It can be done in the following way: <breakLine/> <ul> <li> First export your Yagna wallet into JSON file as described here: <a href='https://docs.golem.network/docs/providers/wallet/backup' target='_blank'> https://docs.golem.network/docs/providers/wallet/backup </a> </li><li> Import Yagna wallet into your external one. In case of Metamask you can follow the instructions provided here: <a href='https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account' target='_blank'> https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account </a> </li></ul>"  
 }
 

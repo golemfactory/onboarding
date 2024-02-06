@@ -13,13 +13,14 @@ import {
   PropsWithChildren,
   cloneElement,
   isValidElement,
+  useEffect,
   useState,
 } from 'react'
 import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
 import { AnimatePresence, motion } from 'framer-motion'
+
 const ProgressBar = () => {
   const { state } = useOnboarding()
-  console.log('state', state)
   return (
     <ProgressBarPresentational
       stage={state.context.stage}
@@ -28,14 +29,25 @@ const ProgressBar = () => {
   )
 }
 
-export const StepWithProgress = ({ children }: PropsWithChildren) => {
+export const StepWithProgress = ({
+  children,
+  isTooltipVisible,
+}: PropsWithChildren<{ isTooltipVisible: boolean }>) => {
   const walletProvider = useWallet()
   const { address } = useAccount()
   const { yagnaAddress } = useSetup()
   const { state } = useOnboarding()
   const isTransferStep = state.value === 'transfer'
 
-  const [showYagna, setShowYagna] = useState<boolean>(true)
+  const [showYagna] = useState<boolean>(true)
+
+  const [shouldFadeOut, setShouldFadeOut] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (isTooltipVisible && !shouldFadeOut) {
+      setShouldFadeOut(true)
+    }
+  }, [isTooltipVisible])
 
   const [childrenPlacement, setChildrenPlacement] = useState<
     'inside' | 'outside'
@@ -55,7 +67,13 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
       transition={{
         duration: 1,
       }}
-      className="col-span-12 grid grid-cols-12 gap-4 rounded-xl bg-white backdrop-filter backdrop-blur-md transition-all"
+      className={`${
+        isTooltipVisible
+          ? style.greyOut
+          : shouldFadeOut
+          ? style.transparent
+          : ''
+      } col-span-12 grid grid-cols-12 gap-4 rounded-xl bg-white backdrop-filter backdrop-blur-md transition-all`}
     >
       <ProgressBar />
       <div

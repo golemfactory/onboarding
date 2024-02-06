@@ -13,6 +13,7 @@ import { RightDot } from 'components/atoms/ornaments/rightDot'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
 import { useNetwork } from 'wagmi'
+import { useTooltip } from 'components/providers/Tooltip.provider'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
 
 const style = {
@@ -56,6 +57,8 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
       // setMainComponent(stepRenderDetails.main)
     }, 1000)
   }, [name])
+  console.log('render step template')
+  const tooltip = useTooltip(name)
 
   return (
     <div className={style.container}>
@@ -152,7 +155,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
             </div>
             <AnimatePresence>
               {componentPlacement === 'inside' ? (
-                <LayoutComponent>
+                <LayoutComponent isTooltipVisible={tooltip.visible}>
                   <MainComponent
                     setIsCompleted={setIsReadyForNextStep}
                     isNextCalled={isNextCalled}
@@ -170,7 +173,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
       </div>
       <AnimatePresence>
         {componentPlacement === 'outside' ? (
-          <LayoutComponent>
+          <LayoutComponent isTooltipVisible={tooltip.visible}>
             <MainComponent
               setIsCompleted={setIsReadyForNextStep}
               isNextCalled={isNextCalled}

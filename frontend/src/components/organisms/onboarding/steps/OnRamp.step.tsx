@@ -19,9 +19,10 @@ import { settings } from 'settings'
 import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
 import { Commands } from 'state/commands'
 import { formatEther } from 'utils/formatEther'
-import { getNativeToken, getTokenName } from 'utils/getNativeToken'
 
 import { Chain } from 'types/wagmi'
+
+//@ts-ignore
 
 // const log = debug('onboarding:steps:onramp')
 
@@ -156,6 +157,8 @@ export const OnRamp = ({
   setPlacement: (x: 'inside' | 'outside') => void
   placement: 'inside' | 'outside'
 }) => {
+  //@ts-ignore
+  window.gtns = goToNextStep
   const { address } = useAccount()
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const { chain } = useNetwork()

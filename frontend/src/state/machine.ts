@@ -164,7 +164,7 @@ export const createStateMachine = ({
         entry: [move(OnboardingStage.WALLET)],
         on: {
           [Commands.NEXT]: {
-            target: Step.ADD_GLM,
+            target: Step.ON_RAMP,
             actions: move(OnboardingStage.MATIC),
           },
         },

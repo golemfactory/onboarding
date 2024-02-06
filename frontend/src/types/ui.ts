@@ -15,7 +15,7 @@ export type StepRenderDetailsType = {
   placement: 'inside' | 'outside'
   showNextButton?: boolean
   checkCompleted?: () => boolean
-  layout: ComponentType<PropsWithChildren>
+  layout: ComponentType<PropsWithChildren<unknown>>
 }
 
 export type MainLayoutPropsType = PropsWithChildren<{

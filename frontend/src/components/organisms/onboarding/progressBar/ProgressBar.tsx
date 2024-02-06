@@ -10,7 +10,6 @@ export const ProgressBar = ({
   stage: OnboardingStageType
   showYagnaStep?: boolean
 }) => {
-  console.log('stage', stage)
   return (
     <div className="col-span-3 border-r-1.5 border-lightblue-border pb-12 pt-10 pr-6 flex flex-col gap-6">
       <MaticStage stage={stage} />
