@@ -18,6 +18,8 @@ import { RightDot } from 'components/atoms/ornaments/rightDot'
 import { Card, CardDataType } from 'components/molecules/useCaseCard/Card'
 import { CodeBracketIcon } from '@heroicons/react/24/outline'
 import { ArrowsExpandIcon, TerminalIcon } from 'components/atoms/icons'
+import { useOnboardingSnapshot } from 'hooks/useOnboarding'
+import { settings } from 'settings'
 
 const useCases: CardDataType[] = [
   {
@@ -110,7 +112,9 @@ const FinishPresentationalYagna = ({
 }
 
 const BudgetCardSummary = () => {
-  const time = 24
+  const { boughtGLM } = useOnboardingSnapshot()
+
+  const time = Math.round(boughtGLM / settings.hourCost)
   return (
     <div className={`${style.budgetCard}`}>
       <div className="text-body-normal text-left">

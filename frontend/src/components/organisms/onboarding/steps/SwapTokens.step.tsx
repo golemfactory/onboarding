@@ -39,6 +39,7 @@ const SwapTokensPresentational = ({
   amountIn,
   isError,
   isWaitingForConfirmation,
+  isWaitingForTransaction,
 }: {
   handleSwapButtonClick: () => void
   amountOut: bigint
@@ -48,6 +49,7 @@ const SwapTokensPresentational = ({
   amountIn: number
   isError: boolean
   isWaitingForConfirmation: boolean
+  isWaitingForTransaction: boolean
 }) => {
   // const [isLoading, setIsLoading] = useState(false)
 
@@ -63,9 +65,11 @@ const SwapTokensPresentational = ({
       )}
 
       {showContent && (
-        <div className="flex flex-col gap-6 pb-8 pt-8">
-          {isWaitingForConfirmation ? (
-            <AwaitTransaction />
+        <div className="flex flex-col gap-6 pb-8">
+          {isWaitingForConfirmation || isWaitingForTransaction ? (
+            <AwaitTransaction
+              mode={isWaitingForConfirmation ? 'confirmation' : 'transaction'}
+            />
           ) : (
             <>
               <RecommendationCardSwap />
@@ -81,7 +85,6 @@ const SwapTokensPresentational = ({
                       isError={isError}
                       onChange={(e) => {
                         const value = parseFloat(e.currentTarget.value)
-                        console.log('value', value)
                         setAmount(value || 0)
                       }}
                     />
@@ -170,6 +173,7 @@ export const SwapTokens = ({
     swap,
     isSuccess: isSwapSuccess,
     isError: isSwapError,
+    isLoading: isSwapLoading,
   } = useSwapEthForGlm({
     value: parseUnits(debouncedAmount.toString(), 18),
   })
@@ -177,6 +181,7 @@ export const SwapTokens = ({
   useEffect(() => {
     if (isSwapSuccess) {
       log('swap success')
+      console.log('amountOut', amountOut)
       send({
         type: Commands.BUY_GLM,
         payload: Number(
@@ -196,6 +201,10 @@ export const SwapTokens = ({
     setIsWaitingForConfirmation(true)
   }
 
+  useEffect(() => {
+    console.log('isSwapLoading', isSwapLoading)
+    setIsWaitingForConfirmation(false)
+  }, [isSwapLoading])
   return (
     <SwapTokensPresentational
       handleSwapButtonClick={handleSwapButtonClick}
@@ -206,6 +215,7 @@ export const SwapTokens = ({
       amountIn={amount}
       isError={isSwapError}
       isWaitingForConfirmation={isWaitingForConfirmation}
+      isWaitingForTransaction={isSwapLoading}
     />
   )
 }

@@ -1,9 +1,9 @@
 {
-  "title" : "Great, now you have you MATICs, so it’s time to swap them to GLM ",
-  "subtitle" : "Provide the amount of MATIC tokens that you want to swap to GLM tokens ",
+  "title" : "Great, now you have you {{token}}s, so it’s time to swap them to GLM ",
+  "subtitle" : "Provide the amount of {{token}} tokens that you want to swap to GLM tokens ",
   "description" : "", 
   "startButtonText" : "Let's start", 
-  "startButtonLabel" : "Matic to GLM swap", 
-  "swapAmount" : "Select how many MATIC tokens you want to convert to GLM",
-  "swapButtonText" : "Convert MATIC"  
+  "startButtonLabel" : "{{token}} to GLM swap", 
+  "swapAmount" : "Select how many {{token}} tokens you want to convert to GLM",
+  "swapButtonText" : "Convert {{token}} to GLM"  
 }

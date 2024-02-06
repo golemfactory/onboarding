@@ -6,10 +6,12 @@
   "exchangeRecommended" : "We recommend you to exchange",
   "confirmBlockchainTransaction" : "Confirm the transaction in your digital wallet <walletIcon />",
   "swapRecommended" : "We recommend you to convert",
-  "swapRecommendedDescription" : "Our recommendation includes keeping a small reserve <breakLine /> of MATIC tokens to handle any upcoming transaction costs",
+  "swapRecommendedDescription" : "Our recommendation includes keeping a small reserve <breakLine /> of {{token}} tokens to handle any upcoming transaction costs",
   "transferRecommended" : "We recommend you to transfer",
   "GLMDescription" : "enough for your computations needs",
   "NativeDescription" : "enough to cover transaction costs", 
-  "awaitingTransaction" : "Confirm the transaction in your digital wallet <walletIcon />",
-    "noYagna" : "To begin fully using Golem services, the last step is to transfer your funds from external wallet to the Yagna - Golem's Client with wallet functionality. Don't worry you'll always have the option to do it later." 
+  "awaitingConfirmation" : "Confirm the transaction in your digital wallet <walletIcon />",
+    "awaitingTransaction" : "Waiting for transaction <walletIcon />",
+
+    "noYagna" : "To begin fully using Golem services, the last step is to transfer your funds from external wallet to the Yagna - Golem's Client with wallet functionality. Don't worry you'll always have the option to do it later. <yagnaTooltip/>" 
 }

@@ -19,6 +19,7 @@ import { WalletsConnector } from 'components/atoms/ornaments/walletsConnector'
 import { AnimatePresence, motion } from 'framer-motion'
 const ProgressBar = () => {
   const { state } = useOnboarding()
+  console.log('state', state)
   return (
     <ProgressBarPresentational
       stage={state.context.stage}
@@ -78,44 +79,6 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
               address={address}
             />
           </div>
-
-          <AnimatePresence>
-            {childrenPlacement === 'inside' && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  height: { duration: 0.3, ease: 'easeInOut' },
-                  opacity: { duration: 0.3, ease: 'easeInOut' },
-                }}
-                style={{
-                  overflow: 'hidden',
-                }}
-              >
-                {Children.map(children, (child) => {
-                  if (isValidElement(child)) {
-                    return (
-                      <>
-                        {cloneElement(child, {
-                          //@ts-ignore
-                          setPlacement: setChildrenPlacement,
-                          //@ts-ignore
-                          placement: childrenPlacement,
-                          hideYagnaWalletCard: () => {
-                            //only without yagna context
-                            // setShowYagna(false)
-                          },
-                        })}
-                      </>
-                    )
-                  }
-                })}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {childrenPlacement === 'inside' ? <hr></hr> : ''}
         </div>
         {isTransferStep && (
           <div className="col-span-1 flex flex-col pt-40">
@@ -162,6 +125,45 @@ export const StepWithProgress = ({ children }: PropsWithChildren) => {
                       // setShowYagna(false)
                     },
                   })
+                }
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {childrenPlacement === 'inside' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                height: { duration: 0.3, ease: 'easeInOut' },
+                opacity: { duration: 0.3, ease: 'easeInOut' },
+              }}
+              style={{
+                overflow: 'hidden',
+              }}
+              className={`${style.card} ${
+                showYagna ? 'col-span-5' : 'col-span-10 '
+              } mb-10 mr-4 border-1 flex flex-col border-lightblue-100 duration-1000 rounded-xl pt-8 transition-all`}
+            >
+              {Children.map(children, (child) => {
+                if (isValidElement(child)) {
+                  return (
+                    <>
+                      {cloneElement(child, {
+                        //@ts-ignore
+                        setPlacement: setChildrenPlacement,
+                        //@ts-ignore
+                        placement: childrenPlacement,
+                        hideYagnaWalletCard: () => {
+                          //only without yagna context
+                          // setShowYagna(false)
+                        },
+                      })}
+                    </>
+                  )
                 }
               })}
             </motion.div>

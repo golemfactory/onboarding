@@ -117,6 +117,7 @@ export const ChooseNetwork = () => {
       return
     }
     await switchNetworkAsync?.(hexToNumber(selectedNetwork))
+    send(Commands.NEXT)
   }, [selectedNetwork, chain?.id])
 
   useEffect(() => {

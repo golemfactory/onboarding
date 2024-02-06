@@ -57,10 +57,6 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
     }, 1000)
   }, [name])
 
-  window.gtns = () => {
-    send(Commands.NEXT)
-  }
-
   return (
     <div className={style.container}>
       <RightDot top={name === 'chooseNetwork' ? '650px' : '750px'} />
@@ -76,7 +72,10 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
               i18nKey="title"
               ns={namespace}
               visibility={textVisible ? 'visible' : 'hidden'}
-              values={{ chain: chain?.name }}
+              values={{
+                chain: chain?.name,
+                token: chain?.nativeCurrency.symbol,
+              }}
             />
           </motion.div>
           <div className="col-span-3 col-start-7 relative">
@@ -113,6 +112,10 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
                   i18nKey="subtitle"
                   ns={namespace}
                   visibility={textVisible ? 'visible' : 'hidden'}
+                  values={{
+                    chain: chain?.name,
+                    token: chain?.nativeCurrency.symbol,
+                  }}
                 />{' '}
               </div>
               <motion.div

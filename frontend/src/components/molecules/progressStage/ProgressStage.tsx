@@ -2,6 +2,7 @@ import { Trans } from 'components/atoms'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 import { LeftDotsOrnament } from 'components/atoms/ornaments/leftDots'
 import { motion } from 'framer-motion'
+import { useNetwork } from 'hooks/useNetwork'
 
 const defaultAnimationProps = {
   initial: { opacity: 0 },
@@ -21,6 +22,8 @@ export const ProgressStage = ({
   index: number
 }) => {
   const isFuture = !isCompleted && !isCurrent
+  const { chain } = useNetwork()
+
   return (
     <motion.div
       animate={isCompleted ? 'completed' : isCurrent ? 'current' : 'future'}
@@ -81,10 +84,24 @@ export const ProgressStage = ({
 
       <div className="col-span-4 flex flex-col gap-3">
         <div className="text-h4">
-          <Trans i18nKey={`${stage}.title`} ns="progress" />
+          <Trans
+            i18nKey={`${stage}.title`}
+            ns="progress"
+            values={{
+              chain: chain?.name,
+              token: chain?.nativeCurrency.symbol,
+            }}
+          />
         </div>
         <div className="text-body-normal font-normal">
-          <Trans i18nKey={`${stage}.description`} ns="progress" />
+          <Trans
+            i18nKey={`${stage}.description`}
+            ns="progress"
+            values={{
+              chain: chain?.name,
+              token: chain?.nativeCurrency.symbol,
+            }}
+          />
         </div>
       </div>
     </motion.div>

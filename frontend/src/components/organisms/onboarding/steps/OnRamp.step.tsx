@@ -5,7 +5,7 @@ import {
   RampInstantSDK,
   RampInstantEventTypes,
 } from '@ramp-network/ramp-instant-sdk'
-import { debug } from 'debug'
+// import { debug } from 'debug'
 import { useAccount } from 'hooks/useAccount'
 import { useNetwork } from 'hooks/useNetwork'
 import { extractBaseURL } from 'utils/extractBaseURL'
@@ -17,8 +17,13 @@ import { BudgetOption } from 'types/dataContext'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { settings } from 'settings'
 import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
+import { Commands } from 'state/commands'
+import { formatEther } from 'utils/formatEther'
+import { getNativeToken, getTokenName } from 'utils/getNativeToken'
 
-const log = debug('onboarding:steps:onramp')
+import { Chain } from 'types/wagmi'
+
+// const log = debug('onboarding:steps:onramp')
 
 TooltipProvider.registerTooltip({
   id: 'onRamp',
@@ -56,9 +61,11 @@ export const OnRampTitleComponent = (visibility: 'hidden' | 'visible') => {
 const StartOnRampButton = ({
   onClick,
   showRamp,
+  chain,
 }: {
   showRamp: boolean
   onClick: (show: boolean) => void
+  chain: Chain
 }) => {
   return (
     <AnimatePresence>
@@ -75,7 +82,14 @@ const StartOnRampButton = ({
         className="w-full flex flex-col col-span-2 gap-4"
       >
         <div className="flex w-full justify-center text-h4 text-primary">
-          <Trans i18nKey="getMatic" ns="onRamp.step" />
+          <Trans
+            i18nKey="getMatic"
+            ns="onRamp.step"
+            values={{
+              chain: chain.name,
+              token: chain.nativeCurrency.symbol,
+            }}
+          />
         </div>
         <div className="flex w-full justify-center">
           <Button
@@ -97,10 +111,12 @@ const OnRampPresentational = ({
   showRamp,
   showRecommendation,
   onClick,
+  chain,
 }: {
   showRamp: boolean
   showRecommendation: boolean
   onClick: (show: boolean) => void
+  chain: Chain
 }) => {
   return (
     <>
@@ -122,7 +138,11 @@ const OnRampPresentational = ({
           </div>
         </div>
       ) : (
-        <StartOnRampButton onClick={onClick} showRamp={showRamp} />
+        <StartOnRampButton
+          chain={chain}
+          onClick={onClick}
+          showRamp={showRamp}
+        />
       )}
     </>
   )
@@ -142,13 +162,13 @@ export const OnRamp = ({
   const [showRamp, setShowRamp] = useState(placement === 'inside')
   const balance = useBalance()
   const initialBalance = useRef(balance.NATIVE)
-  const { state } = useOnboarding()
+  const { state, send } = useOnboarding()
 
   const showRecommendation = state.context.budget !== BudgetOption.CUSTOM
   const recommendedAmount = settings.budgetOptions[state.context.budget]
 
   const [transactionState, setTransactionState] = useState(
-    TransactionState.READY
+    TransactionState.PENDING
   )
   //TODO use Option/Maybe for handling all those missing values
 
@@ -162,7 +182,17 @@ export const OnRamp = ({
       transactionState === TransactionState.PENDING &&
       balance.NATIVE > initialBalance.current
     ) {
-      log('going to next step')
+      const transferredAmount = balance.NATIVE - initialBalance.current
+      send({
+        type: Commands.BUY_NATIVE,
+        //this is safe here no one buy that much MATIC
+        payload: Number(
+          formatEther({
+            wei: transferredAmount,
+            precision: 4,
+          })
+        ),
+      })
       goToNextStep()
     }
   }, [balance, chain?.id])
@@ -213,6 +243,7 @@ export const OnRamp = ({
         setShowRamp(true)
         // hideYagnaWalletCard()
       }}
+      chain={chain}
     />
   )
 }

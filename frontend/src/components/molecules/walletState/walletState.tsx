@@ -2,6 +2,7 @@ import { WalletProvider, WalletProviderType } from 'hooks/useWallet'
 import { EthereumAddress } from 'types/ethereum'
 import { match } from 'ts-pattern'
 import {
+  EthereumIcon,
   GolemCoinIcon,
   MetamaskIcon,
   TrustWalletIcon,
@@ -12,6 +13,12 @@ import style from './walletState.module.css'
 import { useBalance } from 'hooks/useBalance'
 import { formatBalance } from 'utils/formatBalance'
 import { MaticCoinSolidIcon } from 'components/atoms/icons/matic.icon'
+import { useNetwork } from 'hooks/useNetwork'
+import {
+  InfoTooltip,
+  InfoTooltipTrigger,
+} from 'components/organisms/tooltip/InfoTooltip'
+import { TooltipProvider } from 'components/providers/Tooltip.provider'
 
 export const AccountCategory = {
   BROWSER_WALLET: 'browserWallet',
@@ -20,6 +27,14 @@ export const AccountCategory = {
 
 export type AccountCategoryType =
   (typeof AccountCategory)[keyof typeof AccountCategory]
+
+TooltipProvider.registerTooltip({
+  id: 'yagna',
+  tooltip: {
+    sections: ['explain'],
+    appearance: 'secondary',
+  },
+})
 
 export const WalletState = ({
   category,
@@ -32,6 +47,14 @@ export const WalletState = ({
 }) => {
   const balance = useBalance(address)
   const isNoYagnaCase = category === AccountCategory.YAGNA && !address
+  const { chain } = useNetwork()
+  if (!chain) {
+    throw new Error('No chain')
+  }
+
+  const isMatic = chain.id === '0x89'
+  const isMainnet = chain.id === '0x1'
+
   return (
     <div className={`flex pl-8 flex-col items-start gap-8`}>
       <div
@@ -76,8 +99,9 @@ export const WalletState = ({
       </div>
 
       {isNoYagnaCase ? (
-        <div className="flex flex-col gap-3 text-body-normal pr-10 pb-2 font-normal">
+        <div className="text-body-normal pr-10 pb-2 font-normal">
           <Trans i18nKey="noYagna" ns="layout" />
+          <InfoTooltip id="yagna" appearance="secondary" />
         </div>
       ) : (
         <div className="flex flex-col gap-3 text-body-normal pb-8">
@@ -98,7 +122,13 @@ export const WalletState = ({
             <div
               className={`flex gap-1 items-center ${style.tokenIconContainer}`}
             >
-              <MaticCoinSolidIcon className="h-6 inline" /> MATIC
+              {isMatic ? (
+                <MaticCoinSolidIcon className="h-6 inline" />
+              ) : (
+                <EthereumIcon className="h-6 inline" />
+              )}
+
+              {isMainnet ? 'ETH' : 'MATIC'}
             </div>
             <div className="text-h7">{formatBalance(balance.NATIVE)}</div>
           </div>

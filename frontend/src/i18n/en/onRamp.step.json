@@ -1,7 +1,7 @@
 {
   "title" : "Great! Your selected network is {{chain}}",
-  "subtitle" : "To buy GLM, you need to get some MATIC tokens first. MATIC is needed to pay for the transaction cost on Polygon network.",
+  "subtitle" : "To buy GLM, you need to get some {{token}} tokens first. {{token}} is needed to pay for the transaction cost on {{chain}} network.",
   "description" : "",
-  "getMatic" : "Get MATIC tokens",
+  "getMatic" : "Get {{token}} tokens",
   "start" : "Let's start"
 }

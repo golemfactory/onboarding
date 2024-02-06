@@ -12,7 +12,7 @@ import { Commands } from 'state/commands'
 import { Trans } from 'components/atoms'
 import welcomeStepStyle from './Welcome.step.module.css'
 import { Legal } from 'components/molecules/legal/Legal'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const style = {
   ...welcomeStepStyle,
@@ -51,14 +51,11 @@ const BudgetCards = [
 const WelcomePresentational = ({
   setIsCompleted,
   shouldCheckLegal,
-  goToNextStep,
 }: {
   setIsCompleted: (isCompleted: boolean) => void
   shouldCheckLegal: boolean
-  goToNextStep: () => void
 }) => {
   const { state, send } = useOnboarding()
-  window.gtns = goToNextStep
 
   return (
     <>
@@ -112,17 +109,14 @@ const WelcomePresentational = ({
 }
 
 export const Welcome = ({
-  goToNextStep,
   setIsCompleted,
   isNextCalled,
 }: {
-  goToNextStep: () => void
   setIsCompleted: (isCompleted: boolean) => void
   isNextCalled: boolean
 }) => {
   return (
     <WelcomePresentational
-      goToNextStep={goToNextStep}
       setIsCompleted={setIsCompleted}
       shouldCheckLegal={isNextCalled}
     />

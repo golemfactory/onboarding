@@ -11,14 +11,22 @@ import {
 } from '../icons'
 import { UniswapIcon } from '../icons/uniswap.icon'
 import { WalletIcon } from 'components/molecules/walletIcon/WalletIcon'
+import { useNetwork } from 'hooks/useNetwork'
+import { InfoTooltipTrigger } from 'components/organisms/tooltip/InfoTooltip'
 
 export const Trans = ({
   components,
   ...rest
 }: ComponentProps<typeof TransComponent>) => {
+  const { chain } = useNetwork()
   return (
     <TransComponent
       {...rest}
+      values={{
+        chain: chain?.name,
+        token: chain?.nativeCurrency?.symbol,
+        ...rest?.values,
+      }}
       components={{
         ...components,
         //@ts-ignore
@@ -52,6 +60,13 @@ export const Trans = ({
         walletIcon: <WalletIcon className="w-6 inline" />,
         walletConnectIcon: (
           <img src="walletconnect.png" className="inline w-6" />
+        ),
+        yagnaTooltip: (
+          <InfoTooltipTrigger
+            id="yagna"
+            appearance="secondary"
+            className="inline"
+          />
         ),
       }}
     />

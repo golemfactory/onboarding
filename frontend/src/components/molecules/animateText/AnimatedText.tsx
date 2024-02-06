@@ -5,7 +5,6 @@ import {
   MutableRefObject,
   PropsWithChildren,
   useEffect,
-  useLayoutEffect,
   useRef,
 } from 'react'
 import { motion, useAnimation } from 'framer-motion'
@@ -42,14 +41,7 @@ const itemVariants = {
   }),
 }
 
-const Word = function Word({
-  children,
-  originIndex,
-  originOffset,
-}: PropsWithChildren<{
-  originIndex: number
-  originOffset: MutableRefObject<{ top: number; left: number; count: number }>
-}>) {
+const Word = function Word({ children }: PropsWithChildren) {
   const delayRef = useRef(Math.random() * 0.5)
   const ref = useRef<HTMLSpanElement>(null)
 
@@ -64,8 +56,14 @@ export const AnimatedText = (
     visibility: 'visible' | 'hidden'
   }
 ) => {
-  const originOffset = useRef({ top: 0, left: 0, count: 0 })
   const controls = useAnimation()
+
+  useEffect(() => {
+    controls.start('hidden')
+    setTimeout(() => {
+      controls.start('visible')
+    }, 1000)
+  }, [JSON.stringify(props.values)])
 
   useEffect(() => {
     if (props.visibility === 'visible') {
@@ -83,12 +81,7 @@ export const AnimatedText = (
           postProcess: ['wrapWords'],
         }}
         components={{
-          word: (
-            <Word
-              originOffset={originOffset}
-              originIndex={Math.round(Math.random() * 10)}
-            ></Word>
-          ),
+          word: <Word></Word>,
         }}
       />
     </motion.div>

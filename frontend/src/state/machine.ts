@@ -163,7 +163,10 @@ export const createStateMachine = ({
       [Step.CHOOSE_NETWORK]: {
         entry: [move(OnboardingStage.WALLET)],
         on: {
-          [Commands.NEXT]: Step.ON_RAMP,
+          [Commands.NEXT]: {
+            target: Step.ADD_GLM,
+            actions: move(OnboardingStage.MATIC),
+          },
         },
       },
 
@@ -233,7 +236,6 @@ export const createStateMachine = ({
       },
 
       [Step.ON_RAMP]: {
-        entry: move(OnboardingStage.MATIC),
         on: {
           //IMPORTANT : TODO : should to check account balances
           [Commands.NEXT]: {

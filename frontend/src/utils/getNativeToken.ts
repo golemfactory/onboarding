@@ -13,8 +13,8 @@ export const getNativeToken = (chainId: NetworkType): NativeTokenType => {
 
 export const getTokenName = (token: NativeTokenType) => {
   return {
-    [Token.MATIC_POLYGON]: 'Matic',
-    [Token.MATIC_MUMBAI]: 'Matic',
-    [Token.ETH_MAINNET]: 'Eth',
+    [Token.MATIC_POLYGON]: 'MATIC',
+    [Token.MATIC_MUMBAI]: 'MATIC',
+    [Token.ETH_MAINNET]: 'ETH',
   }[token]
 }
