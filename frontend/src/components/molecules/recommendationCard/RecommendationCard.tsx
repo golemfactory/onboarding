@@ -6,7 +6,7 @@ import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { useBalance } from 'hooks/useBalance'
 import { formatEther } from 'viem'
 import { useNetwork } from 'hooks/useNetwork'
-import { getTokenByCategory } from 'utils/getTokenByNetwrok'
+import { getTokenByCategory } from 'utils/getTokenByNetwork'
 import { NativeTokenType, TokenCategory } from 'types/ethereum'
 import { getNativeToken, getTokenName } from 'utils/getNativeToken'
 

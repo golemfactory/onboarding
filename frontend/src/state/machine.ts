@@ -92,14 +92,14 @@ export const createStateMachine = ({
     on: {
       [Commands.BUY_NATIVE]: {
         actions: assign({
-          boughtNative: (context, event) => {
+          boughtNative: (_context, event) => {
             return event.payload
           },
         }),
       },
       [Commands.BUY_GLM]: {
         actions: assign({
-          boughtGLM: (context, event) => {
+          boughtGLM: (_context, event) => {
             return event.payload
           },
         }),
@@ -163,7 +163,7 @@ export const createStateMachine = ({
       [Step.CHOOSE_NETWORK]: {
         entry: [move(OnboardingStage.WALLET)],
         on: {
-          [Commands.NEXT]: Step.CHECK_ACCOUNT_BALANCES,
+          [Commands.NEXT]: Step.ON_RAMP,
         },
       },
 
@@ -172,6 +172,11 @@ export const createStateMachine = ({
           [Commands.NEXT]: Step.SWAP,
         },
       },
+
+      //NOTE: for now as we redesigned onboarding
+      //we do not need to check balances and always go through all steps
+      //but we keep this code for future use when we will have more complex
+      //process including gasless swap and more
 
       [Step.CHECK_ACCOUNT_BALANCES]: {
         invoke: {
