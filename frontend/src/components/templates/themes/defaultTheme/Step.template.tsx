@@ -62,7 +62,6 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
     send(Commands.NEXT)
   }, [])
 
-  console.log('render step template')
   const tooltip = useTooltip(name)
 
   return (

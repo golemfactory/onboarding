@@ -131,11 +131,6 @@ export const StepWithProgress = ({
                     setPlacement: setChildrenPlacement,
                     //@ts-ignore
                     placement: childrenPlacement,
-                    hideYagnaWalletCard: () => {
-                      console.log('hide yagna')
-                      //only without yagna context
-                      // setShowYagna(false)
-                    },
                   })
                 }
               })}

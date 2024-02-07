@@ -4,7 +4,7 @@ import { createMachine, interpret } from 'xstate'
 import { Commands } from './commands'
 
 export const categoryMachine = createMachine<
-  any,
+  unknown,
   { type: Commands.NEXT } | { type: Commands.PREVIOUS }
 >({
   context: {},

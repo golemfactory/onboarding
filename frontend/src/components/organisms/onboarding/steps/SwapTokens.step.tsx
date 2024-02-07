@@ -181,7 +181,6 @@ export const SwapTokens = ({
   useEffect(() => {
     if (isSwapSuccess) {
       log('swap success')
-      console.log('amountOut', amountOut)
       send({
         type: Commands.BUY_GLM,
         payload: Number(
@@ -196,13 +195,11 @@ export const SwapTokens = ({
   }, [isSwapSuccess, goToNextStep])
 
   const handleSwapButtonClick = async () => {
-    // setIsLoading(true)
     await swap?.()
     setIsWaitingForConfirmation(true)
   }
 
   useEffect(() => {
-    console.log('isSwapLoading', isSwapLoading)
     setIsWaitingForConfirmation(false)
   }, [isSwapLoading])
   return (
