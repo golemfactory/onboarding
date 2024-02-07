@@ -70,36 +70,18 @@ input:focus {
 }
 
 html {
+
+}
+
+body {
+    min-height: 100vh; 
+    margin: 0;
+    padding: 0;
     background-image: url('bgeffects.svg');
-    background-size: cover; /* or contain depending on your needs */
+    background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* To keep the background fixed during scroll */
+    background-attachment: fixed; 
     min-height: 100%;
     overflow-x: hidden;
 }
 
-body {
-    min-height: 100vh; /* Ensures at least full viewport height */
-    margin: 0;
-    padding: 0; /* Remove default margin and padding */
-}
-
-body::before,
-body::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    background: inherit;
-    z-index: -1; /* Place pseudo-elements behind the content */
-}
-
-body::before {
-    top: -10vh; /* Extend upwards */
-    height: 10vh;
-}
-
-body::after {
-    bottom: -10vh; /* Extend downwards */
-    height: 10vh;
-}

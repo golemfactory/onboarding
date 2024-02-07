@@ -87,7 +87,7 @@ export const ProgressStage = ({
           <div
             className={`${
               isCurrent && 'text-primary'
-            } text-body-normal  mt-[60px] text-center rotate-270`}
+            } text-body-normal  mt-[64px] text-center rotate-270`}
           >
             {label}
           </div>

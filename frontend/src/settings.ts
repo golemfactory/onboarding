@@ -28,4 +28,5 @@ export const settings = {
     [BudgetOption.AMBITIOUS]: 50,
     [BudgetOption.CUSTOM]: Infinity,
   },
+  rampFee: 2.7,
 }

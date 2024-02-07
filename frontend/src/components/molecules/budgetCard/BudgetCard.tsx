@@ -33,7 +33,9 @@ export const BudgetCard = ({
   const description = `${id}.description`
 
   //settings
-  const usageCostInUSD = settings.budgetOptions[id]
+  const totalBudget = settings.budgetOptions[id]
+  const usageCostInUSD = settings.budgetOptions[id] - settings.rampFee
+
   const glmCoinValue = 30
   const maticCoinValue = 4
   const { data: rates } = useOnboardingExchangeRates(Network.POLYGON)
@@ -87,7 +89,7 @@ export const BudgetCard = ({
       <div className={style.bottom}>
         <div className={style.cost}>
           <div className="text-h3 text-primary font-kanit">
-            <Trans i18nKey="for" ns="welcome.step" /> {`${usageCostInUSD}$`}
+            <Trans i18nKey="for" ns="welcome.step" /> {`${totalBudget}$`}
           </div>
 
           <div className="flex gap-2 ">

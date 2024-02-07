@@ -5,8 +5,7 @@ import { useOnboarding, useOnboardingSnapshot } from 'hooks/useOnboarding'
 import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { useBalance } from 'hooks/useBalance'
 import { useNetwork } from 'hooks/useNetwork'
-import { getTokenByCategory } from 'utils/getTokenByNetwork'
-import { NativeTokenType, TokenCategory } from 'types/ethereum'
+import { NativeTokenType } from 'types/ethereum'
 import { getNativeToken, getTokenName } from 'utils/getNativeToken'
 import { formatEther } from 'utils/formatEther'
 import { Chain } from 'types/wagmi'
@@ -45,20 +44,23 @@ export const RecommendationCardOnRamp = () => {
   const { data } = useOnboardingExchangeRates()
   const { state } = useOnboarding()
   const { chain } = useNetwork()
+
   if (!chain) {
     throw new Error('No chain')
   }
 
   const fiat = settings.budgetOptions[state.context.budget]
-  const precision = chain?.id === '0x1' ? 1000 : 2
+  const precision = chain?.id === '0x1' ? 1000 : 8
   const nativeToken = getNativeToken(chain.id)
-  const token =
-    Math.round(fiat * (data?.['Native'] || 0) * precision) / precision
+  const value =
+    Math.round(
+      (fiat - settings.rampFee) * (data?.['Native'] || 0) * precision
+    ) / precision
   return (
     <RecommendationCardPresentationalOnRamp
       fiat={fiat}
       token={{
-        value: token,
+        value: value,
         symbol: nativeToken,
       }}
     />
