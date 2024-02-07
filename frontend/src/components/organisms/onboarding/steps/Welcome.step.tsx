@@ -12,7 +12,7 @@ import { Commands } from 'state/commands'
 import { Trans } from 'components/atoms'
 import welcomeStepStyle from './Welcome.step.module.css'
 import { Legal } from 'components/molecules/legal/Legal'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const style = {
   ...welcomeStepStyle,
@@ -58,7 +58,7 @@ const WelcomePresentational = ({
   const { state, send } = useOnboarding()
 
   return (
-    <>
+    <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -104,7 +104,7 @@ const WelcomePresentational = ({
         setIsCompleted={setIsCompleted}
         shouldCheckLegal={shouldCheckLegal}
       />
-    </>
+    </AnimatePresence>
   )
 }
 

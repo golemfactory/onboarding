@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { useAccount } from 'hooks/useAccount'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
+import { motion } from 'framer-motion'
 
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
@@ -60,7 +61,23 @@ const ConnectWalletPresentational = ({
 }) => {
   return (
     //inlione style for text as we have mess in typography
-    <div className="text-neutrals-grey-300  font-light">
+
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: 1,
+          duration: 1,
+        },
+      }}
+      exit={{
+        opacity: 0,
+      }}
+      className="text-neutrals-grey-300  font-light"
+    >
       <Trans i18nKey="legal.walletConnect" ns="connect-wallet.step" />
       <Button
         buttonStyle="solid"
@@ -72,7 +89,7 @@ const ConnectWalletPresentational = ({
       >
         <Trans i18nKey="connectWallet" ns="connect-wallet.step" />
       </Button>
-    </div>
+    </motion.div>
   )
 }
 
