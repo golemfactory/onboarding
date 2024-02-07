@@ -1,8 +1,5 @@
-import { useRouteError } from 'react-router-dom'
-
-export const ErrorBoundary = () => {
-  const error = useRouteError()
-
+export const ErrorBoundary = (props: { error: Error }) => {
+  const error = props.error
   //@ts-ignore
   const errorText = error.message || error.data
 

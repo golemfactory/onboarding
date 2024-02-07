@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 
@@ -16,8 +16,10 @@ import {
 import { OnboardingPage } from 'components/pages'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { useRouteControl } from 'hooks/useRouteControl'
-import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
 import { Playground } from 'components/pages/playground/Playground'
+
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorBoundary as Fallback } from 'components/providers/ErrorBoundary'
 
 const Onboarding = () => {
   const location = useLocation()
@@ -66,17 +68,19 @@ const Onboarding = () => {
 
 const Router: FC = () => {
   return (
-    <SetupProvider>
-      <TooltipProvider>
-        <ThemeProvider>
-          <BlockchainProvider>
-            <OnboardingProvider>
-              <Onboarding />
-            </OnboardingProvider>
-          </BlockchainProvider>
-        </ThemeProvider>
-      </TooltipProvider>
-    </SetupProvider>
+    <ErrorBoundary FallbackComponent={Fallback}>
+      <SetupProvider>
+        <TooltipProvider>
+          <ThemeProvider>
+            <BlockchainProvider>
+              <OnboardingProvider>
+                <Onboarding />
+              </OnboardingProvider>
+            </BlockchainProvider>
+          </ThemeProvider>
+        </TooltipProvider>
+      </SetupProvider>
+    </ErrorBoundary>
   )
 }
 

@@ -12,13 +12,12 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
   const navigate = useNavigate()
 
   return (
-    <div>
-      <div
-        className="mb-24"
-        style={{
-          minHeight: 'calc(100vh - 140px)',
-        }}
-      >
+    <div
+      style={{
+        minHeight: '100vh',
+      }}
+    >
+      <div className="mb-24">
         <Grid className="mt-1 ">
           <div className="col-span-12 grid grid-cols-12">
             <div className="xl:col-span-2 col-span-4">
@@ -37,7 +36,7 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
           {children}
         </Grid>
       </div>
-      <div>
+      <div className="absolute bottom-0 w-screen">
         <Grid className="">
           <div className="col-span-12 grid grid-cols-12">
             <Footer></Footer>

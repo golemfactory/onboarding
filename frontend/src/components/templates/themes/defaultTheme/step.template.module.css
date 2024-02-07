@@ -47,6 +47,7 @@
 .container {
   @apply col-span-12 grid grid-cols-12 gap-8;
   flex-grow: 1;
+  min-width: 1240px;
 }
 
 .descriptionContainer {

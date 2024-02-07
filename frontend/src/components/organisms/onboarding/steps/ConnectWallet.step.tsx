@@ -11,7 +11,6 @@ import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { motion } from 'framer-motion'
 import { useHasFocus } from 'hooks/useHasFocus'
-import { set } from 'lodash'
 
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
