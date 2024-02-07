@@ -62,7 +62,7 @@
   height: calc(100% + 20px);
   background-color: #000;
   opacity: 0.3;
-  z-index: 1;
+  z-index: 10000;
   border-radius: 10px;
     animation: fadeIn 0.7s ease-out; 
 }

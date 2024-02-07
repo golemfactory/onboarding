@@ -25,6 +25,7 @@ export const useSendNativeToken = () => {
         to,
         value,
       })
+      setStatus(TxStatus.LOADING)
       log('Transaction hash: ', hash)
 
       if (!hash) {

@@ -21,6 +21,7 @@ import { Commands } from 'state/commands'
 import { formatEther } from 'utils/formatEther'
 
 import { Chain } from 'types/wagmi'
+import { AwaitTransaction } from 'components/molecules/awaitTransaction/AwaitTransaction'
 
 //@ts-ignore
 
@@ -79,7 +80,7 @@ const StartOnRampButton = ({
         initial="initial"
         animate={showRamp ? 'closed' : 'open'}
         exit="closed"
-        transition={{ duration: 4.2 }}
+        transition={{ duration: 1 }}
         className="w-full flex flex-col col-span-2 gap-4"
       >
         <div className="flex w-full justify-center text-h4 text-primary">
@@ -111,16 +112,19 @@ const StartOnRampButton = ({
 const OnRampPresentational = ({
   showRamp,
   showRecommendation,
+  showLoader,
   onClick,
   chain,
 }: {
   showRamp: boolean
   showRecommendation: boolean
+  showLoader: boolean
   onClick: (show: boolean) => void
   chain: Chain
 }) => {
   return (
     <>
+      {showLoader && <AwaitTransaction mode="transaction" />}
       {showRamp ? (
         <div className="flex flex-col">
           <div className="grid grid-cols-4">
@@ -169,6 +173,7 @@ export const OnRamp = ({
 
   const showRecommendation = state.context.budget !== BudgetOption.CUSTOM
   const recommendedAmount = settings.budgetOptions[state.context.budget]
+  const [showLoader, setShowLoader] = useState(false)
 
   const [transactionState, setTransactionState] = useState(
     TransactionState.PENDING
@@ -205,7 +210,7 @@ export const OnRamp = ({
       try {
         widgetRef.current = new RampInstantSDK({
           hostAppName: 'onboarding',
-          hostLogoUrl: `${extractBaseURL(window.location.href)}logo.svg`,
+          hostLogoUrl: `${extractBaseURL(window.location.href)}/logo.svg`,
           hostApiKey: import.meta.env.VITE_RAMP_KEY,
           url: import.meta.env.VITE_RAMP_API_URL,
           swapAsset: 'MATIC_MATIC',
@@ -228,6 +233,13 @@ export const OnRamp = ({
           widgetRef.current.on(RampInstantEventTypes.PURCHASE_CREATED, () => {
             setTransactionState(TransactionState.PENDING)
           })
+
+          widgetRef.current.on(RampInstantEventTypes.WIDGET_CLOSE, () => {
+            if (transactionState === TransactionState.PENDING) {
+              setShowLoader(true)
+              setShowRamp(false)
+            }
+          })
         }
       } catch (err) {
         console.error(err)
@@ -241,6 +253,7 @@ export const OnRamp = ({
     <OnRampPresentational
       showRamp={showRamp}
       showRecommendation={showRecommendation}
+      showLoader={showLoader}
       onClick={() => {
         // setPlacement('inside')
         setShowRamp(true)

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import globalStyle from 'styles/global.module.css'
 import templateStyle from './step.template.module.css'
 import { StepRenderDetailsType } from 'types/ui'
@@ -57,6 +57,11 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
       // setMainComponent(stepRenderDetails.main)
     }, 1000)
   }, [name])
+
+  const goToNextStep = useCallback(() => {
+    send(Commands.NEXT)
+  }, [])
+
   console.log('render step template')
   const tooltip = useTooltip(name)
 
@@ -159,9 +164,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
                   <MainComponent
                     setIsCompleted={setIsReadyForNextStep}
                     isNextCalled={isNextCalled}
-                    goToNextStep={() => {
-                      send(Commands.NEXT)
-                    }}
+                    goToNextStep={goToNextStep}
                   />
                 </LayoutComponent>
               ) : (
@@ -177,9 +180,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
             <MainComponent
               setIsCompleted={setIsReadyForNextStep}
               isNextCalled={isNextCalled}
-              goToNextStep={() => {
-                send(Commands.NEXT)
-              }}
+              goToNextStep={goToNextStep}
             />
           </LayoutComponent>
         ) : (

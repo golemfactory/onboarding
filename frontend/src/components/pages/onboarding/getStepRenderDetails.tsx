@@ -9,7 +9,6 @@ import {
   Finish,
   AddGLM,
   Transfer,
-  OnRampTitleComponent,
 } from 'components/organisms/onboarding'
 
 import { ComponentType, PropsWithChildren } from 'react'

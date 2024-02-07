@@ -104,7 +104,6 @@ export type IContracts = {
   GLM: {
     address: EthereumAddress
   }
-  //I intentionally do not use ETH to describe native token to avoid confusion
   wrappedNativeToken: {
     address: EthereumAddress
   }
@@ -115,8 +114,14 @@ export type IContracts = {
 }
 
 export enum TxStatus {
+  // Transaction is ready to be sent
   READY = 'READY',
+  // Waiting for user signature
   PENDING = 'PENDING',
+  // Waiting for transaction to be included in block
+  LOADING = 'LOADING',
+  // Transaction included in block
   SUCCESS = 'SUCCESS',
+  // Transaction failed
   ERROR = 'ERROR',
 }

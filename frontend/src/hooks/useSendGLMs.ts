@@ -20,34 +20,37 @@ export const useSendGLMs = () => {
       functionName: 'transfer',
     })
 
-  log('GLM Transaction hash: ', data?.hash)
-  if (data?.hash) {
-    publicClient
-      ?.waitForTransactionReceipt({
-        hash: data?.hash,
-      })
-      .then(() => {
-        log('GLM Transaction included in block')
-        setStatus(TxStatus.SUCCESS)
-      })
-      .catch(() => {
-        log('GLM Transaction not included in block')
-        setStatus(TxStatus.SUCCESS)
-      })
-  }
+  useEffect(() => {
+    if (data?.hash) {
+      publicClient
+        ?.waitForTransactionReceipt({
+          hash: data?.hash,
+        })
+        .then(() => {
+          log('GLM Transaction included in block')
+          setStatus(TxStatus.SUCCESS)
+        })
+        .catch(() => {
+          log('GLM Transaction not included in block')
+          setStatus(TxStatus.SUCCESS)
+        })
+    }
+  }, [data?.hash])
 
   useEffect(() => {
     if (isError) {
+      console.log('error', isError, data)
       setStatus(TxStatus.ERROR)
     }
     if (isLoading) {
-      setStatus(TxStatus.PENDING)
+      setStatus(TxStatus.LOADING)
     }
   }, [isSuccess, isError, isIdle, isLoading])
 
   return {
     status,
     send: async ({ to, value }: { to: string; value: bigint }) => {
+      setStatus(TxStatus.PENDING)
       await writeAsync({
         args: [to, value],
       })

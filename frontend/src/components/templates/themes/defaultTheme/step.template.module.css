@@ -51,6 +51,7 @@
 
 .descriptionContainer {
   @apply col-span-12 grid grid-cols-12 gap-8;
+  transition: height 3s ease-in-out;
 }
 
 .tooltipTriggerContainer {

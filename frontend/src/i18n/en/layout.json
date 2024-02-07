@@ -12,6 +12,6 @@
   "NativeDescription" : "enough to cover transaction costs", 
   "awaitingConfirmation" : "Confirm the transaction in your digital wallet <walletIcon />",
     "awaitingTransaction" : "Waiting for transaction <walletIcon />",
-
+    "transactionError" : "Something went wrong, check your wallet and try again",
     "noYagna" : "To begin fully using Golem services, the last step is to transfer your funds from external wallet to the Yagna - Golem's Client with wallet functionality. Don't worry you'll always have the option to do it later. <yagnaTooltip/>" 
 }

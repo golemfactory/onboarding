@@ -9,7 +9,7 @@ export const AwaitTransaction = ({
   return (
     <div className="flex flex-col items-center">
       <LoadingSpinner />
-      <div className="text-h4 text-primary px-20 mt-4">
+      <div className="text-h4 text-primary px-10 py-4 mt-4">
         {mode === 'confirmation' && (
           <Trans i18nKey="awaitingConfirmation" ns="layout" />
         )}

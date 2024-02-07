@@ -24,15 +24,17 @@ export const useSupplyYagnaWallet = () => {
     [TokenCategory.GLM]: number
     [TokenCategory.NATIVE]: number
   }) => {
-    await sendGolem({
-      to: yagnaAddress,
-      value: BigInt(parseEther(amount[TokenCategory.GLM].toString())),
-    })
+    try {
+      await sendGolem({
+        to: yagnaAddress,
+        value: BigInt(parseEther(amount[TokenCategory.GLM].toString())),
+      })
 
-    await sendNative({
-      to: yagnaAddress,
-      value: BigInt(parseEther(amount[TokenCategory.NATIVE].toString())),
-    })
+      await sendNative({
+        to: yagnaAddress,
+        value: BigInt(parseEther(amount[TokenCategory.NATIVE].toString())),
+      })
+    } catch (e) {}
   }
 
   return {

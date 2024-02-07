@@ -17,6 +17,8 @@ import { EthereumIcon, GolemCoinIcon } from 'components/atoms/icons'
 import { MaticCoinSolidIcon } from 'components/atoms/icons/matic.icon'
 import { formatEther } from 'viem'
 import { useSetup } from 'components/providers'
+import { AwaitTransaction } from 'components/molecules/awaitTransaction/AwaitTransaction'
+import { TransactionError } from 'components/molecules/transactionError/TransactionError'
 
 TooltipProvider.registerTooltip({
   id: 'transfer',
@@ -41,7 +43,7 @@ const NoYagnaPresentational = ({
   goToNextStep: () => void
 }) => {
   return (
-    <div className="col-span-11 flex flex-col items-center">
+    <div className="col-span-11 flex flex-col items-center mb-4">
       <div className="text-h4 text-primary">
         <Trans i18nKey="yagnaTransferTitle" ns="transfer.step" />
       </div>
@@ -81,6 +83,7 @@ const TransferPresentational = ({
   nativeToken,
   send,
   error,
+  status,
 }: {
   nativeToken: string
   amount: Amount
@@ -89,6 +92,7 @@ const TransferPresentational = ({
   placement: 'inside' | 'outside'
   setPlacement: (placement: 'inside' | 'outside') => void
   send: () => void
+  status: 'ready' | 'waitingForSignature' | 'waitingForTransaction' | 'error'
   error: {
     [TokenCategory.GLM]: string
     [TokenCategory.NATIVE]: string
@@ -105,7 +109,7 @@ const TransferPresentational = ({
         />
       )}
 
-      {showContent && (
+      {showContent && (status === 'ready' || status === 'error') && (
         <div className="flex flex-col gap-6 pb-8">
           <RecommendationCardTransfer />
           <div className="text-h4 text-primary pl-8 pr-8 mb-8">
@@ -160,7 +164,14 @@ const TransferPresentational = ({
               </div>
             </div>
           </div>
+          {status === 'error' && <TransactionError />}
         </div>
+      )}
+      {status === 'waitingForSignature' && (
+        <AwaitTransaction mode="confirmation" />
+      )}
+      {status === 'waitingForTransaction' && (
+        <AwaitTransaction mode="transaction" />
       )}
     </div>
   )
@@ -178,20 +189,31 @@ export const Transfer = ({
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
   const { yagnaAddress } = useSetup()
-  const [isLoading, setIsLoading] = useState(false)
+  const [status, setStatus] = useState<
+    'ready' | 'waitingForSignature' | 'waitingForTransaction' | 'error'
+  >('ready')
   const { chain } = useNetwork()
 
   const [showContent, setShowContent] = useState(false)
+
   if (!chain?.id) {
     throw new Error('Chain not found')
   }
+
   useEffect(() => {
     //control button loading state s
     if (
       txStatus[TokenCategory.GLM] === TxStatus.PENDING ||
       txStatus[TokenCategory.NATIVE] === TxStatus.PENDING
     ) {
-      setIsLoading(true)
+      setStatus('waitingForSignature')
+    }
+
+    if (
+      txStatus[TokenCategory.GLM] === TxStatus.LOADING &&
+      txStatus[TokenCategory.NATIVE] === TxStatus.LOADING
+    ) {
+      setStatus('waitingForTransaction')
     }
     //continue flow when both transactions are successful
     if (
@@ -200,10 +222,14 @@ export const Transfer = ({
     ) {
       goToNextStep()
     }
-  }, [
-    txStatus,
-    // goToNextStep
-  ])
+
+    if (
+      txStatus[TokenCategory.GLM] === TxStatus.ERROR ||
+      txStatus[TokenCategory.NATIVE] === TxStatus.ERROR
+    ) {
+      setStatus('error')
+    }
+  }, [txStatus, goToNextStep])
 
   const [error, setError] = useState({
     [TokenCategory.GLM]: '',
@@ -215,32 +241,25 @@ export const Transfer = ({
     [TokenCategory.NATIVE]: settings.minimalBalance[getNativeToken(chain.id)],
   })
 
+  const GLMamount = amount[TokenCategory.GLM]
+  const NATIVEamount = amount[TokenCategory.NATIVE]
+  const GLMbalance = balance[TokenCategory.GLM]
+  const NATIVEbalance = balance[TokenCategory.NATIVE]
+
   useEffect(() => {
-    if (
-      amount[TokenCategory.GLM] >
-      Number(formatEther(balance[TokenCategory.GLM]))
-    ) {
+    if (GLMamount > Number(formatEther(GLMbalance))) {
       setError({
         ...error,
         [TokenCategory.GLM]: 'Not enough GLM',
       })
     }
-    if (
-      amount[TokenCategory.NATIVE] >
-      Number(formatEther(balance[TokenCategory.NATIVE]))
-    ) {
+    if (NATIVEamount > Number(formatEther(GLMbalance))) {
       setError({
         ...error,
         [TokenCategory.NATIVE]: 'Not enough ' + nativeToken,
       })
     }
-  }, [
-    amount[TokenCategory.GLM],
-    amount[TokenCategory.NATIVE],
-    balance[TokenCategory.GLM],
-    balance[TokenCategory.NATIVE],
-    nativeToken,
-  ])
+  }, [GLMamount, NATIVEamount, GLMbalance, NATIVEbalance, nativeToken, error])
 
   useEffect(() => {
     if (placement === 'inside') {
@@ -258,6 +277,7 @@ export const Transfer = ({
           setAmount={setAmount}
           amount={amount}
           nativeToken={nativeToken}
+          status={status}
           error={error}
           send={() => {
             send(amount)

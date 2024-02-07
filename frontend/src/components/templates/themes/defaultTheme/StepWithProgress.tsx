@@ -47,7 +47,7 @@ export const StepWithProgress = ({
     if (isTooltipVisible && !shouldFadeOut) {
       setShouldFadeOut(true)
     }
-  }, [isTooltipVisible])
+  }, [isTooltipVisible, shouldFadeOut])
 
   const [childrenPlacement, setChildrenPlacement] = useState<
     'inside' | 'outside'
@@ -103,9 +103,7 @@ export const StepWithProgress = ({
             <WalletsConnector />
           </div>
         )}
-        {/* <div className="col-span-1"s
-          {isTransferStep && <WalletsConnector />}
-        </div> */}
+
         <AnimatePresence>
           {showYagna ? (
             <div
@@ -124,10 +122,6 @@ export const StepWithProgress = ({
         <AnimatePresence>
           {childrenPlacement === 'outside' && (
             <motion.div
-              // initial={{ opacity: 0 }}
-              // animate={{ opacity: 1 }}
-              // exit={{ opacity: 0 }}
-              // transition={{ ease: 'easeInOut', duration: 0.5 }}
               className={`col-span-11 flex justify-center mb-10 border-1 border-lightblue-100  rounded-xl py-12 ${style.card}`}
             >
               {Children.map(children, (child) => {
