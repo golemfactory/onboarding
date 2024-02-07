@@ -5,4 +5,5 @@ export enum Commands {
   SELECT_BUDGET = 'SELECT_BUDGET',
   BUY_NATIVE = 'BUY_NATIVE',
   BUY_GLM = 'BUY_GLM',
+  RESTART = 'RESTART',
 }

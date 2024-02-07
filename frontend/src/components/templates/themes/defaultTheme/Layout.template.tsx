@@ -10,6 +10,7 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
   children,
 }) => {
   const navigate = useNavigate()
+
   return (
     <div>
       <div

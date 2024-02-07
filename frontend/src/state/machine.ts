@@ -42,12 +42,12 @@ export const createStateMachine = ({
   step?: StepType
   yagnaAddress?: EthereumAddress
 }) => {
-  console.log('boughtGLM', budget)
   return createMachine<
     OnboardingContextData,
     | { type: 'ADD_GLM' }
     | { type: Commands.NEXT }
     | { type: Commands.PREVIOUS }
+    | { type: Commands.RESTART }
 
     //this event is used to communicate from blockchain related hooks
     //that transfer changes here so machine can keep needed data in context
@@ -90,6 +90,9 @@ export const createStateMachine = ({
     id: 'onboarding',
     initial: step || Step.WELCOME,
     on: {
+      [Commands.RESTART]: {
+        target: Step.WELCOME,
+      },
       [Commands.BUY_NATIVE]: {
         actions: assign({
           boughtNative: (_context, event) => {

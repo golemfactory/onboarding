@@ -13,6 +13,8 @@ import { RunSection } from './Run.section'
 import { WhatYouNeedSection } from './WhatYouNeed.section'
 import { useNavigate } from 'react-router-dom'
 import { useIsDesktop } from 'hooks/useIsDesktop'
+import { useOnboarding } from 'hooks/useOnboarding'
+import { StepType, stepPaths } from 'state/steps'
 
 const style = {
   ...landingStyle,
@@ -23,8 +25,11 @@ const SectionSeparator = () => {
   return <div className={style.sectionSeparator} />
 }
 
-const LandingPageContent = () => {
-  const navigate = useNavigate()
+const LandingPageContent = ({
+  startOnboarding,
+}: {
+  startOnboarding: () => void
+}) => {
   const [scroll, setScroll] = useState(0)
 
   const debouncedScroll = useDebounce(scroll, 1)
@@ -39,7 +44,6 @@ const LandingPageContent = () => {
     }
   }, [])
 
-  const isDesktop = useIsDesktop()
   return (
     <>
       <div className={style.centeredContent}>
@@ -59,9 +63,7 @@ const LandingPageContent = () => {
             <Button
               buttonStyle="solid"
               className="py-4 px-9 text-button-large"
-              onClick={() => {
-                navigate(isDesktop ? '/onboarding/budget' : '/unsupported')
-              }}
+              onClick={startOnboarding}
               useDefault={false}
             >
               <Trans i18nKey="getStarted" ns="landing" />
@@ -85,7 +87,7 @@ const LandingPageContent = () => {
       <SectionSeparator />
       <RunSection />
       <SectionSeparator />
-      <WhatYouNeedSection />
+      <WhatYouNeedSection startOnboarding={startOnboarding} />
     </>
   )
 }
@@ -95,6 +97,11 @@ export const LandingPage = () => {
   const LayoutTemplate = theme.getLayoutTemplate()
   const navigate = useNavigate()
   const isDesktop = useIsDesktop()
+  const { state } = useOnboarding()
+  const startOnboarding = () => {
+    const path = stepPaths[state.value as StepType]
+    navigate(isDesktop ? `/onboarding${path || 'budget'}` : '/unsupported')
+  }
   return (
     <LayoutTemplate
       header={
@@ -102,15 +109,13 @@ export const LandingPage = () => {
           buttonStyle="solid"
           className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
           useDefault={true}
-          onClick={() => {
-            navigate(isDesktop ? '/onboarding/budget' : '/unsupported')
-          }}
+          onClick={startOnboarding}
         >
           <Trans i18nKey="getGLM" ns="landing" />
         </Button>
       }
     >
-      <LandingPageContent />
+      <LandingPageContent startOnboarding={startOnboarding} />
     </LayoutTemplate>
   )
 }
