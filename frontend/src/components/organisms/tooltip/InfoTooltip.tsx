@@ -37,7 +37,9 @@ export const InfoTooltipTrigger = ({
 
   return (
     <div
-      className="cursor-pointer transition-all inline-block align-middle"
+      className={`cursor-pointer transition-all inline-block ${
+        appearance === 'secondary' ? 'align-middle' : ''
+      }`}
       onClick={() => {
         appearance === 'primary' ? tooltip.toggle?.() : ''
       }}
