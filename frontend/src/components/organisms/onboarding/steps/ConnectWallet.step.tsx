@@ -5,11 +5,13 @@ import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { queryShadowRootDeep } from 'utils/shadowRoot'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAccount } from 'hooks/useAccount'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { motion } from 'framer-motion'
+import { useHasFocus } from 'hooks/useHasFocus'
+import { set } from 'lodash'
 
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
@@ -60,8 +62,6 @@ const ConnectWalletPresentational = ({
   openWeb3Modal: () => void
 }) => {
   return (
-    //inlione style for text as we have mess in typography
-
     <motion.div
       initial={{
         opacity: 0,
@@ -97,11 +97,26 @@ export const ConnectWallet = () => {
   const { open } = useWeb3Modal()
   const { address } = useAccount()
   const { send } = useOnboarding()
+  const hasFocus = useHasFocus()
+  const [shouldReload, setShouldReload] = useState(false)
   useEffect(() => {
     if (address) {
       send({ type: Commands.NEXT })
     }
   }, [address])
+
+  useEffect(() => {
+    if (!hasFocus) {
+      setShouldReload(true)
+    }
+  }, [hasFocus])
+
+  useEffect(() => {
+    if (hasFocus && shouldReload) {
+      setShouldReload(false)
+      window.location.reload()
+    }
+  }, [hasFocus])
 
   return (
     <ConnectWalletPresentational
