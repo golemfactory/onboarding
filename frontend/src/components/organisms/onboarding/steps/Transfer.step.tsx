@@ -124,7 +124,6 @@ const TransferPresentational = ({
                   isError={!!error[TokenCategory.GLM]}
                   onChange={(e) => {
                     const value = parseFloat(e.currentTarget.value)
-                    console.log('value', value)
                     setAmount({
                       ...amount,
                       [TokenCategory.GLM]: value,
