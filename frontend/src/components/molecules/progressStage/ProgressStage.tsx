@@ -15,11 +15,13 @@ export const ProgressStage = ({
   isCurrent,
   stage,
   index,
+  label,
 }: {
   isCompleted: boolean
   isCurrent: boolean
   stage: string
   index: number
+  label?: string
 }) => {
   const isFuture = !isCompleted && !isCurrent
   const { chain } = useNetwork()
@@ -79,7 +81,17 @@ export const ProgressStage = ({
             {index}
           </motion.div>
         )}
-        <LeftDotsOrnament fill="fill-primary" isOpen={isCurrent} />
+
+        <LeftDotsOrnament fill="fill-primary" isOpen={isCurrent && !label} />
+        {label && (
+          <div
+            className={`${
+              isCurrent && 'text-primary'
+            } text-body-normal  mt-[60px] text-center rotate-270`}
+          >
+            {label}
+          </div>
+        )}
       </div>
 
       <div className="col-span-4 flex flex-col gap-3">

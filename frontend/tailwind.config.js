@@ -6,6 +6,10 @@ module.exports = {
       kanit: ['Kanit'],
     },
     extend: {
+      rotate: {
+        270: '270deg',
+      },
+
       gridTemplateColumns: {
         515: 'repeat(5, 1fr) 70px repeat(5, 1fr)',
       },
