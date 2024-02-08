@@ -72,7 +72,7 @@ export const TooltipProvider = ({ children }: PropsWithChildren) => {
   const startHide = (id: string) => {
     timeouts.current[id] = setTimeout(() => {
       return hide(id)
-    }, 500)
+    }, 100)
   }
 
   const cancelHide = (id: string) => {

@@ -12,8 +12,8 @@ import { XIcon } from 'components/atoms/icons'
 import { Accordion } from 'components/molecules/accordion/Accordion'
 
 const variants = {
-  open: { opacity: 1 },
-  closed: { opacity: 0 },
+  open: { opacity: 1, zIndex: 200 },
+  closed: { opacity: 0, zIndex: 200 },
   initial: { opacity: 0 },
 }
 
@@ -285,11 +285,10 @@ export const InfoTooltip = ({
         animate={tooltip.visible ? 'open' : 'closed'}
         initial="closed"
         transition={{
-          duration: 0.3,
+          duration: 0.1,
           ease: 'easeInOut',
         }}
         className="absolute top-0 left-0"
-        style={{ zIndex: 200 }}
       >
         {appearance === 'primary' ? (
           <InfoTooltipPresentationalPrimary
