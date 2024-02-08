@@ -66,7 +66,6 @@ export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
   useEffect(() => {
     //@ts-ignore
     if (usdcToNativeWei?.[1] > 0 && maticToGLMWei?.[1] > 1) {
-      console.log('usdcToNativeWei', usdcToNativeWei)
       setUsdcToNative(
         //@ts-ignore
         Number(usdcToNativeWei[1] / BigInt(Math.pow(10, 11))) / 10000000

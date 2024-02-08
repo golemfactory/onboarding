@@ -1,4 +1,5 @@
 import { OnboardingContext } from 'components/providers'
+import { validateHeaderValue } from 'http'
 import { useEffect } from 'react'
 import { OnboardingContextData, assertBudgetType } from 'types/dataContext'
 import { useSessionStorage } from 'usehooks-ts'
@@ -11,7 +12,7 @@ const usePersistOnboardingContext = (
 ) => {
   const key = `onboarding-${property}`
   const [state] = OnboardingContext.useActor()
-  const [value, setValue] = useSessionStorage(key, '')
+  const [value, setValue] = useSessionStorage(key, state.context[property])
   useEffect(() => {
     if (state.context[property] !== value) {
       //@ts-ignore
@@ -44,7 +45,7 @@ export const useOnboarding = () => {
 
 export const useOnboardingSnapshot = () => {
   const budgetItem = JSON.parse(
-    localStorage.getItem('onboarding-budget') || '""'
+    sessionStorage.getItem('onboarding-budget') || '""'
   )
 
   if (budgetItem) {
@@ -54,10 +55,10 @@ export const useOnboardingSnapshot = () => {
   return {
     budget: budgetItem,
     boughtGLM: Number(
-      JSON.parse(localStorage.getItem('onboarding-boughtGLM') || '0')
+      JSON.parse(sessionStorage.getItem('onboarding-boughtGLM') || '0')
     ),
     boughtNative: Number(
-      JSON.parse(localStorage.getItem('onboarding-boughtNative') || '0')
+      JSON.parse(sessionStorage.getItem('onboarding-boughtNative') || '0')
     ),
   }
 }

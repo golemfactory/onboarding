@@ -69,6 +69,7 @@ const WelcomePresentational = ({
           duration: 1,
         }}
         className="grid xl:grid-cols-12 grid-cols-6 col-span-12 gap-3 "
+        key={'budget'}
       >
         {/* cards */}
         {BudgetCards.map((card) => {
@@ -97,6 +98,7 @@ const WelcomePresentational = ({
           duration: 1,
         }}
         className={`${style.disclaimer} `}
+        key={'disclaimer'}
       >
         <Trans i18nKey="disclaimer" ns="welcome.step" />
       </motion.div>

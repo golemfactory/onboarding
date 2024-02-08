@@ -27,7 +27,7 @@
   "machineDescription": "of full 48 threads usage for sample computer with AMD Ryzen Threadripper 3960X 24-Core Processor, 128 GB RAM, 600 GB Disk space",
   "for": "for",
   "disclaimer": "Option to revert your tokens back to traditional currency is always available to you via <RampIcon/> and <UniswapIcon/> solution. <breakLine /> Please keep in mind that, just like traditional currencies, the prices of tokens are estimates and can vary based on market values and the current usage of the blockchain network.",
-  "legal.thirdParty": "I acknowledge and agree that the Site contains links to third-party services <span class='font-medium cursor-pointer' onclick={{onClick}}> (More) </span> <red> * </red>",
+  "legal.thirdParty": "I acknowledge and agree that the Site contains links to third-party services <span className='font-medium cursor-pointer'> (More) </span> <red> * </red>",
   "legal.termsAndConditions": "I agree with <strong> <a href='https://docs.golem.network/docs/golem/terms' target='_blank'>Terms and Conditions</a> </strong> <red> * <red>",
   "legal.error": "To continue, you must accept the legal terms",
 

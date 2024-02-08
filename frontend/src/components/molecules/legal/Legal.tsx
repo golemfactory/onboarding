@@ -47,19 +47,17 @@ export const Legal: FC<{
         duration: 1,
       }}
       className="col-span-10 flex flex-col gap-3 text-darkblue-700"
+      key={'legal'}
     >
       <Checkbox
         label={() => (
-          <div className="text-body-extra-large">
-            <Trans
-              i18nKey="legal.thirdParty"
-              ns="welcome.step"
-              values={{
-                onClick: () => {
-                  setShowMore(!showMore)
-                },
-              }}
-            />
+          <div
+            className="text-body-extra-large"
+            onClick={() => {
+              setShowMore(!showMore)
+            }}
+          >
+            <Trans i18nKey="legal.thirdParty" ns="welcome.step" />
           </div>
         )}
         error={showError && !checked.thirdParty}
