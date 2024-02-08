@@ -26,7 +26,7 @@ export const settings = {
     [BudgetOption.PLAY_AROUND]: 10,
     [BudgetOption.COMPUTE]: 25,
     [BudgetOption.AMBITIOUS]: 50,
-    [BudgetOption.CUSTOM]: Infinity,
+    [BudgetOption.CUSTOM]: '',
   },
   rampFee: 2.7,
 }
