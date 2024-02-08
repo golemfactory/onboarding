@@ -1,7 +1,7 @@
 import { OnboardingContext } from 'components/providers'
 import { useEffect } from 'react'
 import { OnboardingContextData, assertBudgetType } from 'types/dataContext'
-import { useLocalStorage } from 'usehooks-ts'
+import { useSessionStorage } from 'usehooks-ts'
 
 const usePersistOnboardingContext = (
   property: keyof Pick<
@@ -11,7 +11,7 @@ const usePersistOnboardingContext = (
 ) => {
   const key = `onboarding-${property}`
   const [state] = OnboardingContext.useActor()
-  const [value, setValue] = useLocalStorage(key, '')
+  const [value, setValue] = useSessionStorage(key, '')
   useEffect(() => {
     if (state.context[property] !== value) {
       //@ts-ignore
