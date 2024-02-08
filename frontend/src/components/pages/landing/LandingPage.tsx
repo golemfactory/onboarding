@@ -104,18 +104,31 @@ export const LandingPage = () => {
   }
   return (
     <LayoutTemplate
-      header={
-        <Button
-          buttonStyle="solid"
-          className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
-          useDefault={true}
-          onClick={startOnboarding}
-        >
-          <Trans i18nKey="getGLM" ns="landing" />
-        </Button>
-      }
+    // header={
+    //   // <Button
+    //   //   buttonStyle="solid"
+    //   //   className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
+    //   //   useDefault={true}
+    //   //   onClick={startOnboarding}
+    //   // >
+    //   //   {/* <Trans i18nKey="getGLM" ns="landing" /> */}
+    //   // </Button>
+    // }
     >
-      <LandingPageContent startOnboarding={startOnboarding} />
+      {/* <LandingPageContent startOnboarding={startOnboarding} /> */}
+      <div className="col-span-10 col-start-2 text-h2 text-primary mt-40 ">
+        This site is temporarily unavailable. We apologize for any inconvenience
+        and appreciate your patience. It will be back up soon! In the meantime,
+        you can find the previous website with information about GLM token here:
+        <a
+          href="https://migration-tracker.golem.network/"
+          rel="noreferrer"
+          target="_blank"
+          className="text-primary underline inline"
+        >
+          https://migration-tracker.golem.network
+        </a>
+      </div>
     </LayoutTemplate>
   )
 }

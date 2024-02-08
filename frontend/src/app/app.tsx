@@ -36,7 +36,7 @@ const Onboarding = () => {
             </AnimatedPage>
           }
         />
-        <Route
+        {/* <Route
           path="/unsupported"
           element={
             <AnimatedPage>
@@ -60,7 +60,7 @@ const Onboarding = () => {
             </AnimatedPage>
           }
         ></Route>
-        <Route path="/playground" element={<Playground />} />
+        <Route path="/playground" element={<Playground />} /> */}
       </Routes>
     </AnimatePresence>
   )

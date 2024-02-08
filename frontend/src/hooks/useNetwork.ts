@@ -12,7 +12,9 @@ type GetNetworkResult = ReturnType<typeof useNetworkWagmi>
  */
 const formatChain = (chain: ChainWagmi): Chain => {
   const chainId = toHex(chain.id)
-  assertSupportedChainId(chainId)
+
+  //TODO chech homested case
+  // assertSupportedChainId(chainId)
 
   return {
     ...chain,
@@ -35,7 +37,7 @@ export const useNetwork = (): Omit<GetNetworkResult, 'chain' | 'chains'> & {
   const network = useNetworkWagmi()
   let chain = undefined
   if (network.chain) {
-    network
+    console.log('network.chain', network.chain)
     chain = formatChain(network.chain)
   }
 
