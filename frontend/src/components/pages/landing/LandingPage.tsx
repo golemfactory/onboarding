@@ -116,18 +116,29 @@ export const LandingPage = () => {
     // }
     >
       {/* <LandingPageContent startOnboarding={startOnboarding} /> */}
-      <div className="col-span-10 col-start-2 text-h2 text-primary mt-40 ">
-        This site is temporarily unavailable. We apologize for any inconvenience
-        and appreciate your patience. It will be back up soon! In the meantime,
-        you can find the previous website with information about GLM token here:
-        <a
-          href="https://migration-tracker.golem.network/"
-          rel="noreferrer"
-          target="_blank"
-          className="text-primary underline inline"
-        >
-          https://migration-tracker.golem.network
-        </a>
+      <div className="col-span-10 col-start-2 text-h3 text-primary mt-20 text-center grid grid-cols-4">
+        <div className="col-span-2 col-start-2">
+          <img
+            src="/placeholder.svg"
+            className="mb-20 w-[50vw] text-center margin-auto"
+          ></img>
+        </div>
+        <div className="col-span-4">
+          This site is temporarily unavailable. We apologize for any
+          inconvenience and appreciate your patience.
+          <br></br>
+          It will be back up soon! In the meantime, you can find the previous
+          website with information about GLM token here:
+          <br></br>
+          <a
+            href="https://migration-tracker.golem.network/"
+            rel="noreferrer"
+            target="_blank"
+            className="text-primary underline inline"
+          >
+            https://migration-tracker.golem.network
+          </a>
+        </div>
       </div>
     </LayoutTemplate>
   )
