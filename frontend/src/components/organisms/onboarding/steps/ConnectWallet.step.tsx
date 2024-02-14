@@ -11,7 +11,9 @@ import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { motion } from 'framer-motion'
 import { useHasFocus } from 'hooks/useHasFocus'
-
+import { InjectedConnector } from '@wagmi/connectors/injected'
+import { connect } from '@wagmi/core'
+import { polygon, mainnet } from 'viem/chains'
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
@@ -98,6 +100,19 @@ export const ConnectWallet = () => {
   const { send } = useOnboarding()
   const hasFocus = useHasFocus()
   const [shouldReload, setShouldReload] = useState(false)
+  const [shouldConnect, setShouldConnect] = useState(false)
+
+  useEffect(() => {
+    if (shouldConnect) {
+      connect({
+        chainId: polygon.id,
+        connector: new InjectedConnector({
+          chains: [polygon, mainnet],
+        }),
+      })
+      setShouldConnect(false)
+    }
+  }, [shouldConnect])
   useEffect(() => {
     if (address) {
       send({ type: Commands.NEXT })
@@ -113,6 +128,7 @@ export const ConnectWallet = () => {
   useEffect(() => {
     if (hasFocus && shouldReload) {
       setShouldReload(false)
+      setShouldConnect(true)
       window.location.reload()
     }
   }, [hasFocus])

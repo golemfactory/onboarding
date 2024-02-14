@@ -11,9 +11,10 @@ export const useWallet = (): WalletProviderType => {
   //for now we support only metamask or trust wallet
   // so we rely on window.ethereum.isMetaMask
 
-  const isMetaMask = window.ethereum.isMetaMask
+  const isMetaMask = window?.ethereum?.isMetaMask
   if (isMetaMask) {
     return WalletProvider.METAMASK
   }
+
   return WalletProvider.TRUST_WALLET
 }

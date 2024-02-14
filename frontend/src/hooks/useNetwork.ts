@@ -2,7 +2,6 @@ import { useNetwork as useNetworkWagmi } from 'wagmi'
 import { toHex } from 'viem'
 import { Chain } from 'types/wagmi'
 import { Chain as ChainWagmi } from 'wagmi'
-import { assertSupportedChainId } from 'types/ethereum'
 
 type GetNetworkResult = ReturnType<typeof useNetworkWagmi>
 
@@ -37,7 +36,6 @@ export const useNetwork = (): Omit<GetNetworkResult, 'chain' | 'chains'> & {
   const network = useNetworkWagmi()
   let chain = undefined
   if (network.chain) {
-    console.log('network.chain', network.chain)
     chain = formatChain(network.chain)
   }
 
