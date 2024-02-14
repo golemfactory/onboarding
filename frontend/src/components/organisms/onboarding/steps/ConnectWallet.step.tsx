@@ -11,8 +11,8 @@ import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { motion } from 'framer-motion'
 import { useHasFocus } from 'hooks/useHasFocus'
-import { InjectedConnector } from '@wagmi/connectors/injected'
-import { connect } from '@wagmi/core'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { connect } from 'wagmi/actions'
 import { polygon, mainnet } from 'viem/chains'
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
