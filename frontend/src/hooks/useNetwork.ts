@@ -1,22 +1,27 @@
-import { useNetwork as useNetworkWagmi } from 'wagmi'
+import { useAccount, useChainId, UseChainIdReturnType, useChains } from 'wagmi'
 import { toHex } from 'viem'
 import { Chain } from 'types/wagmi'
-import { Chain as ChainWagmi } from 'wagmi'
-
-type GetNetworkResult = ReturnType<typeof useNetworkWagmi>
-
+import { assertSupportedChainId } from 'types/ethereum'
+import { Ok, Err, Result } from 'ts-results'
+import { polygon, mainnet, polygonMumbai } from 'viem/chains'
 /**.
- * @param chain The wgagmi Chain  object with number id .
+ * @param chain The gagmi Chain  object with number id .
  * @returns The  Chain object with hex string id .
  */
-const formatChain = (chain: ChainWagmi): Chain => {
+const formatChain = (chain: { id: number }): Chain => {
   const chainId = toHex(chain.id)
 
-  //TODO chech homested case
-  // assertSupportedChainId(chainId)
+  assertSupportedChainId(chainId)
+
+  //wagmi in version 2 changed hooks so now useNetwork returns only chain id
+  //and we need to get chain data for backward compatibility
+
+  const chainData = [polygon, mainnet, polygonMumbai].find(
+    (_chain) => _chain.id === chain.id
+  )
 
   return {
-    ...chain,
+    ...chainData,
     id: chainId,
   }
 }
@@ -29,19 +34,12 @@ const formatChain = (chain: ChainWagmi): Chain => {
  * @returns An object containing network information with formatted chain and chains array.
  */
 
-export const useNetwork = (): Omit<GetNetworkResult, 'chain' | 'chains'> & {
-  chain?: Chain
-  chains: Chain[]
-} => {
-  const network = useNetworkWagmi()
-  let chain = undefined
-  if (network.chain) {
-    chain = formatChain(network.chain)
-  }
-
+const NOT_CONNECTED = 'no connected to blockchain'
+export const useNetwork = () => {
+  const account = useAccount()
+  const chains = useChains()
   return {
-    ...network,
-    chain,
-    chains: network.chains.map(formatChain),
+    chain: account.chainId ? formatChain({ id: account.chainId }) : null,
+    chains: chains.map(formatChain),
   }
 }

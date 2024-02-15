@@ -82,6 +82,7 @@ export const createStateMachine = ({
           NATIVE: BigInt(0),
         },
         isConnected() {
+          console.log('isConnected', this?.chainId)
           return this?.chainId !== undefined
         },
       },

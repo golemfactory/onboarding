@@ -5,9 +5,8 @@ import { getContracts } from 'utils/getContracts'
 import { useNetwork } from './useNetwork'
 import {
   useAccount,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
+  useWriteContract,
+  useWaitForTransactionReceipt,
 } from 'wagmi'
 import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
 import debug from 'debug'
@@ -20,35 +19,31 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
   //TODO : move to hook
   const contracts = getContracts(chain.id)
   const { address: to } = useAccount()
-  const { config, isError: isErrorPrepare } = usePrepareContractWrite({
-    address: contracts.uniswapV2.address,
-    abi: uniswapV2Abi,
-    functionName: 'swapExactETHForTokens',
-    value,
-    args: [
-      0,
-      contracts.swapPath,
-      to,
-      BigInt('9223372036854775807'), // 2^63 - 1
-    ],
-  })
-
-  const { data, write } = useContractWrite(config)
-
-  log('swap transaction hash ', data?.hash)
+  const { writeContract, data, isError: isErrorPrepare } = useWriteContract()
 
   const {
     isSuccess,
     isError: isErrorTransaction,
     isLoading,
-  } = useWaitForTransaction({
-    hash: data?.hash,
+  } = useWaitForTransactionReceipt({
+    hash: data,
   })
 
-  log('swap status ', isLoading, isSuccess, isErrorPrepare, isErrorTransaction)
-
   return {
-    swap: write,
+    swap: () => {
+      writeContract({
+        address: contracts.uniswapV2.address,
+        abi: uniswapV2Abi,
+        functionName: 'swapExactETHForTokens',
+        value,
+        args: [
+          0,
+          contracts.swapPath,
+          to,
+          BigInt('9223372036854775807'), // 2^63 - 1
+        ],
+      })
+    },
     data,
     isError: isErrorPrepare || isErrorTransaction,
     isSuccess,

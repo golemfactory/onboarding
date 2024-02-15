@@ -7,7 +7,6 @@ export const useAccount = (): Omit<GetAccountResult, 'account'> & {
   address?: EthereumAddress
 } => {
   const account = useAccountWagmi()
-
   const address = account.address
 
   if (address !== undefined) {

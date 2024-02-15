@@ -17,8 +17,8 @@ const ChainObserver = () => {
   const { chain } = useNetwork()
   const { address } = useAccount()
   const balance = useBalance()
-  console.log('balance', chain)
   useEffect(() => {
+    console.log('chain', chain)
     send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
       payload: chain

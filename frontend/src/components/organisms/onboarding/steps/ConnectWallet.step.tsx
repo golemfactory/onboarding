@@ -4,16 +4,15 @@ import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 import { queryShadowRootDeep } from 'utils/shadowRoot'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
-
+import { config as wagmiConfig } from 'components/providers/Blockchain.provider'
 import { useEffect, useState } from 'react'
 import { useAccount } from 'hooks/useAccount'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { motion } from 'framer-motion'
 import { useHasFocus } from 'hooks/useHasFocus'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { connect } from 'wagmi/actions'
-import { polygon, mainnet } from 'viem/chains'
+import { injected } from '@wagmi/connectors'
+import { connect } from '@wagmi/core'
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
@@ -99,17 +98,20 @@ export const ConnectWallet = () => {
   const { address } = useAccount()
   const { send } = useOnboarding()
   const hasFocus = useHasFocus()
+  const [shouldTrackFocus, setShouldTrackFocus] = useState(false)
   const [shouldReload, setShouldReload] = useState(false)
-  const [shouldConnect, setShouldConnect] = useState(false)
+  const [shouldConnect, setShouldConnect] = useState(true)
 
   useEffect(() => {
     if (shouldConnect) {
-      connect({
-        chainId: polygon.id,
-        connector: new InjectedConnector({
-          chains: [polygon, mainnet],
-        }),
-      })
+      try {
+        connect(wagmiConfig, {
+          connector: injected(),
+        })
+      } catch (e) {
+        console.error(e)
+      }
+
       setShouldConnect(false)
     }
   }, [shouldConnect])
@@ -120,7 +122,7 @@ export const ConnectWallet = () => {
   }, [address])
 
   useEffect(() => {
-    if (!hasFocus) {
+    if (!hasFocus && shouldTrackFocus) {
       setShouldReload(true)
     }
   }, [hasFocus])
@@ -137,6 +139,7 @@ export const ConnectWallet = () => {
     <ConnectWalletPresentational
       openWeb3Modal={() => {
         open()
+        setShouldTrackFocus(true)
         setTimeout(() => {
           adjustWeb3ModalContent()
         }, 0)

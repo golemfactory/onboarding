@@ -1,7 +1,7 @@
 import { MouseEventHandler, useState, useEffect, useCallback } from 'react'
 import { NetworkType } from 'types/ethereum'
 import { Network } from 'ethereum/networks/types'
-import { useSwitchNetwork } from 'wagmi'
+import { useSwitchChain } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { useSetup } from 'hooks/useSetup'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
@@ -109,14 +109,14 @@ export const ChooseNetwork = () => {
   const { send } = useOnboarding()
   const { network: selectedNetworkFromParams } = useSetup()
   const { chain } = useNetwork()
-  const { switchNetworkAsync } = useSwitchNetwork()
+  const { switchChainAsync } = useSwitchChain()
 
   const onConfirm = useCallback(async () => {
     if (chain?.id === selectedNetwork) {
       send(Commands.NEXT)
       return
     }
-    await switchNetworkAsync?.(hexToNumber(selectedNetwork))
+    await switchChainAsync({ chainId: hexToNumber(selectedNetwork) })
     send(Commands.NEXT)
   }, [selectedNetwork, chain?.id])
 

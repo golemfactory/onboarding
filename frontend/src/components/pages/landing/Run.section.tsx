@@ -60,7 +60,7 @@ const underlyingCardData: CardDataType = {
 const Progress = [
   () => {
     return (
-      <div className={sectionStyle.progressBox}>
+      <div key="progress_step_image" className={sectionStyle.progressBox}>
         <span className="mt-2">Progress: 1/4</span>
         <span className="ml-2">
           Resolving image tag:{' '}
@@ -74,7 +74,7 @@ const Progress = [
   },
   () => {
     return (
-      <div className={sectionStyle.progressBox}>
+      <div key="progress_step_demand" className={sectionStyle.progressBox}>
         <span className="mt-2">Progress: 2/4</span>
         <span className="ml-2">
           Demand created. Waiting for counter proposal.
@@ -88,7 +88,7 @@ const Progress = [
   },
   () => {
     return (
-      <div className={sectionStyle.progressBox}>
+      <div key="progress_step_params" className={sectionStyle.progressBox}>
         <span className="mt-2">Progress: 3/4</span>
         <span className="ml-2">Agreement created.</span>
         <span className="ml-2">
@@ -111,7 +111,7 @@ const Progress = [
   },
   () => {
     return (
-      <div className={sectionStyle.progressBox}>
+      <div key="progress_step_starting" className={sectionStyle.progressBox}>
         <span className="mt-2">Progress: 4/4</span>
         <span className="ml-2 mb-1">
           Engine is starting. Depending on provider, it might take few to
@@ -122,7 +122,10 @@ const Progress = [
   },
   () => {
     return (
-      <div className={`${sectionStyle.progressBox} mt-2s`}>
+      <div
+        key="progress_step_ready"
+        className={`${sectionStyle.progressBox} mt-2s`}
+      >
         <span>Ready</span>
       </div>
     )
@@ -139,10 +142,6 @@ export const RunSection = () => {
             descriptionLanding: sectionStyle.description,
             iconLanding: 'h-9 text-primary',
           }}
-          // className="col-span-12 mb-48 md:mb-1"
-          // descriptionClassName={`${sectionStyle.description}`}
-          // titleClassName={`${sectionStyle.title}`}
-          // linkClassName="mb-8"
         />
         <div
           className={`${sectionStyle.overlayContainer} ${sectionStyle.card}`}

@@ -12,10 +12,10 @@ import { Commands } from 'state/commands'
 import { RightDot } from 'components/atoms/ornaments/rightDot'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
-import { useNetwork } from 'wagmi'
 import { useTooltip } from 'components/providers/Tooltip.provider'
+import { useNetwork } from 'hooks/useNetwork'
 // import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
-
+import { polygon } from 'viem/chains'
 const style = {
   ...globalStyle,
   ...templateStyle,
@@ -38,7 +38,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
   const [namespace, setNamespace] = useState(`${name}.step`)
-  const { chain } = useNetwork()
+  const { chain, chains } = useNetwork()
   const [textVisible, setTextVisible] = useState(true)
   const [componentPlacement, setComponentPlacement] = useState('')
   useEffect(() => {
