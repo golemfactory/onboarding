@@ -1,7 +1,7 @@
 import { ComponentType } from 'react'
 import style from './BudgetCard.module.css'
 import { Trans } from 'components/atoms'
-
+import { Loader } from 'components/molecules/loader/loader'
 import { settings } from 'settings'
 import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { GolemCoinIcon, MaticCoinIcon } from 'components/atoms/icons'
@@ -33,8 +33,8 @@ export const BudgetCard = ({
   const description = `${id}.description`
 
   //settings
-  const totalBudget = settings.budgetOptions[id]
-  const usageCostInUSD = settings.budgetOptions[id] - settings.rampFee
+  const totalBudget = Number(settings.budgetOptions[id])
+  const usageCostInUSD = totalBudget - settings.rampFee
 
   const glmCoinValue = 30
   const maticCoinValue = 4
@@ -70,8 +70,15 @@ export const BudgetCard = ({
               <Trans i18nKey="around" ns="welcome.step" />
             </div>
             <div className={style.time}>
-              {usageTime}
-              <span>h</span>
+              <Loader
+                className="w-8 h-8 p-4 m-3"
+                value={
+                  <motion.span initial="hidden" animate="visible" exit="hidden">
+                    {usageTime}
+                    <span>h</span>
+                  </motion.span>
+                }
+              />
             </div>
           </div>
           <div className={style.headRight}>
@@ -105,9 +112,15 @@ export const BudgetCard = ({
               )
             })}
             <div className="flex flex-col">
-              <span className="text-h6 text-primary font-kanit">
-                ≈ {glmCost} GLM
-              </span>
+              <Loader
+                className="w-4 h-4"
+                value={
+                  <span className="text-h6 text-primary font-kanit">
+                    ≈ {glmCost} GLM
+                  </span>
+                }
+              ></Loader>
+
               <span className={style.caps10px}>
                 <Trans i18nKey="coversComputing" ns="welcome.step" />
               </span>

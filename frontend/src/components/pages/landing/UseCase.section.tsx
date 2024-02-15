@@ -57,9 +57,7 @@ export const UseCaseSection = () => {
         </div>
         <div className={style.separator} />
         {useCases.map((data) => (
-          <div key={`useCaseCard_${data.title}`}>
-            <Card {...data}></Card>
-          </div>
+          <Card key={`card_${data.title}`} {...data}></Card>
         ))}
       </div>
     </AnimatedSection>

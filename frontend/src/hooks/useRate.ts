@@ -5,7 +5,7 @@ import { EthereumAddress, NetworkType } from 'types/ethereum'
 
 import { getContracts } from 'utils/getContracts'
 import { useNetwork } from './useNetwork'
-import { useReadContracts } from 'wagmi'
+import { useReadContract, useReadContracts } from 'wagmi'
 import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
 import { useEffect, useState } from 'react'
 import { fromHex } from 'viem'
@@ -43,39 +43,32 @@ export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
   if (!chainId) throw new Error('Chain is not defined')
   const contracts = getContracts(chainId)
 
-  const { data: usdcToNativeWei, isLoading: glmToUsdcLoading } =
-    useReadContracts({
-      contracts: [
-        {
-          address: contracts.uniswapV2.address,
-          abi: uniswapV2Abi,
-          functionName: 'getAmountsOut',
-          args: [
-            //as usdc has 6 decimals
-            Math.pow(10, 6),
-            [contracts.USDC.address, contracts.wrappedNativeToken.address],
-          ],
-          chainId: fromHex(chainId, 'number'),
-        },
-      ],
-    })
+  const {
+    data: usdcToNativeWei,
+    isLoading: glmToUsdcLoading,
+    isError,
+  } = useReadContract({
+    address: contracts.uniswapV2.address,
+    abi: uniswapV2Abi,
+    functionName: 'getAmountsOut',
+    args: [
+      //as usdc has 6 decimals
+      Math.pow(10, 6),
+      [contracts.USDC.address, contracts.wrappedNativeToken.address],
+    ],
+    chainId: fromHex(chainId, 'number'),
+  })
 
-  const { data: maticToGLMWei, isLoading: usdcToGlmLoading } = useReadContracts(
-    {
-      contracts: [
-        {
-          address: contracts.uniswapV2.address,
-          abi: uniswapV2Abi,
-          functionName: 'getAmountsOut',
-          args: [
-            Math.pow(10, 18),
-            [contracts.wrappedNativeToken.address, contracts.GLM.address],
-          ],
-          chainId: fromHex(chainId, 'number'),
-        },
-      ],
-    }
-  )
+  const { data: maticToGLMWei, isLoading: usdcToGlmLoading } = useReadContract({
+    address: contracts.uniswapV2.address,
+    abi: uniswapV2Abi,
+    functionName: 'getAmountsOut',
+    args: [
+      Math.pow(10, 18),
+      [contracts.wrappedNativeToken.address, contracts.GLM.address],
+    ],
+    chainId: fromHex(chainId, 'number'),
+  })
 
   useEffect(() => {
     //@ts-ignore
