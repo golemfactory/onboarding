@@ -1,4 +1,4 @@
-import { useContractWrite, usePublicClient } from 'wagmi'
+import { useContractWrite, usePublicClient, useWriteContract } from 'wagmi'
 import { useNetwork } from 'hooks/useNetwork'
 import { erc20abi } from 'ethereum/contracts'
 import { getGLMToken } from 'utils/getGLMToken'
@@ -8,23 +8,30 @@ import { useEffect, useState } from 'react'
 import debug from 'debug'
 const log = debug('useSendGLMs')
 export const useSendGLMs = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const { chain } = useNetwork()
+  if (!chain) throw new Error('Chain is not defined')
   const publicClient = usePublicClient()
 
   const [status, setStatus] = useState(TxStatus.READY)
   //TODO : what is 'isIdle'
-  const { data, isSuccess, isError, isIdle, isLoading, writeAsync } =
-    useContractWrite({
-      address: chain?.id ? getGLMToken(chain.id).address : undefined,
+  const { data, isSuccess, isError, isIdle, writeContractAsync } =
+    useWriteContract()
+
+  const writeAsync = async ({ args }: { args: [string, BigInt] }) => {
+    setIsLoading(true)
+    await writeContractAsync({
+      address: getGLMToken(chain.id).address,
       abi: erc20abi,
       functionName: 'transfer',
+      ...args,
     })
-
+  }
   useEffect(() => {
-    if (data?.hash) {
+    if (data) {
       publicClient
         ?.waitForTransactionReceipt({
-          hash: data?.hash,
+          hash: data,
         })
         .then(() => {
           log('GLM Transaction included in block')
@@ -35,7 +42,7 @@ export const useSendGLMs = () => {
           setStatus(TxStatus.SUCCESS)
         })
     }
-  }, [data?.hash])
+  }, [data])
 
   useEffect(() => {
     if (isError) {

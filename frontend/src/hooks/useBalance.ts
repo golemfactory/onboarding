@@ -13,12 +13,10 @@ export const useBalance = (addr?: EthereumAddress) => {
   const glmBalance = useBalanceWagmi({
     address: addr || address,
     token: glmAddress,
-    watch: true,
   })
 
   const nativeBalance = useBalanceWagmi({
     address: addr || address,
-    watch: true,
   })
 
   return {

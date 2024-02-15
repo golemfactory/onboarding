@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi'
+import { useReadContracts } from 'wagmi'
 import { useNetwork } from './useNetwork'
 import { uniswapV2abi } from 'ethereum/contracts'
 import { EthereumAddress } from 'types/ethereum'
@@ -20,16 +20,19 @@ export const useSwapOut = () => {
     }
   }, [chain?.id])
 
-  //TODO: make contract hooks types, using zod and typechain
-  const { data, isError, isLoading } = useContractRead({
-    address: uniswapAddress,
-    abi: uniswapV2abi,
-    functionName: 'getAmountsOut',
-    args: [amountIn, path],
+  const { data, isError, isLoading } = useReadContracts({
+    contracts: [
+      {
+        address: uniswapAddress,
+        abi: uniswapV2abi,
+        functionName: 'getAmountsOut',
+        args: [amountIn, path],
+      },
+    ],
   })
 
   return {
-    data,
+    data: data?.[0].result as bigint[],
     isError,
     isLoading,
     setAmountIn,

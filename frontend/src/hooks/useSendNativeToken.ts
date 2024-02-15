@@ -38,7 +38,7 @@ export const useSendNativeToken = () => {
       const interval = setInterval(() => {
         log('interval')
         try {
-          publicClient.getTransactionReceipt({ hash }).then((receipt) => {
+          publicClient?.getTransactionReceipt({ hash }).then((receipt) => {
             log('receipt', receipt.status)
             if (receipt.status === 'success') {
               setStatus(TxStatus.SUCCESS)
@@ -52,7 +52,7 @@ export const useSendNativeToken = () => {
       }, 1000)
       // wait for transaction to be included
       publicClient
-        .waitForTransactionReceipt({
+        ?.waitForTransactionReceipt({
           hash,
         })
         .then(() => {
