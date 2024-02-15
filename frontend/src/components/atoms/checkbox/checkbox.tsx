@@ -7,6 +7,7 @@ import {
 } from 'react'
 
 import style from './checkbox.module.css'
+import { v4 as uuidv4 } from 'uuid'
 
 export const Checkbox = forwardRef<
   HTMLInputElement,
@@ -14,7 +15,7 @@ export const Checkbox = forwardRef<
 >(function Checkbox({ label: Label, error, onChange, checked, ...rest }, ref) {
   const [isChecked, setIsChecked] = useState(checked)
   const [inputCssClass, setInputCssClass] = useState('')
-
+  const [id] = useState(uuidv4())
   useEffect(() => {
     if (isChecked) {
       setInputCssClass(style.checked)
@@ -30,6 +31,7 @@ export const Checkbox = forwardRef<
   return (
     <div className={style.checkboxWrapper}>
       <input
+        id={id}
         ref={ref}
         {...rest}
         type="checkbox"
@@ -39,7 +41,7 @@ export const Checkbox = forwardRef<
         }}
         className={`${style.checkbox} ${inputCssClass}`}
       />
-      <Label />
+      <Label htmlFor={id} />
     </div>
   )
 })

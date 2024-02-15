@@ -50,15 +50,18 @@ export const Legal: FC<{
       key={'legal'}
     >
       <Checkbox
-        label={() => (
-          <div
-            className="text-body-extra-large"
-            onClick={() => {
-              setShowMore(!showMore)
-            }}
-          >
-            <Trans i18nKey="legal.thirdParty" ns="welcome.step" />
-          </div>
+        label={({ htmlFor }) => (
+          <label className="text-body-extra-large" htmlFor={htmlFor}>
+            <Trans
+              i18nKey="legal.thirdParty"
+              ns="welcome.step"
+              values={{
+                onClick: () => {
+                  setShowMore(!showMore)
+                },
+              }}
+            />
+          </label>
         )}
         error={showError && !checked.thirdParty}
         onChange={(e) => {
@@ -92,10 +95,10 @@ export const Legal: FC<{
       </AnimatePresence>
 
       <Checkbox
-        label={() => (
-          <div className="text-body-extra-large">
+        label={({ htmlFor }) => (
+          <label className="text-body-extra-large" htmlFor={htmlFor}>
             <Trans i18nKey="legal.termsAndConditions" ns="welcome.step" />
-          </div>
+          </label>
         )}
         error={showError && !checked.termsAndConditions}
         onChange={(e) => {
