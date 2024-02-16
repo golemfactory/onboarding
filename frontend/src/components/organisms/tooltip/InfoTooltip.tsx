@@ -1,7 +1,7 @@
 import { InfoIcon } from 'components/atoms/icons/info.icon'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import { useTooltip } from 'components/providers/Tooltip.provider'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useEffect, useRef, useState } from 'react'
 import { useToggle } from 'usehooks-ts'
 
 import tooltipStyle from './infoTooltip.module.css'
@@ -40,8 +40,9 @@ export const InfoTooltipTrigger = ({
       className={`cursor-pointer transition-all inline-block ${
         appearance === 'secondary' ? 'align-middle' : ''
       }`}
-      onClick={() => {
-        appearance === 'primary' ? tooltip.toggle?.() : ''
+      onClick={(event) => {
+        appearance === 'primary' ? tooltip.show?.() : ''
+        event.stopPropagation()
       }}
       onMouseEnter={() => {
         appearance === 'secondary' ? tooltip.show?.() : ''
@@ -78,6 +79,26 @@ export const InfoTooltipPresentationalPrimary = ({
   toggleSection: (sectionId: string) => void
   tooltip: ReturnType<typeof useTooltip>
 }) => {
+  const tooltipRef = useRef<HTMLDivElement>(null)
+
+  //Hide tooltip when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        tooltipRef.current !== null &&
+        !tooltipRef.current?.contains(event.target as Node)
+      ) {
+        tooltip.hide?.()
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
   const { t, ready } = useTranslation()
 
   if (!ready) {
@@ -89,7 +110,7 @@ export const InfoTooltipPresentationalPrimary = ({
   }) as string[]
 
   return (
-    <div className={`${tooltipStyle.card}`}>
+    <div ref={tooltipRef} className={`${tooltipStyle.card}`}>
       <div
         className={`${tooltipStyle.xicon}`}
         onClick={() => {

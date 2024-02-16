@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react'
 
 //would be better to use sass so we can use variables
-export const RightDot = ({ top }: { top: string }) => {
+export const RightDot = () => {
   const [rightValue, setRightValue] = useState('0px')
 
   const calculateRight = () => {

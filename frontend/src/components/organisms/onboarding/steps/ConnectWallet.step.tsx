@@ -11,8 +11,9 @@ import { useOnboarding } from 'hooks/useOnboarding'
 import { Commands } from 'state/commands'
 import { motion } from 'framer-motion'
 import { useHasFocus } from 'hooks/useHasFocus'
-import { injected } from '@wagmi/connectors'
+import { injected } from 'wagmi/connectors'
 import { connect } from '@wagmi/core'
+import { useLocalStorage } from 'usehooks-ts'
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
@@ -99,8 +100,11 @@ export const ConnectWallet = () => {
   const { send } = useOnboarding()
   const hasFocus = useHasFocus()
   const [shouldTrackFocus, setShouldTrackFocus] = useState(false)
-  const [shouldReload, setShouldReload] = useState(false)
-  const [shouldConnect, setShouldConnect] = useState(true)
+  const [shouldReload, setShouldReload] = useLocalStorage('shouldReload', false)
+  const [shouldConnect, setShouldConnect] = useLocalStorage(
+    'shouldAutoConnect',
+    false
+  )
 
   useEffect(() => {
     if (shouldConnect) {
