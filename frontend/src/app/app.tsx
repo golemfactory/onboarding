@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 
@@ -20,9 +20,18 @@ import { Playground } from 'components/pages/playground/Playground'
 
 import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorBoundary as Fallback } from 'components/providers/ErrorBoundary'
+import useHotjar from 'react-use-hotjar'
 
 const Onboarding = () => {
   const location = useLocation()
+  const { initHotjar } = useHotjar()
+
+  useEffect(() => {
+    initHotjar(3868944, 6, true, () => {
+      console.log('hotjar initialized')
+    })
+  }, [initHotjar])
+
   const locationArr = location.pathname?.split('/') ?? []
   useRouteControl()
   return (
