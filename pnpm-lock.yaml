@@ -86,6 +86,9 @@ importers:
       react-error-boundary:
         specifier: ^4.0.12
         version: 4.0.12(react@18.2.0)
+      react-hotjar:
+        specifier: ^6.2.0
+        version: 6.2.0
       react-i18next:
         specifier: ^14.0.0
         version: 14.0.1(i18next@23.7.20)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
@@ -95,6 +98,9 @@ importers:
       react-router-dom:
         specifier: ^6.15.0
         version: 6.21.3(react-dom@18.2.0)(react@18.2.0)
+      react-use-hotjar:
+        specifier: ^1.2.5
+        version: 1.2.5(react@18.2.0)
       ts-pattern:
         specifier: ^5.0.6
         version: 5.0.6
@@ -107,6 +113,9 @@ importers:
       usehooks-ts:
         specifier: ^2.9.1
         version: 2.10.0(react-dom@18.2.0)(react@18.2.0)
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
       viem:
         specifier: ^2.7.9
         version: 2.7.9(typescript@5.3.3)
@@ -12833,6 +12842,10 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-hotjar@6.2.0:
+    resolution: {integrity: sha512-uMX2IS5IKt1VkhHPwl2QEAEUmmm6VyxfzlwHLUKTQGZoE/0HWD71iGA7T31PO3KeN9+XUsTJS2P3zHva6TyhrQ==}
+    dev: false
+
   /react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0):
     resolution: {integrity: sha512-CFJ5NDGJ2MUyBohEHxljOq/39NQ972rh1ajnadG9BjTk+UXbHLq4z5DKEbEQBDoIhUmmbuS/fIMJKo6VOax1HA==}
     peerDependencies:
@@ -13051,6 +13064,15 @@ packages:
       react: 18.2.0
       tslib: 2.6.2
     dev: true
+
+  /react-use-hotjar@1.2.5(react@18.2.0):
+    resolution: {integrity: sha512-r0rstKO7hc2icMdolhPwlwBXn/8B5JNW/DY1Ss+KaOwbV5FK39eKQDcjeq1Q+pT4XpqPHya66m8A4zql7rIQXg==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: ^17.0.2 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
@@ -14864,7 +14886,6 @@ packages:
   /uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
-    dev: true
 
   /v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
