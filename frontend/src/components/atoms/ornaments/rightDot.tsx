@@ -9,7 +9,7 @@ export const RightDot = ({ top }: { top: string }) => {
     if (screenWidth < 1600) {
       return '-205px'
     } else if (screenWidth >= 1600 && screenWidth < 1920) {
-      return `${((-24 - -205) * (screenWidth - 1600)) / 320 - 205}px`
+      return `${((-24 - -205) * (screenWidth - 1600)) / 320 - 105}px`
     } else {
       return '-24px'
     }
@@ -30,7 +30,7 @@ export const RightDot = ({ top }: { top: string }) => {
       alt="rightDot"
       className="absolute"
       style={{
-        top: top || '750px',
+        top: '20vh',
         right: rightValue,
       }}
     />
