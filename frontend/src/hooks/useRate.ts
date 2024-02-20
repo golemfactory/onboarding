@@ -18,7 +18,6 @@ export const useExchangeRate = ({
   tokenOut: EthereumAddress
 }) => {
   const { chain } = useNetwork()
-  if (!chain) throw new Error('Chain is not defined')
   //TODO : move to hook
   const contracts = getContracts(chain.id)
   const { data, isLoading } = useReadContracts({
@@ -36,28 +35,25 @@ export const useExchangeRate = ({
 }
 
 export const useOnboardingExchangeRates = (chainId?: NetworkType) => {
-  const { chain } = useNetwork()
+  const { chain } = useNetwork(false)
   const [usdcToGLM, setUsdcToGLM] = useState(0)
   const [usdcToNative, setUsdcToNative] = useState(0)
   chainId = chainId || chain?.id
   if (!chainId) throw new Error('Chain is not defined')
   const contracts = getContracts(chainId)
 
-  const {
-    data: usdcToNativeWei,
-    isLoading: glmToUsdcLoading,
-    isError,
-  } = useReadContract({
-    address: contracts.uniswapV2.address,
-    abi: uniswapV2Abi,
-    functionName: 'getAmountsOut',
-    args: [
-      //as usdc has 6 decimals
-      Math.pow(10, 6),
-      [contracts.USDC.address, contracts.wrappedNativeToken.address],
-    ],
-    chainId: fromHex(chainId, 'number'),
-  })
+  const { data: usdcToNativeWei, isLoading: glmToUsdcLoading } =
+    useReadContract({
+      address: contracts.uniswapV2.address,
+      abi: uniswapV2Abi,
+      functionName: 'getAmountsOut',
+      args: [
+        //as usdc has 6 decimals
+        Math.pow(10, 6),
+        [contracts.USDC.address, contracts.wrappedNativeToken.address],
+      ],
+      chainId: fromHex(chainId, 'number'),
+    })
 
   const { data: maticToGLMWei, isLoading: usdcToGlmLoading } = useReadContract({
     address: contracts.uniswapV2.address,

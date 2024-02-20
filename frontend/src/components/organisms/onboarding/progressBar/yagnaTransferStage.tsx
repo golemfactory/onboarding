@@ -1,5 +1,4 @@
 import { ProgressStage } from 'components/molecules'
-import { stat } from 'fs'
 import { useOnboarding } from 'hooks/useOnboarding'
 import { OnboardingStage, OnboardingStageType } from 'state/stages'
 

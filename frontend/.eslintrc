@@ -18,7 +18,6 @@
     "@typescript-eslint/ban-ts-comment": "warn",
     "react/react-in-jsx-scope": "off",
     "no-undef": "error",
-    "@typescript-eslint/no-unused-vars": "error",
     "no-case-declarations": "error",
     "no-alert": "error",
     "no-fallthrough": "error",

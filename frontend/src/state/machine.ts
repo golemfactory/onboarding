@@ -27,8 +27,6 @@ const isGLMTracked = () => {
     .isGLMTracked
 }
 
-//initial step is persisted and passed to machine so
-// it can be recovered after page reload
 export const createStateMachine = ({
   step = Step.WELCOME,
   yagnaAddress,
@@ -48,11 +46,6 @@ export const createStateMachine = ({
     | { type: Commands.NEXT }
     | { type: Commands.PREVIOUS }
     | { type: Commands.RESTART }
-
-    //this event is used to communicate from blockchain related hooks
-    //that transfer changes here so machine can keep needed data in context
-    //this is far from ideal as it create two sources of truth
-    //but wagmi do not provide any other way to do this
     | {
         type: Commands.CHAIN_CONTEXT_CHANGED
         payload: BlockchainContextData
@@ -82,7 +75,6 @@ export const createStateMachine = ({
           NATIVE: BigInt(0),
         },
         isConnected() {
-          console.log('isConnected', this?.chainId)
           return this?.chainId !== undefined
         },
       },

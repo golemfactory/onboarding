@@ -14,8 +14,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedText } from 'components/molecules/animateText/AnimatedText'
 import { useTooltip } from 'components/providers/Tooltip.provider'
 import { useNetwork } from 'hooks/useNetwork'
-// import { SuccessIcon, TrustStackedIcon } from 'components/atoms/icons'
-import { polygon } from 'viem/chains'
+
 const style = {
   ...globalStyle,
   ...templateStyle,
@@ -38,7 +37,7 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
   const [isNextCalled, setIsNextCalled] = useState(false)
   const { send } = useOnboarding()
   const [namespace, setNamespace] = useState(`${name}.step`)
-  const { chain, chains } = useNetwork()
+  const { chain } = useNetwork(false)
   const [textVisible, setTextVisible] = useState(true)
   const [componentPlacement, setComponentPlacement] = useState('')
   useEffect(() => {
@@ -47,14 +46,12 @@ export const StepTemplate: FC<StepRenderDetailsType> = function (
       setComponentPlacement(placement)
     }, 1000)
   }, [placement])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   useEffect(() => {
     setTextVisible(!textVisible)
     setTimeout(() => {
       setTextVisible(textVisible)
       setNamespace(`${name}.step`)
-      // setMainComponent(stepRenderDetails.main)
     }, 1000)
   }, [name])
 

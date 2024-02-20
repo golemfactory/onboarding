@@ -5,8 +5,8 @@ import { useAccount } from 'hooks/useAccount'
 import { EthereumAddress, TokenCategory } from 'types/ethereum'
 
 export const useBalance = (addr?: EthereumAddress) => {
-  const { address } = useAccount()
-  const { chain } = useNetwork()
+  const { address } = useAccount(false)
+  const { chain } = useNetwork(false)
 
   const glmAddress = chain?.id ? getGLMToken(chain?.id).address : undefined
 

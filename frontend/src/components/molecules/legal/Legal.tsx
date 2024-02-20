@@ -57,6 +57,7 @@ export const Legal: FC<{
               ns="welcome.step"
               values={{
                 onClick: () => {
+                  console.log('clicked')
                   setShowMore(!showMore)
                 },
               }}

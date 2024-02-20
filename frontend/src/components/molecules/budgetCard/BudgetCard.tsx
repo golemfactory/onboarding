@@ -31,7 +31,6 @@ export const BudgetCard = ({
   //i18n
   const title = `${id}.title`
   const description = `${id}.description`
-
   //settings
   const totalBudget = Number(settings.budgetOptions[id])
   const usageCostInUSD = totalBudget - settings.rampFee

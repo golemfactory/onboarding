@@ -96,7 +96,7 @@ const ConnectWalletPresentational = ({
 
 export const ConnectWallet = () => {
   const { open } = useWeb3Modal()
-  const { address } = useAccount()
+  const { address } = useAccount(false)
   const { send } = useOnboarding()
   const hasFocus = useHasFocus()
   const [shouldTrackFocus, setShouldTrackFocus] = useState(false)

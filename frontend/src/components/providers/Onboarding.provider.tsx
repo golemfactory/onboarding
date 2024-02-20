@@ -14,15 +14,15 @@ export const OnboardingContext = createActorContext(createStateMachine({}))
 
 const ChainObserver = () => {
   const { send } = useOnboarding()
-  const { chain } = useNetwork()
-  const { address } = useAccount()
+  const { chain } = useNetwork(false)
+  const { address } = useAccount(false)
   const balance = useBalance()
   useEffect(() => {
     console.log('chain', chain)
     send({
       type: Commands.CHAIN_CONTEXT_CHANGED,
       payload: chain
-        ? { chainId: chain.id, address, balance }
+        ? { chainId: chain?.id, address, balance }
         : { address, balance },
     })
   }, [address, chain?.id, balance.GLM, balance.NATIVE])

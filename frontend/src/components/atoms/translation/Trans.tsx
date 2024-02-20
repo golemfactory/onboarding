@@ -18,7 +18,7 @@ export const Trans = ({
   components,
   ...rest
 }: ComponentProps<typeof TransComponent>) => {
-  const { chain } = useNetwork()
+  const { chain } = useNetwork(false)
   return (
     <TransComponent
       {...rest}
