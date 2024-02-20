@@ -29,6 +29,9 @@ importers:
       '@heroicons/react':
         specifier: 2.0.13
         version: 2.0.13(react@18.2.0)
+      '@hotjar/browser':
+        specifier: ^1.0.9
+        version: 1.0.9
       '@metamask/detect-provider':
         specifier: ^2.0.0
         version: 2.0.0
@@ -2234,6 +2237,10 @@ packages:
       react: '>= 16'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hotjar/browser@1.0.9:
+    resolution: {integrity: sha512-n9akDMod8BLGpYEQCrHwlYWWd63c1HlhUSXNIDfClZtKYXbUjIUOFlNZNNcUxgHTCsi4l2i+SWKsGsO0t93S8w==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
@@ -5711,6 +5718,7 @@ packages:
 
   /@vue/compiler-core@3.4.19:
     resolution: {integrity: sha512-gj81785z0JNzRcU0Mq98E56e4ltO1yf8k5PQ+tV/7YHnbZkrM0fyFyuttnN8ngJZjbpofWE/m4qjKBiLl8Ju4w==}
+    requiresBuild: true
     dependencies:
       '@babel/parser': 7.23.9
       '@vue/shared': 3.4.19
@@ -5721,6 +5729,7 @@ packages:
 
   /@vue/compiler-dom@3.4.19:
     resolution: {integrity: sha512-vm6+cogWrshjqEHTzIDCp72DKtea8Ry/QVpQRYoyTIg9k7QZDX6D8+HGURjtmatfgM8xgCFtJJaOlCaRYRK3QA==}
+    requiresBuild: true
     dependencies:
       '@vue/compiler-core': 3.4.19
       '@vue/shared': 3.4.19
@@ -5728,6 +5737,7 @@ packages:
 
   /@vue/compiler-sfc@3.4.19:
     resolution: {integrity: sha512-LQ3U4SN0DlvV0xhr1lUsgLCYlwQfUfetyPxkKYu7dkfvx7g3ojrGAkw0AERLOKYXuAGnqFsEuytkdcComei3Yg==}
+    requiresBuild: true
     dependencies:
       '@babel/parser': 7.23.9
       '@vue/compiler-core': 3.4.19
@@ -5742,6 +5752,7 @@ packages:
 
   /@vue/compiler-ssr@3.4.19:
     resolution: {integrity: sha512-P0PLKC4+u4OMJ8sinba/5Z/iDT84uMRRlrWzadgLA69opCpI1gG4N55qDSC+dedwq2fJtzmGald05LWR5TFfLw==}
+    requiresBuild: true
     dependencies:
       '@vue/compiler-dom': 3.4.19
       '@vue/shared': 3.4.19
@@ -5749,12 +5760,14 @@ packages:
 
   /@vue/reactivity@3.4.19:
     resolution: {integrity: sha512-+VcwrQvLZgEclGZRHx4O2XhyEEcKaBi50WbxdVItEezUf4fqRh838Ix6amWTdX0CNb/b6t3Gkz3eOebfcSt+UA==}
+    requiresBuild: true
     dependencies:
       '@vue/shared': 3.4.19
     dev: false
 
   /@vue/runtime-core@3.4.19:
     resolution: {integrity: sha512-/Z3tFwOrerJB/oyutmJGoYbuoadphDcJAd5jOuJE86THNZji9pYjZroQ2NFsZkTxOq0GJbb+s2kxTYToDiyZzw==}
+    requiresBuild: true
     dependencies:
       '@vue/reactivity': 3.4.19
       '@vue/shared': 3.4.19
@@ -5762,6 +5775,7 @@ packages:
 
   /@vue/runtime-dom@3.4.19:
     resolution: {integrity: sha512-IyZzIDqfNCF0OyZOauL+F4yzjMPN2rPd8nhqPP2N1lBn3kYqJpPHHru+83Rkvo2lHz5mW+rEeIMEF9qY3PB94g==}
+    requiresBuild: true
     dependencies:
       '@vue/runtime-core': 3.4.19
       '@vue/shared': 3.4.19
@@ -5770,6 +5784,7 @@ packages:
 
   /@vue/server-renderer@3.4.19(vue@3.4.19):
     resolution: {integrity: sha512-eAj2p0c429RZyyhtMRnttjcSToch+kTWxFPHlzGMkR28ZbF1PDlTcmGmlDxccBuqNd9iOQ7xPRPAGgPVj+YpQw==}
+    requiresBuild: true
     peerDependencies:
       vue: 3.4.19
     dependencies:
@@ -5780,6 +5795,7 @@ packages:
 
   /@vue/shared@3.4.19:
     resolution: {integrity: sha512-/KliRRHMF6LoiThEy+4c1Z4KB/gbPrGjWwJR+crg2otgrf/egKzRaCPvJ51S5oetgsgXLfc4Rm5ZgrKHZrtMSw==}
+    requiresBuild: true
     dev: false
 
   /@wagmi/connectors@4.1.14(@types/react@18.0.26)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.9):
@@ -6356,6 +6372,7 @@ packages:
 
   /@web3modal/wallet@4.0.5:
     resolution: {integrity: sha512-rw9LtXX7azOjpV/WWh2KRG4zlvXW+tE+QRxl0b12S4WgQXLoteqzAFiumvg/H4fBf73WFJ6Bos3g7Mf4M8Dp6A==}
+    requiresBuild: true
     dependencies:
       zod: 3.22.4
     dev: false
@@ -8278,6 +8295,7 @@ packages:
   /entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
+    requiresBuild: true
     dev: false
 
   /envinfo@7.11.0:
@@ -9706,6 +9724,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     optional: true
@@ -11260,6 +11279,7 @@ packages:
   /magic-string@0.30.7:
     resolution: {integrity: sha512-8vBuFF/I/+OSLRmdf2wwFCJCz+nSn0m6DPvGH1fS/KiQoSaR+sETbov0eIk9KhEKy8CYqIkIAnbohxT/4H0kuA==}
     engines: {node: '>=12'}
+    requiresBuild: true
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: false
@@ -15451,6 +15471,7 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    requiresBuild: true
     dev: false
 
   /zustand@4.4.1(@types/react@18.0.26)(react@18.2.0):

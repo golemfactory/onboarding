@@ -10,9 +10,7 @@ import { createStateMachine } from 'state/machine'
 import { useStep } from 'hooks/useStep'
 import { useOnboarding, getOnboardingSnapshot } from 'hooks/useOnboarding'
 import { EthereumAddress, NetworkType } from 'types/ethereum'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Dialog } from 'components/molecules/networkChangeDialog/NetworkChangeDialog'
-import { set } from 'lodash'
 
 export const OnboardingContext = createActorContext(createStateMachine({}))
 
@@ -23,44 +21,44 @@ const ChainObserver = ({
   onUnexpectedChange: () => void
   onBackToInitialSetup: () => void
 }) => {
-  // const { send } = useOnboarding()
-  // const { chain } = useNetwork(false)
-  // const { address } = useAccount(false)
-  // const { state } = useOnboarding()
-  // const balance = useBalance()
-  // const initialChainRef = useRef<NetworkType | undefined>(chain?.id)
-  // const initialAccountRef = useRef<EthereumAddress | undefined>(address)
-  // useEffect(() => {
-  //   console.log('chain changed', chain)
+  const { send } = useOnboarding()
+  const { chain } = useNetwork(false)
+  const { address } = useAccount(false)
+  const { state } = useOnboarding()
+  const balance = useBalance()
+  const initialChainRef = useRef<NetworkType | undefined>(chain?.id)
+  const initialAccountRef = useRef<EthereumAddress | undefined>(address)
+  useEffect(() => {
+    console.log('chain changed', chain)
 
-  //   const selectedNetwork = state.context.chosenNetwork
-  //   const initialChain = initialChainRef.current
-  //   const initialAccount = initialAccountRef.current
+    const selectedNetwork = state.context.chosenNetwork
+    const initialChain = initialChainRef.current
+    const initialAccount = initialAccountRef.current
 
-  //   const hasChainChanged = initialChain !== chain?.id
-  //   const hasAccountChanged = initialAccount !== address
-  //   console.log('se', selectedNetwork, hasChainChanged, hasAccountChanged)
-  //   if (selectedNetwork) {
-  //     if (hasChainChanged || hasAccountChanged) {
-  //       onUnexpectedChange()
-  //     }
-  //     onBackToInitialSetup()
-  //   }
+    const hasChainChanged = initialChain !== chain?.id
+    const hasAccountChanged = initialAccount !== address
+    console.log('se', selectedNetwork, hasChainChanged, hasAccountChanged)
+    if (selectedNetwork) {
+      if (hasChainChanged || hasAccountChanged) {
+        onUnexpectedChange()
+      }
+      onBackToInitialSetup()
+    }
 
-  //   send({
-  //     type: Commands.CHAIN_CONTEXT_CHANGED,
-  //     payload: chain
-  //       ? { chainId: chain?.id, address, balance }
-  //       : { address, balance },
-  //   })
-  //   //values set once should never change
-  //   if (!initialAccountRef.current && address) {
-  //     initialAccountRef.current = address
-  //   }
-  //   if (!initialChainRef.current && chain?.id) {
-  //     initialChainRef.current = chain?.id
-  //   }
-  // }, [address, chain?.id, balance.GLM, balance.NATIVE])
+    send({
+      type: Commands.CHAIN_CONTEXT_CHANGED,
+      payload: chain
+        ? { chainId: chain?.id, address, balance }
+        : { address, balance },
+    })
+    //values set once should never change
+    if (!initialAccountRef.current && address) {
+      initialAccountRef.current = address
+    }
+    if (!initialChainRef.current && chain?.id) {
+      initialChainRef.current = chain?.id
+    }
+  }, [address, chain?.id, balance.GLM, balance.NATIVE])
 
   return <></>
 }

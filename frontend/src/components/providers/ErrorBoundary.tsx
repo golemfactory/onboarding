@@ -16,7 +16,10 @@ const NoChainErrorBoundary = () => {
           <Button
             buttonStyle="solid"
             className="py-2 px-4 rounded-full "
-            onClick={() => navigate('/')}
+            onClick={() => {
+              navigate('/')
+              window.location.reload()
+            }}
           >
             {' '}
             Go to landing{' '}

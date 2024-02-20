@@ -7,12 +7,15 @@ import { LandingPage } from 'components/pages'
 import { AnimatePresence } from 'framer-motion'
 import { UnsupportedPage } from 'components/pages/unsupported'
 import { AnimatedPage } from 'components/pages/AnimatedPage'
-
+import { v4 as uuidv4 } from 'uuid'
 import {
   BlockchainProvider,
   OnboardingProvider,
   SetupProvider,
 } from 'components/providers'
+
+import Hotjar from '@hotjar/browser'
+
 import { OnboardingPage } from 'components/pages'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { useRouteControl } from 'hooks/useRouteControl'
@@ -21,16 +24,17 @@ import { Playground } from 'components/pages/playground/Playground'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorBoundary as Fallback } from 'components/providers/ErrorBoundary'
 import useHotjar from 'react-use-hotjar'
+import { set } from 'lodash'
 
 const Onboarding = () => {
   const location = useLocation()
-  const { initHotjar } = useHotjar()
+  const { initHotjar, identifyHotjar } = useHotjar()
 
   useEffect(() => {
-    initHotjar(3868944, 6, true, () => {
-      console.log('hotjar initialized')
-    })
-  }, [initHotjar])
+    console.log('init hotjar', import.meta.env.VITE_HOTJAR_SITE_ID)
+    Hotjar.init(import.meta.env.VITE_HOTJAR_SITE_ID, 6, { debug: true })
+    Hotjar.identify(uuidv4(), { test: 'test' })
+  }, [Hotjar])
 
   const locationArr = location.pathname?.split('/') ?? []
   useRouteControl()

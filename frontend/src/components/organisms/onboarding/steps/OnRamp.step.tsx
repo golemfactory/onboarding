@@ -162,10 +162,9 @@ export const OnRamp = ({
   placement: 'inside' | 'outside'
 }) => {
   //@ts-ignore
-  window.gtns = goToNextStep
-  const { address } = useAccount()
+  const { address } = useAccount(true)
   const widgetRef = useRef<RampInstantSDK | null>(null)
-  const { chain } = useNetwork()
+  const { chain } = useNetwork(true)
   const [showRamp, setShowRamp] = useState(placement === 'inside')
   const balance = useBalance()
   const initialBalance = useRef(balance.NATIVE)

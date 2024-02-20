@@ -103,11 +103,13 @@ export const ConnectWallet = () => {
   const [shouldReload, setShouldReload] = useLocalStorage('shouldReload', false)
   const [shouldConnect, setShouldConnect] = useLocalStorage(
     'shouldAutoConnect',
-    false
+    true
   )
 
+  console.log('shouldConnect', shouldConnect)
   useEffect(() => {
     if (shouldConnect) {
+      console.log('connecting')
       try {
         connect(wagmiConfig, {
           connector: injected(),
@@ -115,9 +117,8 @@ export const ConnectWallet = () => {
       } catch (e) {
         console.error(e)
       }
-
-      setShouldConnect(false)
     }
+    // setShouldConnect(false)
   }, [shouldConnect])
   useEffect(() => {
     if (address) {
