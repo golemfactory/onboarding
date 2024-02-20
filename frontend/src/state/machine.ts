@@ -11,7 +11,7 @@ import {
 } from 'types/dataContext'
 import { BalanceCase } from 'types/path'
 import { OnboardingStage, OnboardingStageType, stepToStage } from './stages'
-import { EthereumAddress } from 'types/ethereum'
+import { EthereumAddress, NetworkType } from 'types/ethereum'
 
 const move = (stage: OnboardingStageType) =>
   assign({
@@ -62,6 +62,7 @@ export const createStateMachine = ({
         type: Commands.BUY_GLM
         payload: number
       }
+    | { type: 'CHOOSE_NETWORK'; payload: NetworkType }
   >({
     context: {
       yagnaAddress,
@@ -82,7 +83,15 @@ export const createStateMachine = ({
     },
     id: 'onboarding',
     initial: step || Step.WELCOME,
+
     on: {
+      [Commands.CHOOSE_NETWORK]: {
+        actions: assign({
+          chosenNetwork: (_context, event) => {
+            return event.payload
+          },
+        }),
+      },
       [Commands.RESTART]: {
         target: Step.WELCOME,
       },

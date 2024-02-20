@@ -1,21 +1,28 @@
 import { OnboardingContext } from 'components/providers'
-import { validateHeaderValue } from 'http'
 import { useEffect } from 'react'
-import { OnboardingContextData, assertBudgetType } from 'types/dataContext'
+import { OnboardingContextData } from 'types/dataContext'
 import { useSessionStorage } from 'usehooks-ts'
+
+/**
+ * Custom hook that persists a specific property from the OnboardingContextData in session storage.
+ * @param property - The property to persist from the OnboardingContextData.
+ * @returns The persisted value of the specified property.
+ */
 
 const usePersistOnboardingContext = (
   property: keyof Pick<
     OnboardingContextData,
-    'budget' | 'boughtGLM' | 'boughtNative'
+    'budget' | 'boughtGLM' | 'boughtNative' | 'chosenNetwork'
   >
 ) => {
   const key = `onboarding-${property}`
   const [state] = OnboardingContext.useActor()
   const [value, setValue] = useSessionStorage(key, state.context[property])
   useEffect(() => {
-    if (state.context[property] !== value) {
-      //@ts-ignore
+    if (
+      state.context[property] !== value &&
+      state.context[property] !== undefined
+    ) {
       setValue(state.context[property])
     }
   }, [state.context[property]])
@@ -34,6 +41,7 @@ export const useOnboarding = () => {
   usePersistOnboardingContext('budget')
   usePersistOnboardingContext('boughtGLM')
   usePersistOnboardingContext('boughtNative')
+  usePersistOnboardingContext('chosenNetwork')
 
   return {
     state,
@@ -41,24 +49,16 @@ export const useOnboarding = () => {
   }
 }
 
-//TODO : it doesnt need to be a hook
+const getItem = (key: string, defaultVal: unknown) => {
+  console.log('ket', key, sessionStorage.getItem(key) || '""')
+  return JSON.parse(sessionStorage.getItem(key) || '""') || defaultVal
+}
 
-export const useOnboardingSnapshot = () => {
-  const budgetItem = JSON.parse(
-    sessionStorage.getItem('onboarding-budget') || '""'
-  )
-
-  if (budgetItem) {
-    assertBudgetType(budgetItem)
-  }
-  //TODO [minor] : assert boughtGLM and boughtNative to be numbers
+export const getOnboardingSnapshot = () => {
   return {
-    budget: budgetItem,
-    boughtGLM: Number(
-      JSON.parse(sessionStorage.getItem('onboarding-boughtGLM') || '0')
-    ),
-    boughtNative: Number(
-      JSON.parse(sessionStorage.getItem('onboarding-boughtNative') || '0')
-    ),
+    budget: getItem('onboarding-budget', ''),
+    boughtGLM: getItem('onboarding-boughtGLM', 0),
+    boughtNative: getItem('onboarding-boughtNative', 0),
+    chosenNetwork: getItem('onboarding-chosenNetwork', ''),
   }
 }

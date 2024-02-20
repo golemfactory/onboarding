@@ -6,4 +6,5 @@ export enum Commands {
   BUY_NATIVE = 'BUY_NATIVE',
   BUY_GLM = 'BUY_GLM',
   RESTART = 'RESTART',
+  CHOOSE_NETWORK = 'CHOOSE_NETWORK',
 }

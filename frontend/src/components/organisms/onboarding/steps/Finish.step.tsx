@@ -18,7 +18,7 @@ import { RightDot } from 'components/atoms/ornaments/rightDot'
 import { Card, CardDataType } from 'components/molecules/useCaseCard/Card'
 import { CodeBracketIcon } from '@heroicons/react/24/outline'
 import { ArrowsExpandIcon, TerminalIcon } from 'components/atoms/icons'
-import { useOnboardingSnapshot } from 'hooks/useOnboarding'
+import { getOnboardingSnapshot } from 'hooks/useOnboarding'
 import { settings } from 'settings'
 
 const useCases: CardDataType[] = [
@@ -72,7 +72,7 @@ const FinishPresentationalYagna = ({
 }) => {
   return (
     <div>
-      <RightDot top={'400px'} />
+      <RightDot />
       <div className="justify-center flex flex-col text-center gap-3">
         <CheckCircleIcon className=" h-10 text-success-100" />
         <div className="text-h1">
@@ -112,7 +112,7 @@ const FinishPresentationalYagna = ({
 }
 
 const BudgetCardSummary = () => {
-  const { boughtGLM } = useOnboardingSnapshot()
+  const { boughtGLM } = getOnboardingSnapshot()
 
   const time = Math.round(boughtGLM / settings.hourCost)
   return (
@@ -140,7 +140,7 @@ const FinishPresentationalNoYagna = ({
 }) => {
   return (
     <div>
-      <RightDot top={'400px'} />
+      <RightDot />
       <div className="justify-center flex flex-col text-center gap-3">
         <CheckCircleIcon className=" h-10 text-success-100" />
         <div className="text-h1">
@@ -232,9 +232,9 @@ const FinishPresentationalNoYagna = ({
 
 export const Finish = () => {
   const walletProvider = useWallet()
-  const { address } = useAccount()
+  const { address } = useAccount(false)
   const { yagnaAddress } = useSetup()
-
+  console.log('address', address)
   if (!address) {
     throw new Error('Address is not defined')
   }

@@ -4,7 +4,6 @@ import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Prop } from 'xstate'
 import { PropsWithChildren } from 'react'
 const projectId = '20bd2ed396d80502980b6d2a3fb425f4'
 
@@ -28,6 +27,9 @@ export const config = defaultWagmiConfig({
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
+  featuredWalletIds: [
+    '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
+  ],
 })
 
 export function BlockchainProvider({ children }: PropsWithChildren) {

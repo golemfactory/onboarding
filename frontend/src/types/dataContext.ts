@@ -44,4 +44,5 @@ export interface OnboardingContextData {
   stage: (typeof OnboardingStage)[keyof typeof OnboardingStage]
   boughtNative: number
   boughtGLM: number
+  chosenNetwork?: NetworkType
 }

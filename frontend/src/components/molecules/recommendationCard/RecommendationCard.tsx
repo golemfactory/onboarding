@@ -1,7 +1,7 @@
 import { Trans } from 'components/atoms'
 import style from './RecommendationCard.module.css'
 import { settings } from 'settings'
-import { useOnboarding, useOnboardingSnapshot } from 'hooks/useOnboarding'
+import { useOnboarding, getOnboardingSnapshot } from 'hooks/useOnboarding'
 import { useOnboardingExchangeRates } from 'hooks/useRate'
 import { useBalance } from 'hooks/useBalance'
 import { useNetwork } from 'hooks/useNetwork'
@@ -49,7 +49,7 @@ export const RecommendationCardOnRamp = () => {
     throw new Error('No chain')
   }
 
-  const fiat = settings.budgetOptions[state.context.budget]
+  const fiat = settings.budgetOptions[state.context.budget] as number
   const precision = chain?.id === '0x1' ? 1000 : 8
   const nativeToken = getNativeToken(chain.id)
   const value =
@@ -99,7 +99,7 @@ export const RecommendationCardPresentationalSwap = ({
 
 export const RecommendationCardSwap = () => {
   const { data: rates } = useOnboardingExchangeRates()
-  const { boughtNative } = useOnboardingSnapshot()
+  const { boughtNative } = getOnboardingSnapshot()
   const { chain } = useNetwork()
   if (!chain) {
     throw new Error('No chain')
@@ -163,7 +163,7 @@ const RecommendationCardPresentationalTransfer = ({
 export const RecommendationCardTransfer = () => {
   const { chain } = useNetwork()
   const balance = useBalance()
-  const { boughtNative, boughtGLM } = useOnboardingSnapshot()
+  const { boughtNative, boughtGLM } = getOnboardingSnapshot()
   //TODO move checking of chain to hook
   if (!chain) {
     throw new Error('np chain')

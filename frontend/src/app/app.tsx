@@ -78,7 +78,7 @@ const Onboarding = () => {
 const Router: FC = () => {
   return (
     <ErrorBoundary FallbackComponent={Fallback}>
-      <SetupProvider>
+      <>
         <TooltipProvider>
           <ThemeProvider>
             <BlockchainProvider>
@@ -88,7 +88,7 @@ const Router: FC = () => {
             </BlockchainProvider>
           </ThemeProvider>
         </TooltipProvider>
-      </SetupProvider>
+      </>
     </ErrorBoundary>
   )
 }

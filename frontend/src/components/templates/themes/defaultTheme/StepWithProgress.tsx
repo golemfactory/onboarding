@@ -34,7 +34,7 @@ export const StepWithProgress = ({
   isTooltipVisible,
 }: PropsWithChildren<{ isTooltipVisible: boolean }>) => {
   const walletProvider = useWallet()
-  const { address } = useAccount()
+  const { address } = useAccount(false)
   const { yagnaAddress } = useSetup()
   const { state } = useOnboarding()
   const isTransferStep = state.value === 'transfer'

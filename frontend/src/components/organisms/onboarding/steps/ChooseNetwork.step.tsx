@@ -108,10 +108,11 @@ export const ChooseNetwork = () => {
   )
   const { send } = useOnboarding()
   const { network: selectedNetworkFromParams } = useSetup()
-  const { chain } = useNetwork()
+  const { chain } = useNetwork(false)
   const { switchChainAsync } = useSwitchChain()
 
   const onConfirm = useCallback(async () => {
+    send({ type: Commands.CHOOSE_NETWORK, payload: selectedNetwork })
     if (chain?.id === selectedNetwork) {
       send(Commands.NEXT)
       return
