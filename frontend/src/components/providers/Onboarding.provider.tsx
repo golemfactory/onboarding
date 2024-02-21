@@ -29,15 +29,12 @@ const ChainObserver = ({
   const initialChainRef = useRef<NetworkType | undefined>(chain?.id)
   const initialAccountRef = useRef<EthereumAddress | undefined>(address)
   useEffect(() => {
-    console.log('chain changed', chain)
-
     const selectedNetwork = state.context.chosenNetwork
     const initialChain = initialChainRef.current
     const initialAccount = initialAccountRef.current
 
     const hasChainChanged = initialChain !== chain?.id
     const hasAccountChanged = initialAccount !== address
-    console.log('se', selectedNetwork, hasChainChanged, hasAccountChanged)
     if (selectedNetwork) {
       if (hasChainChanged || hasAccountChanged) {
         onUnexpectedChange()

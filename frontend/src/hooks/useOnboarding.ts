@@ -50,7 +50,6 @@ export const useOnboarding = () => {
 }
 
 const getItem = (key: string, defaultVal: unknown) => {
-  console.log('ket', key, sessionStorage.getItem(key) || '""')
   return JSON.parse(sessionStorage.getItem(key) || '""') || defaultVal
 }
 

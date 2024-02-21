@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 
 import { ThemeProvider } from 'components/providers/ThemeProvider'
 import { LandingPage } from 'components/pages'
@@ -23,6 +23,7 @@ import { ErrorBoundary as Fallback } from 'components/providers/ErrorBoundary'
 import useHotjar from 'hooks/useHotjar'
 
 const Onboarding = () => {
+  const location = useLocation()
   const locationArr = location.pathname?.split('/') ?? []
   useRouteControl()
   const { init } = useHotjar()
