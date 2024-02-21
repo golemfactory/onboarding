@@ -28,7 +28,9 @@ const Onboarding = () => {
   const locationArr = location.pathname?.split('/') ?? []
   useRouteControl()
   const { init } = useHotjar()
-  ReactGA.initialize(import.meta.env.VITE_GA_ID)
+  useEffect(() => {
+    ReactGA.initialize(import.meta.env.VITE_GA_ID)
+  }, [])
   useEffect(() => {
     init({
       id: import.meta.env.VITE_HOTJAR_ID,
