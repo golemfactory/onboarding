@@ -21,12 +21,14 @@ import { Playground } from 'components/pages/playground/Playground'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorBoundary as Fallback } from 'components/providers/ErrorBoundary'
 import useHotjar from 'hooks/useHotjar'
+import ReactGA from 'react-ga'
 
 const Onboarding = () => {
   const location = useLocation()
   const locationArr = location.pathname?.split('/') ?? []
   useRouteControl()
   const { init } = useHotjar()
+  ReactGA.initialize(import.meta.env.VITE_GA_ID)
   useEffect(() => {
     init({
       id: import.meta.env.VITE_HOTJAR_ID,
