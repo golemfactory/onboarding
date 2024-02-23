@@ -117,8 +117,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(react-dom@18.2.0)(react-router-dom@6.21.3)(react@18.2.0)
       usehooks-ts:
-        specifier: ^2.9.1
-        version: 2.10.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.15.1
+        version: 2.15.1(react@18.2.0)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -14876,15 +14876,14 @@ packages:
       react: 18.2.0
     dev: false
 
-  /usehooks-ts@2.10.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-hN22L5pqcsM1LwL6Q3p1QfxI9K+wuP4lrBXyCQ4Vi5Zo94YhphqRh2l7G7uhqPzLunAObLUAoSKzo64lisNyWQ==}
+  /usehooks-ts@2.15.1(react@18.2.0):
+    resolution: {integrity: sha512-AK29ODCt4FT9XleILNbkbjjmkRCNaQrgxQEkvqHjlnT76iPXzTFGvK2Y/s83JEdSxRp43YEnSa3bYBEV6HZ26Q==}
     engines: {node: '>=16.15.0'}
     peerDependencies:
-      react: ^16.8.0  || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+      react: ^16.8.0  || ^17 || ^18
     dependencies:
+      lodash.debounce: 4.0.8
       react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /utf-8-validate@6.0.3:

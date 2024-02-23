@@ -14,6 +14,7 @@ import { useHasFocus } from 'hooks/useHasFocus'
 import { injected } from 'wagmi/connectors'
 import { connect } from '@wagmi/core'
 import { useLocalStorage } from 'usehooks-ts'
+import { use } from 'i18next'
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
@@ -100,16 +101,29 @@ export const ConnectWallet = () => {
   const { send } = useOnboarding()
   const hasFocus = useHasFocus()
   const [shouldTrackFocus, setShouldTrackFocus] = useState(false)
-  const [shouldReload, setShouldReload] = useLocalStorage('shouldReload', false)
+  const [shouldReload, setShouldReload] = useLocalStorage(
+    'shouldReload',
+    false,
+    //It's important to not that with false useLocalStorage initialise with initial value
+    //instead of persisted value and read it and update afterwards in useEffect
+    {
+      initializeWithValue: true,
+    }
+  )
+
+  const [dupa] = useLocalStorage('dupa', 23)
+
   const [shouldConnect, setShouldConnect] = useLocalStorage(
     'shouldAutoConnect',
     true
   )
 
-  console.log('shouldConnect', shouldConnect)
   useEffect(() => {
+    console.log('dupa', dupa)
+  })
+  useEffect(() => {
+    // console.log('dupa', shouldConnect)
     if (shouldConnect) {
-      console.log('connecting')
       try {
         connect(wagmiConfig, {
           connector: injected(),
@@ -118,7 +132,7 @@ export const ConnectWallet = () => {
         console.error(e)
       }
     }
-    // setShouldConnect(false)
+    setShouldConnect(false)
   }, [shouldConnect])
   useEffect(() => {
     if (address) {
@@ -135,7 +149,7 @@ export const ConnectWallet = () => {
   useEffect(() => {
     if (hasFocus && shouldReload) {
       setShouldReload(false)
-      setShouldConnect(true)
+      // setShouldConnect(true)
       window.location.reload()
     }
   }, [hasFocus])
