@@ -2,7 +2,7 @@ import { Button, Trans } from 'components/atoms'
 import stepStyle from './ConnectWallet.step.module.css'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 
-import { queryShadowRootDeep } from 'utils/shadowRoot'
+import { queryShadowRootDeep, queryShadowRootDeepAll } from 'utils/shadowRoot'
 import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { config as wagmiConfig } from 'components/providers/Blockchain.provider'
 import { useEffect, useState } from 'react'
@@ -14,7 +14,6 @@ import { useHasFocus } from 'hooks/useHasFocus'
 import { injected } from 'wagmi/connectors'
 import { connect } from '@wagmi/core'
 import { useLocalStorage } from 'usehooks-ts'
-import { use } from 'i18next'
 TooltipProvider.registerTooltip({
   id: 'connect-wallet',
   tooltip: {
@@ -22,6 +21,19 @@ TooltipProvider.registerTooltip({
     appearance: 'primary',
   },
 })
+
+const getAllDisplayedWallets = (
+  pathToContent: {
+    selector: string
+    useShadowRoot: boolean
+  }[]
+) => {
+  const wallets = queryShadowRootDeepAll([
+    ...pathToContent,
+    { selector: 'wui-list-wallet', useShadowRoot: false },
+  ])
+  return wallets
+}
 
 const adjustWeb3ModalContent = () => {
   const pathToContent = [
@@ -34,24 +46,42 @@ const adjustWeb3ModalContent = () => {
     { selector: 'wui-flex', useShadowRoot: false },
   ]
 
-  const hideWallet = (name: string) => {
-    const allWallets = queryShadowRootDeep([
+  const allWallets = getAllDisplayedWallets(pathToContent)
+
+  const duplicatedWallets: HTMLElement[] = []
+  const processedNames: string[] = []
+
+  allWallets.forEach(
+    //@ts-ignore
+    (wallet: HTMLElement) => {
+      if (processedNames.includes(wallet.getAttribute('name') ?? '')) {
+        duplicatedWallets.push(wallet)
+      }
+      processedNames.push(wallet.getAttribute('name') ?? '')
+    }
+  )
+
+  const hideWalletByName = (name: string) => {
+    const wallet = queryShadowRootDeep([
       ...pathToContent,
       {
         selector: `wui-list-wallet[name="${name}"]`,
         useShadowRoot: false,
       },
     ])
-    if (!(allWallets instanceof HTMLElement)) {
-      throw new Error('All wallets not found')
+    if (!(wallet instanceof HTMLElement)) {
+      throw new Error('wallet not found')
     }
-    allWallets.hidden = true
+    wallet.hidden = true
   }
   setTimeout(() => {
+    duplicatedWallets.forEach((wallet) => {
+      wallet.hidden = true
+    })
     ;['All Wallets', 'WalletConnect', 'Coinbase', 'Browser Wallet'].forEach(
       (w) => {
         try {
-          hideWallet(w)
+          hideWalletByName(w)
         } catch (err) {}
       }
     )
@@ -111,16 +141,11 @@ export const ConnectWallet = () => {
     }
   )
 
-  const [dupa] = useLocalStorage('dupa', 23)
-
   const [shouldConnect, setShouldConnect] = useLocalStorage(
     'shouldAutoConnect',
     true
   )
 
-  useEffect(() => {
-    console.log('dupa', dupa)
-  })
   useEffect(() => {
     // console.log('dupa', shouldConnect)
     if (shouldConnect) {

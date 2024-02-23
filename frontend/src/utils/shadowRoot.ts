@@ -34,6 +34,55 @@ export function queryShadowRootDeep(
   return element as ShadowRoot | HTMLElement
 }
 
+export function queryShadowRootDeepAll(
+  hostsSelectorList: ReadonlyArray<{
+    selector: string
+    useShadowRoot: boolean
+  }>
+): Array<ShadowRoot | HTMLElement> | never {
+  //@ts-ignore
+  let elements: Array<ShadowRoot | HTMLElement> = [document]
+
+  if (hostsSelectorList.length === 0) {
+    throw new Error('The hostsSelectorList cannot be empty')
+  }
+
+  hostsSelectorList.forEach(
+    ({
+      selector,
+      useShadowRoot,
+    }: {
+      selector: string
+      useShadowRoot: boolean
+    }) => {
+      let newElements: Array<ShadowRoot | HTMLElement> = []
+
+      elements.forEach((element) => {
+        const el = useShadowRoot
+          ? Array.from((element as HTMLElement)?.querySelectorAll(selector))
+              .filter((e) => e.shadowRoot !== null)
+              .map((e) => {
+                return e.shadowRoot as ShadowRoot
+              })
+          : Array.from(element?.querySelectorAll<HTMLElement>(selector))
+        newElements = [...newElements, ...el]
+      })
+
+      if (newElements.length === 0) {
+        throw new Error(
+          `Cannot find a shadowRoot element with selector "${selector}". The selectors chain is: ${hostsSelectorList
+            .map((item) => item.selector)
+            .join(', ')}`
+        )
+      }
+
+      elements = newElements
+    }
+  )
+
+  return elements
+}
+
 export function adjustShadowRootStyles(
   hostsSelectorList: ReadonlyArray<{
     selector: string
