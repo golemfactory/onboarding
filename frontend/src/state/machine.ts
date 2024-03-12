@@ -33,12 +33,14 @@ export const createStateMachine = ({
   budget = BudgetOption.COMPUTE,
   boughtGLM = 0,
   boughtNative = 0,
+  chosenNetwork,
 }: {
   boughtGLM?: number
   boughtNative?: number
   budget?: BudgetType
   step?: StepType
   yagnaAddress?: EthereumAddress
+  chosenNetwork?: NetworkType
 }) => {
   return createMachine<
     OnboardingContextData,
@@ -65,6 +67,7 @@ export const createStateMachine = ({
     | { type: 'CHOOSE_NETWORK'; payload: NetworkType }
   >({
     context: {
+      chosenNetwork,
       yagnaAddress,
       budget: budget || BudgetOption.COMPUTE,
       boughtNative,
@@ -88,6 +91,7 @@ export const createStateMachine = ({
       [Commands.CHOOSE_NETWORK]: {
         actions: assign({
           chosenNetwork: (_context, event) => {
+            console.log('chosenNetwork', event.payload)
             return event.payload
           },
         }),

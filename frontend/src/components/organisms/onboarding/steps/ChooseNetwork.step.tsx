@@ -112,6 +112,7 @@ export const ChooseNetwork = () => {
   const { switchChainAsync } = useSwitchChain()
 
   const onConfirm = useCallback(async () => {
+    console.log('sending command', Commands.CHOOSE_NETWORK, selectedNetwork)
     send({ type: Commands.CHOOSE_NETWORK, payload: selectedNetwork })
     if (chain?.id === selectedNetwork) {
       send(Commands.NEXT)

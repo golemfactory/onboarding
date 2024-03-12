@@ -1,4 +1,11 @@
-import { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { createActorContext } from '@xstate/react'
 
 import { useSetup } from './Setup.provider'
@@ -10,7 +17,8 @@ import { createStateMachine } from 'state/machine'
 import { useStep } from 'hooks/useStep'
 import { useOnboarding, getOnboardingSnapshot } from 'hooks/useOnboarding'
 import { EthereumAddress, NetworkType } from 'types/ethereum'
-import { Dialog } from 'components/molecules/networkChangeDialog/NetworkChangeDialog'
+import { Dialog as NetworkChangeDialog } from 'components/molecules/networkChangeDialog/NetworkChangeDialog'
+import { useCall } from 'wagmi'
 
 export const OnboardingContext = createActorContext(createStateMachine({}))
 
@@ -26,20 +34,28 @@ const ChainObserver = ({
   const { address } = useAccount(false)
   const { state } = useOnboarding()
   const balance = useBalance()
-  const initialChainRef = useRef<NetworkType | undefined>(chain?.id)
+  const selectedNetwork = state.context.chosenNetwork
+
+  const initialChainRef = useRef<NetworkType | undefined>(selectedNetwork)
   const initialAccountRef = useRef<EthereumAddress | undefined>(address)
   useEffect(() => {
-    const selectedNetwork = state.context.chosenNetwork
+    console.log('chain observer', state)
     const initialChain = initialChainRef.current
     const initialAccount = initialAccountRef.current
 
     const hasChainChanged = initialChain !== chain?.id
     const hasAccountChanged = initialAccount !== address
+    console.log('chain observer', {
+      hasChainChanged,
+      hasAccountChanged,
+      selectedNetwork,
+    })
     if (selectedNetwork) {
       if (hasChainChanged || hasAccountChanged) {
         onUnexpectedChange()
+      } else {
+        onBackToInitialSetup()
       }
-      onBackToInitialSetup()
     }
 
     send({
@@ -64,16 +80,14 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   //read setup from url params
   const setup = useSetup()
   const step = useStep()
+
   const [displayNetworkChangeDialog, setDisplayNetworkChangeDialog] =
     useState(false)
 
-  // const [initialChain, setInitialChain] = useState<NetworkType | undefined>(null)
-  // const [initialAccount, setInitialAccount] = useState<EthereumAddress | undefined>(
-  //   null
-  // )
-
+  const onUnexpectedChange = useCallback(() => {
+    setDisplayNetworkChangeDialog(true)
+  }, [])
   const persistedSnapshot = getOnboardingSnapshot()
-
   //machine sholdnt be recreated on every render so we useMemo
   const machine = useMemo(
     () => createStateMachine({ ...setup, ...persistedSnapshot, step }),
@@ -85,14 +99,12 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   return (
     <OnboardingContext.Provider machine={machine}>
       <ChainObserver
-        onUnexpectedChange={() => {
-          setDisplayNetworkChangeDialog(true)
-        }}
+        onUnexpectedChange={onUnexpectedChange}
         onBackToInitialSetup={() => {
           setDisplayNetworkChangeDialog(false)
         }}
       />
-      <Dialog
+      <NetworkChangeDialog
         isOpen={displayNetworkChangeDialog}
         onClose={() => {
           setDisplayNetworkChangeDialog(false)

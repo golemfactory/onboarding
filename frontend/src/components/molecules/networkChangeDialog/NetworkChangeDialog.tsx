@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export const Dialog = ({
@@ -9,6 +10,7 @@ export const Dialog = ({
   onClose: () => void
 }) => {
   const navigate = useNavigate()
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -41,7 +43,7 @@ export const Dialog = ({
               </p>
               {/* Close button */}
               <button
-                className="bg-gray-500 text-white px-4 py-2 rounded"
+                className="bg-gray-500 text-white px-4 py-2 rounded cursor-pointer"
                 onClick={() => {
                   onClose()
                   navigate('/')
