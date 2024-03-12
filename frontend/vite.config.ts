@@ -9,7 +9,7 @@ export default defineConfig((configEnv) => {
     define: {
       APP_VERSION: JSON.stringify(process?.env?.npm_package_version),
     },
-    base: isProduction ? '/onboarding_production#/' : '/onboarding_staging#/',
+    base: '/',
     plugins: [react()],
     resolve: {
       alias: {
