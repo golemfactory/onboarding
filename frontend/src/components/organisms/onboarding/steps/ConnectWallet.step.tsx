@@ -134,8 +134,8 @@ export const ConnectWallet = () => {
   const [shouldReload, setShouldReload] = useLocalStorage(
     'shouldReload',
     false,
-    //It's important to not that with false useLocalStorage initialise with initial value
-    //instead of persisted value and read it and update afterwards in useEffect
+    //It's important to note that `initializeWithValue: false` will cause useLocalStorage hook initialize
+    // with initial instead of persisted value
     {
       initializeWithValue: true,
     }
@@ -147,7 +147,6 @@ export const ConnectWallet = () => {
   )
 
   useEffect(() => {
-    // console.log('dupa', shouldConnect)
     if (shouldConnect) {
       try {
         connect(wagmiConfig, {
@@ -171,10 +170,14 @@ export const ConnectWallet = () => {
     }
   }, [hasFocus])
 
+  //Reload the page automatically when use got focus back
+  //we assume this is comeback from wallet installation page
   useEffect(() => {
     if (hasFocus && shouldReload) {
       setShouldReload(false)
-      // setShouldConnect(true)
+      //Its important to set using nonreactive way
+      //otherwise it will rerun useEffect before reload really happens
+      localStorage.setItem('shouldAutoConnect', true.toString())
       window.location.reload()
     }
   }, [hasFocus])
