@@ -35,6 +35,7 @@ const SwapTokensPresentational = ({
   setPlacement,
   amountOut,
   showContent,
+  setShowContent,
   setAmount,
   amountIn,
   isError,
@@ -44,6 +45,7 @@ const SwapTokensPresentational = ({
   handleSwapButtonClick: () => void
   amountOut: bigint
   showContent: boolean
+  setShowContent: (show: boolean) => void
   setPlacement: (p: 'inside' | 'outside') => void
   setAmount: (amount: number) => void
   amountIn: number
@@ -58,7 +60,7 @@ const SwapTokensPresentational = ({
       {!showContent && (
         <StartButton
           onClick={() => {
-            setPlacement('inside')
+            setShowContent(true)
           }}
           step="swap"
         />
@@ -115,15 +117,7 @@ const SwapTokensPresentational = ({
   )
 }
 
-export const SwapTokens = ({
-  goToNextStep,
-  setPlacement,
-  placement,
-}: {
-  goToNextStep: () => void
-  setPlacement: (p: 'inside' | 'outside') => void
-  placement: 'inside' | 'outside'
-}) => {
+export const SwapTokens = ({ goToNextStep }: { goToNextStep: () => void }) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
   window.gtns = goToNextStep
@@ -152,12 +146,6 @@ export const SwapTokens = ({
   const debouncedAmount = useDebounce<number>(amount, 500)
 
   const { data: amountsOut, setAmountIn, isError, isLoading } = useSwapOut()
-
-  useEffect(() => {
-    if (placement === 'inside') {
-      setShowContent(true)
-    }
-  }, [placement])
 
   useEffect(() => {
     if (!isError && !isLoading) {
@@ -207,7 +195,7 @@ export const SwapTokens = ({
       handleSwapButtonClick={handleSwapButtonClick}
       amountOut={amountOut}
       showContent={showContent}
-      setPlacement={setPlacement}
+      setShowContent={setShowContent}
       setAmount={setAmount}
       amountIn={amount}
       isError={isSwapError}
