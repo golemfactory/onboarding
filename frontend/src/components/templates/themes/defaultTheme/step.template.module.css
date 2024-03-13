@@ -1,6 +1,6 @@
 .title {
   @apply col-span-10;
-  color: var(--primary-blue-500, #181EA9);
+  color: var(--primary-blue-500, #181ea9);
   /* Header 3 - light */
   font-family: Kanit;
   font-size: 32px;
@@ -9,24 +9,23 @@
   line-height: 120%;
   /* 38.4px */
   letter-spacing: -0.64px;
-
 }
 
 .subtitle {
-  color: var(--primary-blue-500, #181EA9);
+  color: var(--primary-blue-500, #181ea9);
   /* Headers/Header 2 | Kanit Regular 48px */
   font-family: Kanit;
   font-size: 48px;
   font-weight: 400;
   line-height: 110%;
-  /* 52.8px */;
+  /* 52.8px */
   max-width: calc(100% - 60px);
-  letter-spacing: -0.96px;  
+  letter-spacing: -0.96px;
 }
 
 .description {
   @apply grid grid-cols-11;
-  color: var(--neutrals-gray-300, #404B63);
+  color: var(--neutrals-gray-300, #404b63);
   /* Body Extra Large - Light */
   font-family: Kanit;
   font-size: 22px;
@@ -47,7 +46,6 @@
 .container {
   @apply col-span-12 grid grid-cols-12 gap-8;
   flex-grow: 1;
-  min-width: 1240px;
 }
 
 .descriptionContainer {
@@ -57,6 +55,6 @@
 
 .tooltipTriggerContainer {
   font-size: 48px;
-  margin-left:auto;
+  margin-left: auto;
   transition: all;
 }

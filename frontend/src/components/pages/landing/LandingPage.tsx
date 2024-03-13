@@ -99,8 +99,7 @@ export const LandingPage = () => {
   const isDesktop = useIsDesktop()
   const { state } = useOnboarding()
   const startOnboarding = () => {
-    const path = stepPaths[state.value as StepType]
-    navigate(isDesktop ? `/onboarding${path || 'budget'}` : '/unsupported')
+    navigate(isDesktop ? `/onboarding/budget` : '/unsupported')
   }
   return (
     <LayoutTemplate

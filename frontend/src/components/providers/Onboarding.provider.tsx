@@ -18,7 +18,6 @@ import { useStep } from 'hooks/useStep'
 import { useOnboarding, getOnboardingSnapshot } from 'hooks/useOnboarding'
 import { EthereumAddress, NetworkType } from 'types/ethereum'
 import { Dialog as NetworkChangeDialog } from 'components/molecules/networkChangeDialog/NetworkChangeDialog'
-import { useCall } from 'wagmi'
 
 export const OnboardingContext = createActorContext(createStateMachine({}))
 
@@ -38,12 +37,18 @@ const ChainObserver = ({
 
   const initialChainRef = useRef<NetworkType | undefined>(selectedNetwork)
   const initialAccountRef = useRef<EthereumAddress | undefined>(address)
+
   useEffect(() => {
-    console.log('chain observer', state)
+    initialChainRef.current = selectedNetwork
+    initialAccountRef.current = address
+  }, [selectedNetwork, address])
+
+  useEffect(() => {
     const initialChain = initialChainRef.current
     const initialAccount = initialAccountRef.current
+    console.log('chain observer', chain?.id, initialChain)
 
-    const hasChainChanged = initialChain !== chain?.id
+    const hasChainChanged = chain?.id && initialChain !== chain?.id
     const hasAccountChanged = initialAccount !== address
     console.log('chain observer', {
       hasChainChanged,
@@ -65,12 +70,6 @@ const ChainObserver = ({
         : { address, balance },
     })
     //values set once should never change
-    if (!initialAccountRef.current && address) {
-      initialAccountRef.current = address
-    }
-    if (!initialChainRef.current && chain?.id) {
-      initialChainRef.current = chain?.id
-    }
   }, [address, chain?.id, balance.GLM, balance.NATIVE])
 
   return <></>
@@ -84,7 +83,9 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const [displayNetworkChangeDialog, setDisplayNetworkChangeDialog] =
     useState(false)
 
+  console.log('step', displayNetworkChangeDialog)
   const onUnexpectedChange = useCallback(() => {
+    console.log('unexpected change')
     setDisplayNetworkChangeDialog(true)
   }, [])
   const persistedSnapshot = getOnboardingSnapshot()

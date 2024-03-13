@@ -143,7 +143,10 @@ export const ConnectWallet = () => {
 
   const [shouldConnect, setShouldConnect] = useLocalStorage(
     'shouldAutoConnect',
-    true
+    true,
+    {
+      initializeWithValue: true,
+    }
   )
 
   useEffect(() => {

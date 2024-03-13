@@ -13,7 +13,7 @@
   /* constant width for desktop, constant margin for  */
   @apply w-golem-grid-desktop;
 
-  @apply px-0  xl:px-10;
+  @apply px-0  xl:px-2;
 }
 
 .golemCols {
