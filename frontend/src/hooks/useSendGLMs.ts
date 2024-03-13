@@ -25,7 +25,7 @@ export const useSendGLMs = () => {
       address: getGLMToken(chain.id).address,
       abi: erc20abi,
       functionName: 'transfer',
-      ...args,
+      args,
     })
   }
   useEffect(() => {
