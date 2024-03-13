@@ -242,12 +242,19 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
   }, [balance])
 
   useEffect(() => {
+    console.log('')
     const glmAmount = amount[TokenCategory.GLM]
     const nativeAmount = amount[TokenCategory.NATIVE]
 
     const glmMininimalBalance = minimaAmounts[TokenCategory.GLM]
     const nativeMininimalBalance = minimaAmounts[TokenCategory.NATIVE]
 
+    console.log('glmAmount', glmAmount)
+    console.log('glmBalance', glmBalance)
+    console.log('nativeAmount', nativeAmount)
+    console.log('nativeBalance', nativeBalance)
+    console.log('glmMininimalBalance', glmMininimalBalance)
+    console.log('nativeMininimalBalance', nativeMininimalBalance)
     //TODO : regfactor to use more delclarative code
     if (glmAmount > glmBalance) {
       setError({
@@ -274,6 +281,23 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
       setError({
         ...error,
         [TokenCategory.NATIVE]: 'Minimal amount is ' + nativeMininimalBalance,
+      })
+    }
+
+    if (glmAmount <= glmBalance && glmAmount >= glmMininimalBalance) {
+      setError({
+        ...error,
+        [TokenCategory.GLM]: '',
+      })
+    }
+
+    if (
+      nativeAmount <= nativeBalance &&
+      nativeAmount >= nativeMininimalBalance
+    ) {
+      setError({
+        ...error,
+        [TokenCategory.NATIVE]: '',
       })
     }
   }, [
