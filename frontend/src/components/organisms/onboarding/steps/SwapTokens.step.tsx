@@ -32,7 +32,6 @@ TooltipProvider.registerTooltip({
 
 const SwapTokensPresentational = ({
   handleSwapButtonClick,
-  setPlacement,
   amountOut,
   showContent,
   setShowContent,
@@ -46,7 +45,6 @@ const SwapTokensPresentational = ({
   amountOut: bigint
   showContent: boolean
   setShowContent: (show: boolean) => void
-  setPlacement: (p: 'inside' | 'outside') => void
   setAmount: (amount: number) => void
   amountIn: number
   isError: boolean
@@ -73,43 +71,45 @@ const SwapTokensPresentational = ({
               mode={isWaitingForConfirmation ? 'confirmation' : 'transaction'}
             />
           ) : (
-            <>
-              <RecommendationCardSwap />
+            <div className="grid grid-cols-2">
+              <div className="col-span-1">
+                <RecommendationCardSwap />
 
-              <div className="text-h4 text-primary pl-8 pr-8">
-                <div className="grid grid-cols-4 pr-10">
-                  <div className="col-span-3 flex flex-col">
-                    <Trans i18nKey="swapAmount" ns="swap.step" />
-                    <IconInput
-                      icon={MaticCoinIcon}
-                      label="MATIC"
-                      placeholder={`${amountIn}`}
-                      isError={isError}
-                      onChange={(e) => {
-                        const value = parseFloat(e.currentTarget.value)
-                        setAmount(value || 0)
-                      }}
-                    />
-                    <ExchangeRate
-                      amountIn={amountIn}
-                      amountOut={Number(
-                        formatEther({ wei: amountOut, precision: 2 })
-                      )}
-                    />
-                    <div>
-                      <Button
-                        buttonStyle="solid"
-                        className="mt-10 text-white px-9 py-4 text-button-large"
-                        disabled={isError}
-                        onClick={handleSwapButtonClick}
-                      >
-                        <Trans i18nKey="swapButtonText" ns="swap.step" />
-                      </Button>
+                <div className="text-h4 text-primary pl-8 pr-8">
+                  <div className="grid grid-cols-4 pr-10">
+                    <div className="col-span-3 flex flex-col">
+                      <Trans i18nKey="swapAmount" ns="swap.step" />
+                      <IconInput
+                        icon={MaticCoinIcon}
+                        label="MATIC"
+                        placeholder={`${amountIn}`}
+                        isError={isError}
+                        onChange={(e) => {
+                          const value = parseFloat(e.currentTarget.value)
+                          setAmount(value || 0)
+                        }}
+                      />
+                      <ExchangeRate
+                        amountIn={amountIn}
+                        amountOut={Number(
+                          formatEther({ wei: amountOut, precision: 2 })
+                        )}
+                      />
+                      <div>
+                        <Button
+                          buttonStyle="solid"
+                          className="mt-10 text-white px-9 py-4 text-button-large"
+                          disabled={isError}
+                          onClick={handleSwapButtonClick}
+                        >
+                          <Trans i18nKey="swapButtonText" ns="swap.step" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       )}

@@ -75,7 +75,7 @@ export const StepWithProgress = ({
       <div
         className={`col-span-9 grid ${
           isTransferStep ? 'grid-cols-515' : 'grid-cols-10 '
-        } mr-4 auto-rows-max transition-all duration-1000`}
+        }  auto-rows-max transition-all duration-1000`}
       >
         <div
           className={`${style.card} ${

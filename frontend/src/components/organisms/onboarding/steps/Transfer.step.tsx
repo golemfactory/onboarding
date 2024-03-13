@@ -98,62 +98,71 @@ const TransferPresentational = ({
     <div>
       {(status === 'ready' || status === 'error') && (
         <div className="flex flex-col gap-6 pb-8">
-          <RecommendationCardTransfer />
-          <div className="text-h4 text-primary pl-8 pr-8 mb-8">
-            <div className="grid grid-cols-4 pr-10">
-              <div className="col-span-3 flex flex-col">
-                <Trans i18nKey="transferAmount" ns="transfer.step" />
+          <div className="grid grid-cols-2">
+            <div className="col-span-1">
+              <RecommendationCardTransfer />
+              <div className="text-h4 text-primary pl-8 pr-8 mb-8">
+                <div className="grid grid-cols-4 pr-10">
+                  <div className="col-span-3 flex flex-col">
+                    <Trans i18nKey="transferAmount" ns="transfer.step" />
 
-                <IconInput
-                  icon={GolemCoinIcon}
-                  label="GLM"
-                  placeholder={`0`}
-                  isError={!!error[TokenCategory.GLM]}
-                  onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value) || 0
-                    setAmount({
-                      ...amount,
-                      [TokenCategory.GLM]: value,
-                    })
-                  }}
-                />
-                {error[TokenCategory.GLM] && (
-                  <div className="text-dangerred-200 text-body-normal font-normal">
-                    {error[TokenCategory.GLM]}
+                    <IconInput
+                      icon={GolemCoinIcon}
+                      label="GLM"
+                      placeholder={`0`}
+                      isError={!!error[TokenCategory.GLM]}
+                      onChange={(e) => {
+                        const value = parseFloat(e.currentTarget.value) || 0
+                        setAmount({
+                          ...amount,
+                          [TokenCategory.GLM]: value,
+                        })
+                      }}
+                    />
+                    {error[TokenCategory.GLM] && (
+                      <div className="text-dangerred-200 text-body-normal font-normal">
+                        {error[TokenCategory.GLM]}
+                      </div>
+                    )}
+                    <IconInput
+                      icon={
+                        nativeToken === 'MATIC'
+                          ? MaticCoinSolidIcon
+                          : EthereumIcon
+                      }
+                      label={nativeToken}
+                      placeholder={`0`}
+                      isError={!!error[TokenCategory.NATIVE]}
+                      onChange={(e) => {
+                        const value = parseFloat(e.currentTarget.value) || 0
+                        setAmount({
+                          ...amount,
+                          [TokenCategory.NATIVE]: value,
+                        })
+                      }}
+                    />
+                    {error[TokenCategory.NATIVE] && (
+                      <div className="text-dangerred-200 text-body-normal font-normal">
+                        {error[TokenCategory.NATIVE]}
+                      </div>
+                    )}
+                    <div>
+                      <Button
+                        buttonStyle="solid"
+                        className="mt-10 text-white px-9 py-4 text-button-large"
+                        disabled={
+                          !!error[TokenCategory.GLM] ||
+                          !!error[TokenCategory.NATIVE]
+                        }
+                        onClick={send}
+                      >
+                        <Trans
+                          i18nKey="transferButtonText"
+                          ns="transfer.step"
+                        />
+                      </Button>
+                    </div>
                   </div>
-                )}
-                <IconInput
-                  icon={
-                    nativeToken === 'MATIC' ? MaticCoinSolidIcon : EthereumIcon
-                  }
-                  label={nativeToken}
-                  placeholder={`0`}
-                  isError={!!error[TokenCategory.NATIVE]}
-                  onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value) || 0
-                    setAmount({
-                      ...amount,
-                      [TokenCategory.NATIVE]: value,
-                    })
-                  }}
-                />
-                {error[TokenCategory.NATIVE] && (
-                  <div className="text-dangerred-200 text-body-normal font-normal">
-                    {error[TokenCategory.NATIVE]}
-                  </div>
-                )}
-                <div>
-                  <Button
-                    buttonStyle="solid"
-                    className="mt-10 text-white px-9 py-4 text-button-large"
-                    disabled={
-                      !!error[TokenCategory.GLM] ||
-                      !!error[TokenCategory.NATIVE]
-                    }
-                    onClick={send}
-                  >
-                    <Trans i18nKey="transferButtonText" ns="transfer.step" />
-                  </Button>
                 </div>
               </div>
             </div>
