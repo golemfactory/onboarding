@@ -10,7 +10,6 @@ import { TooltipProvider } from 'components/providers/Tooltip.provider'
 import { Button, Trans } from 'components/atoms'
 import { useEffect, useState } from 'react'
 import { RecommendationCardTransfer } from 'components/molecules/recommendationCard/RecommendationCard'
-import { StartButton } from 'components/molecules/stepStartButton/StepStartButton'
 import { IconInput } from 'components/atoms/iconInput/IconInput'
 import { EthereumIcon, GolemCoinIcon } from 'components/atoms/icons'
 
@@ -109,7 +108,7 @@ const TransferPresentational = ({
                   placeholder={`0`}
                   isError={!!error[TokenCategory.GLM]}
                   onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value || 0)
+                    const value = parseFloat(e.currentTarget.value) || 0
                     setAmount({
                       ...amount,
                       [TokenCategory.GLM]: value,
@@ -129,7 +128,7 @@ const TransferPresentational = ({
                   placeholder={`0`}
                   isError={!!error[TokenCategory.NATIVE]}
                   onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value || 0)
+                    const value = parseFloat(e.currentTarget.value) || 0
                     setAmount({
                       ...amount,
                       [TokenCategory.NATIVE]: value,

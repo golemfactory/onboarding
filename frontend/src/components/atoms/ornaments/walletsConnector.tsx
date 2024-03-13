@@ -23,31 +23,44 @@ const Circle = ({
       {...rest}
     >
       <circle cx={size / 2} cy={size / 2} r={size / 2 - 1}></circle>
+
+      {icon && (
+        <svg
+          width={icon.size}
+          height={icon.size}
+          x={size / 2 - icon.size / 2}
+          y={size / 2 - icon.size / 2}
+          className={`stroke-2 ${icon.className}`}
+        >
+          <icon.Component />
+        </svg>
+      )}
     </svg>
   )
 }
 
 export const WalletsConnector = () => {
-  return 'dupa'
-  //     <div className="flex gap-0.5 items-center w-[80px] -ml-[5px]">
-  //       <Circle size={11} className="stroke-lightblue-200 fill-lightblue-50" />
-  //       <Circle size={6} className={`stroke-lightblue-200 fill-lightblue-200 `} />
-  //       <Circle
-  //         size={6}
-  //         className="stroke-lightblue-200 fill-primary fill-[#181ea9cc]
-  // "
-  //       />
-  //       <Circle
-  //         size={24}
-  //         className={`stroke-lightblue-200 fill-lightblue-50 ${style.pulsar}`}
-  //         icon={{
-  //           Component: ArrowRightIcon,
-  //           size: 10,
-  //           className: `stroke-primary`,
-  //         }}
-  //       />
-  //       <Circle size={6} className="stroke-lightblue-200 fill-lightblue-200" />
-  //       <Circle size={6} className="stroke-lightblue-200 fill-[#181ea9cc]" />
-  //       <Circle size={11} className="stroke-lightblue-200 fill-lightblue-50" />
-  //     </div>
+  return (
+    <div className="flex gap-0.5 items-center w-[80px] -ml-[5px]">
+      <Circle size={11} className="stroke-lightblue-200 fill-lightblue-50" />
+      <Circle size={6} className={`stroke-lightblue-200 fill-lightblue-200 `} />
+      <Circle
+        size={6}
+        className="stroke-lightblue-200 fill-primary fill-[#181ea9cc]
+"
+      />
+      <Circle
+        size={24}
+        className={`stroke-lightblue-200 fill-lightblue-50 ${style.pulsar}`}
+        icon={{
+          Component: ArrowRightIcon,
+          size: 10,
+          className: `stroke-primary`,
+        }}
+      />
+      <Circle size={6} className="stroke-lightblue-200 fill-lightblue-200" />
+      <Circle size={6} className="stroke-lightblue-200 fill-[#181ea9cc]" />
+      <Circle size={11} className="stroke-lightblue-200 fill-lightblue-50" />
+    </div>
+  )
 }
