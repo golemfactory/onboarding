@@ -1,10 +1,9 @@
 .container {
-  ;
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;   
+  justify-content: center;
   padding: 30px; /* Horizontally center the content */
 }
 
@@ -14,10 +13,9 @@
   /* constant width for desktop, constant margin for  */
   @apply w-golem-grid-desktop;
 
-  @apply px-10  xl:px-0;
-
+  @apply px-0  xl:px-10;
 }
 
 .golemCols {
-    @apply grid gap-3 xl:grid-cols-12 sm:grid-cols-8 grid-cols-4;
+  @apply grid gap-3 xl:grid-cols-12 sm:grid-cols-8 grid-cols-4;
 }

@@ -107,7 +107,8 @@ export const LandingPage = () => {
       header={
         <Button
           buttonStyle="solid"
-          className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-8"
+          className="md:py-4 md:px-9 py-2 px-5 text-button-large mt-2 sm:mt-8"
+          style={{ textWrap: 'nowrap' }}
           useDefault={true}
           onClick={startOnboarding}
         >

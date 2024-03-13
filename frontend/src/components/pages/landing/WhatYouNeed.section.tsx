@@ -41,7 +41,7 @@ export const WhatYouNeedSection = ({
         <div className="flex flex-col gap-12">
           {needs.map((need, index) => {
             return (
-              <div key={need} className="grid grid-cols-12 gap-8">
+              <div key={need} className="grid grid-cols-12 gap-6">
                 <NumberCircle number={index + 1} />
                 <div className="flex flex-col col-span-11 gap-3">
                   <div className={style.subtitle}>

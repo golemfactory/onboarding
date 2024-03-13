@@ -34,7 +34,7 @@ export const AnimatedPage = (props: PropsWithChildren) => {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className="flex flex-col"
+      className="flex flex-col w-full h-full overflow-hidden"
     >
       {props.children}
     </motion.div>
