@@ -18,6 +18,8 @@ import { formatEther } from 'viem'
 import { useSetup } from 'components/providers'
 import { AwaitTransaction } from 'components/molecules/awaitTransaction/AwaitTransaction'
 import { TransactionError } from 'components/molecules/transactionError/TransactionError'
+import debug from 'debug'
+const log = debug('yagna:transfer')
 
 TooltipProvider.registerTooltip({
   id: 'transfer',
@@ -249,12 +251,12 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
     const glmMininimalBalance = minimaAmounts[TokenCategory.GLM]
     const nativeMininimalBalance = minimaAmounts[TokenCategory.NATIVE]
 
-    console.log('glmAmount', glmAmount)
-    console.log('glmBalance', glmBalance)
-    console.log('nativeAmount', nativeAmount)
-    console.log('nativeBalance', nativeBalance)
-    console.log('glmMininimalBalance', glmMininimalBalance)
-    console.log('nativeMininimalBalance', nativeMininimalBalance)
+    log('glmAmount', glmAmount)
+    log('glmBalance', glmBalance)
+    log('nativeAmount', nativeAmount)
+    log('nativeBalance', nativeBalance)
+    log('glmMininimalBalance', glmMininimalBalance)
+    log('nativeMininimalBalance', nativeMininimalBalance)
     //TODO : regfactor to use more delclarative code
     if (glmAmount > glmBalance) {
       setError({
@@ -278,6 +280,7 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
     }
 
     if (nativeAmount < nativeMininimalBalance) {
+      console.log('delete error native')
       setError({
         ...error,
         [TokenCategory.NATIVE]: 'Minimal amount is ' + nativeMininimalBalance,
@@ -285,6 +288,7 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
     }
 
     if (glmAmount <= glmBalance && glmAmount >= glmMininimalBalance) {
+      log('no glm errors')
       setError({
         ...error,
         [TokenCategory.GLM]: '',
@@ -295,6 +299,7 @@ export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
       nativeAmount <= nativeBalance &&
       nativeAmount >= nativeMininimalBalance
     ) {
+      log('no native errors')
       setError({
         ...error,
         [TokenCategory.NATIVE]: '',
