@@ -34,7 +34,9 @@ export const useSupplyYagnaWallet = () => {
         to: yagnaAddress,
         value: BigInt(parseEther(amount[TokenCategory.NATIVE].toString())),
       })
-    } catch (e) {}
+    } catch (e) {
+      console.log('err', e)
+    }
   }
 
   return {

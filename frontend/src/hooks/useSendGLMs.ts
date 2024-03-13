@@ -19,6 +19,7 @@ export const useSendGLMs = () => {
     useWriteContract()
 
   const writeAsync = async ({ args }: { args: [string, BigInt] }) => {
+    console.log('write async', args)
     setIsLoading(true)
     await writeContractAsync({
       address: getGLMToken(chain.id).address,
@@ -57,6 +58,7 @@ export const useSendGLMs = () => {
   return {
     status,
     send: async ({ to, value }: { to: string; value: bigint }) => {
+      console.log('sending', to, value)
       setStatus(TxStatus.PENDING)
       await writeAsync({
         args: [to, value],
