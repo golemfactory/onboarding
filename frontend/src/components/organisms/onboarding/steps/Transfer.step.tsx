@@ -76,8 +76,6 @@ const NoYagnaPresentational = ({
 }
 
 const TransferPresentational = ({
-  showContent,
-  setPlacement,
   amount,
   setAmount,
   nativeToken,
@@ -88,9 +86,6 @@ const TransferPresentational = ({
   nativeToken: string
   amount: Amount
   setAmount: (amount: Amount) => void
-  showContent: boolean
-  placement: 'inside' | 'outside'
-  setPlacement: (placement: 'inside' | 'outside') => void
   send: () => void
   status: 'ready' | 'waitingForSignature' | 'waitingForTransaction' | 'error'
   error: {
@@ -100,16 +95,7 @@ const TransferPresentational = ({
 }) => {
   return (
     <div>
-      {!showContent && (
-        <StartButton
-          onClick={() => {
-            setPlacement('inside')
-          }}
-          step="transfer"
-        />
-      )}
-
-      {showContent && (status === 'ready' || status === 'error') && (
+      {(status === 'ready' || status === 'error') && (
         <div className="flex flex-col gap-6 pb-8">
           <RecommendationCardTransfer />
           <div className="text-h4 text-primary pl-8 pr-8 mb-8">
@@ -120,33 +106,41 @@ const TransferPresentational = ({
                 <IconInput
                   icon={GolemCoinIcon}
                   label="GLM"
-                  placeholder={`${amount[TokenCategory.GLM]}`}
+                  placeholder={`0`}
                   isError={!!error[TokenCategory.GLM]}
                   onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value)
+                    const value = parseFloat(e.currentTarget.value || 0)
                     setAmount({
                       ...amount,
                       [TokenCategory.GLM]: value,
                     })
                   }}
                 />
-
+                {error[TokenCategory.GLM] && (
+                  <div className="text-dangerred-200 text-body-normal font-normal">
+                    {error[TokenCategory.GLM]}
+                  </div>
+                )}
                 <IconInput
                   icon={
                     nativeToken === 'MATIC' ? MaticCoinSolidIcon : EthereumIcon
                   }
                   label={nativeToken}
-                  placeholder={`${amount[TokenCategory.NATIVE]}`}
+                  placeholder={`0`}
                   isError={!!error[TokenCategory.NATIVE]}
                   onChange={(e) => {
-                    const value = parseFloat(e.currentTarget.value)
+                    const value = parseFloat(e.currentTarget.value || 0)
                     setAmount({
                       ...amount,
                       [TokenCategory.NATIVE]: value,
                     })
                   }}
                 />
-
+                {error[TokenCategory.NATIVE] && (
+                  <div className="text-dangerred-200 text-body-normal font-normal">
+                    {error[TokenCategory.NATIVE]}
+                  </div>
+                )}
                 <div>
                   <Button
                     buttonStyle="solid"
@@ -176,15 +170,7 @@ const TransferPresentational = ({
   )
 }
 
-export const Transfer = ({
-  goToNextStep,
-  placement,
-  setPlacement,
-}: {
-  goToNextStep: () => void
-  placement: 'inside' | 'outside'
-  setPlacement: (placement: 'inside' | 'outside') => void
-}) => {
+export const Transfer = ({ goToNextStep }: { goToNextStep: () => void }) => {
   const balance = useBalance()
   const { send, txStatus } = useSupplyYagnaWallet()
   const { yagnaAddress } = useSetup()
@@ -192,8 +178,6 @@ export const Transfer = ({
     'ready' | 'waitingForSignature' | 'waitingForTransaction' | 'error'
   >('ready')
   const { chain } = useNetwork()
-
-  const [showContent, setShowContent] = useState(false)
 
   if (!chain?.id) {
     throw new Error('Chain not found')
@@ -236,43 +220,74 @@ export const Transfer = ({
   })
   const nativeToken = getNativeToken(chain.id).split('_')[0]
   const [amount, setAmount] = useState<Amount>({
-    [TokenCategory.GLM]: settings.minimalBalance[getGLMToken(chain.id).symbol],
-    [TokenCategory.NATIVE]: settings.minimalBalance[getNativeToken(chain.id)],
+    [TokenCategory.GLM]: undefined,
+    [TokenCategory.NATIVE]: undefined,
   })
 
-  const GLMamount = amount[TokenCategory.GLM]
-  const NATIVEamount = amount[TokenCategory.NATIVE]
-  const GLMbalance = balance[TokenCategory.GLM]
-  const NATIVEbalance = balance[TokenCategory.NATIVE]
+  const minimaAmounts = {
+    [TokenCategory.GLM]: settings.minimalBalance[getGLMToken(chain.id).symbol],
+    [TokenCategory.NATIVE]: settings.minimalBalance[getNativeToken(chain.id)],
+  }
+
+  const [glmBalance, setGlmBalance] = useState(
+    Number(formatEther(balance[TokenCategory.GLM]))
+  )
+
+  const [nativeBalance, setNativeBalance] = useState(
+    Number(formatEther(balance[TokenCategory.NATIVE]))
+  )
 
   useEffect(() => {
-    if (GLMamount > Number(formatEther(GLMbalance))) {
+    setGlmBalance(Number(formatEther(balance[TokenCategory.GLM])))
+    setNativeBalance(Number(formatEther(balance[TokenCategory.NATIVE])))
+  }, [balance])
+
+  useEffect(() => {
+    const glmAmount = amount[TokenCategory.GLM]
+    const nativeAmount = amount[TokenCategory.NATIVE]
+
+    const glmMininimalBalance = minimaAmounts[TokenCategory.GLM]
+    const nativeMininimalBalance = minimaAmounts[TokenCategory.NATIVE]
+
+    //TODO : regfactor to use more delclarative code
+    if (glmAmount > glmBalance) {
       setError({
         ...error,
         [TokenCategory.GLM]: 'Not enough GLM',
       })
     }
-    if (NATIVEamount > Number(formatEther(GLMbalance))) {
+
+    if (glmAmount < glmMininimalBalance) {
+      setError({
+        ...error,
+        [TokenCategory.GLM]: 'Minimal amount is ' + glmMininimalBalance,
+      })
+    }
+
+    if (nativeAmount > nativeBalance) {
       setError({
         ...error,
         [TokenCategory.NATIVE]: 'Not enough ' + nativeToken,
       })
     }
-  }, [GLMamount, NATIVEamount, GLMbalance, NATIVEbalance, nativeToken, error])
 
-  useEffect(() => {
-    if (placement === 'inside') {
-      setShowContent(true)
+    if (nativeAmount < nativeMininimalBalance) {
+      setError({
+        ...error,
+        [TokenCategory.NATIVE]: 'Minimal amount is ' + nativeMininimalBalance,
+      })
     }
-  }, [placement])
+  }, [
+    amount[TokenCategory.GLM],
+    amount[TokenCategory.NATIVE],
+    glmBalance,
+    nativeBalance,
+  ])
 
   return (
     <>
       {!!yagnaAddress ? (
         <TransferPresentational
-          showContent={showContent}
-          placement={placement}
-          setPlacement={setPlacement}
           setAmount={setAmount}
           amount={amount}
           nativeToken={nativeToken}

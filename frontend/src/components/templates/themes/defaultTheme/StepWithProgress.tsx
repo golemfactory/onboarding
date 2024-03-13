@@ -98,11 +98,6 @@ export const StepWithProgress = ({
             />
           </div>
         </div>
-        {isTransferStep && (
-          <div className="col-span-1 flex flex-col pt-40">
-            <WalletsConnector />
-          </div>
-        )}
 
         <AnimatePresence>
           {showYagna ? (
@@ -119,25 +114,23 @@ export const StepWithProgress = ({
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {childrenPlacement === 'outside' && (
             <motion.div
               className={`col-span-11 flex justify-center mb-10 border-1 border-lightblue-100  rounded-xl py-12 ${style.card}`}
             >
-              {Children.map(children, (child) => {
-                if (isValidElement(child)) {
-                  return cloneElement(child, {
-                    //@ts-ignore
-                    setPlacement: setChildrenPlacement,
-                    //@ts-ignore
-                    placement: childrenPlacement,
-                  })
-                }
-              })}
+              {children}
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
 
+        <div
+          className={`col-span-11 flex justify-center mb-10 border-1 border-lightblue-100  rounded-xl py-12 ${style.card}`}
+        >
+          {children}
+        </div>
+
+        {/*
         <AnimatePresence>
           {childrenPlacement === 'inside' && (
             <motion.div
@@ -175,7 +168,7 @@ export const StepWithProgress = ({
               })}
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </motion.div>
   )

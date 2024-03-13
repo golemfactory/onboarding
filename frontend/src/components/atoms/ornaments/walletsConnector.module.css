@@ -3,7 +3,7 @@
     transform: scale(1);
   }
   30% {
-    transform: scale(0.6) ;
+    transform: scale(0.6);
   }
   80% {
     transform: scale(1.2);
@@ -14,5 +14,5 @@
 }
 
 .pulsar {
-  animation: pulse 2s linear infinite;
+  animation: pulse 100s linear infinite;
 }
