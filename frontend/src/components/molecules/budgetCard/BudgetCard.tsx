@@ -1,4 +1,4 @@
-import { ComponentType } from 'react'
+import { ComponentType, useState, useEffect } from 'react'
 import style from './BudgetCard.module.css'
 import { Trans } from 'components/atoms'
 import { Loader } from 'components/molecules/loader/loader'
@@ -35,10 +35,16 @@ export const BudgetCard = ({
   const totalBudget = Number(settings.budgetOptions[id])
   const usageCostInUSD = totalBudget - settings.rampFee
 
-  const glmCoinValue = 30
-  const maticCoinValue = 4
+  const [glmCoinValue, setGlmCoinValue] = useState(30)
+  const [maticCoinValue, setMaticCoinValue] = useState(4)
   const { data: rates } = useOnboardingExchangeRates(Network.POLYGON)
 
+  useEffect(() => {
+    if (rates) {
+      setGlmCoinValue(rates?.['GLM'] * 10 || 20)
+      setMaticCoinValue(rates?.['Native'] * 4 || 4)
+    }
+  }, [rates])
   const usageTime = Math.round(
     (usageCostInUSD * (1 - settings.feesPercentage) * rates.GLM * 1) /
       settings.hourCost
