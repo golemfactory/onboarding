@@ -8,12 +8,12 @@ import { BudgetOption } from './types'
 
 export const settings = {
   minimalBalance: {
-    [Token.GLM_MUMBAI]: 10,
+    [Token.GLM_MUMBAI]: 1,
     [Token.MATIC_MUMBAI]: 0.1,
-    [Token.GLM_POLYGON]: 10,
-    [Token.MATIC_POLYGON]: 1.5,
-    [Token.ETH_MAINNET]: 0.1,
-    [Token.GLM_MAINNET]: 10,
+    [Token.GLM_POLYGON]: 1,
+    [Token.MATIC_POLYGON]: 0.1,
+    [Token.ETH_MAINNET]: 0.001,
+    [Token.GLM_MAINNET]: 1,
   },
   minimalSwap: {
     [Token.MATIC_MUMBAI]: 2,
