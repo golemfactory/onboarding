@@ -46,15 +46,9 @@ const ChainObserver = ({
   useEffect(() => {
     const initialChain = initialChainRef.current
     const initialAccount = initialAccountRef.current
-    console.log('chain observer', chain?.id, initialChain)
 
     const hasChainChanged = chain?.id && initialChain !== chain?.id
     const hasAccountChanged = initialAccount !== address
-    console.log('chain observer', {
-      hasChainChanged,
-      hasAccountChanged,
-      selectedNetwork,
-    })
     if (selectedNetwork) {
       if (hasChainChanged || hasAccountChanged) {
         onUnexpectedChange()
@@ -83,9 +77,7 @@ export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const [displayNetworkChangeDialog, setDisplayNetworkChangeDialog] =
     useState(false)
 
-  console.log('step', displayNetworkChangeDialog)
   const onUnexpectedChange = useCallback(() => {
-    console.log('unexpected change')
     setDisplayNetworkChangeDialog(true)
   }, [])
   const persistedSnapshot = getOnboardingSnapshot()

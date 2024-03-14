@@ -91,13 +91,11 @@ export const InfoTooltipPresentationalPrimary = ({
         tooltip.hide?.()
       }
     }
-
     document.addEventListener('click', handleClickOutside)
-
     return () => {
       document.removeEventListener('click', handleClickOutside)
     }
-  }, [])
+  }, [tooltip])
 
   const { t, ready } = useTranslation()
 
@@ -269,7 +267,6 @@ export const InfoTooltip = ({
   name?: string
 }>) => {
   const tooltip = useTooltip(id, name)
-
   type SectionIds = (typeof tooltip.sections)[number]
   //while tooltip state control  is handled by the provider, sections open/close managment has to happen locally
   const [sections, setSections] = useState(
