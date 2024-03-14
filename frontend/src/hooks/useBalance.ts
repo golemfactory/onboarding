@@ -10,13 +10,20 @@ export const useBalance = (addr?: EthereumAddress) => {
 
   const glmAddress = chain?.id ? getGLMToken(chain?.id).address : undefined
 
+  const settings = {
+    query: {
+      refetchInterval: 2000,
+    },
+  }
   const glmBalance = useBalanceWagmi({
     address: addr || address,
     token: glmAddress,
+    ...settings,
   })
 
   const nativeBalance = useBalanceWagmi({
     address: addr || address,
+    ...settings,
   })
 
   return {
