@@ -79,7 +79,7 @@ export const WalletState = ({
           ))
           .with(
             [AccountCategory.BROWSER_WALLET, WalletProvider.TRUST_WALLET],
-            () => <TrustWalletIcon />
+            () => <TrustWalletIcon className="h-10" />
           )
           .otherwise(() => {
             return ''
