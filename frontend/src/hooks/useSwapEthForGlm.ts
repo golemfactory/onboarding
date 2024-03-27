@@ -9,9 +9,9 @@ import {
   useWaitForTransactionReceipt,
 } from 'wagmi'
 import uniswapV2Abi from 'ethereum/contracts/uniswap/v2/abi.json'
-import debug from 'debug'
+// import debug from 'debug'
 
-const log = debug('useSwapEthForGlm')
+// const log = debug('useSwapEthForGlm')
 
 export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
   const { chain } = useNetwork()
@@ -42,6 +42,8 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
           to,
           BigInt('9223372036854775807'), // 2^63 - 1
         ],
+        retry: 4,
+        // gas: BigInt('100000'),
       })
     },
     data,
