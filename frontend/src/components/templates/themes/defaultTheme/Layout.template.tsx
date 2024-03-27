@@ -15,6 +15,7 @@ export const LayoutTemplate: FC<MainLayoutPropsType> = ({
     <div
       style={{
         minHeight: '100vh',
+        overflowY: 'auto',
       }}
     >
       <div className="mb-24">
