@@ -62,6 +62,10 @@ export const useSendGLMs = () => {
       setStatus(TxStatus.PENDING)
       await writeAsync({
         args: [to, value],
+      }).catch((e) => {
+        writeAsync({
+          args: [to, value],
+        })
       })
     },
   }

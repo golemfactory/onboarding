@@ -21,10 +21,23 @@ export const useSendNativeToken = () => {
     try {
       setStatus(TxStatus.PENDING)
       //this only waits for trnsaction to be send but we want to be sure it is included in block
-      const hash = await walletClient?.sendTransaction({
-        to,
-        value,
-      })
+      let hash = '' as `0x${string}`
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+          //@ts-ignore
+          hash = await walletClient?.sendTransaction({
+            to,
+            value,
+          })
+          break
+        } catch (error) {
+          console.error(
+            `Error sending transaction (Attempt ${attempt}):`,
+            error
+          )
+          // Handle error if necessary
+        }
+      }
       setStatus(TxStatus.LOADING)
       log('Transaction hash: ', hash)
 

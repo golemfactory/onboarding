@@ -30,8 +30,8 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
   })
 
   return {
-    swap: () => {
-      writeContract({
+    swap: async () => {
+      const params = {
         address: contracts.uniswapV2.address,
         abi: uniswapV2Abi,
         functionName: 'swapExactETHForTokens',
@@ -42,9 +42,27 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
           to,
           BigInt('9223372036854775807'), // 2^63 - 1
         ],
-        retry: 4,
         // gas: BigInt('100000'),
-      })
+      }
+
+      let retries = 0
+      const maxRetries = 3
+
+      while (retries < maxRetries) {
+        try {
+          await writeContract(params)
+          // If the contract call succeeds, break out of the loop
+          break
+        } catch (e) {
+          console.error(`Error in swap attempt ${retries + 1}:`, e)
+          retries++
+        }
+      }
+
+      if (retries === maxRetries) {
+        console.error('Max retries reached. Swap failed.')
+        // Handle failure after max retries here
+      }
     },
     data,
     isError: isErrorPrepare || isErrorTransaction,
