@@ -51,7 +51,6 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
       while (retries < maxRetries) {
         try {
           await writeContract(params)
-          // If the contract call succeeds, break out of the loop
           break
         } catch (e) {
           console.error(`Error in swap attempt ${retries + 1}:`, e)
@@ -61,7 +60,6 @@ export const useSwapEthForGlm = ({ value }: { value: bigint }) => {
 
       if (retries === maxRetries) {
         console.error('Max retries reached. Swap failed.')
-        // Handle failure after max retries here
       }
     },
     data,

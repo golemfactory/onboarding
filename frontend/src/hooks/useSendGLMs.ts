@@ -63,6 +63,7 @@ export const useSendGLMs = () => {
       await writeAsync({
         args: [to, value],
       }).catch((e) => {
+        console.error(`Error in glm send attempt`, e)
         writeAsync({
           args: [to, value],
         })
