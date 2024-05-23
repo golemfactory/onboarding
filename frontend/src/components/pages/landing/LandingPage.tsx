@@ -9,12 +9,12 @@ import { Button, Trans } from 'components/atoms'
 import { VideoSection } from './Video.section'
 import { UseCaseSection } from './UseCase.section'
 import { APISection } from './API.section'
-import { RunSection } from './Run.section'
+// import { RunSection } from './Run.section'
 import { WhatYouNeedSection } from './WhatYouNeed.section'
 import { useNavigate } from 'react-router-dom'
 import { useIsDesktop } from 'hooks/useIsDesktop'
-import { useOnboarding } from 'hooks/useOnboarding'
-import { StepType, stepPaths } from 'state/steps'
+// import { useOnboarding } from 'hooks/useOnboarding'
+// import { StepType, stepPaths } from 'state/steps'
 
 const style = {
   ...landingStyle,
@@ -85,7 +85,7 @@ const LandingPageContent = ({
       <SectionSeparator />
       <APISection />
       <SectionSeparator />
-      <RunSection />
+      {/* <RunSection /> */}
       <SectionSeparator />
       <WhatYouNeedSection startOnboarding={startOnboarding} />
     </>
@@ -97,7 +97,6 @@ export const LandingPage = () => {
   const LayoutTemplate = theme.getLayoutTemplate()
   const navigate = useNavigate()
   const isDesktop = useIsDesktop()
-  const { state } = useOnboarding()
   const startOnboarding = () => {
     navigate(isDesktop ? `/onboarding/budget` : '/unsupported')
   }

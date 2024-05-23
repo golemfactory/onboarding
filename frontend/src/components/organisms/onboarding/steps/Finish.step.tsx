@@ -2,7 +2,7 @@
 import { useSetup } from 'components/providers'
 import {
   CheckCircleIcon,
-  ChevronDoubleRightIcon,
+  // ChevronDoubleRightIcon,
 } from '@heroicons/react/24/solid'
 import { Trans } from 'components/atoms'
 
@@ -49,16 +49,16 @@ const useCases: CardDataType[] = [
     appearance: 'finish',
     buttonText: 'Distribute',
   },
-  {
-    title: 'runCaseTitle',
-    description: 'runCaseDescription',
-    icon: ChevronDoubleRightIcon,
-    badge: 'InternalAlfa',
-    namespace: 'finish.step',
-    appearance: 'finish',
-    exploreLink: 'https://github.com/golemfactory/golem-kernel-python',
-    buttonText: 'Run',
-  },
+  // {
+  //   title: 'runCaseTitle',
+  //   description: 'runCaseDescription',
+  //   icon: ChevronDoubleRightIcon,
+  //   badge: 'InternalAlfa',
+  //   namespace: 'finish.step',
+  //   appearance: 'finish',
+  //   exploreLink: 'https://github.com/golemfactory/golem-kernel-python',
+  //   buttonText: 'Run',
+  // },
 ]
 
 const FinishPresentationalYagna = ({
@@ -178,14 +178,21 @@ const FinishPresentationalNoYagna = ({
         <div className="text-body-normal text-neutral-grey-300 px-48 mb-8">
           <Trans i18nKey="nextStepDescription" ns="finish.step" />
         </div>
-        <div className="grid gap-3 grid-cols-12">
-          {useCases.map((useCase) => {
-            return (
-              <div className="col-span-3" key={`useCase_${useCase.title}`}>
-                <Card {...useCase} style={style} />
-              </div>
-            )
-          })}
+        <div className="grid grid-cols-12">
+          <div className="col-span-1"></div>
+          <div className="col-span-10 grid grid-cols-12 gap-4">
+            {useCases.map((useCase) => {
+              return (
+                <div
+                  className={`col-span-${12 / useCases.length}`}
+                  key={`useCase_${useCase.title}`}
+                >
+                  <Card {...useCase} style={style} />
+                </div>
+              )
+            })}
+          </div>
+          <div className="col-span-1"></div>
         </div>
         <div className="text-h3 mt-30 mb-12">
           <Trans i18nKey="community" ns="finish.step" />

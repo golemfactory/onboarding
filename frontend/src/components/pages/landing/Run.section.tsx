@@ -3,10 +3,7 @@ import sectionStyle from './Run.section.module.css'
 import { AnimatedSection } from './AnimatedSection'
 
 import { Card, CardDataType } from 'components/molecules/useCaseCard/Card'
-import {
-  ChevronDoubleDownIcon,
-  ChevronDoubleRightIcon,
-} from '@heroicons/react/24/outline'
+import { ChevronDoubleRightIcon } from '@heroicons/react/24/outline'
 
 export const CommandLine = (command: string, idx: number) => {
   //Match <color='red'> </color> tags
@@ -143,7 +140,7 @@ export const RunSection = () => {
             iconLanding: 'h-9 text-primary',
           }}
         />
-        <div
+        {/* <div
           className={`${sectionStyle.overlayContainer} ${sectionStyle.card}`}
         >
           <CommandBox command="%connect mem>8 disk >20 cores>4" />
@@ -160,7 +157,7 @@ export const RunSection = () => {
           <div className={sectionStyle.greatJupyter}>
             Jupyter on Golem is great!
           </div>
-        </div>
+        </div> */}
       </div>
     </AnimatedSection>
   )
