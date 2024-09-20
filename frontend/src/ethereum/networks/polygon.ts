@@ -7,7 +7,7 @@ export const POLYGON: INetwork = {
   blockExplorerUrls: ['https://polygonscan.com/'],
   nativeCurrency: {
     //@ts-ignore
-    symbol: 'MATIC',
+    symbol: 'POL',
     decimals: 18,
   },
   isProduction: true,

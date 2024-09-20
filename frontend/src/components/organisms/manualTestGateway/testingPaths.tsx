@@ -2,30 +2,30 @@ import { BalanceCaseType, BalanceCase } from 'types/path'
 
 type TestingSetupType = {
   glmBalance: number
-  maticBalance: number
+  polBalance: number
   label: string
 }
 
 export const testingSetup: Record<BalanceCaseType, TestingSetupType> = {
   [BalanceCase.NO_GLM]: {
     glmBalance: 0,
-    maticBalance: 15,
+    polBalance: 15,
     label: 'No GLM',
   },
-  [BalanceCase.NO_MATIC]: {
+  [BalanceCase.NO_POL]: {
     glmBalance: 1000,
-    maticBalance: 0,
-    label: 'No MATIC',
+    polBalance: 0,
+    label: 'No POL',
   },
   [BalanceCase.BOTH]: {
     glmBalance: 1000,
-    maticBalance: 15,
-    label: 'Both GLM and MATIC',
+    polBalance: 15,
+    label: 'Both GLM and POL',
   },
-  [BalanceCase.NO_GLM_NO_MATIC]: {
+  [BalanceCase.NO_GLM_NO_POL]: {
     glmBalance: 0,
-    maticBalance: 0,
-    label: 'No GLM and no MATIC',
+    polBalance: 0,
+    label: 'No GLM and no POL',
   },
 }
 
@@ -34,9 +34,9 @@ export const getExpectedBalances = ({
 }: {
   testingPath: BalanceCaseType
 }) => {
-  const { glmBalance, maticBalance } = testingSetup[testingPath]
+  const { glmBalance, polBalance } = testingSetup[testingPath]
   return {
     glm: glmBalance,
-    native: maticBalance,
+    native: polBalance,
   }
 }

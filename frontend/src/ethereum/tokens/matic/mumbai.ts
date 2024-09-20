@@ -2,8 +2,8 @@ import { Token, Network, INativeToken } from 'types/ethereum'
 
 export const maticMumbai: INativeToken = {
   isNative: true,
-  name: 'Matic',
+  name: 'Pol',
   decimals: 18,
-  symbol: Token.MATIC_MUMBAI,
+  symbol: Token.POL_MUMBAI,
   network: Network.MUMBAI,
 }

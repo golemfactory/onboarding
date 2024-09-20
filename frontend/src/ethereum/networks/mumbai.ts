@@ -1,5 +1,6 @@
 import { INetwork, Network } from 'types/ethereum'
 
+// TODO: Mumbai is dead, this can be removed?
 export const MUMBAI: INetwork = {
   chainId: Network.MUMBAI,
   chainName: 'Mumbai Testnet',

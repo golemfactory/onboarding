@@ -7,13 +7,14 @@ export const UtilityToken = {
 export type UtilityTokenType = (typeof UtilityToken)[keyof typeof UtilityToken]
 
 export const NativeToken = {
-  MATIC_POLYGON: 'MATIC_POLYGON',
-  MATIC_MUMBAI: 'MATIC_MUMBAI',
+  POL_POLYGON: 'POL_POLYGON',
+  POL_MUMBAI: 'POL_MUMBAI',
   ETH_MAINNET: 'ETH_MAINNET',
 } as const
 
 export type NativeTokenType = (typeof NativeToken)[keyof typeof NativeToken]
 
+// TODO: Is there a wrapped POL?
 export const WrappedToken = {
   WMATIC_POLYGON: 'WMATIC_POLYGON',
   WMATIC_MUMBAI: 'WMATIC_MUMBAI',
