@@ -213,7 +213,7 @@ export const createStateMachine = ({
             {
               target: Step.ON_RAMP,
               cond: (_context, event) => {
-                return event.data === BalanceCase.NO_GLM_NO_MATIC
+                return event.data === BalanceCase.NO_GLM_NO_POL
               },
               actions: move(OnboardingStage.MATIC),
             },
@@ -236,7 +236,7 @@ export const createStateMachine = ({
             {
               target: Step.GASLESS_SWAP,
               cond: (_context, event) => {
-                return event.data === BalanceCase.NO_MATIC
+                return event.data === BalanceCase.NO_POL
               },
               actions: move(OnboardingStage.MATIC),
             },

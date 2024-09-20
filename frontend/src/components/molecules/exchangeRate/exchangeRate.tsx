@@ -7,7 +7,7 @@ export const ExchangeRate = ({
 }) => {
   return (
     <div className="text-body-small-light text-neutral-grey-300 mt-2">
-      {amountIn} MATIC ≈ {amountOut} GLM
+      {amountIn} POL ≈ {amountOut} GLM
     </div>
   )
 }

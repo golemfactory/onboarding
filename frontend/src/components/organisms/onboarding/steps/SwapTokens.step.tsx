@@ -81,7 +81,7 @@ const SwapTokensPresentational = ({
                       <Trans i18nKey="swapAmount" ns="swap.step" />
                       <IconInput
                         icon={MaticCoinIcon}
-                        label="MATIC"
+                        label="POL"
                         placeholder={`${amountIn}`}
                         isError={isError}
                         onChange={(e) => {

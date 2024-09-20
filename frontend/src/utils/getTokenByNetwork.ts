@@ -15,7 +15,7 @@ export const getTokenByCategory = (
     case Network.MUMBAI:
       switch (tokenCategory) {
         case TokenCategory.NATIVE:
-          return Token.MATIC_MUMBAI
+          return Token.POL_MUMBAI
         case TokenCategory.GLM:
           return Token.GLM_MUMBAI
       }
@@ -23,7 +23,7 @@ export const getTokenByCategory = (
     case Network.POLYGON:
       switch (tokenCategory) {
         case TokenCategory.NATIVE:
-          return Token.MATIC_POLYGON
+          return Token.POL_POLYGON
         case TokenCategory.GLM:
           return Token.GLM_POLYGON
       }

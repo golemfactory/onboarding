@@ -23,8 +23,6 @@ import { formatEther } from 'utils/formatEther'
 import { Chain } from 'types/wagmi'
 import { AwaitTransaction } from 'components/molecules/awaitTransaction/AwaitTransaction'
 
-//@ts-ignore
-
 // const log = debug('onboarding:steps:onramp')
 
 TooltipProvider.registerTooltip({
@@ -161,7 +159,6 @@ export const OnRamp = ({
   setPlacement: (x: 'inside' | 'outside') => void
   placement: 'inside' | 'outside'
 }) => {
-  //@ts-ignore
   const { address } = useAccount(true)
   const widgetRef = useRef<RampInstantSDK | null>(null)
   const { chain } = useNetwork(true)
@@ -212,15 +209,14 @@ export const OnRamp = ({
           hostLogoUrl: `${extractBaseURL(window.location.href)}/logo.svg`,
           hostApiKey: import.meta.env.VITE_RAMP_KEY,
           url: import.meta.env.VITE_RAMP_API_URL,
-          swapAsset: 'MATIC_MATIC',
+          swapAsset: import.meta.env.DEV ? 'MATIC_MATIC' : 'MATIC_POL', // TODO: POL is not available on ramp testnet (as of 2024-09-20)
           fiatValue: recommendedAmount.toString(),
           fiatCurrency: 'USD',
           userAddress: address,
           defaultFlow: 'ONRAMP',
           variant: 'embedded-desktop',
           //well ramp is internally inconsistent...
-          //@ts-ignore
-          containerNode: document.getElementById('rampContainer'),
+          containerNode: document.getElementById('rampContainer')!,
         })
 
         //check if there is no widget rendered already

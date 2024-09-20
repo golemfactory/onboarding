@@ -1,13 +1,13 @@
 {
-  "subtitle" : "Provide how many GLM and MATIC tokens you want to transfer to Yagna", 
-  "title" : "You have now both GLM and MATIC tokens at your wallet. Great job!",
-  "description" : "",
-  "startButtonLabel" : "Transfer tokens to Yagna",
-  "startButtonText" : "Let's start",
-  "transferAmount" : "Select how many MATIC and GLM tokens you want to transfer to Yagna",
-  "transferButtonText" : "Transfer to Yagna",
-  "yagnaTransferTitle" : "Transfer tokens to Yagna",
-  "yagnaTransferDescription" : "It looks like you don't have a Yagna configured. <breakLine /> You can take a few moments now to learn how to set it up, or move on and do it later. ",
-  "configureYagnaButton" : "Configure Yagna",
-  "skipButton" : "Skip this step"
+  "subtitle": "Provide how many GLM and POL tokens you want to transfer to Yagna",
+  "title": "You have now both GLM and POL tokens at your wallet. Great job!",
+  "description": "",
+  "startButtonLabel": "Transfer tokens to Yagna",
+  "startButtonText": "Let's start",
+  "transferAmount": "Select how many POL and GLM tokens you want to transfer to Yagna",
+  "transferButtonText": "Transfer to Yagna",
+  "yagnaTransferTitle": "Transfer tokens to Yagna",
+  "yagnaTransferDescription": "It looks like you don't have a Yagna configured. <breakLine /> You can take a few moments now to learn how to set it up, or move on and do it later. ",
+  "configureYagnaButton": "Configure Yagna",
+  "skipButton": "Skip this step"
 }

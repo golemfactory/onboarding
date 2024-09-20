@@ -4,6 +4,6 @@ export const maticPolygon: INativeToken = {
   isNative: true,
   name: 'Matic',
   decimals: 18,
-  symbol: Token.MATIC_POLYGON,
+  symbol: Token.POL_POLYGON,
   network: Network.POLYGON,
 }

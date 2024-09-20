@@ -35,7 +35,7 @@ export const checkAccountBalances = async (
       )
 
   if (isBelowThresholdGLM && isBelowThresholdNative) {
-    return BalanceCase.NO_GLM_NO_MATIC
+    return BalanceCase.NO_GLM_NO_POL
   }
 
   if (isBelowThresholdGLM) {
@@ -43,7 +43,7 @@ export const checkAccountBalances = async (
   }
 
   if (isBelowThresholdNative) {
-    return BalanceCase.NO_MATIC
+    return BalanceCase.NO_POL
   }
 
   return BalanceCase.BOTH

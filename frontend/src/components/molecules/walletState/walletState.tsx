@@ -128,7 +128,7 @@ export const WalletState = ({
                 <EthereumIcon className="h-6 inline" />
               )}
 
-              {isMainnet ? 'ETH' : 'MATIC'}
+              {isMainnet ? 'ETH' : 'POL'}
             </div>
             <div className="text-h7">{formatBalance(balance.NATIVE)}</div>
           </div>

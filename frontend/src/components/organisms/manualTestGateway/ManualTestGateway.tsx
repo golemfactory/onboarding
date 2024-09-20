@@ -126,7 +126,7 @@ export const ManualTestGateway = () => {
                 account?.trim() !== `0x${storageTankJSON.address.trim()}`
               )
               if (
-                path !== BalanceCase.NO_GLM_NO_MATIC &&
+                path !== BalanceCase.NO_GLM_NO_POL &&
                 account?.toLocaleLowerCase() !==
                   `0x${storageTankJSON.address.toLocaleLowerCase()}`
               ) {

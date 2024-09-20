@@ -1,92 +1,90 @@
-{ 
-  "moreInfo" : "More info",  
+{
+  "moreInfo": "More info",
   "welcome.title": "Follow our recommendations to select <breakLine /> the right amount of GLM tokens",
-  "welcome.description" : [
+  "welcome.description": [
     "Different tasks require varying amounts of computational resources. By choosing the right amount of <golemIcon/> GLM tokens, you match your token balance to the specific needs of your project.",
-    "To purchase GLM tokens for computing power, you’ll also need to cover the blockchain transaction costs. GLM tokens are specific for computing services, and a different token is needed for transaction fees. This is why we include a small amount of <maticIcon /> Matic tokens in our suggestions." ,
-    "When buying tokens, you'll initially acquire MATIC, then convert it to GLM. The specified amount of $ ensures you get enough of both MATIC and GLM for the computing power you need.", 
-    "Not sure yet? Don't worry, this isn't your final decision.The actual purchase of tokens comes in the next steps." 
+    "To purchase GLM tokens for computing power, you’ll also need to cover the blockchain transaction costs. GLM tokens are specific for computing services, and a different token is needed for transaction fees. This is why we include a small amount of <maticIcon /> Pol tokens in our suggestions.",
+    "When buying tokens, you'll initially acquire POL, then convert it to GLM. The specified amount of $ ensures you get enough of both POL and GLM for the computing power you need.",
+    "Not sure yet? Don't worry, this isn't your final decision.The actual purchase of tokens comes in the next steps."
   ],
-  "welcome.explainGLM.title" : "<golemIcon />  <tab/> What is GLM token?",
-  "welcome.explainGLM.content" : "GLM is a utility token available on both {{chain}} and Ethereum  blockchains. GLM is used as a currency in peer-to-peer transactions for renting computing power on Golem Network. <emptyLine/> In other words, You use GLM tokens to pay for computation power on Golem Network.",
-  "welcome.explainMATIC.title" : "<maticIcon />  <tab/> Why do I need to get MATIC token?",  
-  "welcome.explainMATIC.content" : "MATIC is a native token of {{chain}} blockchain, which we recommend as a default blockchain to settle Golem payments. <emptyLine />  need MATIC to be able to cover {{chain}} transaction fees and as a result to be able to send GLM payments.,",
-  "welcome.explainFees.title" : "What are the transaction fees?",
-  "welcome.explainFees.content" : "Each transaction on {{chain}} blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on {{chain}} blockchain is associated with some fee value. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
-  "welcome.explainOffRamp.title" : "Can I revert my tokens back to traditional currencies?",
-  "welcome.explainOffRamp.content" : "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into MATIC via Uniswap <breakLine /> - Sell all your MATIC for traditional currency of your choice via RAMP <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurisdiction.",
-  "connect-wallet.title" : "Digital wallet is needed to manage your GLM tokens",
-  "connect-wallet.description" : [
+  "welcome.explainGLM.title": "<golemIcon />  <tab/> What is GLM token?",
+  "welcome.explainGLM.content": "GLM is a utility token available on both {{chain}} and Ethereum  blockchains. GLM is used as a currency in peer-to-peer transactions for renting computing power on Golem Network. <emptyLine/> In other words, You use GLM tokens to pay for computation power on Golem Network.",
+  "welcome.explainMATIC.title": "<maticIcon />  <tab/> Why do I need to get POL token?",
+  "welcome.explainMATIC.content": "POL is a native token of {{chain}} blockchain, which we recommend as a default blockchain to settle Golem payments. <emptyLine />  need POL to be able to cover {{chain}} transaction fees and as a result to be able to send GLM payments.,",
+  "welcome.explainFees.title": "What are the transaction fees?",
+  "welcome.explainFees.content": "Each transaction on {{chain}} blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on {{chain}} blockchain is associated with some fee value. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
+  "welcome.explainOffRamp.title": "Can I revert my tokens back to traditional currencies?",
+  "welcome.explainOffRamp.content": "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into POL via Uniswap <breakLine /> - Sell all your POL for traditional currency of your choice via RAMP <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurisdiction.",
+  "connect-wallet.title": "Digital wallet is needed to manage your GLM tokens",
+  "connect-wallet.description": [
     "Wallet is a digital tool that allows you to store,send, and receive cryptocurrency tokens.",
-    "To begin using Golem tools, you need tokens such as GLM for computing power and MATIC for blockchain transaction fees. Wallet is needed to store and manage these tokens.", 
+    "To begin using Golem tools, you need tokens such as GLM for computing power and POL for blockchain transaction fees. Wallet is needed to store and manage these tokens.",
     "We recommend only trusted wallets that have millions of users worldwide such as <metamaskIcon /> MetaMask, <trustIcon /> TrustWallet "
   ],
-  "connect-wallet.explainMetamask.title" : "<metamaskIcon /> <tab/> What is MetaMask?",
-  "connect-wallet.explainMetamask.content" : "MetaMask is one the oldest and well known digital wallets for cryptocurrencies. It supports EVM based blockchains such as {{chain}} and Ethereum. It is available as a browser extension (Chrome, Firefox, Brave, Edge, Opera) or mobile app (iOS and Android).You can learn more on their website: https://metamask.io/",
-  "connect-wallet.explainTrustWallet.title" : "<trustIcon /> <tab /> What is TrustWallet?",
-  "connect-wallet.explainTrustWallet.content" : " TrustWallet is a well renowned cryptocurrency wallet, which gained a lot of popularity over the last years. It supports wide varierty of blockchains such as Bitcoin, Ethereum, {{chain}}, Solana and many more.It is available as a browser extension (Chrome, Brave, Opera, Edge) or mobile app (iOS and Android).You can learn more on their website <a href='https://trustwallet.com/'>  https://trustwallet.com/ </a>",
-  "connect-wallet.explainChoose.title" : "How do I choose a right wallet?",
-  "connect-wallet.explainChoose.content" : "Both Metamask and TrustWallet are well established and widely used tools. They have similar interface and capabilities. As a result there is no much difference if you choose one or another. Just be sure that chosen wallet supports your browser (TrustWallet is not available on Firefox ).",
+  "connect-wallet.explainMetamask.title": "<metamaskIcon /> <tab/> What is MetaMask?",
+  "connect-wallet.explainMetamask.content": "MetaMask is one the oldest and well known digital wallets for cryptocurrencies. It supports EVM based blockchains such as {{chain}} and Ethereum. It is available as a browser extension (Chrome, Firefox, Brave, Edge, Opera) or mobile app (iOS and Android).You can learn more on their website: https://metamask.io/",
+  "connect-wallet.explainTrustWallet.title": "<trustIcon /> <tab /> What is TrustWallet?",
+  "connect-wallet.explainTrustWallet.content": " TrustWallet is a well renowned cryptocurrency wallet, which gained a lot of popularity over the last years. It supports wide varierty of blockchains such as Bitcoin, Ethereum, {{chain}}, Solana and many more.It is available as a browser extension (Chrome, Brave, Opera, Edge) or mobile app (iOS and Android).You can learn more on their website <a href='https://trustwallet.com/'>  https://trustwallet.com/ </a>",
+  "connect-wallet.explainChoose.title": "How do I choose a right wallet?",
+  "connect-wallet.explainChoose.content": "Both Metamask and TrustWallet are well established and widely used tools. They have similar interface and capabilities. As a result there is no much difference if you choose one or another. Just be sure that chosen wallet supports your browser (TrustWallet is not available on Firefox ).",
 
-
-
-  "chooseNetwork.title" : "Blockchain network is what makes crypto transactions possible",
-  "chooseNetwork.description" : [
+  "chooseNetwork.title": "Blockchain network is what makes crypto transactions possible",
+  "chooseNetwork.description": [
     "Think of it as choosing a mobile network for your phone. Just as you need a network to make calls or send messages, you need a blockchain network to send, receive or store your GLM tokens. Different networks have different features.",
     "We recommend <maticIcon/> Polygon because the transactions are faster and cheaper compared to Ethereum network. .",
     "The main distinction for Golem users is that <ethereumIcon /> Ethereum, being one of the oldest blockchain networks, experiences high usage, which leads to higher fees and slower network performance."
   ],
-  "chooseNetwork.explainEthereum.title" : "<ethereumIcon /> <tab/> What is Ethereum?",
-  "chooseNetwork.explainEthereum.content" : "Ethereum is a Blockchain network launched in July 2015. It was the first Blockchain with extensive smart contract functionality. As a result Etherum become a birthplace of many innovative projects such as Golem Network itself. Ethereum's undoubted success made it heavily used and consequently exposed scaling problems visible as a high transaction costs. Originally GLM token was only available on Ethereum network and that is why Golem still supports Ethereum as one of its payment networks.",
-  "chooseNetwork.explainPolygon.title" : "<maticIcon /> <tab/> What is Polygon?",
-  "chooseNetwork.explainPolygon.content" : "Polygon is a Blockchain network, originally launched as Matic in June 2020. As a Ethereum side chain It was created to ease Ethereum scaling problems, which manifested with high transaction costs. Polygon utilizes EVM (Ethereum Virtual Machine), which makes it compatible with Ethereum Blockchain. GLM token is available on Polygon network.",
-  "chooseNetwork.explainCost.title" : "What is a transaction cost?",
-  "chooseNetwork.explainCost.content" : "Transaction cost are also known as transaction fees. Each transaction on Polygon blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on explainPolygon blockchain is associated with some fee. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
+  "chooseNetwork.explainEthereum.title": "<ethereumIcon /> <tab/> What is Ethereum?",
+  "chooseNetwork.explainEthereum.content": "Ethereum is a Blockchain network launched in July 2015. It was the first Blockchain with extensive smart contract functionality. As a result Etherum become a birthplace of many innovative projects such as Golem Network itself. Ethereum's undoubted success made it heavily used and consequently exposed scaling problems visible as a high transaction costs. Originally GLM token was only available on Ethereum network and that is why Golem still supports Ethereum as one of its payment networks.",
+  "chooseNetwork.explainPolygon.title": "<maticIcon /> <tab/> What is Polygon?",
+  "chooseNetwork.explainPolygon.content": "Polygon is a Blockchain network, originally launched as Matic in June 2020. As a Ethereum side chain It was created to ease Ethereum scaling problems, which manifested with high transaction costs. Polygon utilizes EVM (Ethereum Virtual Machine), which makes it compatible with Ethereum Blockchain. GLM token is available on Polygon network.",
+  "chooseNetwork.explainCost.title": "What is a transaction cost?",
+  "chooseNetwork.explainCost.content": "Transaction cost are also known as transaction fees. Each transaction on Polygon blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on explainPolygon blockchain is associated with some fee. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
 
+  "matic.description": [
+    "POL tokens are used to cover transaction fees on Polygon, our preferred blockchain network.<emptyLine />When buying GLM and POL tokens, you'll first purchase POL, then convert some of them into GLM. With the specified amount of $, you can obtain enough POL and GLM to utilize the desired computing power.<emptyLine /> Don't worry about the specifics just yet; we're here to guide you through each step.,"
+  ],
+  "yagna.description": [
+    "The Yagna wallet section is unavailable because you're accessing our service outside the Yagna context.<breakLine/>",
+    "To use our Service within this context, run the 'yagna payment onboard' command from Yagna CLI, or follow the instructions provided for other Golem services that utilize Yagna, like Jupyter on Golem or Rey on Golem."
+  ],
 
-
-
-  "matic.description" : ["MATIC tokens are used to cover transaction fees on Polygon, our preferred blockchain network.<emptyLine />When buying GLM and MATIC tokens, you'll first purchase MATIC, then convert some of them into GLM. With the specified amount of $, you can obtain enough MATIC and GLM to utilize the desired computing power.<emptyLine /> Don't worry about the specifics just yet; we're here to guide you through each step.,"],
-  "yagna.description" : ["The Yagna wallet section is unavailable because you're accessing our service outside the Yagna context.<breakLine/>","To use our Service within this context, run the 'yagna payment onboard' command from Yagna CLI, or follow the instructions provided for other Golem services that utilize Yagna, like Jupyter on Golem or Rey on Golem."],
-
-  "onRamp.title" : "{{token}} tokens will cover the transaction costs when you are acquiring GLM tokens",
-  "onRamp.description" : [
-    "Transaction fees compensate the network for the work required to process and validate transactions.", 
+  "onRamp.title": "{{token}} tokens will cover the transaction costs when you are acquiring GLM tokens",
+  "onRamp.description": [
+    "Transaction fees compensate the network for the work required to process and validate transactions.",
     "When you acquire GLM tokens on the<maticIcon/> {{chain}} network, you need to pay the transaction fees in <maticCoinIcon /> {{token}}, because it's the native currency of {{chain}} blockchain.It's like having the right currency to pay for a service in a specific country.",
     "This is a standard practice in many blockchain networks, where you pay for transactions in the network's native currency."
-  ], 
-  "onRamp.explainMatic.title" : "<maticCoinIcon/> What is {{token}} token?",
-  "onRamp.explainMatic.content" : "{{token}} is a native token of {{chain}} blockchain just like ETH is a native token of Ethereum blockchain.",
-  "onRamp.whyMatic.title" : "Why do I need to get {{token}}?",
-  "onRamp.whyMatic.content" : "{{token}} is used to cover transaction fees on {{chain}} blockchain. Without it it would be impossible to send a transaction.",
-  "onRamp.explainTransaction.title" : "How the transaction is made?",
-  "onRamp.explainTransaction.content" : "Transaction is a digital message, which states what are you want to do on the blockchain. For instance You can send your funds to another wallet or maybe interact with some decentralized application. <emptyLine /> Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
-  "onRamp.explainNative.title" : "What is native token?",
-  "onRamp.explainNative.content" : "Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
+  ],
+  "onRamp.explainMatic.title": "<maticCoinIcon/> What is {{token}} token?",
+  "onRamp.explainMatic.content": "{{token}} is a native token of {{chain}} blockchain just like ETH is a native token of Ethereum blockchain.",
+  "onRamp.whyMatic.title": "Why do I need to get {{token}}?",
+  "onRamp.whyMatic.content": "{{token}} is used to cover transaction fees on {{chain}} blockchain. Without it it would be impossible to send a transaction.",
+  "onRamp.explainTransaction.title": "How the transaction is made?",
+  "onRamp.explainTransaction.content": "Transaction is a digital message, which states what are you want to do on the blockchain. For instance You can send your funds to another wallet or maybe interact with some decentralized application. <emptyLine /> Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
+  "onRamp.explainNative.title": "What is native token?",
+  "onRamp.explainNative.content": "Each transaction has to be signed with a private key stored in the wallet. As a result only owner of the wallet can use funds stored on it. The whole process is governed by the digital wallet such as Metamask.",
 
-
-  "swap.title" : "GLM tokens are essential to pay for Golem services ",
-  "swap.description" : [
+  "swap.title": "GLM tokens are essential to pay for Golem services ",
+  "swap.description": [
     "To acquire GLM tokens, just convert some of your freshly obtained {{token}} tokens.",
     "As {{token}}, the native currency of {{chain}}, is used to cover transaction fees (including the costs of converting {{token}} to GLM), it's important not to convert all your {{token}}.",
     "That’s why you should always keep a small amount of {{token}} to handle these costs. "
   ],
-  "swap.explainGLMAmount.title" : "How I can calculate how much GLM tokens do I need?", 
-  "swap.explainGLMAmount.content" : "Golem Network is a living ecosystem where market forces can move prices up and down. That is why We can only provide you educated recommendations. However, you can try to assess amount of needed GLM by checking  <a className='contents text-primary underline' href='https://stats.golem.network/' target='_blank'> Golem Network Stats: </a>",
-  "swap.explainRecommendation.title" : "How the recommendations are calculated?",
-  "swap.explainRecommendation.content" : "Recommendations are calculated based on our internal experiences with Golem Network. As a rule of thumb we recommend to swap around 80% of your {{token}} into GLM.",
+  "swap.explainGLMAmount.title": "How I can calculate how much GLM tokens do I need?",
+  "swap.explainGLMAmount.content": "Golem Network is a living ecosystem where market forces can move prices up and down. That is why We can only provide you educated recommendations. However, you can try to assess amount of needed GLM by checking  <a className='contents text-primary underline' href='https://stats.golem.network/' target='_blank'> Golem Network Stats: </a>",
+  "swap.explainRecommendation.title": "How the recommendations are calculated?",
+  "swap.explainRecommendation.content": "Recommendations are calculated based on our internal experiences with Golem Network. As a rule of thumb we recommend to swap around 80% of your {{token}} into GLM.",
 
-  "transfer.title" : "Yagna is a Golem Client, which has an internal wallet enabling payments on the Golem Network", 
-  "transfer.description" : [
+  "transfer.title": "Yagna is a Golem Client, which has an internal wallet enabling payments on the Golem Network",
+  "transfer.description": [
     "Internal Yagna wallet allows requestors to pay for services within the Golem ecosystem and enables providers to receive payments.",
     "While transferring funds to Yagna might seem like an additional step compared to using external wallets like MetaMask, this process guarantees that <b>all transactions are automatic, efficient, and fully compatible with the Golem network's ecosystem</b>"
   ],
 
-  "transfer.explainHowYagnaWorks.title" : "How Yagna wallet works?",
-  "transfer.explainHowYagnaWorks.content" : "Technically Yagna wallet works exactly the same as any other wallet. It holds private keys, sign transactions and check balances. <emptyLine/> The major difference is that Yagna wallet is integrated into Yagna Client, which enables it to automatically send and recive payments for services offered on Golem Network.",
-  "transfer.explainHowToGetYagna.title" : "How can I access Yagna wallet?",
-  "transfer.explainHowToGetYagna.content" : "Yagna wallet is accessible via Yagna CLI (Command Line Interface). You will find all information on Golem docs page: <a href='https://docs.golem.network/' target='_blank' > https://docs.golem.network/ </a>",
-  "transfer.explainHowToTransfer.title" : "Can I transfer found from Yagna back to my external wallet?",
-  "transfer.explainHowToTransfer.content" : "The best option to control funds stored in Yagna Wallet in the external wallet is by transferring it. It can be done in the following way: <breakLine/> <ul> <li> First export your Yagna wallet into JSON file as described here: <a href='https://docs.golem.network/docs/providers/wallet/backup' target='_blank'> https://docs.golem.network/docs/providers/wallet/backup </a> </li><li> Import Yagna wallet into your external one. In case of Metamask you can follow the instructions provided here: <a href='https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account' target='_blank'> https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account </a> </li></ul>"  
+  "transfer.explainHowYagnaWorks.title": "How Yagna wallet works?",
+  "transfer.explainHowYagnaWorks.content": "Technically Yagna wallet works exactly the same as any other wallet. It holds private keys, sign transactions and check balances. <emptyLine/> The major difference is that Yagna wallet is integrated into Yagna Client, which enables it to automatically send and recive payments for services offered on Golem Network.",
+  "transfer.explainHowToGetYagna.title": "How can I access Yagna wallet?",
+  "transfer.explainHowToGetYagna.content": "Yagna wallet is accessible via Yagna CLI (Command Line Interface). You will find all information on Golem docs page: <a href='https://docs.golem.network/' target='_blank' > https://docs.golem.network/ </a>",
+  "transfer.explainHowToTransfer.title": "Can I transfer found from Yagna back to my external wallet?",
+  "transfer.explainHowToTransfer.content": "The best option to control funds stored in Yagna Wallet in the external wallet is by transferring it. It can be done in the following way: <breakLine/> <ul> <li> First export your Yagna wallet into JSON file as described here: <a href='https://docs.golem.network/docs/providers/wallet/backup' target='_blank'> https://docs.golem.network/docs/providers/wallet/backup </a> </li><li> Import Yagna wallet into your external one. In case of Metamask you can follow the instructions provided here: <a href='https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account' target='_blank'> https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account </a> </li></ul>"
 }
-

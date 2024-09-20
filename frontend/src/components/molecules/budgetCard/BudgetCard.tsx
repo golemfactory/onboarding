@@ -146,7 +146,7 @@ export const BudgetCard = ({
             })}
             <div className="flex flex-col">
               <span className="text-h6 text-primary font-kanit">
-                ≈ {maticCost} MATIC
+                ≈ {maticCost} POL
               </span>
               <span className={`${style.caps10px} flex gap-2 z-40`}>
                 <Trans i18nKey="coversFees" ns="welcome.step" />{' '}

@@ -126,7 +126,7 @@ const TransferPresentational = ({
                     )}
                     <IconInput
                       icon={
-                        nativeToken === 'MATIC'
+                        nativeToken === 'POL'
                           ? MaticCoinSolidIcon
                           : EthereumIcon
                       }
