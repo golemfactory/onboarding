@@ -57,7 +57,7 @@ export const Trans = ({
           <MaticCoinIcon className="inline h-line-1 mr-0.5 ml-1" />
         ),
         UniswapIcon: <UniswapIcon className="inline w-6" />,
-        RampIcon: <RampIcon className="inline" />,
+        RampIcon: <RampIcon className="inline h-4" />,
         Heart: <img src="heart.svg" className="inline h-line-1.5" />,
         walletIcon: <WalletIcon className="w-6 inline" />,
         walletConnectIcon: (
