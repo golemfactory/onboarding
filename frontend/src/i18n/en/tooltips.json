@@ -14,7 +14,7 @@
   "welcome.explainFees.title": "What are the transaction fees?",
   "welcome.explainFees.content": "Each transaction on {{chain}} blockchain has to be confirmed by validator to be considered as settled. Validators are compensated for their hard work with transaction fees. Consequently, each transaction on {{chain}} blockchain is associated with some fee value. As a general rule, fees fluctuate with time, rising when network is 'busy' and falling down when it is not.",
   "welcome.explainOffRamp.title": "Can I revert my tokens back to traditional currencies?",
-  "welcome.explainOffRamp.content": "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into POL via Uniswap <breakLine /> - Sell all your POL for traditional currency of your choice via RAMP <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurisdiction.",
+  "welcome.explainOffRamp.content": "Yes. There are multiple ways to do that. However, we recommend the following one: <breakLine/> - As a first step swap your remaining GLM tokens into POL via Uniswap <breakLine /> - Sell all your POL for traditional currency of your choice via Ramp Network <emptyLine /> Please keep in mind that buying as well as selling cryptocurrencies might result with taxable event based on your jurisdiction.",
   "connect-wallet.title": "Digital wallet is needed to manage your GLM tokens",
   "connect-wallet.description": [
     "Wallet is a digital tool that allows you to store,send, and receive cryptocurrency tokens.",
